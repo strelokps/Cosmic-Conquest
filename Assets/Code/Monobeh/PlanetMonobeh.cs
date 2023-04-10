@@ -4,6 +4,7 @@ namespace Assets.Code.Monobeh
 {
     public class PlanetMonobeh : MonoBehaviour
     {
+        public bool testFlag;
 
         public Transform GeTransform()
         {
