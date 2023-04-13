@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72affc1b3c4b5454eb91a00bdd4fbfc4, type: 3}
   m_Name: SetUpAISO
   m_EditorClassIdentifier: 
-  numberAI: 1
+  numberAI: 2
+  parentTransform: {fileID: 0}
   colorAI: {r: 0, g: 0, b: 0, a: 0}
   nameAI: 
   difficultyAI: 0

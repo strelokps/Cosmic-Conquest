@@ -1,5 +1,8 @@
+using System.Collections.Generic;
 using Scellecs.Morpeh;
 using Unity.IL2CPP.CompilerServices;
+using UnityEngine;
+using Color = System.Drawing.Color;
 
 namespace Assets.Code.Component
 {
@@ -9,6 +12,9 @@ namespace Assets.Code.Component
     [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     public struct AIComponent : IComponent
     {
-
+        public string nameAI;
+        public Color colorAI;
+        public Dictionary<string, bool> friendOrEnemy;
+        public GameObject goAI;
     }
 }

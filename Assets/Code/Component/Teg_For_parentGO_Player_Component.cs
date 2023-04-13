@@ -1,13 +1,12 @@
 using Scellecs.Morpeh;
-using Unity.IL2CPP.CompilerServices;
 using UnityEngine;
+using Unity.IL2CPP.CompilerServices;
 
 [System.Serializable]
 [Il2CppSetOption(Option.NullChecks, false)]
 [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
 [Il2CppSetOption(Option.DivideByZeroChecks, false)]
-public struct PlayerComponent : IComponent
+public struct Teg_For_parentGO_Player_Component : IComponent
 {
-    public Transform transformParentPlayer;
-    public string namePlayer;
+    public Transform _transformParentPlayerGO;
 }
