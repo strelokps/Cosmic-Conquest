@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "com.scellecs.morpeh": "https://github.com/scellecs/morpeh.git",
+    "com.scellecs.morpeh": "file:J:/MorpehECS_Distr/morpeh-master",
     "com.unity.collab-proxy": "2.0.0",
     "com.unity.feature.development": "1.0.1",
     "com.unity.textmeshpro": "3.0.6",

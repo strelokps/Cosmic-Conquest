@@ -15,6 +15,7 @@ namespace Assets.Code.Component
         public string nameAI;
         public Color colorAI;
         public Dictionary<string, bool> friendOrEnemy;
+        public bool isFriendPlayer;
         public GameObject goAI;
     }
 }

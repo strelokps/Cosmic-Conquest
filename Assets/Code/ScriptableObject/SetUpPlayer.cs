@@ -7,6 +7,8 @@ namespace Assets.Code.ScriptableObject
     {
         public string playerName;
         public Color playerColor;
+        public bool havePlayerTeam;
+        public int howManyAIinTeam;
 
     }
 }

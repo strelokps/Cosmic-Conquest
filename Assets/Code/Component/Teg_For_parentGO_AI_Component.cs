@@ -10,8 +10,11 @@ using Unity.IL2CPP.CompilerServices;
 [Il2CppSetOption(Option.DivideByZeroChecks, false)]
 public struct Teg_For_parentGO_AI_Component : IComponent
 {
-    //тег должен быть только один
+    //тег должен быть только один. накидываетс€ на парент √ќ AI
     public Transform _transform;
     public AIComponent[] arrAI;
+    public int numAI;
+    public int numTeamAI;
+
 
 }
