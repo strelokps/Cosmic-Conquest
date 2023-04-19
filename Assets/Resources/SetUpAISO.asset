@@ -12,14 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72affc1b3c4b5454eb91a00bdd4fbfc4, type: 3}
   m_Name: SetUpAISO
   m_EditorClassIdentifier: 
-  numberAI: 2
   parentTransform: {fileID: 0}
-  colorAI: {r: 0, g: 0, b: 0, a: 0}
-  nameAI: 
-  difficultyAI: 0
-  arrColor:
+  colorAI_SO: {r: 0, g: 0, b: 0, a: 0}
+  nameAI_SO: 
+  difficultyAI_SO: 0
+  arrColor_SO:
   - {r: 1, g: 0, b: 0, a: 1}
   - {r: 0, g: 0, b: 1, a: 1}
   - {r: 0, g: 1, b: 0, a: 1}
   - {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   - {r: 0, g: 1, b: 1, a: 1}
+  numAI_SO: 4
+  numTeamAI_SO: 1

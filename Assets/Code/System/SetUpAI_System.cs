@@ -33,14 +33,11 @@ namespace Assets.Code.System
             _setUpAI = Resources.Load<SetUpAI>("SetUpAISO");
             _filterAIParentGO = this.World.Filter.With<Teg_For_parentGO_AI_Component>();
             _stashAI_teg_Component = this.World.GetStash<Teg_For_parentGO_AI_Component>();
-
-            CreatAI();
             _filterAIComponent = this.World.Filter.With<AIComponent>();
             _stashAIComponents = this.World.GetStash<AIComponent>();
-
-
+            CreatAI();
+            World.Commit();
             SetTeams();
-            
         }
 
         //Создаем AI
@@ -80,9 +77,9 @@ namespace Assets.Code.System
 
                     foreach (var index in this._filterAIComponent)
                     {
-                        
+
                         ref var _locStashAIComponent = ref _stashAIComponents.Get(index);
-                        if (_locStashAIComponent.friendOrEnemy.Count() < 0)
+                        if (_locStashAIComponent.friendOrEnemy.Count < 0)
                         {
                             _locStashAIComponent.friendOrEnemy.Add(_setUpPlayer.playerName, true);
                         }
@@ -96,14 +93,12 @@ namespace Assets.Code.System
                 }
                 else
                     return;
-                        
+
             }
         }
 
-
         public override void OnUpdate(float deltaTime)
         {
-            SetTeams();
         }
     }
 }
