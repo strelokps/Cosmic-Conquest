@@ -9,7 +9,7 @@ namespace Assets.Code.ScriptableObject
         public Color colorAI_SO;
         public string nameAI_SO;
         public int difficultyAI_SO;
-        public Color[] arrColor_SO = {Color.red, Color.blue, Color.green, Color.yellow, Color.cyan};
+        //public Color[] arrColor_SO = {Color.red, Color.blue, Color.green, Color.yellow, Color.cyan}; цвета перенесены в GeneralConfig
         public int numAI_SO;
         public int numTeamAI_SO;
     }

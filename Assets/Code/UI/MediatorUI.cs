@@ -6,7 +6,6 @@ namespace Assets.Code.UI
     public class MediatorUI : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI _textMoneyOnUI;
-        // Start is called before the first frame update
         void Start()
         {//»щем GO c именем ViewValMoneyText, на случай если ссылка слетела
             if (_textMoneyOnUI == null)

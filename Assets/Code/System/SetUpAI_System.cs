@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Assets.Code.Component;
 using Assets.Code.ScriptableObject;
 using Scellecs.Morpeh;
@@ -17,6 +18,7 @@ namespace Assets.Code.System
     [CreateAssetMenu(menuName = "ECS/Systems/" + nameof(SetUpAI_System))]
     public sealed class SetUpAI_System : UpdateSystem
     {
+        private GeneralConfig _generalConfig;
         private SetUpPlayer _setUpPlayer;
         private SetUpAI _setUpAI;
         private Filter _filterAIParentGO;
@@ -26,11 +28,15 @@ namespace Assets.Code.System
         private Stash<AIComponent> _stashAIComponents;
 
 
+        private Dictionary<Color, bool> _availableColor_dic = new Dictionary<Color, bool>();
+
+
         public override void OnAwake()
         {
             //игрока подгружаем что бы исключить цвет игрока при назначении AI
             _setUpPlayer = Resources.Load<SetUpPlayer>("SetUpPlayerSO");
             _setUpAI = Resources.Load<SetUpAI>("SetUpAISO");
+            _generalConfig = Resources.Load<GeneralConfig>("GeneralConfig_SO");
             _filterAIParentGO = this.World.Filter.With<Teg_For_parentGO_AI_Component>();
             _stashAI_teg_Component = this.World.GetStash<Teg_For_parentGO_AI_Component>();
             _filterAIComponent = this.World.Filter.With<AIComponent>();
@@ -43,7 +49,7 @@ namespace Assets.Code.System
         //Создаем AI
         private void CreatAI()
         {
-            //берем с парент ГО AI тег компоненту (должна быть одна) и устаналиваем для вновь созданных ГО AI данный трансформ как парент
+            //берем с парент ГО  компоненту c тегом AI и (должна быть одна на сцене) и устаналиваем для вновь созданных ГО AI данный трансформ как парент
             foreach (var index in _filterAIParentGO)
             {
                 ref var _locStashAI_teg = ref _stashAI_teg_Component.Get(index);
@@ -96,6 +102,27 @@ namespace Assets.Code.System
 
             }
         }
+
+        private void SetColorToDictinery()
+        {
+            if (_generalConfig.arrColor_SO.Length > 0)
+            {
+                for (int i = 0; i < _generalConfig.arrColor_SO.Length; i++)
+                {
+                    _availableColor_dic.Add(_generalConfig.arrColor_SO[i], false);
+                }
+            }
+        }
+
+        private Color SetColorToAI(Color locColor)
+        {
+            Color _cl = locColor;
+
+            return _cl;
+
+        }
+
+
 
         public override void OnUpdate(float deltaTime)
         {
