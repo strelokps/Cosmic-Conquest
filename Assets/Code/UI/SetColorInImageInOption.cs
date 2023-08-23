@@ -18,12 +18,12 @@ public class SetColorInImageInOption : MonoBehaviour
     private Texture2D _t2d;
     [SerializeField] private Image viewColor;
     private Material materialView;
-
-
     private Vector2 mousePos = new Vector2();
     private RectTransform rect;
     private int width = 0;
     private int height = 0;
+
+
     private void Start()
     {
 
