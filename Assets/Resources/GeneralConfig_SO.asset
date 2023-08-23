@@ -12,3 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8949d3e90bb0c6240b82295666b6cb51, type: 3}
   m_Name: GeneralConfig_SO
   m_EditorClassIdentifier: 
+  numberAI: 4
+  arrColor_SO:
+  - {r: 0.8679245, g: 0.23546703, b: 0.117906675, a: 1}
+  - {r: 0.33333334, g: 0.17254902, b: 0.85882354, a: 1}
+  - {r: 0.9137255, g: 0.7137255, b: 0.08627451, a: 1}
+  - {r: 0.03137255, g: 0.7137255, b: 0, a: 1}
+  colorPlayer: {r: 0.19215687, g: 0.21960784, b: 0.96862745, a: 1}

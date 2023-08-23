@@ -7,14 +7,15 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using System.Drawing;
 using Color = UnityEngine.Color;
+using Assets.Code.ScriptableObject;
 
 public class SetColorInImageInOption : MonoBehaviour
 {
+
+    private GeneralConfig _generalConfig;
+    [SerializeField] private Button _button;
     [SerializeField] private RawImage _ranbowChart;
-    private Camera _camera;
-    [SerializeField] private Collider _collider;
     private Texture2D _t2d;
-    [SerializeField] private Texture2D _texture;
     [SerializeField] private Image viewColor;
     private Material materialView;
 
@@ -23,12 +24,11 @@ public class SetColorInImageInOption : MonoBehaviour
     private RectTransform rect;
     private int width = 0;
     private int height = 0;
-
-
-
     private void Start()
     {
-        _camera = Camera.main;
+
+        _generalConfig = Resources.Load<GeneralConfig>("GeneralConfig_SO");
+
         _t2d = (Texture2D)_ranbowChart.mainTexture;
         materialView = viewColor.material;
 
@@ -43,26 +43,25 @@ public class SetColorInImageInOption : MonoBehaviour
 
         var colorIndex = new List<Color>();
         var total = pixelData.Length;
-
-        for (int i = 0; i < total; i++)
-        {
-            var color = pixelData[i];
-            if (colorIndex.IndexOf(color) == -1)
-            {
-                colorIndex.Add(color);
-            }
-        }
+        
         materialView.color = _t2d.GetPixel(0, 0); ;
+        SetColorInStart(_generalConfig.colorPlayer);
     }
 
     private void Update()
     {
+        TakeColor();
+    }
+
+    private void TakeColor()
+    {
+
         RectTransformUtility.ScreenPointToLocalPointInRectangle(rect, Input.mousePosition, Camera.main, out mousePos);
-        mousePos.x = width - (width / 2 - mousePos.x );
+        mousePos.x = width - (width / 2 - mousePos.x);
         if (mousePos.x > width || mousePos.x < 0)
             mousePos.x = -1;
 
-        mousePos.y = Mathf.Abs((height / 2 - mousePos.y) - height);
+        mousePos.y = -((height / 2 - mousePos.y) - height);
         if (mousePos.y > height || mousePos.y < 0)
             mousePos.y = -1;
 
@@ -70,14 +69,35 @@ public class SetColorInImageInOption : MonoBehaviour
         {
             if (mousePos.x > -1 && mousePos.y > -1)
             {
-                var color = _t2d.GetPixel((int)(mousePos.x * (_t2d.width / rect.rect.width)), (int)mousePos.y);
+                var color = _t2d.GetPixel((int)(mousePos.x * (_t2d.width / rect.rect.width)), (int)(mousePos.y * (_t2d.height / rect.rect.height)));
                 materialView.color = color;
             }
         }
+      
+
+    }
+
+    public void SetColor()
+    {
+        var colorButton = _button.GetComponent<Button>().colors;
+        ;
+        colorButton.normalColor = materialView.color;
+        _button.colors = colorButton;
+    }
+
+    public void SetColorInStart(Color locColor)
+    {
+        var colorButton = _button.GetComponent<Button>().colors;
+        ;
+        colorButton.normalColor = locColor;
+        _button.colors = colorButton;
     }
 
 
+    public void SetPlayerColor()
+    {
+        _generalConfig.colorPlayer = materialView.color;
+    }
 
-    
 }
 
