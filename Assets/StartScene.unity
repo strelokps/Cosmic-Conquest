@@ -152,7 +152,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4399164338445904174, guid: 3395cb0ce45e6134c832d7896a618610, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4399164338445904174, guid: 3395cb0ce45e6134c832d7896a618610, type: 3}
       propertyPath: m_AnchorMax.x
@@ -792,13 +792,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   order: 0
   initializers: []
-  updateSystems:
-  - enabled: 0
-    system: {fileID: 11400000, guid: 3a6b6e6ae2608624c870946598a3f533, type: 2}
-  - enabled: 1
-    system: {fileID: 11400000, guid: ab2a132b672a23f4bad8e19d3edcb2cb, type: 2}
-  - enabled: 1
-    system: {fileID: 11400000, guid: cc6c8d48cd7d4334581ee8b36cb27097, type: 2}
+  updateSystems: []
   fixedUpdateSystems: []
   lateUpdateSystems: []
   cleanupSystems: []
@@ -1426,7 +1420,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4399164338445904174, guid: 3395cb0ce45e6134c832d7896a618610, type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 4399164338445904174, guid: 3395cb0ce45e6134c832d7896a618610, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2861,7 +2855,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4399164338445904174, guid: 3395cb0ce45e6134c832d7896a618610, type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 4399164338445904174, guid: 3395cb0ce45e6134c832d7896a618610, type: 3}
       propertyPath: m_AnchorMax.x
@@ -3406,7 +3400,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1054089392}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b8f8e8629ca1e447a93feff083b375f, type: 3}
   m_Name: 
@@ -7064,7 +7058,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4399164338445904174, guid: 3395cb0ce45e6134c832d7896a618610, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4399164338445904174, guid: 3395cb0ce45e6134c832d7896a618610, type: 3}
       propertyPath: m_AnchorMax.x

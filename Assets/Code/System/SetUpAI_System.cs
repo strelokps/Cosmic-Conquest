@@ -49,28 +49,7 @@ namespace Assets.Code.System
         //Создаем AI
         private void CreatAI()
         {
-            //берем с парент ГО  компоненту c тегом AI и (должна быть одна на сцене) и устаналиваем для вновь созданных ГО AI данный трансформ как парент
-            foreach (var index in _filterAIParentGO)
-            {
-                ref var _locStashAI_teg = ref _stashAI_teg_Component.Get(index);
-                if (_locStashAI_teg._transform != null)
-                    _transformParentAI = _locStashAI_teg._transform;
-                _locStashAI_teg.arrAI = new AIComponent[_setUpAI.numAI_SO]; // инициируем массив AI
-            }
-
-            for (int i = 0; i < _setUpAI.numAI_SO; i++)
-            {
-                var entity = this.World.CreateEntity();
-                ref var addedAIComponent = ref entity.AddComponent<AIComponent>();
-
-                GameObject newObject = new GameObject();
-                addedAIComponent.goAI = newObject;
-                newObject.name = "AI_" + i.ToString();
-                addedAIComponent.nameAI = newObject.name;
-                newObject.gameObject.transform.SetParent(_transformParentAI);
-                addedAIComponent.friendOrEnemy = new Dictionary<string, bool>();
-
-            }
+            
         }
 
         private void SetTeams()
