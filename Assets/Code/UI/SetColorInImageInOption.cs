@@ -30,7 +30,7 @@ public class SetColorInImageInOption : MonoBehaviour
         _generalConfig = Resources.Load<GeneralConfig>("GeneralConfig_SO");
 
         _t2d = (Texture2D)_ranbowChart.mainTexture;
-        materialView = viewColor.material;
+        materialView = viewColor.material; //линкуем материал
 
         var rawImage = _ranbowChart.GetComponent<RawImage>();
         rect = rawImage.GetComponent<RectTransform>();
@@ -43,8 +43,8 @@ public class SetColorInImageInOption : MonoBehaviour
 
         var colorIndex = new List<Color>();
         var total = pixelData.Length;
-        
-        materialView.color = _t2d.GetPixel(0, 0); ;
+
+        //viewColor.material.color = _t2d.GetPixel(0, 0); ;
         SetColorInStart(_generalConfig.colorPlayer);
     }
 
@@ -70,7 +70,7 @@ public class SetColorInImageInOption : MonoBehaviour
             if (mousePos.x > -1 && mousePos.y > -1)
             {
                 var color = _t2d.GetPixel((int)(mousePos.x * (_t2d.width / rect.rect.width)), (int)(mousePos.y * (_t2d.height / rect.rect.height)));
-                materialView.color = color;
+                viewColor.material.color = color;
             }
         }
       
@@ -81,7 +81,7 @@ public class SetColorInImageInOption : MonoBehaviour
     {
         var colorButton = _button.GetComponent<Button>().colors;
         ;
-        colorButton.normalColor = materialView.color;
+        colorButton.normalColor = viewColor.material.color;
         _button.colors = colorButton;
     }
 
@@ -91,12 +91,13 @@ public class SetColorInImageInOption : MonoBehaviour
         ;
         colorButton.normalColor = locColor;
         _button.colors = colorButton;
+        viewColor.material.color = locColor;
     }
 
 
     public void SetPlayerColor()
     {
-        _generalConfig.colorPlayer = materialView.color;
+        _generalConfig.colorPlayer = viewColor.material.color;
     }
 
 }
