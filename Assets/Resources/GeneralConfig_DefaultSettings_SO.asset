@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 505ecdf9fee0f3e47a24fdb232a15b04, type: 3}
   m_Name: GeneralConfig_DefaultSettings_SO
   m_EditorClassIdentifier: 
-  numberAI: 0
+  numberAI: 1
   arrColor_SO:
   - {r: 1, g: 0, b: 0, a: 1}
   - {r: 0, g: 0, b: 1, a: 1}

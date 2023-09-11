@@ -44,7 +44,7 @@ public class SetColorInImageInOption : MonoBehaviour
         var colorIndex = new List<Color>();
         var total = pixelData.Length;
 
-        //viewColor.material.color = _t2d.GetPixel(0, 0); ;
+        SetDefaultSetPlayerColor();
         SetColorInStart(_generalConfig.colorPlayer);
     }
 
@@ -83,6 +83,7 @@ public class SetColorInImageInOption : MonoBehaviour
         ;
         colorButton.normalColor = viewColor.material.color;
         _button.colors = colorButton;
+        
     }
 
     public void SetColorInStart(Color locColor)
@@ -97,7 +98,17 @@ public class SetColorInImageInOption : MonoBehaviour
 
     public void SetPlayerColor()
     {
+        SetColor();
+
         _generalConfig.colorPlayer = viewColor.material.color;
+    }
+
+    private void SetDefaultSetPlayerColor()
+    {
+        if (_generalConfig.colorPlayer == null | _generalConfig.colorPlayer == Color.black)
+        {
+            _generalConfig.colorPlayer = Color.blue; ;
+        }
     }
 
 }

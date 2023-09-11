@@ -9,11 +9,13 @@ public class WindowOption : MonoBehaviour
 
     private GeneralConfig _generalConfig;
     private SetUpAI[] _setUpAi;
+    private DropDownChooseNumAI _dropDownChooseNumAi;
 
     private void Start()
     {
         _generalConfig = Resources.Load<GeneralConfig>("GeneralConfig_SO");
 
+        _dropDownChooseNumAi = new DropDownChooseNumAI();
         SetDeActiveAIWindow();
         SetActiveTableAIWindow_InStart(_generalConfig.numberAI);
     }
@@ -29,6 +31,7 @@ public class WindowOption : MonoBehaviour
 
     public void SetActiveTableAIWindow(int locNumAI)
     {
+        _dropDownChooseNumAi.InputDrowDown(locNumAI, _generalConfig);
        
         _setUpAi = new SetUpAI[locNumAI];
 
