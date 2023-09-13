@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using Assets.Code.ScriptableObject;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WindowOption : MonoBehaviour
 {
     [SerializeField] private GameObject[] _tableAIInOPtion;
+    [SerializeField] private GameObject dropDownNumberAI;
+
 
     private GeneralConfig _generalConfig;
     private SetUpAI[] _setUpAi;
@@ -18,6 +22,8 @@ public class WindowOption : MonoBehaviour
         _dropDownChooseNumAi = new DropDownChooseNumAI();
         SetDeActiveAIWindow();
         SetActiveTableAIWindow_InStart(_generalConfig.numberAI);
+        dropDownNumberAI.gameObject.GetComponent<TMP_Dropdown>().value = _generalConfig.numberAI - 1; // устанавливаем отображаемое значение у dropDownNumberAI в соответтвии скол-вом ИИ в numberAI от 1 до 4, в value от 0 до 3
+        
     }
 
     public void SetActiveTableAIWindow_InStart(int locNumAI)
@@ -25,10 +31,10 @@ public class WindowOption : MonoBehaviour
         for (int i = 0; i < locNumAI; i++)
         {
             _tableAIInOPtion[i].gameObject.SetActive(true);
-            Debug.Log($"NumAI InStart: {locNumAI} _tableAIInOPtion: {_tableAIInOPtion.Length} i: {i} ");
         }
     }
 
+    //запускается из dropDown ChooseNumAI
     public void SetActiveTableAIWindow(int locNumAI)
     {
         _dropDownChooseNumAi.InputDrowDown(locNumAI, _generalConfig);
@@ -42,7 +48,6 @@ public class WindowOption : MonoBehaviour
         {
             if (_tableAIInOPtion != null)
             {
-                Debug.Log($"count {i}");
                 _tableAIInOPtion[i].gameObject.SetActive(true);
 
             }

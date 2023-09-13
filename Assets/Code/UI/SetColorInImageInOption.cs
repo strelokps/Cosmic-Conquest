@@ -17,7 +17,6 @@ public class SetColorInImageInOption : MonoBehaviour
     [SerializeField] private RawImage _ranbowChart;
     private Texture2D _t2d;
     [SerializeField] private Image viewColor;
-    private Material materialView;
     private Vector2 mousePos = new Vector2();
     private RectTransform rect;
     private int width = 0;
@@ -30,7 +29,6 @@ public class SetColorInImageInOption : MonoBehaviour
         _generalConfig = Resources.Load<GeneralConfig>("GeneralConfig_SO");
 
         _t2d = (Texture2D)_ranbowChart.mainTexture;
-        materialView = viewColor.material; //линкуем материал
 
         var rawImage = _ranbowChart.GetComponent<RawImage>();
         rect = rawImage.GetComponent<RectTransform>();
@@ -82,6 +80,10 @@ public class SetColorInImageInOption : MonoBehaviour
         var colorButton = _button.GetComponent<Button>().colors;
         ;
         colorButton.normalColor = viewColor.material.color;
+        colorButton.selectedColor = viewColor.material.color;
+        colorButton.highlightedColor = viewColor.material.color;
+        colorButton.pressedColor = viewColor.material.color;
+
         _button.colors = colorButton;
         
     }
@@ -91,6 +93,9 @@ public class SetColorInImageInOption : MonoBehaviour
         var colorButton = _button.GetComponent<Button>().colors;
         ;
         colorButton.normalColor = locColor;
+        colorButton.selectedColor = locColor;
+        colorButton.highlightedColor = locColor;
+        colorButton.pressedColor = locColor;
         _button.colors = colorButton;
         viewColor.material.color = locColor;
     }
@@ -98,9 +103,9 @@ public class SetColorInImageInOption : MonoBehaviour
 
     public void SetPlayerColor()
     {
+        _generalConfig.colorPlayer = viewColor.material.color;
         SetColor();
 
-        _generalConfig.colorPlayer = viewColor.material.color;
     }
 
     private void SetDefaultSetPlayerColor()

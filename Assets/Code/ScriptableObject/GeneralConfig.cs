@@ -9,5 +9,5 @@ public class GeneralConfig : ScriptableObject
     public int numberAI;
     public Color[] arrColor_SO = { Color.red, Color.blue, Color.green, Color.yellow, Color.cyan };
     public Color colorPlayer ;
-    public AIBase[] ai;
+    public AIBase ai;
 }

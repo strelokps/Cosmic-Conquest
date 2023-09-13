@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DropDownChooseNumAI 
+public class DropDownChooseNumAI : MonoBehaviour
 {
     //private GeneralConfig _generalConfig;
 
