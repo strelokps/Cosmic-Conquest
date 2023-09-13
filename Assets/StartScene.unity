@@ -226,6 +226,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6327291411970553221, guid: 3395cb0ce45e6134c832d7896a618610, type: 3}
+      propertyPath: idAI
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6327291411970553221, guid: 3395cb0ce45e6134c832d7896a618610, type: 3}
+      propertyPath: lvlTech
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 6327291411970553221, guid: 3395cb0ce45e6134c832d7896a618610, type: 3}
+      propertyPath: _setupAI
+      value: 
+      objectReference: {fileID: 11400000, guid: 807f8512c5986a74397076917901e3b5, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3395cb0ce45e6134c832d7896a618610, type: 3}
 --- !u!1 &67988131
@@ -1494,6 +1506,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6327291411970553221, guid: 3395cb0ce45e6134c832d7896a618610, type: 3}
+      propertyPath: _setupAI
+      value: 
+      objectReference: {fileID: 11400000, guid: c9ceb74494467064bbc7c36e2c76212e, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3395cb0ce45e6134c832d7896a618610, type: 3}
 --- !u!1 &520251116
@@ -2929,6 +2945,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6327291411970553221, guid: 3395cb0ce45e6134c832d7896a618610, type: 3}
+      propertyPath: _setupAI
+      value: 
+      objectReference: {fileID: 11400000, guid: 9c9e9306e8cb0854782e3e87ac8843d5, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3395cb0ce45e6134c832d7896a618610, type: 3}
 --- !u!1 &866326860
@@ -7021,6 +7041,22 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1377602615}
+    - target: {fileID: 4399164338033876510, guid: 3395cb0ce45e6134c832d7896a618610, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399164338033876511, guid: 3395cb0ce45e6134c832d7896a618610, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399164338033876511, guid: 3395cb0ce45e6134c832d7896a618610, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399164338033876511, guid: 3395cb0ce45e6134c832d7896a618610, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4399164338445904173, guid: 3395cb0ce45e6134c832d7896a618610, type: 3}
       propertyPath: m_Name
       value: Image (Table AI 1)
@@ -7111,7 +7147,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6327291411970553221, guid: 3395cb0ce45e6134c832d7896a618610, type: 3}
       propertyPath: lvlTech
-      value: 14
+      value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 6327291411970553221, guid: 3395cb0ce45e6134c832d7896a618610, type: 3}
+      propertyPath: _setupAI
+      value: 
+      objectReference: {fileID: 11400000, guid: 7813ee2cb592b8b48873d7e90d31ef79, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3395cb0ce45e6134c832d7896a618610, type: 3}

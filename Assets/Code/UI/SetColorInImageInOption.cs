@@ -22,10 +22,12 @@ public class SetColorInImageInOption : MonoBehaviour
     private int width = 0;
     private int height = 0;
 
+    private GetColorFromPixel _colorFromPixel;
+
 
     private void Start()
     {
-
+        _colorFromPixel = new GetColorFromPixel();
         _generalConfig = Resources.Load<GeneralConfig>("GeneralConfig_SO");
 
         _t2d = (Texture2D)_ranbowChart.mainTexture;
@@ -48,32 +50,36 @@ public class SetColorInImageInOption : MonoBehaviour
 
     private void Update()
     {
-        TakeColor();
+       // TakeColor();
+       if (Input.GetMouseButtonDown(0))
+       {
+           _colorFromPixel.TakeColor(rect, height, width, _t2d, ref viewColor);
+       }
     }
 
-    private void TakeColor()
-    {
+    //private void TakeColor()
+    //{
 
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(rect, Input.mousePosition, Camera.main, out mousePos);
-        mousePos.x = width - (width / 2 - mousePos.x);
-        if (mousePos.x > width || mousePos.x < 0)
-            mousePos.x = -1;
+    //    RectTransformUtility.ScreenPointToLocalPointInRectangle(rect, Input.mousePosition, Camera.main, out mousePos);
+    //    mousePos.x = width - (width / 2 - mousePos.x);
+    //    if (mousePos.x > width || mousePos.x < 0)
+    //        mousePos.x = -1;
 
-        mousePos.y = -((height / 2 - mousePos.y) - height);
-        if (mousePos.y > height || mousePos.y < 0)
-            mousePos.y = -1;
+    //    mousePos.y = -((height / 2 - mousePos.y) - height);
+    //    if (mousePos.y > height || mousePos.y < 0)
+    //        mousePos.y = -1;
 
-        if (Input.GetMouseButton(0))
-        {
-            if (mousePos.x > -1 && mousePos.y > -1)
-            {
-                var color = _t2d.GetPixel((int)(mousePos.x * (_t2d.width / rect.rect.width)), (int)(mousePos.y * (_t2d.height / rect.rect.height)));
-                viewColor.material.color = color;
-            }
-        }
+    //    if (Input.GetMouseButton(0))
+    //    {
+    //        if (mousePos.x > -1 && mousePos.y > -1)
+    //        {
+    //            var color = _t2d.GetPixel((int)(mousePos.x * (_t2d.width / rect.rect.width)), (int)(mousePos.y * (_t2d.height / rect.rect.height)));
+    //            viewColor.material.color = color;
+    //        }
+    //    }
       
 
-    }
+    //}
 
     public void SetColor()
     {
