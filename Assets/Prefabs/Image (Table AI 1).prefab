@@ -1,62 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3863049573933355821
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8795473678737623066}
-  - component: {fileID: 6327291411970553221}
-  m_Layer: 5
-  m_Name: AI_base_config
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &8795473678737623066
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3863049573933355821}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4399164338445904174}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &6327291411970553221
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3863049573933355821}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5cbda71cb37cca045b3ef8243b1bc7ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _setupAI: {fileID: 0}
-  nameAI: Str
-  idAI: 1
-  colorAI: {r: 0, g: 0, b: 0, a: 0}
-  lvlTech: 12
-  friends: []
-  enemy: []
-  neutral: []
 --- !u!1 &4399164336694284205
 GameObject:
   m_ObjectHideFlags: 0
@@ -682,7 +625,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6327291411970553221}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: AIBase, Assembly-CSharp
         m_MethodName: SetLvlTech
         m_Mode: 0
@@ -1425,7 +1368,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6327291411970553221}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: AIBase, Assembly-CSharp
         m_MethodName: SetColor
         m_Mode: 3
@@ -1818,6 +1761,7 @@ GameObject:
   - component: {fileID: 4399164338033876511}
   - component: {fileID: 4399164338033876505}
   - component: {fileID: 4399164338033876504}
+  - component: {fileID: 359554926088124834}
   m_Layer: 5
   m_Name: Image(RanbowChart)
   m_TagString: Untagged
@@ -1883,6 +1827,19 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!114 &359554926088124834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4399164338033876510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e70cea1b65c2c9c4ea9c5024a84bb1e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _aiBase: {fileID: 1924288148568871431}
 --- !u!1 &4399164338165318967
 GameObject:
   m_ObjectHideFlags: 0
@@ -2104,6 +2061,7 @@ GameObject:
   - component: {fileID: 4399164338445904174}
   - component: {fileID: 4399164338445904168}
   - component: {fileID: 4399164338445904175}
+  - component: {fileID: 1924288148568871431}
   m_Layer: 5
   m_Name: Image (Table AI 1)
   m_TagString: Untagged
@@ -2126,7 +2084,6 @@ RectTransform:
   - {fileID: 4399164338165318960}
   - {fileID: 4399164337295418571}
   - {fileID: 4399164337404820482}
-  - {fileID: 8795473678737623066}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2173,6 +2130,29 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1924288148568871431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4399164338445904173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cbda71cb37cca045b3ef8243b1bc7ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _setupAI: {fileID: 0}
+  nameAI: 
+  idAI: 0
+  colorAI: {r: 0, g: 0, b: 0, a: 0}
+  lvlTech: 0
+  friends: []
+  enemy: []
+  neutral: []
+  _button: {fileID: 0}
+  _ranbowChart: {fileID: 0}
+  viewColor: {fileID: 0}
 --- !u!1 &4399164338497366403
 GameObject:
   m_ObjectHideFlags: 0

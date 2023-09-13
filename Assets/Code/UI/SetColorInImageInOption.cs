@@ -15,12 +15,13 @@ public class SetColorInImageInOption : MonoBehaviour
     private GeneralConfig _generalConfig;
     [SerializeField] private Button _button;
     [SerializeField] private RawImage _ranbowChart;
-    private Texture2D _t2d;
     [SerializeField] private Image viewColor;
     private Vector2 mousePos = new Vector2();
     private RectTransform rect;
     private int width = 0;
     private int height = 0;
+    private Texture2D _t2d;
+
 
     private GetColorFromPixel _colorFromPixel;
 
@@ -54,7 +55,9 @@ public class SetColorInImageInOption : MonoBehaviour
        if (Input.GetMouseButtonDown(0))
        {
            _colorFromPixel.TakeColor(rect, height, width, _t2d, ref viewColor);
-       }
+           Debug.Log("1234");
+        }
+       
     }
 
     //private void TakeColor()
