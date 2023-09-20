@@ -41,7 +41,6 @@ public class WindowOption : MonoBehaviour
        
         _setUpAi = new SetUpAI[locNumAI];
 
-        Debug.Log($"NumAI S: {locNumAI} ");
         SetDeActiveAIWindow();
 
         for (int i = 0; i < locNumAI + 1; i++)

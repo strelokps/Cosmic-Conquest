@@ -52,7 +52,7 @@ public class SetColorInImageInOption : MonoBehaviour
     private void Update()
     {
        // TakeColor();
-       if (Input.GetMouseButtonDown(0))
+       if (Input.GetMouseButtonDown(0) & _ranbowChart.IsActive())
        {
            _colorFromPixel.TakeColor(rect, height, width, _t2d, ref viewColor);
            Debug.Log("1234");

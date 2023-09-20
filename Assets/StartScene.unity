@@ -144,7 +144,7 @@ PrefabInstance:
       objectReference: {fileID: 1377602615}
     - target: {fileID: 4399164338445904173, guid: 3395cb0ce45e6134c832d7896a618610, type: 3}
       propertyPath: m_Name
-      value: Image (Table AI 2)
+      value: Image table AI  _1
       objectReference: {fileID: 0}
     - target: {fileID: 4399164338445904174, guid: 3395cb0ce45e6134c832d7896a618610, type: 3}
       propertyPath: m_Pivot.x
@@ -734,12 +734,910 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bc6a7783c6432e499b41aa815933439, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cachedEntity:
+    worldID: 0
+    isDirty: 0
+    isDisposed: 0
+    previousArchetypeId: 0
+    currentArchetypeId: 0
+    entityId: {}
+  entityViewer: {}
   serializedData:
     namePlanet: 
     transformPlanet: {fileID: 0}
-    colorPlanet: {r: 0, g: 0, b: 0, a: 0}
+    colorPlanet:
+      r: 0
+      g: 0
+      b: 0
+      a: 0
     lvlPlanet: 0
     genMoneyPlanet: 0
+  stash:
+    commonStashId: 2
+    typedStashId: 0
+    typeId: 1
+    world:
+      UpdateByUnity: 0
+      entities: []
+      entitiesGens: 
+      entitiesCount: 0
+      entitiesLength: 0
+      entitiesCapacity: 0
+      freeEntityIDs:
+        length: 0
+        capacity: 3
+        data: 000000000000000000000000
+      nextFreeEntityIDs:
+        length: 0
+        capacity: 3
+        data: 000000000000000000000000
+      stashes:
+        length: 0
+        capacity: 0
+        capacityMinusOne: 0
+        lastIndex: 0
+        freeIndex: 0
+        buckets: 
+        data: 
+        slots: 
+      typedStashes:
+        length: 0
+        capacity: 0
+        capacityMinusOne: 0
+        lastIndex: 0
+        freeIndex: 0
+        buckets: 
+        data: 
+        slots: 
+      archetypes:
+        data:
+        - typeIds: 
+          entities:
+            count: 0
+            length: 0
+            capacity: 0
+            capacityMinusOne: 0
+            lastIndex: 0
+            freeIndex: 0
+            buckets: 
+            data: 
+            slots: 
+          entitiesNative:
+            data: 000000000000000000000000
+            length: 0
+            capacity: 3
+            lastSwappedIndex: -1
+          removeTransfer:
+            length: 0
+            capacity: 0
+            capacityMinusOne: 0
+            lastIndex: 0
+            freeIndex: 0
+            buckets: 
+            data: 
+            slots: 
+          addTransfer:
+            length: 0
+            capacity: 0
+            capacityMinusOne: 0
+            lastIndex: 0
+            freeIndex: 0
+            buckets: 
+            data: 
+            slots: 
+          length: 0
+          worldId: 0
+          id: 0
+          usedInNative: 0
+        - typeIds: 
+          entities:
+            count: 0
+            length: 0
+            capacity: 0
+            capacityMinusOne: 0
+            lastIndex: 0
+            freeIndex: 0
+            buckets: 
+            data: 
+            slots: 
+          entitiesNative:
+            data: 000000000000000000000000
+            length: 0
+            capacity: 3
+            lastSwappedIndex: -1
+          removeTransfer:
+            length: 0
+            capacity: 0
+            capacityMinusOne: 0
+            lastIndex: 0
+            freeIndex: 0
+            buckets: 
+            data: 
+            slots: 
+          addTransfer:
+            length: 0
+            capacity: 0
+            capacityMinusOne: 0
+            lastIndex: 0
+            freeIndex: 0
+            buckets: 
+            data: 
+            slots: 
+          length: 0
+          worldId: 0
+          id: 0
+          usedInNative: 0
+        - typeIds: 
+          entities:
+            count: 0
+            length: 0
+            capacity: 0
+            capacityMinusOne: 0
+            lastIndex: 0
+            freeIndex: 0
+            buckets: 
+            data: 
+            slots: 
+          entitiesNative:
+            data: 000000000000000000000000
+            length: 0
+            capacity: 3
+            lastSwappedIndex: -1
+          removeTransfer:
+            length: 0
+            capacity: 0
+            capacityMinusOne: 0
+            lastIndex: 0
+            freeIndex: 0
+            buckets: 
+            data: 
+            slots: 
+          addTransfer:
+            length: 0
+            capacity: 0
+            capacityMinusOne: 0
+            lastIndex: 0
+            freeIndex: 0
+            buckets: 
+            data: 
+            slots: 
+          length: 0
+          worldId: 0
+          id: 0
+          usedInNative: 0
+        length: 0
+        capacity: 3
+        lastSwappedIndex: -1
+      archetypesByLength:
+        length: 0
+        capacity: 0
+        capacityMinusOne: 0
+        lastIndex: 0
+        freeIndex: 0
+        buckets: 
+        data: []
+        slots: []
+      newArchetypes:
+        length: 0
+        capacity: 3
+        data: 000000000000000000000000
+      identifier: 0
+      friendlyName: 
+      threadIdLock: 1
+    components:
+      length: 1
+      capacity: 64
+      capacityMinusOne: 63
+      lastIndex: 1
+      freeIndex: -1
+      buckets: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000
+      data:
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      - namePlanet: 
+        transformPlanet: {fileID: 0}
+        colorPlanet:
+          r: 0
+          g: 0
+          b: 0
+          a: 0
+        lvlPlanet: 0
+        genMoneyPlanet: 0
+      slots:
+      - key: 0
+        next: -1
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+  typeName: PlanetComponent
 --- !u!114 &180375697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1426,9 +2324,17 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1377602615}
+    - target: {fileID: 4399164338033876510, guid: 3395cb0ce45e6134c832d7896a618610, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4399164338445904173, guid: 3395cb0ce45e6134c832d7896a618610, type: 3}
       propertyPath: m_Name
-      value: Image (Table AI 4)
+      value: Image table AI  _3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399164338445904173, guid: 3395cb0ce45e6134c832d7896a618610, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4399164338445904174, guid: 3395cb0ce45e6134c832d7896a618610, type: 3}
       propertyPath: m_Pivot.x
@@ -2872,6 +3778,10 @@ PrefabInstance:
       propertyPath: _setupAI
       value: 
       objectReference: {fileID: 11400000, guid: 9c9e9306e8cb0854782e3e87ac8843d5, type: 2}
+    - target: {fileID: 4399164337404820481, guid: 3395cb0ce45e6134c832d7896a618610, type: 3}
+      propertyPath: m_Name
+      value: Text Name AI
+      objectReference: {fileID: 0}
     - target: {fileID: 4399164337807608999, guid: 3395cb0ce45e6134c832d7896a618610, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -2882,7 +3792,7 @@ PrefabInstance:
       objectReference: {fileID: 1377602615}
     - target: {fileID: 4399164338445904173, guid: 3395cb0ce45e6134c832d7896a618610, type: 3}
       propertyPath: m_Name
-      value: Image (Table AI 3)
+      value: Image table AI  _2
       objectReference: {fileID: 0}
     - target: {fileID: 4399164338445904174, guid: 3395cb0ce45e6134c832d7896a618610, type: 3}
       propertyPath: m_Pivot.x
@@ -5367,7 +6277,7 @@ GameObject:
   - component: {fileID: 1810483296}
   - component: {fileID: 1810483295}
   m_Layer: 5
-  m_Name: Text (Choose player color) (1)
+  m_Name: Text (Choose number AI)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5535,8 +6445,389 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9dfd25a6388ed945b487326dee3b878, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serializedData:
-    _transformParentPlayerGO: {fileID: 1813142590}
+  cachedEntity:
+    worldID: 0
+    isDirty: 0
+    isDisposed: 0
+    previousArchetypeId: 0
+    currentArchetypeId: 0
+    entityId: {}
+  entityViewer: {}
+  serializedData: {_transformParentPlayerGO: {fileID: 1813142590}}
+  stash:
+    commonStashId: 0
+    typedStashId: 0
+    typeId: 4
+    world:
+      UpdateByUnity: 0
+      entities: []
+      entitiesGens: 
+      entitiesCount: 0
+      entitiesLength: 0
+      entitiesCapacity: 0
+      freeEntityIDs:
+        length: 0
+        capacity: 3
+        data: 000000000000000000000000
+      nextFreeEntityIDs:
+        length: 0
+        capacity: 3
+        data: 000000000000000000000000
+      stashes:
+        length: 0
+        capacity: 0
+        capacityMinusOne: 0
+        lastIndex: 0
+        freeIndex: 0
+        buckets: 
+        data: 
+        slots: 
+      typedStashes:
+        length: 0
+        capacity: 0
+        capacityMinusOne: 0
+        lastIndex: 0
+        freeIndex: 0
+        buckets: 
+        data: 
+        slots: 
+      archetypes:
+        data:
+        - typeIds: 
+          entities:
+            count: 0
+            length: 0
+            capacity: 0
+            capacityMinusOne: 0
+            lastIndex: 0
+            freeIndex: 0
+            buckets: 
+            data: 
+            slots: 
+          entitiesNative:
+            data: 000000000000000000000000
+            length: 0
+            capacity: 3
+            lastSwappedIndex: -1
+          removeTransfer:
+            length: 0
+            capacity: 0
+            capacityMinusOne: 0
+            lastIndex: 0
+            freeIndex: 0
+            buckets: 
+            data: 
+            slots: 
+          addTransfer:
+            length: 0
+            capacity: 0
+            capacityMinusOne: 0
+            lastIndex: 0
+            freeIndex: 0
+            buckets: 
+            data: 
+            slots: 
+          length: 0
+          worldId: 0
+          id: 0
+          usedInNative: 0
+        - typeIds: 
+          entities:
+            count: 0
+            length: 0
+            capacity: 0
+            capacityMinusOne: 0
+            lastIndex: 0
+            freeIndex: 0
+            buckets: 
+            data: 
+            slots: 
+          entitiesNative:
+            data: 000000000000000000000000
+            length: 0
+            capacity: 3
+            lastSwappedIndex: -1
+          removeTransfer:
+            length: 0
+            capacity: 0
+            capacityMinusOne: 0
+            lastIndex: 0
+            freeIndex: 0
+            buckets: 
+            data: 
+            slots: 
+          addTransfer:
+            length: 0
+            capacity: 0
+            capacityMinusOne: 0
+            lastIndex: 0
+            freeIndex: 0
+            buckets: 
+            data: 
+            slots: 
+          length: 0
+          worldId: 0
+          id: 0
+          usedInNative: 0
+        - typeIds: 
+          entities:
+            count: 0
+            length: 0
+            capacity: 0
+            capacityMinusOne: 0
+            lastIndex: 0
+            freeIndex: 0
+            buckets: 
+            data: 
+            slots: 
+          entitiesNative:
+            data: 000000000000000000000000
+            length: 0
+            capacity: 3
+            lastSwappedIndex: -1
+          removeTransfer:
+            length: 0
+            capacity: 0
+            capacityMinusOne: 0
+            lastIndex: 0
+            freeIndex: 0
+            buckets: 
+            data: 
+            slots: 
+          addTransfer:
+            length: 0
+            capacity: 0
+            capacityMinusOne: 0
+            lastIndex: 0
+            freeIndex: 0
+            buckets: 
+            data: 
+            slots: 
+          length: 0
+          worldId: 0
+          id: 0
+          usedInNative: 0
+        length: 0
+        capacity: 3
+        lastSwappedIndex: -1
+      archetypesByLength:
+        length: 0
+        capacity: 0
+        capacityMinusOne: 0
+        lastIndex: 0
+        freeIndex: 0
+        buckets: 
+        data: []
+        slots: []
+      newArchetypes:
+        length: 0
+        capacity: 3
+        data: 000000000000000000000000
+      identifier: 0
+      friendlyName: 
+      threadIdLock: 1
+    components:
+      length: 1
+      capacity: 64
+      capacityMinusOne: 63
+      lastIndex: 1
+      freeIndex: -1
+      buckets: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000
+      data:
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      - {_transformParentPlayerGO: {fileID: 0}}
+      slots:
+      - key: 0
+        next: -1
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+  typeName: Teg_For_parentGO_Player_Component
 --- !u!1 &1826182312
 GameObject:
   m_ObjectHideFlags: 0
@@ -5700,11 +6991,454 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53aab73437eb1fc48b7bf91c84c48313, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serializedData:
-    _transform: {fileID: 1843379121}
-    arrAI: []
-    numAI: 0
-    numTeamAI: 0
+  cachedEntity:
+    worldID: 0
+    isDirty: 0
+    isDisposed: 0
+    previousArchetypeId: 0
+    currentArchetypeId: 0
+    entityId: {}
+  entityViewer: {}
+  serializedData: {_transform: {fileID: 1843379121}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+  stash:
+    commonStashId: 1
+    typedStashId: 0
+    typeId: 3
+    world:
+      UpdateByUnity: 0
+      entities: []
+      entitiesGens: 
+      entitiesCount: 0
+      entitiesLength: 0
+      entitiesCapacity: 0
+      freeEntityIDs:
+        length: 0
+        capacity: 3
+        data: 000000000000000000000000
+      nextFreeEntityIDs:
+        length: 0
+        capacity: 3
+        data: 000000000000000000000000
+      stashes:
+        length: 0
+        capacity: 0
+        capacityMinusOne: 0
+        lastIndex: 0
+        freeIndex: 0
+        buckets: 
+        data: 
+        slots: 
+      typedStashes:
+        length: 0
+        capacity: 0
+        capacityMinusOne: 0
+        lastIndex: 0
+        freeIndex: 0
+        buckets: 
+        data: 
+        slots: 
+      archetypes:
+        data:
+        - typeIds: 
+          entities:
+            count: 0
+            length: 0
+            capacity: 0
+            capacityMinusOne: 0
+            lastIndex: 0
+            freeIndex: 0
+            buckets: 
+            data: 
+            slots: 
+          entitiesNative:
+            data: 000000000000000000000000
+            length: 0
+            capacity: 3
+            lastSwappedIndex: -1
+          removeTransfer:
+            length: 0
+            capacity: 0
+            capacityMinusOne: 0
+            lastIndex: 0
+            freeIndex: 0
+            buckets: 
+            data: 
+            slots: 
+          addTransfer:
+            length: 0
+            capacity: 0
+            capacityMinusOne: 0
+            lastIndex: 0
+            freeIndex: 0
+            buckets: 
+            data: 
+            slots: 
+          length: 0
+          worldId: 0
+          id: 0
+          usedInNative: 0
+        - typeIds: 
+          entities:
+            count: 0
+            length: 0
+            capacity: 0
+            capacityMinusOne: 0
+            lastIndex: 0
+            freeIndex: 0
+            buckets: 
+            data: 
+            slots: 
+          entitiesNative:
+            data: 000000000000000000000000
+            length: 0
+            capacity: 3
+            lastSwappedIndex: -1
+          removeTransfer:
+            length: 0
+            capacity: 0
+            capacityMinusOne: 0
+            lastIndex: 0
+            freeIndex: 0
+            buckets: 
+            data: 
+            slots: 
+          addTransfer:
+            length: 0
+            capacity: 0
+            capacityMinusOne: 0
+            lastIndex: 0
+            freeIndex: 0
+            buckets: 
+            data: 
+            slots: 
+          length: 0
+          worldId: 0
+          id: 0
+          usedInNative: 0
+        - typeIds: 
+          entities:
+            count: 0
+            length: 0
+            capacity: 0
+            capacityMinusOne: 0
+            lastIndex: 0
+            freeIndex: 0
+            buckets: 
+            data: 
+            slots: 
+          entitiesNative:
+            data: 000000000000000000000000
+            length: 0
+            capacity: 3
+            lastSwappedIndex: -1
+          removeTransfer:
+            length: 0
+            capacity: 0
+            capacityMinusOne: 0
+            lastIndex: 0
+            freeIndex: 0
+            buckets: 
+            data: 
+            slots: 
+          addTransfer:
+            length: 0
+            capacity: 0
+            capacityMinusOne: 0
+            lastIndex: 0
+            freeIndex: 0
+            buckets: 
+            data: 
+            slots: 
+          length: 0
+          worldId: 0
+          id: 0
+          usedInNative: 0
+        length: 0
+        capacity: 3
+        lastSwappedIndex: -1
+      archetypesByLength:
+        length: 0
+        capacity: 0
+        capacityMinusOne: 0
+        lastIndex: 0
+        freeIndex: 0
+        buckets: 
+        data: []
+        slots: []
+      newArchetypes:
+        length: 0
+        capacity: 3
+        data: 000000000000000000000000
+      identifier: 0
+      friendlyName: 
+      threadIdLock: 1
+    components:
+      length: 1
+      capacity: 64
+      capacityMinusOne: 63
+      lastIndex: 1
+      freeIndex: -1
+      buckets: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000
+      data:
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      - {_transform: {fileID: 0}, arrAI: []
+, numAI: 0, numTeamAI: 0}
+      slots:
+      - key: 0
+        next: -1
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+      - key: 0
+        next: 0
+  typeName: Teg_For_parentGO_AI_Component
 --- !u!1 &1846990982
 GameObject:
   m_ObjectHideFlags: 0
@@ -7189,7 +8923,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4399164338445904173, guid: 3395cb0ce45e6134c832d7896a618610, type: 3}
       propertyPath: m_Name
-      value: Image (Table AI 1)
+      value: Image table AI  _0
       objectReference: {fileID: 0}
     - target: {fileID: 4399164338445904174, guid: 3395cb0ce45e6134c832d7896a618610, type: 3}
       propertyPath: m_Pivot.x
