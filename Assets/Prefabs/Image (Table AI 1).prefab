@@ -2150,9 +2150,9 @@ MonoBehaviour:
   friends: []
   enemy: []
   neutral: []
-  _button: {fileID: 0}
-  _ranbowChart: {fileID: 0}
-  viewColor: {fileID: 0}
+  _button: {fileID: 4399164338165318961}
+  _ranbowChart: {fileID: 4399164338033876504}
+  viewColor: {fileID: 4399164338497366413}
 --- !u!1 &4399164338497366403
 GameObject:
   m_ObjectHideFlags: 0
