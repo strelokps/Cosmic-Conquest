@@ -9,11 +9,13 @@ public class SetColorAI : MonoBehaviour
     private GameObject[] _allChildrenParent;
     private GetColorFromPixel _colorFromPixelAI;
     [SerializeField] private AIBase _aiBase;
-    public List<Transform> children = new List<Transform>();
+    private float _timer = 2;
+    List<Transform> childrenActiveTransfor = new List<Transform>();
+
 
     private void Start()
     {
-        
+
 
         _colorFromPixelAI = new GetColorFromPixel();
         var children = transform.parent.GetComponentsInChildren<Transform>();
@@ -41,6 +43,11 @@ public class SetColorAI : MonoBehaviour
     {
         ReturnColorFromPixel(_colorFromPixelAI);
         _aiBase.lvlTech++;
+        _timer -= Time.deltaTime;
+        if (_timer < 0)
+        {
+
+        }
     }
 
     public void GetAllActiveChildren()
@@ -50,7 +57,8 @@ public class SetColorAI : MonoBehaviour
 
     List<Transform> GetAllChildren(Transform parent)
     {
-      
+         List<Transform> children = new List<Transform>();
+
 
         // Перебираем все дочерние объекты
         foreach (Transform child in parent)
@@ -62,14 +70,17 @@ public class SetColorAI : MonoBehaviour
             children.AddRange(GetAllChildren(child));
         }
 
+
         foreach (var index in children)
         {
             if (index.gameObject.activeInHierarchy)
             {
-                Debug.Log($"//___ {index.name} - {index.parent}");
+                //Debug.Log($"//___ {index.name} - {index.parent}");
+                childrenActiveTransfor.Add(index);
+                index.gameObject.SetActive(false);
             }
         }
-
+        Debug.Log($"count active Children {childrenActiveTransfor.Count}");
         return children;
     }
 
