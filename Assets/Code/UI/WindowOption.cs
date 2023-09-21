@@ -64,6 +64,7 @@ public class WindowOption : MonoBehaviour
             _setUpAi[i].nameAI_SO = "??? 1" + i.ToString();
             _setUpAi[i].colorAI_SO = _generalConfig.arrColor_SO[i];
         }
+        _generalConfig.SetDirty();
 
     }
 

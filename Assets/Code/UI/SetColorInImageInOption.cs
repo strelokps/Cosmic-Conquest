@@ -16,11 +16,14 @@ public class SetColorInImageInOption : MonoBehaviour
     [SerializeField] private Button _button;
     [SerializeField] private RawImage _ranbowChart;
     [SerializeField] private Image viewColor;
+    [SerializeField] private GameObject _checkPressButton;
+
     private Vector2 mousePos = new Vector2();
     private RectTransform rect;
     private int width = 0;
     private int height = 0;
     private Texture2D _t2d;
+
 
 
     private GetColorFromPixel _colorFromPixel;
@@ -33,13 +36,13 @@ public class SetColorInImageInOption : MonoBehaviour
 
         _t2d = (Texture2D)_ranbowChart.mainTexture;
 
-        var rawImage = _ranbowChart.GetComponent<RawImage>();
-        rect = rawImage.GetComponent<RectTransform>();
+        //var rawImage = _ranbowChart.GetComponent<RawImage>();
+        //rect = rawImage.GetComponent<RectTransform>();
 
-        width =  (int)rect.rect.width;
-        height = (int)rect.rect.height;
+        //width =  (int)rect.rect.width;
+        //height = (int)rect.rect.height;
 
-        _t2d = rawImage.texture as Texture2D;
+        //_t2d = rawImage.texture as Texture2D;
         var pixelData = _t2d.GetPixels();
 
         var colorIndex = new List<Color>();
@@ -52,12 +55,12 @@ public class SetColorInImageInOption : MonoBehaviour
     private void Update()
     {
        // TakeColor();
-       if (Input.GetMouseButtonDown(0) & _ranbowChart.IsActive())
+       if (Input.GetMouseButtonDown(0) & _ranbowChart.IsActive() & _checkPressButton.activeInHierarchy)
        {
-           _colorFromPixel.TakeColor(rect, height, width, _t2d, ref viewColor);
+           _colorFromPixel.TakeColor(_ranbowChart, ref viewColor);
            Debug.Log("1234");
-        }
-       
+       }
+
     }
 
     //private void TakeColor()
@@ -92,7 +95,9 @@ public class SetColorInImageInOption : MonoBehaviour
         colorButton.selectedColor = viewColor.material.color;
         colorButton.highlightedColor = viewColor.material.color;
         colorButton.pressedColor = viewColor.material.color;
-
+        _generalConfig.colorPlayer = viewColor.material.color; 
+        _generalConfig.SetDirty();
+        Debug.Log($" Player b:    {_button.name}");
         _button.colors = colorButton;
         
     }
@@ -113,6 +118,7 @@ public class SetColorInImageInOption : MonoBehaviour
     public void SetPlayerColor()
     {
         _generalConfig.colorPlayer = viewColor.material.color;
+        _generalConfig.SetDirty();
         SetColor();
 
     }

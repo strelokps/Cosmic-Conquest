@@ -85,7 +85,7 @@ public class AIBase : MonoBehaviour
 
     public void StartGetColorFromPixel()
     {
-        _colorFromPixelAI.TakeColor(rect, height, width, _t2d, ref viewColor);
+        _colorFromPixelAI.TakeColor(_ranbowChart, ref viewColor);
         _setupAI.colorAI_SO = viewColor.material.color;
     }
 }

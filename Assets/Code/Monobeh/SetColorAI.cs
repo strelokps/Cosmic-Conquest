@@ -6,83 +6,88 @@ using UnityEngine.UI;
 
 public class SetColorAI : MonoBehaviour
 {
-    private GameObject[] _allChildrenParent;
+
+    private GeneralConfig _generalConfig;
+    [SerializeField] private Button _button;
+    [SerializeField] private RawImage _ranbowChart;
+    [SerializeField] private Image viewColor;
+    [SerializeField] private GameObject _chaeckPressButton; //нужен для идентификации какая кнопка нажата
+    private Vector2 mousePos = new Vector2();
+    private RectTransform rect;
+    private int width = 0;
+    private int height = 0;
+    private Texture2D _t2d;
+    private string _getNumerFromEndNameGOAI;
+    private int _parserStringNumerFromNameGOAI;
+
     private GetColorFromPixel _colorFromPixelAI;
-    [SerializeField] private AIBase _aiBase;
-    private float _timer = 2;
-    List<Transform> childrenActiveTransfor = new List<Transform>();
 
 
     private void Start()
     {
+        _generalConfig = Resources.Load<GeneralConfig>("GeneralConfig_SO");
 
-
+        if (gameObject.name.Length > 0)
+        {
+            _getNumerFromEndNameGOAI = gameObject.name.Substring(gameObject.name.Length - 1);
+            _parserStringNumerFromNameGOAI = int.Parse(_getNumerFromEndNameGOAI);
+            Debug.Log($"_getNumerFromEndNameGOAI {_getNumerFromEndNameGOAI}");
+        }
+        else
+        {
+            Debug.Log("Length name AI < 1 char");
+        }
         _colorFromPixelAI = new GetColorFromPixel();
-        var children = transform.parent.GetComponentsInChildren<Transform>();
-        //foreach (var child in children)
-        //{
-        //    Debug.Log($" //___ {child.name}");
-
-        //}
-        //foreach (Transform g in transform.GetComponentsInChildren<Transform>())
-        //{
-        //    Debug.Log(g.name);
-        //}
-
-        GetAllChildren(transform.parent);
-
-
+        SetColorInStart(_generalConfig.arrColor_SO[_parserStringNumerFromNameGOAI]);
     }
 
-    public Color ReturnColorFromPixel(GetColorFromPixel _colorFromPixel)
-    {
-        return Color.blue;
-    }
 
     private void Update()
     {
-        ReturnColorFromPixel(_colorFromPixelAI);
-        _aiBase.lvlTech++;
-        _timer -= Time.deltaTime;
-        if (_timer < 0)
+        if (Input.GetMouseButtonDown(0) & _ranbowChart.IsActive() & _chaeckPressButton.activeInHierarchy)
         {
-
+            _colorFromPixelAI.TakeColor(_ranbowChart, ref viewColor);
+            Debug.Log($"AI click in color chart  {gameObject.name}");
         }
     }
 
-    public void GetAllActiveChildren()
+
+    public void SetColor()
     {
-        var children = transform.parent.GetComponentsInChildren<Transform>();
+        var colorButton = _button.GetComponent<Button>().colors;
+        Debug.Log($" AI b:    {_button.name}");
+        colorButton.normalColor = viewColor.material.color;
+        colorButton.selectedColor = viewColor.material.color;
+        colorButton.highlightedColor = viewColor.material.color;
+        colorButton.pressedColor = viewColor.material.color;
+        _generalConfig.arrColor_SO[_parserStringNumerFromNameGOAI] = viewColor.material.color;
+        _generalConfig.SetDirty();
+        _button.colors = colorButton;
+
     }
 
-    List<Transform> GetAllChildren(Transform parent)
+    public void SetColorInStart(Color locColor)
     {
-         List<Transform> children = new List<Transform>();
-
-
-        // Перебираем все дочерние объекты
-        foreach (Transform child in parent)
-        {
-            // Добавляем текущего дочернего объекта
-            children.Add(child);
-
-            // Рекурсивно вызываем эту функцию для дочерних объектов текущего объекта
-            children.AddRange(GetAllChildren(child));
-        }
-
-
-        foreach (var index in children)
-        {
-            if (index.gameObject.activeInHierarchy)
-            {
-                //Debug.Log($"//___ {index.name} - {index.parent}");
-                childrenActiveTransfor.Add(index);
-                index.gameObject.SetActive(false);
-            }
-        }
-        Debug.Log($"count active Children {childrenActiveTransfor.Count}");
-        return children;
+        var colorButton = _button.GetComponent<Button>().colors;
+        colorButton.normalColor = locColor;
+        colorButton.selectedColor = locColor;
+        colorButton.highlightedColor = locColor;
+        colorButton.pressedColor = locColor;
+        _button.colors = colorButton;
+        viewColor.material.color = locColor;
     }
+
+
+    public void SetAIColor()
+    {
+        _generalConfig.arrColor_SO[_parserStringNumerFromNameGOAI] = viewColor.material.color;
+        _generalConfig.SetDirty();
+        SetColor();
+
+    }
+
+
+
 
 
 }

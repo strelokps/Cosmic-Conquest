@@ -20,5 +20,6 @@ public class DropDownChooseNumAI : MonoBehaviour
             _locGeneralConfig.numberAI = 1;
         locValue += 1; //с кнопки значение передается с нуля
         _locGeneralConfig.numberAI = locValue;
+        _locGeneralConfig.SetDirty();
     }
 }

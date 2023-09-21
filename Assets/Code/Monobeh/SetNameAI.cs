@@ -35,6 +35,7 @@ public class SetNameAI : MonoBehaviour
                 {
                     var x = gameObject.transform.GetChild(i).GetComponent<TextMeshProUGUI>();
                     x.text = _generalConfig.nameAI[int.Parse(tempNameAI)];
+                    _generalConfig.SetDirty();
                 }
                 catch (Exception e)
                 {
@@ -42,10 +43,7 @@ public class SetNameAI : MonoBehaviour
                     throw;
                 }
             }
-            else
-            {
-                Debug.Log($"Component for name AI TextMeshProUGUI not found");
-            }
+           
         }
     }
 }

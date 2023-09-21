@@ -8,8 +8,15 @@ public class GetColorFromPixel : MonoBehaviour
     private Vector2 mousePos = new Vector2();
 
 
-    public void TakeColor(RectTransform rect, int height, int width, Texture2D _t2d, ref Image viewColor)
+    public void TakeColor(RawImage _ranbowChart,  ref Image viewColor)
     {
+        var rawImage = _ranbowChart.GetComponent<RawImage>();
+        var rect = rawImage.GetComponent<RectTransform>();
+
+        var width = (int)rect.rect.width;
+        var height = (int)rect.rect.height;
+        Texture2D _t2d;
+        _t2d = rawImage.texture as Texture2D;
 
         RectTransformUtility.ScreenPointToLocalPointInRectangle(rect, Input.mousePosition, Camera.main, out mousePos);
         mousePos.x = width - (width / 2 - mousePos.x);
