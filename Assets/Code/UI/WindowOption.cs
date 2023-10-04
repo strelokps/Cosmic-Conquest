@@ -57,13 +57,13 @@ public class WindowOption : MonoBehaviour
 
         }
 
-        for (int i = 0; i < locNumAI; i++)
-        {
-            string str = "SetUpAISO_" + i.ToString();
-            _setUpAi[i] = Resources.Load<SetUpAI>(str);
-            _setUpAi[i].nameAI_SO = "??? 1" + i.ToString();
-            _setUpAi[i].colorAI_SO = _generalConfig.arrColor_SO[i];
-        }
+        //for (int i = 0; i < locNumAI; i++)
+        //{
+        //    string str = "SetUpAISO_" + i.ToString();
+        //    _setUpAi[i] = Resources.Load<SetUpAI>(str);
+        //    _setUpAi[i].nameAI_SO = "??? 1" + i.ToString();
+        //    _setUpAi[i].colorAI_SO = _generalConfig.arrColor_SO[i];
+        //}
         _generalConfig.SetDirty();
 
     }

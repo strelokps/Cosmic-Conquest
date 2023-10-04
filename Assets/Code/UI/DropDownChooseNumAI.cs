@@ -1,17 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DropDownChooseNumAI : MonoBehaviour
 {
-    //private GeneralConfig _generalConfig;
-
-    //private void Start()
-    //{
-    //    _generalConfig = Resources.Load<GeneralConfig>("GeneralConfig_SO");
-
-
-    //}
+   
 
 
     public void InputDrowDown(int locValue, GeneralConfig _locGeneralConfig)

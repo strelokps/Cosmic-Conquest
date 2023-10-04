@@ -31,11 +31,9 @@ public class SetColorAI : MonoBehaviour
         {
             _getNumerFromEndNameGOAI = gameObject.name.Substring(gameObject.name.Length - 1);
             _parserStringNumerFromNameGOAI = int.Parse(_getNumerFromEndNameGOAI);
-            Debug.Log($"_getNumerFromEndNameGOAI {_getNumerFromEndNameGOAI}");
         }
         else
         {
-            Debug.Log("Length name AI < 1 char");
         }
         _colorFromPixelAI = new GetColorFromPixel();
         SetColorInStart(_generalConfig.arrColor_SO[_parserStringNumerFromNameGOAI]);
@@ -47,7 +45,6 @@ public class SetColorAI : MonoBehaviour
         if (Input.GetMouseButtonDown(0) & _ranbowChart.IsActive() & _chaeckPressButton.activeInHierarchy)
         {
             _colorFromPixelAI.TakeColor(_ranbowChart, ref viewColor);
-            Debug.Log($"AI click in color chart  {gameObject.name}");
         }
     }
 
@@ -55,7 +52,6 @@ public class SetColorAI : MonoBehaviour
     public void SetColor()
     {
         var colorButton = _button.GetComponent<Button>().colors;
-        Debug.Log($" AI b:    {_button.name}");
         colorButton.normalColor = viewColor.material.color;
         colorButton.selectedColor = viewColor.material.color;
         colorButton.highlightedColor = viewColor.material.color;

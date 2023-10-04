@@ -12,5 +12,5 @@ public class GeneralConfig : ScriptableObject
     public int numberAI;
     public Color[] arrColor_SO = { Color.red, Color.blue, Color.green, Color.yellow, Color.cyan };
     public String[] nameAI = { "Nova", "Helix", "Neo", "Rogue" };
-    public AIBase ai;
+    public AISceneData ai;
 }

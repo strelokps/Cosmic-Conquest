@@ -58,7 +58,6 @@ public class SetColorInImageInOption : MonoBehaviour
        if (Input.GetMouseButtonDown(0) & _ranbowChart.IsActive() & _checkPressButton.activeInHierarchy)
        {
            _colorFromPixel.TakeColor(_ranbowChart, ref viewColor);
-           Debug.Log("1234");
        }
 
     }
@@ -97,7 +96,6 @@ public class SetColorInImageInOption : MonoBehaviour
         colorButton.pressedColor = viewColor.material.color;
         _generalConfig.colorPlayer = viewColor.material.color; 
         _generalConfig.SetDirty();
-        Debug.Log($" Player b:    {_button.name}");
         _button.colors = colorButton;
         
     }
