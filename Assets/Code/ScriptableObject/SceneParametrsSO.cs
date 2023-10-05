@@ -39,14 +39,18 @@ public class SceneParametrsSO : ScriptableObject
         AISceneData AI1 = new AISceneData{nameAI = "Red Evil", colorAI = Color.red, idAI = 0, lvlTech = 0};
         AISceneData AI2 = new AISceneData { nameAI = "Green Evil", colorAI = Color.green, idAI = 1, lvlTech = 0 };
         AISceneData AINeutral1 = new AISceneData { nameAI = "Grey1", colorAI = Color.gray, idAI = 2, lvlTech = 0 };
+        
         AI1.enemy = new List<AISceneData>();
         AI2.enemy = new List<AISceneData>();
         AI1.friends = new List<AISceneData>();
         AI2.friends = new List<AISceneData>();
+        AI1.neutral = new List<AISceneData>();
+        AI2.neutral = new List<AISceneData>();
+
         AI1.friends.Add(AI2);
-        AI1.enemy.Add(AINeutral1);
+        AI1.neutral.Add(AINeutral1);
         AI2.friends.Add(AI1);
-        AI2.enemy.Add(AINeutral1);
+        AI2.neutral.Add(AINeutral1);
         _listAISceneData.Add(AI1);
         _listAISceneData.Add(AI2);
         _listAISceneData.Add(AINeutral1);
