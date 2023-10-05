@@ -4,29 +4,23 @@ using Assets.Code.ScriptableObject;
 using UnityEngine;
 using UnityEngine.UI;
 
-public struct AISceneData 
+public struct SceneMembersData 
 {
     [Header("SO AI"), SerializeField] private SetUpAI _setupAI;
 
     [Header("Self AI settings")]
     public string nameAI;
-    public int idAI;
+    public int membersID;
     public Color colorAI;
     public int lvlTech;
 
     [Header("Team")]
-    public List<AISceneData> friends;
-    public List<AISceneData> enemy;
-    public List<AISceneData> neutral;
+    public List<SceneMembersData> friends;
+    public List<SceneMembersData> enemy;
+    public List<SceneMembersData> neutral;
 
 
 
-
-    private void Start()
-    {
-
-
-    }
 
    
 }
