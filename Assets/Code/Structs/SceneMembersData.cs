@@ -9,9 +9,9 @@ public struct SceneMembersData
     [Header("SO AI"), SerializeField] private SetUpAI _setupAI;
 
     [Header("Self AI settings")]
-    public string nameAI;
+    public string nameMembers;
     public int membersID;
-    public Color colorAI;
+    public Color colorMembers;
     public int lvlTech;
 
     [Header("Team")]

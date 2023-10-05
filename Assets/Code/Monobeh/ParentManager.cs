@@ -9,21 +9,14 @@ public class ParentManager : MonoBehaviour
 
     public int prop_id { get => id; }
 
-    public void SetListAISceneData(SceneMembersData locAISceneData)
+    public void SetMembersSceneData(SceneMembersData locAISceneData)
     {
         _memberSceneDatasParent = locAISceneData;
     }
 
     public void Show()
     {
-        if (_memberSceneDatasParent.friends.Count > 0)
-        {
-            Debug.Log($"Friends");
-            for (int i = 0; i < _memberSceneDatasParent.friends.Count; i++)
-            {
-                Debug.Log($"membersID {_memberSceneDatasParent.friends[i].nameAI}");
-            }
-        }
-
+        Debug.Log($"{_memberSceneDatasParent.nameMembers}(Techlvl): {_memberSceneDatasParent.lvlTech}");
+       
     }
 }

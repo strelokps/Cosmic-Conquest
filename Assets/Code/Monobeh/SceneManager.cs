@@ -24,7 +24,7 @@ public class SceneManager : MonoBehaviour
     private void Start()
     {
         //версионность
-        #region Версионность
+        #region Версионность VersionBuild
         VersionBuild();
         #endregion
 
@@ -35,18 +35,10 @@ public class SceneManager : MonoBehaviour
         _numAI = _sceneParametrsSO.prop_numAI;
         _listSceneMembersData = _sceneParametrsSO.prop_ListAiSceneData;
         
-
-        for (int i = 0; i < _listSceneMembersData.Count; i++)
-        {
-            if (_listSceneMembersData[i].neutral.Count != 0)
-            {
-                Debug.Log($"Имена {_listSceneMembersData[i].neutral[0].nameAI}");
-            }
-        }
-
         CheckID(_listSceneMembersData, _allMembersParentTransforms);
     }
 
+    //Проверяем id из SO и сопоставляем с id из парентов, после нахохждения соответствия, перекидываем ссылку с параметрами в скрипт парента
     private void CheckID(List<SceneMembersData> locSceneMembersDatas, List<Transform> locListTransforms)
     {
         ParentManager pr = GetComponent<ParentManager>();
@@ -58,11 +50,22 @@ public class SceneManager : MonoBehaviour
                 {
                     var tr = indexTransform.GetComponent<ParentManager>();
                     
+                    // по AI
                     if (indexMembers.membersID == tr.prop_id)
                     {
-                        tr.SetListAISceneData(indexMembers);
+                        tr.SetMembersSceneData(indexMembers);
                         tr.Show();
                     }
+                    
+                    //по player 
+
+                    if (tr.prop_id == _generalConfig.playerID)
+                    {
+                        tr.SetMembersSceneData(_generalConfig.SetPlayerData());
+                        tr.Show();
+
+                    }
+
                 }
                 else
                 {

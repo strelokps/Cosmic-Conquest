@@ -17,7 +17,6 @@ public class SceneParametrsSO : ScriptableObject
     public List<SceneMembersData> prop_ListAiSceneData
     {
         get => _listAISceneData;
-        //set => _listAISceneData = value;
     }
 
     [SerializeField] private Color _color1;
@@ -30,15 +29,19 @@ public class SceneParametrsSO : ScriptableObject
     public Color prop_color3 => _color3;
     public Color prop_color4 => _color4;
 
-    
+    private GeneralConfig _generalConfig;
 
+
+    public SceneParametrsSO()
+    {
+    }
 
     public void TestScene()
     {
         _listAISceneData.Clear();
-        SceneMembersData AI1 = new SceneMembersData{ nameAI = "Red Evil", colorAI = Color.red, membersID = 0, lvlTech = 0};
-        SceneMembersData AI2 = new SceneMembersData { nameAI = "Green Evil", colorAI = Color.green, membersID = 1, lvlTech = 0 };
-        SceneMembersData neutral1 = new SceneMembersData { nameAI = "Grey1", colorAI = Color.gray, membersID = 100, lvlTech = 0 };
+        SceneMembersData AI1 = new SceneMembersData{ nameMembers = "Red Evil", colorMembers = Color.red, membersID = 0, lvlTech = 0};
+        SceneMembersData AI2 = new SceneMembersData { nameMembers = "Green Evil", colorMembers = Color.green, membersID = 1, lvlTech = 0 };
+        SceneMembersData neutral1 = new SceneMembersData { nameMembers = "Grey1", colorMembers = Color.gray, membersID = 100, lvlTech = 0 };
         
         AI1.enemy = new List<SceneMembersData>();
         AI1.friends = new List<SceneMembersData>();
@@ -65,12 +68,12 @@ public class SceneParametrsSO : ScriptableObject
         _listAISceneData.Add(AI1);
         _listAISceneData.Add(AI2);
         _listAISceneData.Add(neutral1);
+
+        _generalConfig = Resources.Load<GeneralConfig>("GeneralConfig_SO");
+        _generalConfig._lvlTechPlayer = 4;
     }
 
-    public  SceneParametrsSO()
-    {
-
-    }
+   
 
 
 
