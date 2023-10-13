@@ -10,15 +10,15 @@ using UnityEngine;
 public class SceneManager : MonoBehaviour
 {
     [SerializeField] private SceneParametrsSO _sceneParametrsSO;
-    [SerializeField] private List<SceneMembersData> _listSceneMembersData ;
-    [SerializeField] private List<Transform> _allMembersParentTransforms;
+    [SerializeField] private List<SceneMembersData> _listSceneMembersData ; 
+    [SerializeField] private List<Transform> _allMembersParentTransforms; //руками линкуем все паренты из сцены
     private GeneralConfig _generalConfig;
 
     private VersionBuildSO _versionBuild_SO;
 
     private int _numAI;
 
-    [SerializeField] private TMP_Text _textVersion;
+    [SerializeField] private TMP_Text _textVersion; // линкуется текст для отображения версионности
 
 
     private void Start()
@@ -41,7 +41,6 @@ public class SceneManager : MonoBehaviour
     //Проверяем id из SO и сопоставляем с id из парентов, после нахохждения соответствия, перекидываем ссылку с параметрами в скрипт парента
     private void CheckID(List<SceneMembersData> locSceneMembersDatas, List<Transform> locListTransforms)
     {
-        ParentManager pr = GetComponent<ParentManager>();
         foreach (var indexMembers in locSceneMembersDatas)
         {
             foreach (var indexTransform in locListTransforms)
@@ -50,19 +49,19 @@ public class SceneManager : MonoBehaviour
                 {
                     var tr = indexTransform.GetComponent<ParentManager>();
                     
-                    // по AI
+                    // AI
                     if (indexMembers.membersID == tr.prop_id)
                     {
                         tr.SetMembersSceneData(indexMembers);
-                        tr.Show();
+                        //tr.Show();
                     }
                     
-                    //по player 
+                    //player 
 
                     if (tr.prop_id == _generalConfig.playerID)
                     {
                         tr.SetMembersSceneData(_generalConfig.SetPlayerData());
-                        tr.Show();
+                        //tr.Show();
 
                     }
 

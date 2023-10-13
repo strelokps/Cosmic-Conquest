@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 
 //тестовая сцена. numAI = 2, neutral = 1,  lvlTech = 0.
 
@@ -41,19 +42,13 @@ public class SceneParametrsSO : ScriptableObject
         _listAISceneData.Clear();
         SceneMembersData AI1 = new SceneMembersData{ nameMembers = "Red Evil", colorMembers = Color.red, membersID = 0, lvlTech = 0};
         SceneMembersData AI2 = new SceneMembersData { nameMembers = "Green Evil", colorMembers = Color.green, membersID = 1, lvlTech = 0 };
+        SceneMembersData AI3 = new SceneMembersData { nameMembers = "Yellow Evil", colorMembers = Color.yellow, membersID = 2, lvlTech = 0 };
         SceneMembersData neutral1 = new SceneMembersData { nameMembers = "Grey1", colorMembers = Color.gray, membersID = 100, lvlTech = 0 };
-        
-        AI1.enemy = new List<SceneMembersData>();
-        AI1.friends = new List<SceneMembersData>();
-        AI1.neutral = new List<SceneMembersData>();
-        
-        AI2.friends = new List<SceneMembersData>();
-        AI2.enemy = new List<SceneMembersData>();
-        AI2.neutral = new List<SceneMembersData>();
 
-        neutral1.enemy = new List<SceneMembersData>();
-        neutral1.friends = new List<SceneMembersData>();
-        neutral1.neutral = new List<SceneMembersData>();
+        InitAI(ref AI1);
+        InitAI(ref AI2);
+        InitAI(ref neutral1);
+
 
         AI1.friends.Add(AI2);
         AI1.neutral.Add(neutral1);
@@ -73,7 +68,12 @@ public class SceneParametrsSO : ScriptableObject
         _generalConfig._lvlTechPlayer = 4;
     }
 
-   
+    private void InitAI(ref SceneMembersData locAI)
+    {
+        locAI.enemy = new List<SceneMembersData>();
+        locAI.friends = new List<SceneMembersData>();
+        locAI.neutral = new List<SceneMembersData>();
+    }
 
 
 
