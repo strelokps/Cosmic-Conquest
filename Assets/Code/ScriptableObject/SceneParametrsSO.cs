@@ -40,29 +40,76 @@ public class SceneParametrsSO : ScriptableObject
     public void TestScene()
     {
         _listAISceneData.Clear();
-        SceneMembersData AI1 = new SceneMembersData{ nameMembers = "Red Evil", colorMembers = Color.red, membersID = 0, lvlTech = 0};
-        SceneMembersData AI2 = new SceneMembersData { nameMembers = "Green Evil", colorMembers = Color.green, membersID = 1, lvlTech = 0 };
-        SceneMembersData AI3 = new SceneMembersData { nameMembers = "Yellow Evil", colorMembers = Color.yellow, membersID = 2, lvlTech = 0 };
-        SceneMembersData neutral1 = new SceneMembersData { nameMembers = "Grey1", colorMembers = Color.gray, membersID = 100, lvlTech = 0 };
+        SceneMembersData ai1 = new SceneMembersData
+        { 
+            nameMembers = "Red Evil", 
+            colorMembers = Color.red, 
+            membersID = 0, 
+            lvlTech = 0
+        };
+        SceneMembersData ai2 = new SceneMembersData 
+        { 
+            nameMembers = "Green Evil", 
+            colorMembers = Color.green, 
+            membersID = 1, 
+            lvlTech = 0 
+        };
+        SceneMembersData ai3 = new SceneMembersData
+        {
+            nameMembers = "Yellow Evil",
+            colorMembers = Color.yellow,
+            membersID = 2,
+            lvlTech = 0
+        };
+        SceneMembersData neutral1 = new SceneMembersData 
+        { 
+            nameMembers = "Grey1", 
+            colorMembers = Color.gray, 
+            membersID = 100, 
+            lvlTech = 0 
+        };
+        SceneMembersData player = new SceneMembersData 
+        { 
+            nameMembers = _generalConfig.playerName, 
+            colorMembers = _generalConfig.colorPlayer, 
+            membersID = _generalConfig.playerID, 
+            lvlTech = _generalConfig._lvlTechPlayer 
+        };
 
-        InitAI(ref AI1);
-        InitAI(ref AI2);
+        InitAI(ref ai1);
+        InitAI(ref ai2);
+        InitAI(ref ai3);
         InitAI(ref neutral1);
+        InitAI(ref player);
 
 
-        AI1.friends.Add(AI2);
-        AI1.neutral.Add(neutral1);
+        ai1.friends.Add(ai2);
+        ai1.neutral.Add(neutral1);
+        ai1.enemy.Add(ai3);
+        ai1.enemy.Add(player);
+
+        ai2.friends.Add(ai1);
+        ai2.neutral.Add(neutral1);
+        ai2.enemy.Add(ai3);
+        ai2.enemy.Add(player);
+
+        neutral1.enemy.Add(ai1);
+        neutral1.enemy.Add(ai2);
+        neutral1.enemy.Add(ai3);
+        neutral1.enemy.Add(player);
+
         
-        AI2.friends.Add(AI1);
-        AI2.neutral.Add(neutral1);
+        player.enemy.Add(ai1);
+        player.enemy.Add(ai2);
+        player.enemy.Add(ai3);
+        player.enemy.Add(neutral1);
 
-        neutral1.enemy.Add(AI1);
-        neutral1.enemy.Add(AI2);
-        
 
-        _listAISceneData.Add(AI1);
-        _listAISceneData.Add(AI2);
+        _listAISceneData.Add(ai1);
+        _listAISceneData.Add(ai2);
+        _listAISceneData.Add(ai3);
         _listAISceneData.Add(neutral1);
+        _listAISceneData.Add(player);
 
         _generalConfig = Resources.Load<GeneralConfig>("GeneralConfig_SO");
         _generalConfig._lvlTechPlayer = 4;

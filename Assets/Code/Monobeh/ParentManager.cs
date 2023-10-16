@@ -9,30 +9,35 @@ public class ParentManager : MonoBehaviour
     [SerializeField] private SceneMembersData _memberSceneDatasParent;
     [SerializeField] private List<ParametrPlanet_mono> _planetList;
     private Transform _parentTransform;
+    private int numChild;
 
     public int prop_id { get => id; }
 
     private void Start()
     {
-        _parentTransform = transform;
-        var numChild = _parentTransform.childCount;
-        _planetList = new List<ParametrPlanet_mono>();
-        Debug.Log($"Name: {id}  {numChild}");
-        for (int i = 0; i < numChild; i++)
-        {
-            if (_parentTransform.GetChild(i).GetComponent<ParametrPlanet_mono>())
-            {
-                var pl = _parentTransform.GetChild(i);
-                _planetList.Add(pl.GetComponent<ParametrPlanet_mono>());
-                pl.GetComponent<ParametrPlanet_mono>().SetColorPlanet(_memberSceneDatasParent.colorMembers);
-                print($"{_memberSceneDatasParent.colorMembers.ToHexString()}");
-            }
-        }
+        
     }
 
     public void SetMembersSceneData(SceneMembersData locAISceneData)
     {
         _memberSceneDatasParent = locAISceneData;
+
+        _parentTransform = transform; //кеширование нужно для оптимизации
+
+        numChild = CheckNimChild();
+        _planetList = new List<ParametrPlanet_mono>();
+
+        for (int i = 0; i < numChild; i++)
+        {
+            if (transform.GetChild(i).GetComponent<ParametrPlanet_mono>())
+            {
+                var pl = _parentTransform.GetChild(i).GetComponent<ParametrPlanet_mono>();
+                _planetList.Add(pl);
+                pl.SetColorPlanet(_memberSceneDatasParent.colorMembers);
+                print($"{_memberSceneDatasParent.nameMembers} : {_memberSceneDatasParent.colorMembers.ToHexString()}");
+            }
+        }
+        print($"{_memberSceneDatasParent.nameMembers} : {_memberSceneDatasParent.colorMembers.ToHexString()}");
     }
 
     public void Show()
@@ -40,4 +45,11 @@ public class ParentManager : MonoBehaviour
         Debug.Log($"{_memberSceneDatasParent.nameMembers}(Techlvl): {_memberSceneDatasParent.lvlTech}");
        
     }
+
+    public int CheckNimChild() 
+    {
+        return _parentTransform.childCount;
+    }
+
+    private void Set(string msg) { }
 }

@@ -22,17 +22,17 @@ public class GeneralConfig : ScriptableObject
             playerID = 19;
     }
 
-    public SceneMembersData SetPlayerData()
-    {
-        _playerData.friends = new List<SceneMembersData>();
-        _playerData.enemy = new List<SceneMembersData>();
-        _playerData.neutral = new List<SceneMembersData>();
+    //    public SceneMembersData SetPlayerData()
+    //    {
+    //        _playerData.friends = new List<SceneMembersData>();
+    //        _playerData.enemy = new List<SceneMembersData>();
+    //        _playerData.neutral = new List<SceneMembersData>();
 
-        _playerData.nameMembers = playerName;
-        _playerData.membersID = playerID;
-        _playerData.colorMembers = colorPlayer;
-        _playerData.lvlTech = _lvlTechPlayer;
-        
-        return _playerData;
-    }
+    //        _playerData.nameMembers = playerName;
+    //        _playerData.membersID = playerID;
+    //        _playerData.colorMembers = colorPlayer;
+    //        _playerData.lvlTech = _lvlTechPlayer;
+
+    //        return _playerData;
+    //    }
 }

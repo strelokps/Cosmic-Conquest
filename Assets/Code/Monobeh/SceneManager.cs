@@ -58,12 +58,12 @@ public class SceneManager : MonoBehaviour
                     
                     //player 
 
-                    if (tr.prop_id == _generalConfig.playerID)
-                    {
-                        tr.SetMembersSceneData(_generalConfig.SetPlayerData());
-                        //tr.Show();
+                    //if (tr.prop_id == _generalConfig.playerID)
+                    //{
+                    //    tr.SetMembersSceneData(_generalConfig.SetPlayerData());
+                    //    //tr.Show();
 
-                    }
+                    //}
 
                 }
                 else
