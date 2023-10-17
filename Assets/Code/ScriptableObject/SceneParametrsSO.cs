@@ -10,7 +10,7 @@ using UnityEngine.SocialPlatforms;
 public class SceneParametrsSO : ScriptableObject
 {
     [SerializeField] private int numAI;
-    public int prop_numAI  {
+    public int prop_numAI {
         get { return numAI; }
     }
 
@@ -30,7 +30,8 @@ public class SceneParametrsSO : ScriptableObject
     public Color prop_color3 => _color3;
     public Color prop_color4 => _color4;
 
-    private GeneralConfig _generalConfig;
+    GeneralConfig _generalConfig;
+
 
 
     public SceneParametrsSO()
@@ -39,6 +40,9 @@ public class SceneParametrsSO : ScriptableObject
 
     public void TestScene()
     {
+        _generalConfig = Resources.Load<GeneralConfig>("GeneralConfig_SO");
+        _generalConfig._lvlTechPlayer = 4;
+
         _listAISceneData.Clear();
         SceneMembersData ai1 = new SceneMembersData
         { 
@@ -111,8 +115,7 @@ public class SceneParametrsSO : ScriptableObject
         _listAISceneData.Add(neutral1);
         _listAISceneData.Add(player);
 
-        _generalConfig = Resources.Load<GeneralConfig>("GeneralConfig_SO");
-        _generalConfig._lvlTechPlayer = 4;
+
     }
 
     private void InitAI(ref SceneMembersData locAI)

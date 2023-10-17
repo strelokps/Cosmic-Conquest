@@ -10,6 +10,11 @@ public class ParametrPlanet_mono : MonoBehaviour
     private Material _materialPlanet;
     private MeshRenderer _meshRendererPlanet;
     private Transform _parentTransform;
+    [HideInInspector] public Transform selfTransform;
+    public int timerGenSolarium;
+
+    [Header("[ Fleet ]")]
+    [SerializeField] private Transform _pointSpawnFleet;
 
     public int prop_IdPlanet
     {
@@ -25,6 +30,7 @@ public class ParametrPlanet_mono : MonoBehaviour
 
     private void Start()
     {
+        selfTransform = transform;
         if (gameObject.GetComponent<MeshRenderer>())
         {
             _materialPlanet = GetComponent<MeshRenderer>().material;

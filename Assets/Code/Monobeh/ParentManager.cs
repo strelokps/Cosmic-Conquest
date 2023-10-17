@@ -24,7 +24,7 @@ public class ParentManager : MonoBehaviour
 
         _parentTransform = transform; //кеширование нужно для оптимизации
 
-        numChild = CheckNimChild();
+        numChild = CheckNumChild();
         _planetList = new List<ParametrPlanet_mono>();
 
         for (int i = 0; i < numChild; i++)
@@ -46,10 +46,10 @@ public class ParentManager : MonoBehaviour
        
     }
 
-    public int CheckNimChild() 
+    private int CheckNumChild() 
     {
         return _parentTransform.childCount;
     }
 
-    private void Set(string msg) { }
+    
 }
