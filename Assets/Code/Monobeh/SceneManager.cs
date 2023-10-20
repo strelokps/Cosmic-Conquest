@@ -18,7 +18,7 @@ public class SceneManager : MonoBehaviour
 
     private int _numAI;
 
-    [SerializeField] private TMP_Text _textVersion; // линкуется текст для отображения версионности
+    [SerializeField] private TMP_Text _textVersion; // сюда линкуется текст для отображения версионности
 
 
     private void Start()

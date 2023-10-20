@@ -17,6 +17,10 @@ public class VersionBuildSO : ScriptableObject
     public int prop_Patch => _patch;
     public int prop_Build => _build;
 
+    public VersionBuildSO()
+    {
+    }
+
     public void Increase()
     {
         _build++;
@@ -24,7 +28,8 @@ public class VersionBuildSO : ScriptableObject
 
     public void ShowBuild(TMP_Text _loctextVersion)
     {
-        string str = String.Format($"ver.: {_major}.{_minor}.{_patch}.{_build}");
+        string str = String.Format($"ver.: {_major}.{_minor}.{_build}.{_patch}");
+        
         _loctextVersion.text = str ;
     }
 }
