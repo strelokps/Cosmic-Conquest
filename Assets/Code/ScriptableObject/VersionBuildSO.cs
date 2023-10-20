@@ -9,8 +9,9 @@ public class VersionBuildSO : ScriptableObject
 {
     [SerializeField] private int _major;
     [SerializeField] private int _minor;
-    [SerializeField] private int _patch;
     [SerializeField] private int _build;
+    [SerializeField] private int _patch;
+
 
     public int prop_Major => _major;
     public int prop_Minor => _minor;
