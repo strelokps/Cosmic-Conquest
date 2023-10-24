@@ -14,6 +14,11 @@ public class ParametrPlanet_mono : MonoBehaviour
     [HideInInspector] public Transform selfTransform;
     public int timerGenSolarium;
 
+    //Test
+    [SerializeField] private Transform _fleetTransform;
+    private FleetManager _fleetManager;
+
+
     [Header("[ Fleet ]")]
     [SerializeField] private Transform _pointSpawnFleet;
 
@@ -36,11 +41,14 @@ public class ParametrPlanet_mono : MonoBehaviour
         {
             _materialPlanet = GetComponent<MeshRenderer>().material;
             _colorPlanet = _materialPlanet.color;
+
         }
         else
         {
             Debug.Log($"Not found MeshRenderer in gameObject {gameObject.name}  {prop_IdPlanet}");
         }
+
+        _fleetManager = _fleetTransform.GetComponent<FleetManager>();
     }
 
     public void SetColorPlanet(Color locColorPlanet)
@@ -48,6 +56,7 @@ public class ParametrPlanet_mono : MonoBehaviour
         _colorPlanet = locColorPlanet;
         _materialPlanet.color = _colorPlanet;
         _materialPlanet.SetColor("_EmissionColor", locColorPlanet * 1);
+        GenerationFleet(locColorPlanet);
 
     }
 
@@ -57,5 +66,12 @@ public class ParametrPlanet_mono : MonoBehaviour
         transform.SetParent(_parentTransform);
     }
 
+    private void GenerationFleet(Color locColorFleet)
+    {
+        _fleetManager.SetColorFleet(locColorFleet);
+        _fleetTransform.SetParent(transform);
+        _fleetTransform.position = _pointSpawnFleet.position;
+        
+    }
 
 }
