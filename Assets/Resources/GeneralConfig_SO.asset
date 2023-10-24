@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: GeneralConfig_SO
   m_EditorClassIdentifier: 
   playerName: StrelokPS
-  colorPlayer: {r: 0.16078432, g: 0.14117648, b: 0.7411765, a: 1}
+  colorPlayer: {r: 1, g: 0, b: 0.029678345, a: 1}
   playerID: 19
   _lvlTechPlayer: 4
   numberAI: 4
   arrColor_SO:
   - {r: 0.26666668, g: 0.99215686, b: 0.105882354, a: 1}
-  - {r: 0.5176471, g: 0.68235296, b: 0, a: 1}
+  - {r: 0.69803923, g: 0.19607843, b: 0.95686275, a: 1}
   - {r: 0.19215687, g: 0.21960784, b: 1, a: 1}
   - {r: 0.96862745, g: 0.8117647, b: 0.09411765, a: 1}
   nameAI:
