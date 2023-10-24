@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ParametrPlanet_mono : MonoBehaviour 
@@ -46,6 +47,8 @@ public class ParametrPlanet_mono : MonoBehaviour
     {
         _colorPlanet = locColorPlanet;
         _materialPlanet.color = _colorPlanet;
+        _materialPlanet.SetColor("_EmissionColor", locColorPlanet * 1);
+
     }
 
     public void SetParentTransform(Transform locParentTransform)
