@@ -31,10 +31,11 @@ public class ParentManager : MonoBehaviour
         {
             if (transform.GetChild(i).GetComponent<ParametrPlanet_mono>())
             {
+                print($"{_memberSceneDatasParent.nameMembers} : {_memberSceneDatasParent.colorMembers.ToHexString()}");
                 var pl = _parentTransform.GetChild(i).GetComponent<ParametrPlanet_mono>();
                 _planetList.Add(pl);
                 pl.SetColorPlanet(_memberSceneDatasParent.colorMembers);
-                print($"{_memberSceneDatasParent.nameMembers} : {_memberSceneDatasParent.colorMembers.ToHexString()}");
+                
             }
         }
         print($"{_memberSceneDatasParent.nameMembers} : {_memberSceneDatasParent.colorMembers.ToHexString()}");

@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro.EditorUtilities;
+//using TMPro.EditorUtilities;
 using UnityEngine;
 
 //TODO 
@@ -18,9 +18,5 @@ public class FleetUI : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+   
 }

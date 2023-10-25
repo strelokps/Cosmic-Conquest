@@ -53,8 +53,11 @@ public class ParametrPlanet_mono : MonoBehaviour
 
     public void SetColorPlanet(Color locColorPlanet)
     {
+        Start();
+        print($"{locColorPlanet}");
         _colorPlanet = locColorPlanet;
         _materialPlanet.color = _colorPlanet;
+        print($"{_colorPlanet}");
         _materialPlanet.SetColor("_EmissionColor", locColorPlanet * 1);
         GenerationFleet(locColorPlanet);
 
