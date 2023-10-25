@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3613c4aca59b0a44189a0f4d2bba6036, type: 3}
+  m_Name: Fleet_SO
+  m_EditorClassIdentifier: 
+  _prefab_HumanFleet: {fileID: 2698005297597649358, guid: 43d5c60d6f2b46344b1016943b083bb8, type: 3}
+  _prefab_ProtosFleet: {fileID: 1973995397292037102, guid: cf5855f500c0376489b305a4210ef4cd, type: 3}
+  _prefab_UFOFleet: {fileID: 3522969459988269913, guid: 5c5afdc1bbf491746b5950e4fd03f35c, type: 3}
