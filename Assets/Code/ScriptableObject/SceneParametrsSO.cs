@@ -30,9 +30,6 @@ public class SceneParametrsSO : ScriptableObject
     public Color prop_color3 => _color3;
     public Color prop_color4 => _color4;
 
-    GeneralConfig _generalConfig;
-
-
 
     public SceneParametrsSO()
     {
@@ -40,44 +37,51 @@ public class SceneParametrsSO : ScriptableObject
 
     public void TestScene()
     {
-        _generalConfig = Resources.Load<GeneralConfig>("GeneralConfig_SO");
+        FleetSO _fleetSO = Resources.Load<FleetSO>("Fleet\\Fleet_SO");
+
+        GeneralConfig _generalConfig = Resources.Load<GeneralConfig>("GeneralConfig_SO");
         _generalConfig._lvlTechPlayer = 4;
 
         _listAISceneData.Clear();
         SceneMembersData ai1 = new SceneMembersData
-        { 
-            nameMembers = "Red Evil", 
-            colorMembers = Color.red, 
-            membersID = 0, 
-            lvlTech = 0
+        {
+            nameMembers = "Red Evil",
+            colorMembers = Color.red,
+            membersID = 0,
+            lvlTech = 0,
+            prefabFleet = _fleetSO.GetProtosFleet()
         };
         SceneMembersData ai2 = new SceneMembersData 
         { 
             nameMembers = "Green Evil", 
             colorMembers = Color.green, 
             membersID = 1, 
-            lvlTech = 0 
+            lvlTech = 0,
+            prefabFleet = _fleetSO.GetProtosFleet()
         };
         SceneMembersData ai3 = new SceneMembersData
         {
             nameMembers = "Yellow Evil",
             colorMembers = Color.yellow,
             membersID = 2,
-            lvlTech = 0
+            lvlTech = 0,
+            prefabFleet = _fleetSO.GetProtosFleet()
         };
         SceneMembersData neutral1 = new SceneMembersData 
         { 
             nameMembers = "Grey1", 
             colorMembers = Color.gray, 
             membersID = 100, 
-            lvlTech = 0 
+            lvlTech = 0,
+            prefabFleet = _fleetSO.GetUFOFleet()
         };
         SceneMembersData player = new SceneMembersData 
         { 
             nameMembers = _generalConfig.playerName, 
             colorMembers = _generalConfig.colorPlayer, 
             membersID = _generalConfig.playerID, 
-            lvlTech = _generalConfig._lvlTechPlayer 
+            lvlTech = _generalConfig._lvlTechPlayer,
+            prefabFleet = _fleetSO.GetHumanFleet()
         };
 
         InitAI(ref ai1);

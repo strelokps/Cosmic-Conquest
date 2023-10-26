@@ -6,7 +6,7 @@ using UnityEngine;
 public class ParentManager : MonoBehaviour
 {
     [SerializeField] private int id;
-    [SerializeField] private SceneMembersData _memberSceneDatasParent;
+    [SerializeField] public SceneMembersData _memberSceneDatasParent;
     [SerializeField] private List<ParametrPlanet_mono> _planetList;
     private Transform _parentTransform;
     private int numChild;
@@ -15,7 +15,6 @@ public class ParentManager : MonoBehaviour
 
     private void Start()
     {
-        
     }
 
     public void SetMembersSceneData(SceneMembersData locAISceneData)
@@ -31,14 +30,12 @@ public class ParentManager : MonoBehaviour
         {
             if (transform.GetChild(i).GetComponent<ParametrPlanet_mono>())
             {
-                print($"{_memberSceneDatasParent.nameMembers} : {_memberSceneDatasParent.colorMembers.ToHexString()}");
+                
                 var pl = _parentTransform.GetChild(i).GetComponent<ParametrPlanet_mono>();
                 _planetList.Add(pl);
-                pl.SetColorPlanet(_memberSceneDatasParent.colorMembers);
-                
+                pl.StartetConfig(_memberSceneDatasParent, transform);
             }
         }
-        print($"{_memberSceneDatasParent.nameMembers} : {_memberSceneDatasParent.colorMembers.ToHexString()}");
     }
 
     public void Show()
@@ -52,5 +49,6 @@ public class ParentManager : MonoBehaviour
         return _parentTransform.childCount;
     }
 
+    
     
 }

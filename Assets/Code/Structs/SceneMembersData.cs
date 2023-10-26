@@ -13,6 +13,7 @@ public struct SceneMembersData
     public int membersID;
     public Color colorMembers;
     public int lvlTech;
+    public GameObject prefabFleet;
 
     [Header("Team")]
     public List<SceneMembersData> friends;
