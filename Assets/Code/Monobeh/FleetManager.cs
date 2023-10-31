@@ -16,7 +16,8 @@ public class FleetManager : MonoBehaviour
     private int _numShipInFleet;
     [SerializeField] private int _attack;
     [SerializeField] private int _defence;
-
+    [SerializeField] private GameObject _ColorObjTest;
+    private Color _colorObj;
 
 
     private void Awake()
@@ -24,6 +25,7 @@ public class FleetManager : MonoBehaviour
         _attack = 0;
         _defence = 0;
         _numShipInFleet = 0;
+        _colorObj = _ColorObjTest.gameObject.GetComponent<Renderer>().material.color;
     }
 
     public void SetColorFleet(Color locColorFleet)
@@ -33,6 +35,9 @@ public class FleetManager : MonoBehaviour
         //_materialFleet_L.SetColor("_EmissionColor", locColorFleet * 1);
         _imageFleet_L.GetComponent<Image>().color = locColorFleet;
         _imageFleet_R.GetComponent<Image>().color = locColorFleet;
+        _colorObj = locColorFleet;
+        _colorObj.a = 20f;
+
     }
 
     public void AddNumShipInFleet(int locNumShip)
