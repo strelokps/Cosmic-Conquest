@@ -7,11 +7,10 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: HumanFleet
+  m_Name: AI4_fleet_material
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ValidKeywords:
   - _EMISSION
-  - _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
   m_InvalidKeywords: []
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
@@ -71,12 +70,12 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _SmoothnessTextureChannel: 1
+    - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.9622642, g: 0.9127575, b: 0.89417946, a: 1}
-    - _EmissionColor: {r: 0.010349083, g: 0.0012936353, b: 0.1649385, a: 1}
+    - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 0.21960784}
+    - _EmissionColor: {r: 0, g: 0.300508, b: 0.4764151, a: 1}
   m_BuildTextureStacks: []

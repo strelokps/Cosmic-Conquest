@@ -28,7 +28,7 @@ public class ParentManager : MonoBehaviour
 
         for (int i = 0; i < numChild; i++)
         {
-            if (transform.GetChild(i).GetComponent<ParametrPlanet_mono>())
+            if (transform.GetChild(i).GetComponent<ParametrPlanet_mono>() & gameObject.activeSelf)
             {
                 
                 var pl = _parentTransform.GetChild(i).GetComponent<ParametrPlanet_mono>();

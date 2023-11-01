@@ -5,11 +5,12 @@ using UnityEngine;
 
 public class ParametrPlanet_mono : MonoBehaviour 
 {
-    private int _idPlanet;
+    [SerializeField] private int _idPlanet;
     private int _lvlTechPlanet;
     [SerializeField] private Color _colorPlanet;
     [SerializeField] private SceneMembersData _memberSceneDatasParent;
     private Material _materialPlanet;
+    private Material _materialFleet;
     private MeshRenderer _meshRendererPlanet;
     private Transform _parentTransform;
     private ParentManager _parentManager;
@@ -24,9 +25,12 @@ public class ParametrPlanet_mono : MonoBehaviour
     [SerializeField] private GameObject _prefabFleet;
     private List<GameObject> _listDefenderPlanet = new List<GameObject>();
     private FleetManager _fleetManager = new FleetManager();
+    DataFleet locDataFleet = new DataFleet();
 
     //Test
-
+    private float _timer;
+    private float _tempTimer;
+    private int numShip;
 
     public int prop_IdPlanet
     {
@@ -53,29 +57,58 @@ public class ParametrPlanet_mono : MonoBehaviour
         {
             Debug.Log($"Not found MeshRenderer in gameObject {gameObject.name}  {prop_IdPlanet}");
         }
-        StartCoroutine("TestGenerationFleet");
+        
+
     }
 
-    //private void Update()
-    //{
+    private void Start()
+    {
+        //StartCoroutine("TestGenerationFleet");
+
+        _timer = 3f;
+        _tempTimer = 0;
+
+    }
+
+    private void Update()
+    {
+        _tempTimer += Time.deltaTime;
+        if (_tempTimer > _timer)
+        {
+            _tempTimer = 0;
+            numShip += 1;
+            
+            locDataFleet.attack = 2;
+            locDataFleet.defence = 10;
+            locDataFleet.colorFleet = _colorPlanet;
+            locDataFleet.volume = numShip;
+            GenerationFleet(locDataFleet);
+        }
+
+        print($"id: {_idPlanet}  color: {gameObject.GetComponent<MeshRenderer>().material.color}");
 
 
-    //}
+    }
 
     public void StartetConfig(SceneMembersData locMemberSceneDatasParent, Transform locParentTransform)
     {
         _memberSceneDatasParent = locMemberSceneDatasParent;
+        _idPlanet = _memberSceneDatasParent.membersID;
+        //_materialPlanet = locMemberSceneDatasParent.planet_Material;
         SetColorPlanet(locMemberSceneDatasParent.colorMembers);
+        print($"id: {locMemberSceneDatasParent.membersID}  color: {locMemberSceneDatasParent.colorMembers}");
+
         if (locMemberSceneDatasParent.prefabFleet != null)
             SetPrefabFleet(locMemberSceneDatasParent.prefabFleet);
+        _materialFleet = locMemberSceneDatasParent.fleet_Material;
         SetParentTransform(locParentTransform);
         _parentManager = _parentTransform.GetComponent<ParentManager>();
-        HashRefManagerFleet();
     }
 
     public void SetColorPlanet(Color locColorPlanet)
     {
         _colorPlanet = locColorPlanet;
+
         _materialPlanet.color = _colorPlanet;
         _materialPlanet.SetColor("_EmissionColor", locColorPlanet * 1);
     }
@@ -91,17 +124,29 @@ public class ParametrPlanet_mono : MonoBehaviour
         transform.SetParent(_parentTransform);
     }
 
-    private void GenerationFleet(structDataFleet locDataFleet, int numShip)
+    private void GenerationFleet(DataFleet locDataFleet)
     {
         if (_listDefenderPlanet.Count == 0 )
         {
-            var fl = Instantiate(_prefabFleet, _pointSpawnFleet.position, Quaternion.identity, _pointSpawnFleet);
+            var fl = Instantiate(_prefabFleet, _pointSpawnFleet.position, Quaternion.identity) as GameObject;
+            fl.transform.SetParent(_pointSpawnFleet);
             _listDefenderPlanet.Add(fl);
             if (fl.GetComponent<FleetManager>())
-                _fleetManager = _prefabFleet.GetComponent<FleetManager>();
+            {
+                fl.AddComponent<DataFleet>();
+                _fleetManager = fl.GetComponent<FleetManager>();
+                _fleetManager.ClearParamFleet();
+                _fleetManager.InitiateFleet(locDataFleet);
+                
+                // _fleetManager.SetColorFleet(_colorPlanet, _memberSceneDatasParent.membersID);
+                print($" ID = ID {_parentTransform.GetComponent<ParentManager>().prop_id} ");
+
+            }
 
 
-            _fleetManager?.AddNumShipInFleet(numShip);
+
+
+                    _fleetManager?.AddNumShipInFleet(numShip);
             _fleetManager?.AddAttackAndDefence(locDataFleet);
             Debug.Log($"create Fleet");
 
@@ -110,6 +155,7 @@ public class ParametrPlanet_mono : MonoBehaviour
         {
             if (_listDefenderPlanet.Count != 0)
             {
+                //test
                 Debug.Log($"else create Fleet");
                 _fleetManager?.AddNumShipInFleet( numShip);
                 _fleetManager?.AddAttackAndDefence(locDataFleet);
@@ -117,22 +163,20 @@ public class ParametrPlanet_mono : MonoBehaviour
         }
     }
 
-    IEnumerator TestGenerationFleet()
-    {
-        // Test *************************************************************************
-        structDataFleet locDataFleet;
-        var numShip = 1;
-        locDataFleet.attack = 2;
-        locDataFleet.defence = 10;
-        yield return new WaitForSeconds(2f);
-        GenerationFleet(locDataFleet, numShip);
-        yield return new WaitForSeconds(4f);
-        StartCoroutine("TestGenerationFleet");
-    }
+    //IEnumerator TestGenerationFleet()
+    //{
+    //    // Test *************************************************************************
+    //    DataFleet locDataFleet;
+    //    var numShip = 1;
+    //    locDataFleet.attack = 2;
+    //    locDataFleet.defence = 10;
+    //    yield return new WaitForSeconds(2f);
+    //    GenerationFleet(locDataFleet, numShip, _memberSceneDatasParent.membersID);
+    //    yield return new WaitForSeconds(4f);
+    //    StartCoroutine("TestGenerationFleet");
+    //}
 
-    private void HashRefManagerFleet()
-    {
-        
-    }
+    
+
 
 }

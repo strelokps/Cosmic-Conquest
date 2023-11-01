@@ -27,3 +27,15 @@ MonoBehaviour:
   - Helix
   - Neo
   - Rogue
+  _material_AI1_planet: {fileID: 2100000, guid: ed0a828d1f421684593ed8305582d0f7, type: 2}
+  _material_AI1_fleet: {fileID: 2100000, guid: a0b299af997438c499eed5ef09aa62ce, type: 2}
+  _material_AI2_planet: {fileID: 2100000, guid: e7b9b4efaed3af941bea1d84eed07a90, type: 2}
+  _material_AI2_fleet: {fileID: 2100000, guid: 945887db7407d4b4698889fb09c685b8, type: 2}
+  _material_AI3_planet: {fileID: 2100000, guid: 79a10fa757c2a1843a56a7597c0084be, type: 2}
+  _material_AI3_fleet: {fileID: 2100000, guid: 50be2b02e85f51745847a724e9c1f8fc, type: 2}
+  _material_AI4_planet: {fileID: 2100000, guid: 7054f1013dbec424f9b34f5810e37cf7, type: 2}
+  _material_AI4_fleet: {fileID: 2100000, guid: 67a3d8cbe2162784eabe87552d9b94f4, type: 2}
+  _material_Neutral_planet: {fileID: 2100000, guid: 46a02c2f07c61684892d29f0a33c622a, type: 2}
+  _material_Neutral_fleet: {fileID: 2100000, guid: cf4d4381e3d7bbd4392c0ae24218986d, type: 2}
+  _material_Player_planet: {fileID: 2100000, guid: 7a893257ba7e7fa4d916eae93144164b, type: 2}
+  _material_Player_fleet: {fileID: 2100000, guid: e8bf62977efd7254badf1919395a49dd, type: 2}

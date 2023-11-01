@@ -13,7 +13,12 @@ public struct SceneMembersData
     public int membersID;
     public Color colorMembers;
     public int lvlTech;
+    public Material planet_Material;
+
+    [Header("Fleet")]
     public GameObject prefabFleet;
+    public Material fleet_Material;
+
 
     [Header("Team")]
     public List<SceneMembersData> friends;

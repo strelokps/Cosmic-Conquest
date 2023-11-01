@@ -49,11 +49,12 @@ public class SceneManager : MonoBehaviour
                 {
                     var tr = indexTransform.GetComponent<ParentManager>();
                     
-                    // AI
+                    // AI + Player
                     if (indexMembers.membersID == tr.prop_id)
                     {
                         tr.SetMembersSceneData(indexMembers);
                         //tr.Show();
+                        //print($"id: {indexMembers.membersID}  color: {indexMembers.colorMembers}");
                     }
                     
                     //player 

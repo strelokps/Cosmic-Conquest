@@ -20,15 +20,10 @@ public class SceneParametrsSO : ScriptableObject
         get => _listAISceneData;
     }
 
-    [SerializeField] private Color _color1;
-    [SerializeField] private Color _color2;
-    [SerializeField] private Color _color3;
-    [SerializeField] private Color _color4;
 
-    public Color prop_color1 => _color1;
-    public Color prop_color2 => _color2;
-    public Color prop_color3 => _color3;
-    public Color prop_color4 => _color4;
+
+
+
 
 
     public SceneParametrsSO()
@@ -49,7 +44,9 @@ public class SceneParametrsSO : ScriptableObject
             colorMembers = Color.red,
             membersID = 0,
             lvlTech = 0,
-            prefabFleet = _fleetSO.GetProtosFleet()
+            prefabFleet = _fleetSO.GetProtosFleet(),
+            planet_Material = _generalConfig.prop_material_AI1_Planet,
+            fleet_Material = _generalConfig.prop_material_AI1_Fleet
         };
         SceneMembersData ai2 = new SceneMembersData 
         { 
@@ -57,7 +54,9 @@ public class SceneParametrsSO : ScriptableObject
             colorMembers = Color.green, 
             membersID = 1, 
             lvlTech = 0,
-            prefabFleet = _fleetSO.GetProtosFleet()
+            prefabFleet = _fleetSO.GetProtosFleet(),
+            planet_Material = _generalConfig.prop_material_AI2_Planet,
+            fleet_Material = _generalConfig.prop_material_AI2_Fleet
         };
         SceneMembersData ai3 = new SceneMembersData
         {
@@ -65,7 +64,9 @@ public class SceneParametrsSO : ScriptableObject
             colorMembers = Color.yellow,
             membersID = 2,
             lvlTech = 0,
-            prefabFleet = _fleetSO.GetProtosFleet()
+            prefabFleet = _fleetSO.GetProtosFleet(),
+            planet_Material = _generalConfig.prop_material_AI3_Planet,
+            fleet_Material = _generalConfig.prop_material_AI3_Fleet
         };
         SceneMembersData neutral1 = new SceneMembersData 
         { 
@@ -73,7 +74,9 @@ public class SceneParametrsSO : ScriptableObject
             colorMembers = Color.gray, 
             membersID = 100, 
             lvlTech = 0,
-            prefabFleet = _fleetSO.GetUFOFleet()
+            prefabFleet = _fleetSO.GetUFOFleet(),
+            planet_Material = _generalConfig.prop_material_Neutral_Planet,
+            fleet_Material = _generalConfig.prop_material_Neutral_Fleet
         };
         SceneMembersData player = new SceneMembersData 
         { 
@@ -81,7 +84,9 @@ public class SceneParametrsSO : ScriptableObject
             colorMembers = _generalConfig.colorPlayer, 
             membersID = _generalConfig.playerID, 
             lvlTech = _generalConfig._lvlTechPlayer,
-            prefabFleet = _fleetSO.GetHumanFleet()
+            prefabFleet = _fleetSO.GetHumanFleet(),
+            planet_Material = _generalConfig.prop_material_Player_Planet,
+            fleet_Material = _generalConfig.prop_material_Player_Fleet
         };
 
         InitAI(ref ai1);

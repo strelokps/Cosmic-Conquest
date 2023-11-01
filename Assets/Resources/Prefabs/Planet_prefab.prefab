@@ -95,7 +95,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 46a02c2f07c61684892d29f0a33c622a, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -146,3 +146,4 @@ MonoBehaviour:
   selfTransform: {fileID: 0}
   timerGenSolarium: 0
   _pointSpawnFleet: {fileID: 1254257694260417280}
+  _prefabFleet: {fileID: 0}
