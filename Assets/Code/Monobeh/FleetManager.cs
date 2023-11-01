@@ -99,11 +99,13 @@ public class FleetManager : MonoBehaviour
         DisplayAttackAndDefenceFleet();
     }
 
-    public void InitiateFleet(DataFleet locDataFleet)
+    public void InitiateFleet(DataFleet locDataFleet, Material locMaterial)
     {
         _dataFleet = new DataFleet();
         _dataFleet = locDataFleet;
         _dataFleet.attack = 12;
         _imageFleet_R.GetComponent<Image>().color = _dataFleet.colorFleet;
+        _imageFleet_R.GetComponent<Image>().material = locMaterial;
+        _imageFleet_R.GetComponent<Image>().material.SetColor("_EmissionColor", locDataFleet.colorFleet * 1);
     }
 }

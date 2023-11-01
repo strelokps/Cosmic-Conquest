@@ -136,7 +136,7 @@ public class ParametrPlanet_mono : MonoBehaviour
                 //fl.AddComponent<DataFleet>();
                 _fleetManager = fl.GetComponent<FleetManager>();
                 _fleetManager.ClearParamFleet();
-                _fleetManager.InitiateFleet(locDataFleet);
+                _fleetManager.InitiateFleet(locDataFleet, _materialPlanet);
                 
                 // _fleetManager.SetColorFleet(_colorPlanet, _memberSceneDatasParent.membersID);
                 print($" ID = ID {_parentTransform.GetComponent<ParentManager>().prop_id} ");
