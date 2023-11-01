@@ -76,7 +76,7 @@ public class ParametrPlanet_mono : MonoBehaviour
         if (_tempTimer > _timer)
         {
             _tempTimer = 0;
-            numShip += 1;
+            numShip = 1;
             
             locDataFleet.attack = 2;
             locDataFleet.defence = 10;
@@ -133,7 +133,7 @@ public class ParametrPlanet_mono : MonoBehaviour
             _listDefenderPlanet.Add(fl);
             if (fl.GetComponent<FleetManager>())
             {
-                fl.AddComponent<DataFleet>();
+                //fl.AddComponent<DataFleet>();
                 _fleetManager = fl.GetComponent<FleetManager>();
                 _fleetManager.ClearParamFleet();
                 _fleetManager.InitiateFleet(locDataFleet);
@@ -146,7 +146,7 @@ public class ParametrPlanet_mono : MonoBehaviour
 
 
 
-                    _fleetManager?.AddNumShipInFleet(numShip);
+                    _fleetManager?.AddNumShipInFleet(locDataFleet.volume);
             _fleetManager?.AddAttackAndDefence(locDataFleet);
             Debug.Log($"create Fleet");
 

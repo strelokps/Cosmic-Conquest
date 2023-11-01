@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DataFleet :MonoBehaviour
+public struct DataFleet
 {
     public int attack;
     public int defence;

@@ -102,7 +102,6 @@ public class FleetManager : MonoBehaviour
     public void InitiateFleet(DataFleet locDataFleet)
     {
         _dataFleet = new DataFleet();
-        _dataFleet = transform.GetComponent<DataFleet>();
         _dataFleet = locDataFleet;
         _dataFleet.attack = 12;
         _imageFleet_R.GetComponent<Image>().color = _dataFleet.colorFleet;
