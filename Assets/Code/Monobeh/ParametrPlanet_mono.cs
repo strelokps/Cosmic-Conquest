@@ -85,7 +85,6 @@ public class ParametrPlanet_mono : MonoBehaviour
             GenerationFleet(locDataFleet);
         }
 
-        print($"id: {_idPlanet}  color: {gameObject.GetComponent<MeshRenderer>().material.color}");
 
 
     }
@@ -96,7 +95,6 @@ public class ParametrPlanet_mono : MonoBehaviour
         _idPlanet = _memberSceneDatasParent.membersID;
         //_materialPlanet = locMemberSceneDatasParent.planet_Material;
         SetColorPlanet(locMemberSceneDatasParent.colorMembers);
-        print($"id: {locMemberSceneDatasParent.membersID}  color: {locMemberSceneDatasParent.colorMembers}");
 
         if (locMemberSceneDatasParent.prefabFleet != null)
             SetPrefabFleet(locMemberSceneDatasParent.prefabFleet);
@@ -108,9 +106,10 @@ public class ParametrPlanet_mono : MonoBehaviour
     public void SetColorPlanet(Color locColorPlanet)
     {
         _colorPlanet = locColorPlanet;
-
+        if (gameObject.GetComponent<Material>())
+            _materialPlanet = new Material(gameObject.GetComponent<Material>());
         _materialPlanet.color = _colorPlanet;
-        _materialPlanet.SetColor("_EmissionColor", locColorPlanet * 1);
+        _materialPlanet.SetColor("_EmissionColor", locColorPlanet * (0.85f));
     }
 
     public void SetPrefabFleet(GameObject locPrefabFleet)
@@ -135,11 +134,10 @@ public class ParametrPlanet_mono : MonoBehaviour
             {
                 //fl.AddComponent<DataFleet>();
                 _fleetManager = fl.GetComponent<FleetManager>();
-                _fleetManager.ClearParamFleet();
+                _fleetManager.ClearParamFleetAndDisplay();
                 _fleetManager.InitiateFleet(locDataFleet, _materialPlanet);
                 
                 // _fleetManager.SetColorFleet(_colorPlanet, _memberSceneDatasParent.membersID);
-                print($" ID = ID {_parentTransform.GetComponent<ParentManager>().prop_id} ");
 
             }
 
@@ -148,7 +146,6 @@ public class ParametrPlanet_mono : MonoBehaviour
 
                     _fleetManager?.AddNumShipInFleet(locDataFleet.volume);
             _fleetManager?.AddAttackAndDefence(locDataFleet);
-            Debug.Log($"create Fleet");
 
         }
         else 

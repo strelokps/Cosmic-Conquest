@@ -17,6 +17,7 @@ public class FleetManager : MonoBehaviour
     [SerializeField] private int _attack;
     [SerializeField] private int _defence;
     private DataFleet _dataFleet ;
+    [SerializeField] private List<DataFleet> _dataFleetList = new List<DataFleet>();
 
 
 
@@ -28,32 +29,7 @@ public class FleetManager : MonoBehaviour
        // _colorFon = _ColorObjTest.gameObject.GetComponent<Renderer>().material.color;
     }
 
-    public void SetColorFleet(Color locColorFleet, int locID)
-    {
-
-
-
-        _imageFleet_R.GetComponent<Image>().color = new Color(locColorFleet.r, locColorFleet.g, locColorFleet.b, locColorFleet.a);
-
-        var i = 0;
-        var trans = transform;
-        while (i <= 5)
-        {//The counter in not really needed because there will at some point be no more parents.
-            if (trans.root != null)
-            {
-                trans = trans.root;//
-                i++;
-            }
-            else
-            {
-                i = 6;//End the loop when we find the root
-            }
-        }
-
-        print($"id fleet: {locID}   par {trans.name} color: {locColorFleet}  Image{_imageFleet_R.GetComponent<Image>().color}");
-
-
-    }
+    
 
     public void AddNumShipInFleet(int locNumShip)
     {
@@ -69,43 +45,57 @@ public class FleetManager : MonoBehaviour
 
     public void AddAttackAndDefence(DataFleet locDatafleet)
     {
-        _attack += locDatafleet.attack;
-        _defence += locDatafleet.defence;
+        _dataFleetList.Add(locDatafleet);
+        //_attack += locDatafleet.attack;
+        //_defence += locDatafleet.defence;
         DisplayAttackAndDefenceFleet();
     }
 
     public void RemoveAttackAndDefence(DataFleet locDatafleet)
     {
-        _attack -= locDatafleet.attack;
-        _defence -= locDatafleet.defence;
+        //_attack -= locDatafleet.attack;
+        //_defence -= locDatafleet.defence;
         DisplayAttackAndDefenceFleet();
     }
 
     private void DisplayNumShipInFleet(int locNumShipToText)
     {
-        _textNumShipInFleet.text = locNumShipToText.ToString();
+        _textNumShipInFleet.text = _dataFleetList.Count.ToString();
     }
 
     private void DisplayAttackAndDefenceFleet()
     {
+        ClearParamFleetAnd();
+        foreach (var idx in _dataFleetList)
+        {
+            _attack += idx.attack;
+            _defence += idx.defence;
+        }
         _attackShipInFleetText.text = _attack.ToString();
         _defenceShipInFleetText.text = _defence.ToString();
     }
 
-    public void ClearParamFleet()
+    public void ClearParamFleetAndDisplay()
+    {
+        ClearParamFleetAnd();
+        DisplayAttackAndDefenceFleet();
+    }
+
+    public void ClearParamFleetAnd()
     {
         _attack = 0;
         _defence = 0;
-        DisplayAttackAndDefenceFleet();
     }
 
     public void InitiateFleet(DataFleet locDataFleet, Material locMaterial)
     {
+        _dataFleetList = new List<DataFleet>{new DataFleet() { attack = 0, defence = 0} };
+
         _dataFleet = new DataFleet();
         _dataFleet = locDataFleet;
-        _dataFleet.attack = 12;
-        _imageFleet_R.GetComponent<Image>().color = _dataFleet.colorFleet;
-        _imageFleet_R.GetComponent<Image>().material = locMaterial;
-        _imageFleet_R.GetComponent<Image>().material.SetColor("_EmissionColor", locDataFleet.colorFleet * 1);
+        Color locColor = new Color(locDataFleet.colorFleet.r, locDataFleet.colorFleet.g, locDataFleet.colorFleet.r, 1f);
+        _imageFleet_R.GetComponent<Image>().color = locColor;
+        _imageFleet_R.GetComponent<Image>().material = new Material(locMaterial) ;
+        _imageFleet_R.GetComponent<Image>().material.SetColor("_EmissionColor", locDataFleet.colorFleet * 1.9f);
     }
 }
