@@ -19,13 +19,6 @@ public class SceneParametrsSO : ScriptableObject
     {
         get => _listAISceneData;
     }
-
-
-
-
-
-
-
     public SceneParametrsSO()
     {
     }
@@ -88,7 +81,6 @@ public class SceneParametrsSO : ScriptableObject
             prefabFleet = _fleetSO.GetHumanFleet(),
             planet_Material = _generalConfig.prop_material_Player_Planet,
             fleet_Material = _generalConfig.prop_material_Player_Fleet,
-            tagForSelfIdentification = "player_" + _generalConfig.colorPlayer.ToString(),
             flagPlayer = true
         };
 

@@ -61,7 +61,7 @@ public class SceneManager : MonoBehaviour
                         }
                         else
                         {
-                            indexTransform.tag = indexMembers.tagForSelfIdentification;
+                            indexTransform.tag = "Player";
                         }
 
                     }

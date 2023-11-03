@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _major: 0
   _minor: 1
-  _build: 496
+  _buildMinor: 4
+  _build: 504
   _patch: 0

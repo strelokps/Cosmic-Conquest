@@ -15,7 +15,6 @@ public struct SceneMembersData
     public Color colorMembers;
     public int lvlTech;
     public Material planet_Material;
-    public String tagForSelfIdentification;
     public bool flagPlayer;
     public bool flagNeutral;
 
