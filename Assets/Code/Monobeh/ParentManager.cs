@@ -13,9 +13,7 @@ public class ParentManager : MonoBehaviour
 
     public int prop_id { get => id; }
 
-    private void Start()
-    {
-    }
+
 
     public void SetMembersSceneData(SceneMembersData locAISceneData)
     {

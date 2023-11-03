@@ -41,8 +41,10 @@ public class SceneManager : MonoBehaviour
     //Проверяем id из SO и сопоставляем с id из парентов, после нахохждения соответствия, перекидываем ссылку с параметрами в скрипт парента
     private void CheckID(List<SceneMembersData> locSceneMembersDatas, List<Transform> locListTransforms)
     {
+        //все участники сцены _allMembersParentTransforms
         foreach (var indexMembers in locSceneMembersDatas)
         {
+            //все parent объекты сцены, который руками подгрузили в 
             foreach (var indexTransform in locListTransforms)
             {
                 if (indexTransform.GetComponent<ParentManager>())
@@ -53,18 +55,16 @@ public class SceneManager : MonoBehaviour
                     if (indexMembers.membersID == tr.prop_id)
                     {
                         tr.SetMembersSceneData(indexMembers);
-                        //tr.Show();
-                        //print($"id: {indexMembers.membersID}  color: {indexMembers.colorMembers}");
+                        if (!indexMembers.flagPlayer & !indexMembers.flagNeutral)
+                        {
+                            indexTransform.AddComponent<AI_logic>();
+                        }
+                        else
+                        {
+                            indexTransform.tag = indexMembers.tagForSelfIdentification;
+                        }
+
                     }
-                    
-                    //player 
-
-                    //if (tr.prop_id == _generalConfig.playerID)
-                    //{
-                    //    tr.SetMembersSceneData(_generalConfig.SetPlayerData());
-                    //    //tr.Show();
-
-                    //}
 
                 }
                 else

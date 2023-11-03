@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3269823859884917844}
   - component: {fileID: 8050486063892730057}
   - component: {fileID: 1088277988314874257}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.122_big_shapes_01_RetopoGroup1.129_big_shapes_01_RetopoGroup1.122_big_shapes_01_RetopoGroup1.129
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 4315019737819576241}
   - component: {fileID: 5820220840702088771}
   - component: {fileID: 8006191164652067285}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.025_big_shapes_01_RetopoGroup1.025
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 967894579959053965}
   - component: {fileID: 7337877244393716547}
   - component: {fileID: 9076452742038586850}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.017_big_shapes_01_RetopoGroup1.145_big_shapes_01_RetopoGroup1.017_big_shapes_01_RetopoGroup1.145
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +260,7 @@ GameObject:
   - component: {fileID: 3273555077541532395}
   - component: {fileID: 8589658694953489668}
   - component: {fileID: 3702573290322896788}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.117_big_shapes_01_RetopoGroup1.124_big_shapes_01_RetopoGroup1.117_big_shapes_01_RetopoGroup1.124
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -343,7 +343,7 @@ GameObject:
   - component: {fileID: 2417314636003185851}
   - component: {fileID: 6678689521558243625}
   - component: {fileID: 8769276119557974469}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.037_big_shapes_01_RetopoGroup1.038_big_shapes_01_RetopoGroup1.037_big_shapes_01_RetopoGroup1.038
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -426,7 +426,7 @@ GameObject:
   - component: {fileID: 5285812133534185009}
   - component: {fileID: 1045219968020416671}
   - component: {fileID: 5876196552988762533}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.101_big_shapes_01_RetopoGroup1.108_big_shapes_01_RetopoGroup1.101_big_shapes_01_RetopoGroup1.108
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -509,7 +509,7 @@ GameObject:
   - component: {fileID: 3192592737500406126}
   - component: {fileID: 3767914062511543657}
   - component: {fileID: 4720335959460271759}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.003_big_shapes_01_RetopoGroup1.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -592,7 +592,7 @@ GameObject:
   - component: {fileID: 7491994874623565891}
   - component: {fileID: 5777536468338334650}
   - component: {fileID: 1073533059470007968}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.002_big_shapes_01_RetopoGroup1.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -675,7 +675,7 @@ GameObject:
   - component: {fileID: 1867968727031275845}
   - component: {fileID: 457055703656534753}
   - component: {fileID: 6548310568291845205}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.013_big_shapes_01_RetopoGroup1.013
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -758,7 +758,7 @@ GameObject:
   - component: {fileID: 7632411068042173271}
   - component: {fileID: 6218780762785813857}
   - component: {fileID: 4494801155447861703}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.036_big_shapes_01_RetopoGroup1.037_big_shapes_01_RetopoGroup1.036_big_shapes_01_RetopoGroup1.037
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -841,7 +841,7 @@ GameObject:
   - component: {fileID: 7571380643833870044}
   - component: {fileID: 4355831301112706140}
   - component: {fileID: 153525984454157087}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NumShipInFleetText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -976,7 +976,7 @@ GameObject:
   - component: {fileID: 7544586689565223996}
   - component: {fileID: 2841538664322959034}
   - component: {fileID: 8704405471124751940}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.130_big_shapes_01_RetopoGroup1.137_big_shapes_01_RetopoGroup1.130_big_shapes_01_RetopoGroup1.137
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1059,7 +1059,7 @@ GameObject:
   - component: {fileID: 6364825247643219689}
   - component: {fileID: 8735802522859604419}
   - component: {fileID: 8220740388695405256}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.033_big_shapes_01_RetopoGroup1.003_big_shapes_01_RetopoGroup1.033_big_shapes_01_RetopoGroup1.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1142,7 +1142,7 @@ GameObject:
   - component: {fileID: 257922949375925490}
   - component: {fileID: 5971761176286357477}
   - component: {fileID: 8732273001072282707}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.126_big_shapes_01_RetopoGroup1.133_big_shapes_01_RetopoGroup1.126_big_shapes_01_RetopoGroup1.133
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1225,7 +1225,7 @@ GameObject:
   - component: {fileID: 7972471643991282703}
   - component: {fileID: 1691430144901910534}
   - component: {fileID: 1901129877160218366}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.006_big_shapes_01_RetopoGroup1.010
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1307,7 +1307,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1166110105535072596}
   - component: {fileID: 5057684351103348817}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Neutral_spaceship
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1365,7 +1365,7 @@ GameObject:
   - component: {fileID: 137932230078547184}
   - component: {fileID: 1066934652437533678}
   - component: {fileID: 2208155442142395677}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.046_big_shapes_01_RetopoGroup1.047_big_shapes_01_RetopoGroup1.046_big_shapes_01_RetopoGroup1.047
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1448,7 +1448,7 @@ GameObject:
   - component: {fileID: 8680009002206121617}
   - component: {fileID: 8779778344398629250}
   - component: {fileID: 8389535021086379128}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.010_big_shapes_01_RetopoGroup1.018
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1531,7 +1531,7 @@ GameObject:
   - component: {fileID: 5764148248819757059}
   - component: {fileID: 7772492954863826456}
   - component: {fileID: 4549986734748713701}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.045_big_shapes_01_RetopoGroup1.046_big_shapes_01_RetopoGroup1.045_big_shapes_01_RetopoGroup1.046
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1614,7 +1614,7 @@ GameObject:
   - component: {fileID: 4219851707827152844}
   - component: {fileID: 1905739217673107954}
   - component: {fileID: 5418544288048368872}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.023_big_shapes_01_RetopoGroup1.023
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1697,7 +1697,7 @@ GameObject:
   - component: {fileID: 3334551538975829103}
   - component: {fileID: 7594994942386548573}
   - component: {fileID: 8169979803043493548}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.121_big_shapes_01_RetopoGroup1.128_big_shapes_01_RetopoGroup1.121_big_shapes_01_RetopoGroup1.128
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1780,7 +1780,7 @@ GameObject:
   - component: {fileID: 6724297620258726584}
   - component: {fileID: 2644053981118023056}
   - component: {fileID: 2895219836793268795}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.024_big_shapes_01_RetopoGroup1.024
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1861,7 +1861,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1470674138789025220}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ListComponent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1971,7 +1971,7 @@ GameObject:
   - component: {fileID: 5578114148974340274}
   - component: {fileID: 1973109230365254948}
   - component: {fileID: 4853076077639774485}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.132_big_shapes_01_RetopoGroup1.139_big_shapes_01_RetopoGroup1.132_big_shapes_01_RetopoGroup1.139
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2054,7 +2054,7 @@ GameObject:
   - component: {fileID: 5131009571315380223}
   - component: {fileID: 1339120631251592070}
   - component: {fileID: 6343404246910068106}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.128_big_shapes_01_RetopoGroup1.135_big_shapes_01_RetopoGroup1.128_big_shapes_01_RetopoGroup1.135
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2137,7 +2137,7 @@ GameObject:
   - component: {fileID: 3420565473257354908}
   - component: {fileID: 4367339036669860946}
   - component: {fileID: 3155661211326291761}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.109_big_shapes_01_RetopoGroup1.116_big_shapes_01_RetopoGroup1.109_big_shapes_01_RetopoGroup1.116
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2220,7 +2220,7 @@ GameObject:
   - component: {fileID: 5667337567854775379}
   - component: {fileID: 8985550025871649947}
   - component: {fileID: 7396220183580752066}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Defence (Text)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2355,7 +2355,7 @@ GameObject:
   - component: {fileID: 6533778155713837759}
   - component: {fileID: 578530649297103563}
   - component: {fileID: 6084959944275742173}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.005_big_shapes_01_RetopoGroup1.035
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2438,7 +2438,7 @@ GameObject:
   - component: {fileID: 6899914746401805704}
   - component: {fileID: 1970800759592838719}
   - component: {fileID: 7094594425196836646}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.007_big_shapes_01_RetopoGroup1.142_big_shapes_01_RetopoGroup1.007_big_shapes_01_RetopoGroup1.142
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2521,7 +2521,7 @@ GameObject:
   - component: {fileID: 2199853596827843776}
   - component: {fileID: 8611854390229099}
   - component: {fileID: 1286576379412584989}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.047_big_shapes_01_RetopoGroup1.048_big_shapes_01_RetopoGroup1.047_big_shapes_01_RetopoGroup1.048
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2604,7 +2604,7 @@ GameObject:
   - component: {fileID: 8797377856544348181}
   - component: {fileID: 5787474209096481642}
   - component: {fileID: 2904008951211245917}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.111_big_shapes_01_RetopoGroup1.118_big_shapes_01_RetopoGroup1.111_big_shapes_01_RetopoGroup1.118
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2687,7 +2687,7 @@ GameObject:
   - component: {fileID: 2915931632387848154}
   - component: {fileID: 7538484611578986693}
   - component: {fileID: 9012924572347997159}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.000_big_shapes_01_RetopoGroup1.000
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2770,7 +2770,7 @@ GameObject:
   - component: {fileID: 743992728165723181}
   - component: {fileID: 254340905593234615}
   - component: {fileID: 5978279228700653823}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AttackShipImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2846,7 +2846,7 @@ GameObject:
   - component: {fileID: 8617181706146866137}
   - component: {fileID: 6744656512579615946}
   - component: {fileID: 7082382708773619048}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.129_big_shapes_01_RetopoGroup1.136_big_shapes_01_RetopoGroup1.129_big_shapes_01_RetopoGroup1.136
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2929,7 +2929,7 @@ GameObject:
   - component: {fileID: 3956982195887131310}
   - component: {fileID: 7873006465453509542}
   - component: {fileID: 5715040743832834413}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.101_big_shapes_01_RetopoGroup1.000_big_shapes_01_RetopoGroup1.101_big_shapes_01_RetopoGroup1.000
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3012,7 +3012,7 @@ GameObject:
   - component: {fileID: 8913428291313229084}
   - component: {fileID: 117510862793559233}
   - component: {fileID: 4543729489604671397}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DisplayDefenceShipImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3089,7 +3089,7 @@ GameObject:
   - component: {fileID: 827459790394105808}
   - component: {fileID: 1208415208043697355}
   - component: {fileID: 8858992807602400555}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.005_big_shapes_01_RetopoGroup1.140_big_shapes_01_RetopoGroup1.005_big_shapes_01_RetopoGroup1.140
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3172,7 +3172,7 @@ GameObject:
   - component: {fileID: 8771006824693741983}
   - component: {fileID: 8888404006749147007}
   - component: {fileID: 2146391755703117538}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.112_big_shapes_01_RetopoGroup1.119_big_shapes_01_RetopoGroup1.112_big_shapes_01_RetopoGroup1.119
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3255,7 +3255,7 @@ GameObject:
   - component: {fileID: 5073647820833288867}
   - component: {fileID: 8057369798200040496}
   - component: {fileID: 4128528391013992548}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.009_big_shapes_01_RetopoGroup1.009
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3338,7 +3338,7 @@ GameObject:
   - component: {fileID: 4919159561686765427}
   - component: {fileID: 5562784291151203619}
   - component: {fileID: 3393745002517817739}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.014_big_shapes_01_RetopoGroup1.014
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3421,7 +3421,7 @@ GameObject:
   - component: {fileID: 2988028670457405070}
   - component: {fileID: 6312884467711623488}
   - component: {fileID: 3866467527044292287}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.042_big_shapes_01_RetopoGroup1.043_big_shapes_01_RetopoGroup1.042_big_shapes_01_RetopoGroup1.043
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3504,7 +3504,7 @@ GameObject:
   - component: {fileID: 1272419076848119173}
   - component: {fileID: 7611409196527267666}
   - component: {fileID: 5807534597001240858}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.040_big_shapes_01_RetopoGroup1.153_big_shapes_01_RetopoGroup1.040_big_shapes_01_RetopoGroup1.153
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3587,7 +3587,7 @@ GameObject:
   - component: {fileID: 8780208246906670174}
   - component: {fileID: 8305137341555574256}
   - component: {fileID: 7708332910933656867}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.027_big_shapes_01_RetopoGroup1.150_big_shapes_01_RetopoGroup1.027_big_shapes_01_RetopoGroup1.150
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3670,7 +3670,7 @@ GameObject:
   - component: {fileID: 426873869683662611}
   - component: {fileID: 5161358357488517083}
   - component: {fileID: 8770751792748648991}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.007_big_shapes_01_RetopoGroup1.094
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3753,7 +3753,7 @@ GameObject:
   - component: {fileID: 4269120654890041691}
   - component: {fileID: 1166240545861416590}
   - component: {fileID: 4866183061782108476}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.120_big_shapes_01_RetopoGroup1.127_big_shapes_01_RetopoGroup1.120_big_shapes_01_RetopoGroup1.127
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3836,7 +3836,7 @@ GameObject:
   - component: {fileID: 8589297171450731680}
   - component: {fileID: 1552456911636501976}
   - component: {fileID: 4361146447982787719}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.032_big_shapes_01_RetopoGroup1.032
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3919,7 +3919,7 @@ GameObject:
   - component: {fileID: 5181390712745074902}
   - component: {fileID: 5052250547712973564}
   - component: {fileID: 1341072497607344534}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.044_big_shapes_01_RetopoGroup1.045_big_shapes_01_RetopoGroup1.044_big_shapes_01_RetopoGroup1.045
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4002,7 +4002,7 @@ GameObject:
   - component: {fileID: 8106871429246466309}
   - component: {fileID: 7049341775801490567}
   - component: {fileID: 4502801298072426413}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.020_big_shapes_01_RetopoGroup1.020
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4085,7 +4085,7 @@ GameObject:
   - component: {fileID: 3339589546734270019}
   - component: {fileID: 985802532869031510}
   - component: {fileID: 6067241509044887274}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DefenceShipImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4161,7 +4161,7 @@ GameObject:
   - component: {fileID: 5580482574370559248}
   - component: {fileID: 5131936002076131810}
   - component: {fileID: 8686708383372431628}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.018_big_shapes_01_RetopoGroup1.146_big_shapes_01_RetopoGroup1.018_big_shapes_01_RetopoGroup1.146
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4244,7 +4244,7 @@ GameObject:
   - component: {fileID: 2654356503391568822}
   - component: {fileID: 9071525863357198974}
   - component: {fileID: 5599977128362765742}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.043_big_shapes_01_RetopoGroup1.044_big_shapes_01_RetopoGroup1.043_big_shapes_01_RetopoGroup1.044
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4327,7 +4327,7 @@ GameObject:
   - component: {fileID: 1766484244057196154}
   - component: {fileID: 8692887600620760397}
   - component: {fileID: 3402533129889248909}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.106_big_shapes_01_RetopoGroup1.113_big_shapes_01_RetopoGroup1.106_big_shapes_01_RetopoGroup1.113
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4408,7 +4408,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3903818792090448341}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PointToFire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4441,7 +4441,7 @@ GameObject:
   - component: {fileID: 8581871645911999549}
   - component: {fileID: 3633867423976755628}
   - component: {fileID: 2537899136468804386}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.113_big_shapes_01_RetopoGroup1.120_big_shapes_01_RetopoGroup1.113_big_shapes_01_RetopoGroup1.120
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4524,7 +4524,7 @@ GameObject:
   - component: {fileID: 1592017302136885100}
   - component: {fileID: 4992469691061910808}
   - component: {fileID: 3326732561713522398}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.110_big_shapes_01_RetopoGroup1.117_big_shapes_01_RetopoGroup1.110_big_shapes_01_RetopoGroup1.117
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4607,7 +4607,7 @@ GameObject:
   - component: {fileID: 7909430215676487556}
   - component: {fileID: 8785423425152437287}
   - component: {fileID: 8770452175159826466}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.001_big_shapes_01_RetopoGroup1.034
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4690,7 +4690,7 @@ GameObject:
   - component: {fileID: 3175345049753836359}
   - component: {fileID: 8651409520681780660}
   - component: {fileID: 5951207851707259741}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.019_big_shapes_01_RetopoGroup1.147_big_shapes_01_RetopoGroup1.019_big_shapes_01_RetopoGroup1.147
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4773,7 +4773,7 @@ GameObject:
   - component: {fileID: 4404332019308656841}
   - component: {fileID: 4772528300955005663}
   - component: {fileID: 4797099725507658693}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.105_big_shapes_01_RetopoGroup1.112_big_shapes_01_RetopoGroup1.105_big_shapes_01_RetopoGroup1.112
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4856,7 +4856,7 @@ GameObject:
   - component: {fileID: 7216729878329205064}
   - component: {fileID: 7174083874076777521}
   - component: {fileID: 5106573051032844951}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.033_big_shapes_01_RetopoGroup1.000_big_shapes_01_RetopoGroup1.033_big_shapes_01_RetopoGroup1.000
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4939,7 +4939,7 @@ GameObject:
   - component: {fileID: 5948050464509358120}
   - component: {fileID: 1427039119362966458}
   - component: {fileID: 1052926450866111251}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.114_big_shapes_01_RetopoGroup1.121_big_shapes_01_RetopoGroup1.114_big_shapes_01_RetopoGroup1.121
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5022,7 +5022,7 @@ GameObject:
   - component: {fileID: 3121689883697632868}
   - component: {fileID: 2919365399285927232}
   - component: {fileID: 8667940409904851548}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.123_big_shapes_01_RetopoGroup1.130_big_shapes_01_RetopoGroup1.123_big_shapes_01_RetopoGroup1.130
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5105,7 +5105,7 @@ GameObject:
   - component: {fileID: 3957919044714242632}
   - component: {fileID: 858631684613477328}
   - component: {fileID: 1754892128256658243}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.010_big_shapes_01_RetopoGroup1.144_big_shapes_01_RetopoGroup1.010_big_shapes_01_RetopoGroup1.144
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5188,7 +5188,7 @@ GameObject:
   - component: {fileID: 4972126388709583505}
   - component: {fileID: 4790053163704779880}
   - component: {fileID: 5272274509194866403}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.133_big_shapes_01_RetopoGroup1.148_big_shapes_01_RetopoGroup1.133_big_shapes_01_RetopoGroup1.148
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5271,7 +5271,7 @@ GameObject:
   - component: {fileID: 8819711549872449115}
   - component: {fileID: 2610167701125698466}
   - component: {fileID: 8490173082967648106}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.029_big_shapes_01_RetopoGroup1.029
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5354,7 +5354,7 @@ GameObject:
   - component: {fileID: 5879265084900179268}
   - component: {fileID: 353395271244790197}
   - component: {fileID: 3454499498413326577}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.125_big_shapes_01_RetopoGroup1.132_big_shapes_01_RetopoGroup1.125_big_shapes_01_RetopoGroup1.132
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5437,7 +5437,7 @@ GameObject:
   - component: {fileID: 3246868757204469443}
   - component: {fileID: 7616975869928285544}
   - component: {fileID: 6468224014705651627}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.127_big_shapes_01_RetopoGroup1.134_big_shapes_01_RetopoGroup1.127_big_shapes_01_RetopoGroup1.134
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5520,7 +5520,7 @@ GameObject:
   - component: {fileID: 6426322413002611506}
   - component: {fileID: 1551278429425875917}
   - component: {fileID: 6983337840707177942}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.021_big_shapes_01_RetopoGroup1.021
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5603,7 +5603,7 @@ GameObject:
   - component: {fileID: 87379079079538711}
   - component: {fileID: 3866258720361083035}
   - component: {fileID: 2861747027461996661}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.131_big_shapes_01_RetopoGroup1.138_big_shapes_01_RetopoGroup1.131_big_shapes_01_RetopoGroup1.138
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5686,7 +5686,7 @@ GameObject:
   - component: {fileID: 1658627046777196227}
   - component: {fileID: 7189707517854564432}
   - component: {fileID: 5600905544688776342}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.015_big_shapes_01_RetopoGroup1.015
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5769,7 +5769,7 @@ GameObject:
   - component: {fileID: 3568218312688614806}
   - component: {fileID: 3018658022748165911}
   - component: {fileID: 9153329107932258216}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Attack (Text)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5904,7 +5904,7 @@ GameObject:
   - component: {fileID: 8665095777484366043}
   - component: {fileID: 1350181535820856723}
   - component: {fileID: 8362387631840963292}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Fon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5986,7 +5986,7 @@ GameObject:
   - component: {fileID: 7948443470161841392}
   - component: {fileID: 1911416158690285993}
   - component: {fileID: 2632179100555901586}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.115_big_shapes_01_RetopoGroup1.122_big_shapes_01_RetopoGroup1.115_big_shapes_01_RetopoGroup1.122
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6069,7 +6069,7 @@ GameObject:
   - component: {fileID: 5699782508714921194}
   - component: {fileID: 6347494423441058646}
   - component: {fileID: 2317206680878354003}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.008_big_shapes_01_RetopoGroup1.143_big_shapes_01_RetopoGroup1.008_big_shapes_01_RetopoGroup1.143
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6153,7 +6153,7 @@ GameObject:
   - component: {fileID: 5910013260745909853}
   - component: {fileID: 5746584985221597239}
   - component: {fileID: 2118329627973854509}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CanvasFleet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6253,7 +6253,7 @@ GameObject:
   - component: {fileID: 8902455097459130943}
   - component: {fileID: 260875577542559608}
   - component: {fileID: 1121572279446549297}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.114_big_shapes_01_RetopoGroup1.000_big_shapes_01_RetopoGroup1.114_big_shapes_01_RetopoGroup1.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6336,7 +6336,7 @@ GameObject:
   - component: {fileID: 7012656352215433655}
   - component: {fileID: 6370770193309759905}
   - component: {fileID: 7624105879168812865}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.035_big_shapes_01_RetopoGroup1.036_big_shapes_01_RetopoGroup1.035_big_shapes_01_RetopoGroup1.036
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6419,7 +6419,7 @@ GameObject:
   - component: {fileID: 978778901260559700}
   - component: {fileID: 8570979786459731381}
   - component: {fileID: 803391686257655691}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.033_big_shapes_01_RetopoGroup1.002_big_shapes_01_RetopoGroup1.033_big_shapes_01_RetopoGroup1.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6502,7 +6502,7 @@ GameObject:
   - component: {fileID: 4600452229048250557}
   - component: {fileID: 8497294823473706034}
   - component: {fileID: 4517566397348151697}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.004_big_shapes_01_RetopoGroup1.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6585,7 +6585,7 @@ GameObject:
   - component: {fileID: 8812096191957891429}
   - component: {fileID: 2074024313717246828}
   - component: {fileID: 73990770851092955}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.028_big_shapes_01_RetopoGroup1.028
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6667,13 +6667,13 @@ GameObject:
   m_Component:
   - component: {fileID: 8346717045652575921}
   - component: {fileID: 1532375439942685558}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8346717045652575921
 Transform:
   m_ObjectHideFlags: 0
@@ -6762,7 +6762,7 @@ GameObject:
   - component: {fileID: 2205773923808676201}
   - component: {fileID: 3498688756033748936}
   - component: {fileID: 9094973201095606174}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DisplayColorFleetImage_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6838,7 +6838,7 @@ GameObject:
   - component: {fileID: 8254417662496250393}
   - component: {fileID: 1917612044199926297}
   - component: {fileID: 1071100950195689500}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.016_big_shapes_01_RetopoGroup1.016
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6921,7 +6921,7 @@ GameObject:
   - component: {fileID: 884330913430865122}
   - component: {fileID: 4134595510828630906}
   - component: {fileID: 4547612888285010556}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.101_big_shapes_01_RetopoGroup1.002_big_shapes_01_RetopoGroup1.101_big_shapes_01_RetopoGroup1.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7004,7 +7004,7 @@ GameObject:
   - component: {fileID: 8803219257321600156}
   - component: {fileID: 1575176932747086052}
   - component: {fileID: 6985824907638937194}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.034_big_shapes_01_RetopoGroup1.035_big_shapes_01_RetopoGroup1.034_big_shapes_01_RetopoGroup1.035
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7087,7 +7087,7 @@ GameObject:
   - component: {fileID: 6092986950366083691}
   - component: {fileID: 2108759044720265114}
   - component: {fileID: 4200117491237128743}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.092_big_shapes_01_RetopoGroup1.092
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7170,7 +7170,7 @@ GameObject:
   - component: {fileID: 4633858777882281015}
   - component: {fileID: 8607433195418015407}
   - component: {fileID: 946799277802970230}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.116_big_shapes_01_RetopoGroup1.123_big_shapes_01_RetopoGroup1.116_big_shapes_01_RetopoGroup1.123
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7253,7 +7253,7 @@ GameObject:
   - component: {fileID: 2874366808608038847}
   - component: {fileID: 1074390362183385162}
   - component: {fileID: 5459422811522630482}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.012_big_shapes_01_RetopoGroup1.012
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7336,7 +7336,7 @@ GameObject:
   - component: {fileID: 3888033655592820675}
   - component: {fileID: 2398982812826488327}
   - component: {fileID: 8156622138728193276}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DisplayAttackShipImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7413,7 +7413,7 @@ GameObject:
   - component: {fileID: 2044721980094925788}
   - component: {fileID: 4655681687947009784}
   - component: {fileID: 3465737374404590728}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.113_big_shapes_01_RetopoGroup1.000_big_shapes_01_RetopoGroup1.113_big_shapes_01_RetopoGroup1.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7496,7 +7496,7 @@ GameObject:
   - component: {fileID: 5705862530429278055}
   - component: {fileID: 5241614634976736731}
   - component: {fileID: 8676278483322709201}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.030_big_shapes_01_RetopoGroup1.030
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7579,7 +7579,7 @@ GameObject:
   - component: {fileID: 9196256436793113107}
   - component: {fileID: 2610452009899990028}
   - component: {fileID: 6339540247659934053}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big_shapes_01_RetopoGroup1.101_big_shapes_01_RetopoGroup1.001_big_shapes_01_RetopoGroup1.101_big_shapes_01_RetopoGroup1.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}

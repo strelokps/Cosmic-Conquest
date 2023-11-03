@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4300878968100671971}
   - component: {fileID: 7092522846812635432}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: UFO_pref
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,10 +57,6 @@ MonoBehaviour:
   _defenceShipInFleetText: {fileID: 4765903719966294105}
   _attack: 30
   _defence: 150
-  _colorFon: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  _fleetMaterial: {fileID: 2100000, guid: a0b299af997438c499eed5ef09aa62ce, type: 2}
-  _fleetRender: {fileID: 0}
-  ID: 0
 --- !u!1 &3734299681704390565
 GameObject:
   m_ObjectHideFlags: 0
@@ -70,7 +66,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4286466879446622825}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PointToFire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +99,7 @@ GameObject:
   - component: {fileID: 4899304948415002636}
   - component: {fileID: 3735376028728300685}
   - component: {fileID: 1117871590798072075}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: UFO_cockpit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186,7 +182,7 @@ GameObject:
   - component: {fileID: 4765903719430063790}
   - component: {fileID: 4765903719430063784}
   - component: {fileID: 4765903719430063791}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Fon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -268,7 +264,7 @@ GameObject:
   - component: {fileID: 4765903719819706971}
   - component: {fileID: 4765903719819706965}
   - component: {fileID: 4765903719819706964}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NumShipInFleetText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -403,7 +399,7 @@ GameObject:
   - component: {fileID: 4765903719947593800}
   - component: {fileID: 4765903719947593802}
   - component: {fileID: 4765903719947593801}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DefenceShipImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -479,7 +475,7 @@ GameObject:
   - component: {fileID: 4765903719966294104}
   - component: {fileID: 4765903719966294106}
   - component: {fileID: 4765903719966294105}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Defence (Text)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -614,7 +610,7 @@ GameObject:
   - component: {fileID: 4765903720065304000}
   - component: {fileID: 4765903720065304002}
   - component: {fileID: 4765903720065304001}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AttackShipImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -690,7 +686,7 @@ GameObject:
   - component: {fileID: 4765903720289151627}
   - component: {fileID: 4765903720289151621}
   - component: {fileID: 4765903720289151620}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DisplayDefenceShipImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -767,7 +763,7 @@ GameObject:
   - component: {fileID: 4765903720344146568}
   - component: {fileID: 4765903720344146570}
   - component: {fileID: 4765903720344146569}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Attack (Text)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -902,7 +898,7 @@ GameObject:
   - component: {fileID: 4765903720568287227}
   - component: {fileID: 4765903720568287221}
   - component: {fileID: 4765903720568287220}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DisplayAttackShipImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -980,7 +976,7 @@ GameObject:
   - component: {fileID: 4765903720615748481}
   - component: {fileID: 4765903720615748480}
   - component: {fileID: 4765903720615748487}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CanvasFleet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1080,7 +1076,7 @@ GameObject:
   - component: {fileID: 2052668752985127528}
   - component: {fileID: 7976502755393360043}
   - component: {fileID: 5713881904138692462}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: UFO_body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1164,7 +1160,7 @@ GameObject:
   - component: {fileID: 7402014392489732084}
   - component: {fileID: 3415103712832059014}
   - component: {fileID: 3811174785611616322}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DisplayColorFleetImage_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -76,7 +76,8 @@ public class SceneParametrsSO : ScriptableObject
             lvlTech = 0,
             prefabFleet = _fleetSO.GetUFOFleet(),
             planet_Material = _generalConfig.prop_material_Neutral_Planet,
-            fleet_Material = _generalConfig.prop_material_Neutral_Fleet
+            fleet_Material = _generalConfig.prop_material_Neutral_Fleet,
+            flagNeutral = true
         };
         SceneMembersData player = new SceneMembersData 
         { 
@@ -86,7 +87,9 @@ public class SceneParametrsSO : ScriptableObject
             lvlTech = _generalConfig._lvlTechPlayer,
             prefabFleet = _fleetSO.GetHumanFleet(),
             planet_Material = _generalConfig.prop_material_Player_Planet,
-            fleet_Material = _generalConfig.prop_material_Player_Fleet
+            fleet_Material = _generalConfig.prop_material_Player_Fleet,
+            tagForSelfIdentification = "player_" + _generalConfig.colorPlayer.ToString(),
+            flagPlayer = true
         };
 
         InitAI(ref ai1);
@@ -97,12 +100,12 @@ public class SceneParametrsSO : ScriptableObject
 
 
         ai1.friends.Add(ai2);
-        ai1.neutral.Add(neutral1);
+        ai1.enemy.Add(neutral1);
         ai1.enemy.Add(ai3);
         ai1.enemy.Add(player);
 
         ai2.friends.Add(ai1);
-        ai2.neutral.Add(neutral1);
+        ai2.enemy.Add(neutral1);
         ai2.enemy.Add(ai3);
         ai2.enemy.Add(player);
 
