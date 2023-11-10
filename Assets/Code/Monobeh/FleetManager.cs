@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(FleetState))]
 public class FleetManager : MonoBehaviour
 {
     [SerializeField] private Transform _selfTransform;
@@ -18,6 +19,7 @@ public class FleetManager : MonoBehaviour
     [SerializeField] private int _defence;
     private DataFleet _dataFleet ;
     [SerializeField] private List<DataFleet> _dataFleetList = new List<DataFleet>();
+    private FleetState _fleetState;
 
 
 
@@ -26,7 +28,8 @@ public class FleetManager : MonoBehaviour
         _attack = 0;
         _defence = 0;
         _numShipInFleet = 0;
-       // _colorFon = _ColorObjTest.gameObject.GetComponent<Renderer>().material.color;
+        // _colorFon = _ColorObjTest.gameObject.GetComponent<Renderer>().material.color;
+        _fleetState = GetComponent<FleetState>();
     }
 
     
@@ -97,5 +100,10 @@ public class FleetManager : MonoBehaviour
         _imageFleet_R.GetComponent<Image>().color = locColor;
         _imageFleet_R.GetComponent<Image>().material = new Material(locMaterial) ;
         _imageFleet_R.GetComponent<Image>().material.SetColor("_EmissionColor", locDataFleet.colorFleet * 1.9f);
+    }
+
+    public void SetTarget(Vector3 locTargetPosition)
+    {
+        _fleetState.SetTargetToMove(locTargetPosition);
     }
 }

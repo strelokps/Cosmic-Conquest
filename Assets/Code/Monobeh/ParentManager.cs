@@ -18,7 +18,7 @@ public class ParentManager : MonoBehaviour
     public void SetMembersSceneData(SceneMembersData locAISceneData)
     {
         _memberSceneDatasParent = locAISceneData;
-
+        _memberSceneDatasParent.selfTransform = _parentTransform;
         _parentTransform = transform; //кеширование нужно для оптимизации
 
         numChild = CheckNumChild();

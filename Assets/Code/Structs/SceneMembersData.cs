@@ -17,6 +17,7 @@ public struct SceneMembersData
     public Material planet_Material;
     public bool flagPlayer;
     public bool flagNeutral;
+    public Transform selfTransform;
 
     [Header("Fleet")]
     public GameObject prefabFleet;

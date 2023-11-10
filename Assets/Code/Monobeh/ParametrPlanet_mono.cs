@@ -136,15 +136,20 @@ public class ParametrPlanet_mono : MonoBehaviour
                 _fleetManager = fl.GetComponent<FleetManager>();
                 _fleetManager.ClearParamFleetAndDisplay();
                 _fleetManager.InitiateFleet(locDataFleet, _materialPlanet);
-                
-                // _fleetManager.SetColorFleet(_colorPlanet, _memberSceneDatasParent.membersID);
+
+                //для теста устанавливаем цель 
+                if (_memberSceneDatasParent.enemy[0].selfTransform)
+                {
+                    print("Имя, сестра, имя! " + _memberSceneDatasParent.enemy[0].selfTransform.name);
+                    _fleetManager.SetTarget(_memberSceneDatasParent.enemy[0].selfTransform.position);
+                }
 
             }
 
 
 
 
-                    _fleetManager?.AddNumShipInFleet(locDataFleet.volume);
+            _fleetManager?.AddNumShipInFleet(locDataFleet.volume);
             _fleetManager?.AddAttackAndDefence(locDataFleet);
 
         }
@@ -159,21 +164,9 @@ public class ParametrPlanet_mono : MonoBehaviour
             }
         }
     }
+  
 
-    //IEnumerator TestGenerationFleet()
-    //{
-    //    // Test *************************************************************************
-    //    DataFleet locDataFleet;
-    //    var numShip = 1;
-    //    locDataFleet.attack = 2;
-    //    locDataFleet.defence = 10;
-    //    yield return new WaitForSeconds(2f);
-    //    GenerationFleet(locDataFleet, numShip, _memberSceneDatasParent.membersID);
-    //    yield return new WaitForSeconds(4f);
-    //    StartCoroutine("TestGenerationFleet");
-    //}
 
-    
 
 
 }

@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using JetBrains.Annotations;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
 
 //TODO Описать тут в комментах схема реализации подгрузки параметров AI из SO и дальнейшую передачу парентам ссылки на _aiSceneData.
-
 public class SceneManager : MonoBehaviour
 {
     [SerializeField] private SceneParametrsSO _sceneParametrsSO;
@@ -14,19 +15,13 @@ public class SceneManager : MonoBehaviour
     [SerializeField] private List<Transform> _allMembersParentTransforms; //руками линкуем все паренты из сцены
     private GeneralConfig _generalConfig;
 
-    private VersionBuildSO _versionBuild_SO;
 
     private int _numAI;
 
-    [SerializeField] private TMP_Text _textVersion; // сюда линкуется текст для отображения версионности
 
 
     private void Start()
     {
-        //версионность
-        #region Версионность VersionBuild
-        VersionBuild();
-        #endregion
 
         _generalConfig = Resources.Load<GeneralConfig>("GeneralConfig_SO");
         
@@ -75,13 +70,6 @@ public class SceneManager : MonoBehaviour
             }
         }
     }
-
-    private void VersionBuild()
-    {
-        _versionBuild_SO = Resources.Load<VersionBuildSO>("versionBuild_SO");
-        _versionBuild_SO.Increase();
-        _versionBuild_SO.ShowBuild(_textVersion);
-        _versionBuild_SO.SetDirty();
-    }
+  
 
 }
