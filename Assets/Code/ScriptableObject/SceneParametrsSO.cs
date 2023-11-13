@@ -101,6 +101,11 @@ public class SceneParametrsSO : ScriptableObject
         ai2.enemy.Add(ai3);
         ai2.enemy.Add(player);
 
+        ai3.enemy.Add(neutral1);
+        ai3.enemy.Add(ai1);
+        ai3.enemy.Add(ai2);
+        ai3.enemy.Add(player);
+
         neutral1.enemy.Add(ai1);
         neutral1.enemy.Add(ai2);
         neutral1.enemy.Add(ai3);

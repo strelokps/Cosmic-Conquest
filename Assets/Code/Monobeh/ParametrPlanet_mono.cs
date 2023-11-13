@@ -140,8 +140,10 @@ public class ParametrPlanet_mono : MonoBehaviour
                 //для теста устанавливаем цель 
                 if (_memberSceneDatasParent.enemy.Count > 0)
                 {
-                    print("Имя, сестра, имя! " + _memberSceneDatasParent.enemy[0].selfTransform.name);
-                    _fleetManager.SetTarget(_memberSceneDatasParent.enemy[0].selfTransform.position);
+                    int locNumberEnemy = Random.Range(0, _memberSceneDatasParent.enemy.Count);
+                    print("Имя, сестра, имя! " + _memberSceneDatasParent.enemy[locNumberEnemy].nameMembers);
+                    _fleetManager.SetTarget(_memberSceneDatasParent.enemy[Random.Range(0, locNumberEnemy)]
+                        .selfTransform.GetComponent<ParentManager>()._planetList[0].selfTransform.position);
                 }
 
             }

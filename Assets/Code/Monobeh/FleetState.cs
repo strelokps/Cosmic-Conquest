@@ -22,7 +22,8 @@ public class FleetState : MonoBehaviour
 
     private void Movement()
     {
-        transform.position = Vector3.MoveTowards(transform.position, _tragetToMove, 1f * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, new Vector3(_tragetToMove.x, 0, _tragetToMove.z)
+            , 1f * Time.deltaTime);
     }
 
     private void FleetStateMeth()
@@ -31,10 +32,10 @@ public class FleetState : MonoBehaviour
         {
             case FleetStateStruct.enumFleetState.Movement:
                 Movement();
-                print($"move");
+                //print($"move");
                 break;
             case FleetStateStruct.enumFleetState.Idle:
-                print($"idle");
+                //print($"idle");
                 break;
         }
     }
