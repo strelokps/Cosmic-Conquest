@@ -45,7 +45,16 @@ public class SceneManager : MonoBehaviour
                 if (indexTransform.GetComponent<ParentManager>())
                 {
                     var tr = indexTransform.GetComponent<ParentManager>();
-                    
+
+                    for (int i = 0; i < indexMembers.enemy.Count; i++)
+                    {
+                        if (indexMembers.enemy[i].membersID == tr.prop_id)
+                        {
+                            var locMB = indexMembers.enemy[i];
+                            locMB.selfTransform = indexTransform;
+                            indexMembers.enemy[i] = locMB;
+                        }
+                    }
                     // AI + Player
                     if (indexMembers.membersID == tr.prop_id)
                     {
@@ -71,5 +80,5 @@ public class SceneManager : MonoBehaviour
         }
     }
   
-
+    
 }

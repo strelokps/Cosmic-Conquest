@@ -138,7 +138,7 @@ public class ParametrPlanet_mono : MonoBehaviour
                 _fleetManager.InitiateFleet(locDataFleet, _materialPlanet);
 
                 //для теста устанавливаем цель 
-                if (_memberSceneDatasParent.enemy[0].selfTransform)
+                if (_memberSceneDatasParent.enemy.Count > 0)
                 {
                     print("Имя, сестра, имя! " + _memberSceneDatasParent.enemy[0].selfTransform.name);
                     _fleetManager.SetTarget(_memberSceneDatasParent.enemy[0].selfTransform.position);
