@@ -57,8 +57,6 @@ public class ParametrPlanet_mono : MonoBehaviour
         {
             Debug.Log($"Not found MeshRenderer in gameObject {gameObject.name}  {prop_IdPlanet}");
         }
-        
-
     }
 
     private void Start()
