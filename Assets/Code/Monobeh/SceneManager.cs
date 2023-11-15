@@ -50,8 +50,8 @@ public class SceneManager : MonoBehaviour
                     {
                         if (indexMembers.enemy[i].membersID == tr.prop_id)
                         {
-                            var locMB = indexMembers.enemy[i];
-                            locMB.selfTransform = indexTransform;
+                            SceneMembersData locMB = indexMembers.enemy[i];
+                            locMB.parentTransform = indexTransform;
                             indexMembers.enemy[i] = locMB;
                         }
                     }

@@ -28,7 +28,6 @@ public class SceneParametrsSO : ScriptableObject
         FleetSO _fleetSO = Resources.Load<FleetSO>("Fleet\\Fleet_SO");
 
         GeneralConfig _generalConfig = Resources.Load<GeneralConfig>("GeneralConfig_SO");
-        _generalConfig._lvlTechPlayer = 4;
 
         _listAISceneData.Clear();
         SceneMembersData ai1 = new SceneMembersData
@@ -40,6 +39,7 @@ public class SceneParametrsSO : ScriptableObject
             prefabFleet = _fleetSO.GetProtosFleet(),
             planet_Material = _generalConfig.prop_material_AI1_Planet,
             fleet_Material = _generalConfig.prop_material_AI1_Fleet
+            
         };
         SceneMembersData ai2 = new SceneMembersData 
         { 

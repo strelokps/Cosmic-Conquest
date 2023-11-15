@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -10,17 +11,25 @@ public class ParentManager : MonoBehaviour
     public List<ParametrPlanet_mono> _planetList;
     private Transform _parentTransform;
     private int numChild;
+    private bool _flagPlayer;
+
+    [SerializeField] private Transform enemyTransform;
+
+    [Header("Display solarium")]
+    [SerializeField] private int _solarium;
+    [SerializeField] private TMP_Text _locTextSolarium;
 
     public int prop_id { get => id; }
 
-    [Header("Enemy")] public string[] strEnemy;
+  
 
 
 
     public void SetMembersSceneData(SceneMembersData locAISceneData)
     {
+        _flagPlayer = locAISceneData.flagPlayer;
+        locAISceneData.parentTransform = transform;
         _memberSceneDatasParent = locAISceneData;
-        _memberSceneDatasParent.selfTransform = _parentTransform;
         _parentTransform = transform; //кеширование нужно для оптимизации
 
         numChild = CheckNumChild();
@@ -33,28 +42,26 @@ public class ParentManager : MonoBehaviour
                 
                 var pl = _parentTransform.GetChild(i).GetComponent<ParametrPlanet_mono>();
                 _planetList.Add(pl);
-                pl.StartetConfig(_memberSceneDatasParent, transform);
+                pl.StartetConfig(_memberSceneDatasParent, _parentTransform);
             }
         }
-        print($"Имя {locAISceneData.nameMembers}");
-        print($"Кол-во врагов {locAISceneData.enemy.Count}");
-        print("******************");
-        strEnemy = new string[locAISceneData.enemy.Count];
-        for (int i = 0; i < locAISceneData.enemy.Count; i++)
-        {
-            print($"{locAISceneData.enemy[i].nameMembers}");
-            strEnemy[i] = locAISceneData.enemy[i].nameMembers;
-
-        }
-        print("******************");
-        print("");
-        print("");
+       
     }
 
-    public void Show()
+    public void AddSolarium(int locAddSolarium)
     {
-        Debug.Log($"{_memberSceneDatasParent.nameMembers}(Techlvl): {_memberSceneDatasParent.lvlTech}");
-       
+        if (locAddSolarium >0)
+            _solarium += locAddSolarium;
+        DisplaySolarium();
+    }
+
+    public void RemoveSolarium(int locRemoveSolarium)
+    {
+        if (locRemoveSolarium <= _solarium)
+            _solarium -= locRemoveSolarium;
+        if (_solarium < 0)
+            _solarium = 0;
+        DisplaySolarium();
     }
 
     private int CheckNumChild() 
@@ -62,6 +69,18 @@ public class ParentManager : MonoBehaviour
         return _parentTransform.childCount;
     }
 
-    
-    
+    private void DisplaySolarium()
+    {
+        if (_flagPlayer)
+        {
+            if (_locTextSolarium == null)
+            {
+                var goText = GameObject.FindGameObjectWithTag("DisplaySolarium");
+                _locTextSolarium = goText.GetComponent<TMP_Text>();
+            }
+            _locTextSolarium.text = _solarium.ToString();
+        }
+    }
+
+
 }

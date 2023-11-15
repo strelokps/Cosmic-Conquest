@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -16,7 +17,11 @@ public class ParametrPlanet_mono : MonoBehaviour
     private ParentManager _parentManager;
 
     [HideInInspector] public Transform selfTransform;
-    public int timerGenSolarium;
+
+    [Header("Gold")] 
+    [SerializeField] private float _timerForGenGold = 1f;
+    private float _tempTimerForGenGold;
+    [SerializeField] private int _genGoldPerSecond;
 
 
 
@@ -26,6 +31,13 @@ public class ParametrPlanet_mono : MonoBehaviour
     private List<GameObject> _listDefenderPlanet = new List<GameObject>();
     private FleetManager _fleetManager = new FleetManager();
     DataFleet locDataFleet = new DataFleet();
+
+
+    
+    [Header("[ Lvl Planet ]")]
+    [SerializeField] private int _currentLvlPlanet;
+    private DataPlanet _dataPlanet = new DataPlanet();
+
 
     //Test
     private float _timer;
@@ -46,6 +58,9 @@ public class ParametrPlanet_mono : MonoBehaviour
 
     private void Awake()
     {
+        //Gold
+        _tempTimerForGenGold = _timerForGenGold;
+
         selfTransform = transform;
         if (gameObject.GetComponent<MeshRenderer>())
         {
@@ -70,6 +85,7 @@ public class ParametrPlanet_mono : MonoBehaviour
 
     private void Update()
     {
+        GenerationGold();
         _tempTimer += Time.deltaTime;
         if (_tempTimer > _timer)
         {
@@ -79,7 +95,6 @@ public class ParametrPlanet_mono : MonoBehaviour
             locDataFleet.attack = 2;
             locDataFleet.defence = 10;
             locDataFleet.colorFleet = _colorPlanet;
-            locDataFleet.volume = numShip;
             GenerationFleet(locDataFleet);
         }
 
@@ -89,16 +104,22 @@ public class ParametrPlanet_mono : MonoBehaviour
 
     public void StartetConfig(SceneMembersData locMemberSceneDatasParent, Transform locParentTransform)
     {
+        //Parent Manager
+        _parentManager = locMemberSceneDatasParent.parentTransform.GetComponent<ParentManager>();
+
+        //Gold
+        _tempTimerForGenGold = _timerForGenGold;
+
         _memberSceneDatasParent = locMemberSceneDatasParent;
         _idPlanet = _memberSceneDatasParent.membersID;
-        //_materialPlanet = locMemberSceneDatasParent.planet_Material;
-        SetColorPlanet(locMemberSceneDatasParent.colorMembers);
+        SetColorPlanet(_memberSceneDatasParent.colorMembers);
 
-        if (locMemberSceneDatasParent.prefabFleet != null)
-            SetPrefabFleet(locMemberSceneDatasParent.prefabFleet);
-        _materialFleet = locMemberSceneDatasParent.fleet_Material;
+        if (_memberSceneDatasParent.prefabFleet != null)
+            SetPrefabFleet(_memberSceneDatasParent.prefabFleet);
+        _materialFleet = _memberSceneDatasParent.fleet_Material;
         SetParentTransform(locParentTransform);
         _parentManager = _parentTransform.GetComponent<ParentManager>();
+        SetGoldRepSecond(locMemberSceneDatasParent.lvlTech, _dataPlanet.SetPlanetLvl(_currentLvlPlanet));
     }
 
     public void SetColorPlanet(Color locColorPlanet)
@@ -107,7 +128,7 @@ public class ParametrPlanet_mono : MonoBehaviour
         if (gameObject.GetComponent<Material>())
             _materialPlanet = new Material(gameObject.GetComponent<Material>());
         _materialPlanet.color = _colorPlanet;
-        _materialPlanet.SetColor("_EmissionColor", locColorPlanet * (0.85f));
+        _materialPlanet.SetColor("_EmissionColor", locColorPlanet * (0.85f)); //цифра обозначает интенсивность свечения
     }
 
     public void SetPrefabFleet(GameObject locPrefabFleet)
@@ -130,26 +151,18 @@ public class ParametrPlanet_mono : MonoBehaviour
             _listDefenderPlanet.Add(fl);
             if (fl.GetComponent<FleetManager>())
             {
-                //fl.AddComponent<DataFleet>();
                 _fleetManager = fl.GetComponent<FleetManager>();
                 _fleetManager.ClearParamFleetAndDisplay();
                 _fleetManager.InitiateFleet(locDataFleet, _materialPlanet);
 
-                //для теста устанавливаем цель 
-                if (_memberSceneDatasParent.enemy.Count > 0)
-                {
-                    int locNumberEnemy = Random.Range(0, _memberSceneDatasParent.enemy.Count);
-                    print("Имя, сестра, имя! " + _memberSceneDatasParent.enemy[locNumberEnemy].nameMembers);
-                    _fleetManager.SetTarget(_memberSceneDatasParent.enemy[Random.Range(0, locNumberEnemy)]
-                        .selfTransform.GetComponent<ParentManager>()._planetList[0].selfTransform.position);
-                }
+               
 
             }
 
 
+            SetTarget(new Vector3(1,1,1));
 
-
-            _fleetManager?.AddNumShipInFleet(locDataFleet.volume);
+            _fleetManager?.AddNumShipInFleet();
             _fleetManager?.AddAttackAndDefence(locDataFleet);
 
         }
@@ -159,14 +172,52 @@ public class ParametrPlanet_mono : MonoBehaviour
             {
                 //test
                 Debug.Log($"else create Fleet");
-                _fleetManager?.AddNumShipInFleet( numShip);
+                _fleetManager?.AddNumShipInFleet();
                 _fleetManager?.AddAttackAndDefence(locDataFleet);
             }
         }
     }
-  
 
 
+    private void GenerationGold()
+    {
+        if (_parentManager == null)
+            return;
 
+        _tempTimerForGenGold -= Time.deltaTime;
+        if (_tempTimerForGenGold <= 0)
+        {
+            _tempTimerForGenGold = _timerForGenGold;
+            _parentManager.AddSolarium(_genGoldPerSecond);
+        }
+    }
 
+    private void SetGoldRepSecond(int locGoldForTechLvl = 0, int locGoldForPlanetLvl = 0)
+    {
+        _genGoldPerSecond = locGoldForTechLvl + locGoldForPlanetLvl;
+    }
+
+    public void SetTarget(Vector3 locTrarget)
+    {
+        
+        //для теста устанавливаем цель 
+        if (_memberSceneDatasParent.enemy.Count > 0)
+        {
+            int locNumberEnemy = Random.Range(0, _memberSceneDatasParent.enemy.Count);
+            var x = _memberSceneDatasParent.enemy[locNumberEnemy];
+            var y1 = x.parentTransform;
+            var y = y1.GetComponent<ParentManager>();
+            var z = y._planetList[0]._parentTransform.position;
+            print("Имя, сестра, имя! " + _memberSceneDatasParent.enemy[locNumberEnemy].nameMembers);
+            _fleetManager.SetTarget(z);
+            SetSpawnPoint(z);
+        }
+    }
+
+    private void SetSpawnPoint(Vector3 locSpawnPointToTarget)
+    {
+        float y = _pointSpawnFleet.localPosition.y;
+        Vector3 tempVector = (locSpawnPointToTarget - transform.position).normalized * 4f;
+        _pointSpawnFleet.localPosition = new Vector3(tempVector.x, y, tempVector.z);
+    }
 }

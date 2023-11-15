@@ -7,5 +7,4 @@ public struct DataFleet
     public int attack;
     public int defence;
     public Color colorFleet;
-    public int volume;
 }

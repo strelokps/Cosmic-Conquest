@@ -34,15 +34,15 @@ public class FleetManager : MonoBehaviour
 
     
 
-    public void AddNumShipInFleet(int locNumShip)
+    public void AddNumShipInFleet()
     {
-        _numShipInFleet += locNumShip;
+        _numShipInFleet ++;
         DisplayNumShipInFleet(_numShipInFleet);
     }
 
-    public void RemoveNumShipInFleet(int locNumShip)
+    public void RemoveNumShipInFleet()
     {
-        _numShipInFleet -= locNumShip;
+        _numShipInFleet --;
         DisplayNumShipInFleet(_numShipInFleet);
     }
 

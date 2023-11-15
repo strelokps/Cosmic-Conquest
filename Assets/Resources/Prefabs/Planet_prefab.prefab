@@ -146,5 +146,8 @@ MonoBehaviour:
   _colorPlanet: {r: 0, g: 0, b: 0, a: 0}
   selfTransform: {fileID: 0}
   timerGenSolarium: 0
+  _timerForGenGold: 1
+  _genGoldPerSecond: 1
   _pointSpawnFleet: {fileID: 1254257694260417280}
   _prefabFleet: {fileID: 0}
+  _currentLvlPlanet: 1

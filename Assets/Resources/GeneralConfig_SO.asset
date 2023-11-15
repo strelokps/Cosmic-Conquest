@@ -15,7 +15,7 @@ MonoBehaviour:
   playerName: StrelokPS
   colorPlayer: {r: 0.09411766, g: 0.8445086, b: 0.96862745, a: 1}
   playerID: 19
-  _lvlTechPlayer: 4
+  _lvlTechPlayer: 1
   numberAI: 4
   arrColor_SO:
   - {r: 0.26666668, g: 0.99215686, b: 0.105882354, a: 1}

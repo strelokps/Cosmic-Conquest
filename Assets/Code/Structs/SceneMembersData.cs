@@ -18,6 +18,7 @@ public struct SceneMembersData
     public bool flagPlayer;
     public bool flagNeutral;
     public Transform selfTransform;
+    public Transform parentTransform;
 
     [Header("Fleet")]
     public GameObject prefabFleet;
