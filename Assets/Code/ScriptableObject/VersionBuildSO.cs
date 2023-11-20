@@ -12,7 +12,9 @@ public class VersionBuildSO : ScriptableObject
     [SerializeField] private int _buildMinor;
     [SerializeField] private int _build;
     [SerializeField] private int _patch;
-    private int _tempMinor;
+    [Header("[ Test bug ]")]
+    [SerializeField] private int _tempMinor;
+    [SerializeField] private int _tempMinorDvaPlusa;
 
 
     public int prop_Major => _major;
@@ -33,6 +35,9 @@ public class VersionBuildSO : ScriptableObject
         {
             _tempMinor = _minor;
             _buildMinor = 0;
+            _tempMinorDvaPlusa++;
+            Debug.LogError("Ver");
+
         }
         else
         {
