@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.GraphicsBuffer;
 
 [RequireComponent(typeof(FleetState))]
 public class FleetManager : MonoBehaviour
@@ -20,6 +21,7 @@ public class FleetManager : MonoBehaviour
     private DataFleet _dataFleet ;
     [SerializeField] private List<DataFleet> _dataFleetList = new List<DataFleet>();
     private FleetState _fleetState;
+    private Transform _target;
 
 
 
@@ -34,26 +36,9 @@ public class FleetManager : MonoBehaviour
 
     
 
-    public void AddNumShipInFleet()
-    {
-        _numShipInFleet ++;
-        DisplayNumShipInFleet(_numShipInFleet);
-    }
 
-    public void RemoveNumShipInFleet()
-    {
-        _numShipInFleet --;
-        DisplayNumShipInFleet(_numShipInFleet);
-    }
 
-    public void AddAttackAndDefence(DataFleet locDatafleet)
-    {
-        _dataFleetList.Add(locDatafleet);
-        //_attack += locDatafleet.attack;
-        //_defence += locDatafleet.defence;
-        DisplayAttackAndDefenceFleet();
-    }
-
+   
     public void RemoveAttackAndDefence(DataFleet locDatafleet)
     {
         //_attack -= locDatafleet.attack;
@@ -90,20 +75,23 @@ public class FleetManager : MonoBehaviour
         _defence = 0;
     }
 
-    public void InitiateFleet(DataFleet locDataFleet, Material locMaterial)
+    public void InitiateFleet(List<DataFleet> locDataFleet, Material locMaterial)
     {
         _dataFleetList = new List<DataFleet>{new DataFleet() { attack = 0, defence = 0} };
 
         _dataFleet = new DataFleet();
-        _dataFleet = locDataFleet;
-        Color locColor = new Color(locDataFleet.colorFleet.r, locDataFleet.colorFleet.g, locDataFleet.colorFleet.r, 1f);
+        _dataFleetList = locDataFleet;
+        Color locColor = new Color(locMaterial.color.r, locMaterial.color.g, locMaterial.color.r, 1f);
         _imageFleet_R.GetComponent<Image>().color = locColor;
         _imageFleet_R.GetComponent<Image>().material = new Material(locMaterial) ;
-        _imageFleet_R.GetComponent<Image>().material.SetColor("_EmissionColor", locDataFleet.colorFleet * 1.9f);
+        _imageFleet_R.GetComponent<Image>().material.SetColor("_EmissionColor", locMaterial.color * 1.9f);
+
+        DisplayAttackAndDefenceFleet();
     }
 
-    public void SetTarget(Vector3 locTargetPosition)
+    public void SetTarget(Transform locTargetPosition)
     {
-        _fleetState.SetTargetToMove(locTargetPosition);
+        _target = locTargetPosition;
+        _fleetState.SetTargetToMove(locTargetPosition.position);
     }
 }

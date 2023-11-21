@@ -28,12 +28,14 @@ public class ParametrPlanet_mono : MonoBehaviour
     [Header("[ Fleet ]")]
     [SerializeField] private Transform _pointSpawnFleet;
     [SerializeField] private GameObject _prefabFleet;
-    private List<GameObject> _listDefenderPlanet = new List<GameObject>();
+    private List<DataFleet> _listDefenderFleet = new List<DataFleet>();
+    private List<DataFleet> _listAttackFleet = new List<DataFleet>();
     private FleetManager _fleetManager = new FleetManager();
-    private Vector3 _targetToFleet;
+    private Transform _targetToFleet;
 
     //test
     DataFleet locDataFleet = new DataFleet();
+    private int _randomCountFleetToAttack;
 
 
 
@@ -99,9 +101,13 @@ public class ParametrPlanet_mono : MonoBehaviour
             locDataFleet.attack = 2;
             locDataFleet.defence = 10;
             locDataFleet.colorFleet = _colorPlanet;
-            SetTarget(new Vector3(40, 1, 24));
-
+            AddShipsToDefPlanetFleet(locDataFleet);
+            //test
+            if (_randomCountFleetToAttack > _listDefenderFleet.Count)
+                GenerationFleet();
         }
+
+       print($"Random {_randomCountFleetToAttack} count {_listDefenderFleet.Count}");
 
 
 
@@ -125,6 +131,9 @@ public class ParametrPlanet_mono : MonoBehaviour
         SetParentTransform(locParentTransform);
         _parentManager = _parentTransform.GetComponent<ParentManager>();
         SetGoldRepSecond(locMemberSceneDatasParent.lvlTech, _dataPlanet.SetPlanetLvl(_currentLvlPlanet));
+
+        //test
+        _randomCountFleetToAttack = Random.Range(2, 10);
     }
 
     public void SetColorPlanet(Color locColorPlanet)
@@ -148,39 +157,58 @@ public class ParametrPlanet_mono : MonoBehaviour
     }
 
     //создание флота
-    private void GenerationFleet(DataFleet locDataFleet)
+    private void GenerationFleet()
     {
-        if (_listDefenderPlanet.Count == 0 )
+        if (_listAttackFleet.Count == 0 )
         {
-            SetSpawnPoint(_targetToFleet);
+
+            SetSpawnPoint(SetTarget());
 
             //создаем флот
-            var fl = Instantiate(_prefabFleet, _pointSpawnFleet.position, _pointSpawnFleet.rotation) as GameObject;
-            fl.transform.SetParent(_pointSpawnFleet); //устанавливаем парент для флота
-            _listDefenderPlanet.Add(fl);  // добавляем в список защитников планеты
+            GameObject fl = Instantiate(_prefabFleet, _pointSpawnFleet.position, _pointSpawnFleet.rotation) as GameObject;
+            //fl.transform.SetParent(_pointSpawnFleet); //устанавливаем парент для флота
             //проводим первичные настройки флота
             if (fl.GetComponent<FleetManager>())
             {
                 _fleetManager = fl.GetComponent<FleetManager>();
                 _fleetManager.ClearParamFleetAndDisplay();
-                _fleetManager.InitiateFleet(locDataFleet, _materialPlanet);
+                _fleetManager.InitiateFleet(_listDefenderFleet, _materialPlanet);
             }
-            _fleetManager?.AddNumShipInFleet();
-            _fleetManager?.AddAttackAndDefence(locDataFleet);
             _fleetManager.SetTarget(_targetToFleet);
-            _targetToFleet = new Vector3();
+            _targetToFleet = new RectTransform();
         }
-        else 
+        
+
+    }
+
+    private void AddShipsToDefPlanetFleet(DataFleet locDataFleet)
+    {
+        _listDefenderFleet.Add(locDataFleet);  // добавляем в список защитников планеты
+
+    }
+
+    public Transform SetTarget(Transform locTrarget = null)
+    {
+        //для теста устанавливаем цель 
+        if (_memberSceneDatasParent.enemy.Count > 0)
         {
-            if (_listDefenderPlanet.Count > 0)
-            {
-                //test
-                Debug.Log($"else create Fleet");
-                _fleetManager?.AddNumShipInFleet();
-                _fleetManager?.AddAttackAndDefence(locDataFleet);
-            }
+            int locNumberEnemy = Random.Range(0, _memberSceneDatasParent.enemy.Count);
+            var x = _memberSceneDatasParent.enemy[locNumberEnemy];
+            var y1 = x.parentTransform;
+            var y = y1.GetComponent<ParentManager>();
+            _targetToFleet  = y._planetList[0].selfTransform;
+            return _targetToFleet;
         }
 
+        return locTrarget;
+    }
+
+    private void SetSpawnPoint(Transform locSpawnPointToTarget)
+    {
+        float y = _pointSpawnFleet.localPosition.y;
+        Vector3 tempVector = (locSpawnPointToTarget.position - transform.position).normalized * 2f;
+        _pointSpawnFleet.localPosition = new Vector3(tempVector.x, y, tempVector.z);
+        _pointSpawnFleet.rotation = Quaternion.LookRotation(tempVector);
     }
 
 
@@ -200,29 +228,5 @@ public class ParametrPlanet_mono : MonoBehaviour
     private void SetGoldRepSecond(int locGoldForTechLvl = 0, int locGoldForPlanetLvl = 0)
     {
         _genGoldPerSecond = locGoldForTechLvl + locGoldForPlanetLvl;
-    }
-
-    public void SetTarget(Vector3 locTrarget)
-    {
-        
-        //для теста устанавливаем цель 
-        if (_memberSceneDatasParent.enemy.Count > 0)
-        {
-            int locNumberEnemy = Random.Range(0, _memberSceneDatasParent.enemy.Count);
-            var x = _memberSceneDatasParent.enemy[locNumberEnemy];
-            var y1 = x.parentTransform;
-            var y = y1.GetComponent<ParentManager>();
-            _targetToFleet  = y._planetList[0].selfTransform.position;
-            GenerationFleet(locDataFleet);
-
-        }
-    }
-
-    private void SetSpawnPoint(Vector3 locSpawnPointToTarget)
-    {
-        float y = _pointSpawnFleet.localPosition.y;
-        Vector3 tempVector = (locSpawnPointToTarget - transform.position).normalized * 2f;
-        _pointSpawnFleet.localPosition = new Vector3(tempVector.x, y, tempVector.z);
-        _pointSpawnFleet.rotation = Quaternion.LookRotation(tempVector);
     }
 }

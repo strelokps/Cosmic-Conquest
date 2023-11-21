@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class FleetState : MonoBehaviour
 {
-    private FleetStateStruct.enumFleetState _stateFleet = FleetStateStruct.enumFleetState.Idle;
+    [SerializeField] private FleetStateStruct.enumFleetState _stateFleet = FleetStateStruct.enumFleetState.Idle;
     [ShowInInspector] private Vector3 _targetToMove;
+    [SerializeField] private float speedMove = 1f;
 
     [SerializeField] private float _stopBefore;
     [SerializeField] private float  _distanceSqr;
@@ -14,6 +15,7 @@ public class FleetState : MonoBehaviour
     private void Start()
     {
         _stopBefore = 16f; // дистанция остановки перед объектом
+        speedMove = 0.5f;
     }
 
     private void Update()
@@ -32,7 +34,7 @@ public class FleetState : MonoBehaviour
     private void Movement()
     {
         transform.position = Vector3.MoveTowards(transform.position, new Vector3(_targetToMove.x, 0, _targetToMove.z)
-            , 1f * Time.deltaTime);
+            , speedMove * Time.deltaTime);
 
         CheckDistance(_targetToMove);
     }
