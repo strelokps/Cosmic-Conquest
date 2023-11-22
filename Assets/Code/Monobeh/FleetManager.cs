@@ -46,7 +46,7 @@ public class FleetManager : MonoBehaviour
         DisplayAttackAndDefenceFleet();
     }
 
-    private void DisplayNumShipInFleet(int locNumShipToText)
+    private void DisplayNumShipInFleet()
     {
         _textNumShipInFleet.text = _dataFleetList.Count.ToString();
     }
@@ -73,10 +73,13 @@ public class FleetManager : MonoBehaviour
     {
         _attack = 0;
         _defence = 0;
+        _numShipInFleet = 0;
+
     }
 
     public void InitiateFleet(List<DataFleet> locDataFleet, Material locMaterial)
     {
+        ClearParamFleetAndDisplay();
         _dataFleetList = new List<DataFleet>{new DataFleet() { attack = 0, defence = 0} };
 
         _dataFleet = new DataFleet();
@@ -87,11 +90,12 @@ public class FleetManager : MonoBehaviour
         _imageFleet_R.GetComponent<Image>().material.SetColor("_EmissionColor", locMaterial.color * 1.9f);
 
         DisplayAttackAndDefenceFleet();
+        DisplayNumShipInFleet();
     }
 
-    public void SetTarget(Transform locTargetPosition)
+    public void SetTarget(Transform locTargetPosition, FleetStateStruct.enumFleetState locStateFleet)
     {
         _target = locTargetPosition;
-        _fleetState.SetTargetToMove(locTargetPosition.position);
+        _fleetState.SetState( locTargetPosition, locStateFleet);
     }
 }

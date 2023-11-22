@@ -32,11 +32,13 @@ public class ParametrPlanet_mono : MonoBehaviour
     private List<DataFleet> _listAttackFleet = new List<DataFleet>();
     private FleetManager _fleetManager = new FleetManager();
     private Transform _targetToFleet;
+    [SerializeField] private FleetStateStruct.enumFleetState _stateFleet;
 
     //test
     DataFleet locDataFleet = new DataFleet();
     private int _randomCountFleetToAttack;
-
+    [SerializeField] private float  _percentForAttackFleet;
+    [SerializeField] private int _numShipsInFleet;
 
 
     
@@ -78,6 +80,7 @@ public class ParametrPlanet_mono : MonoBehaviour
         {
             Debug.Log($"Not found MeshRenderer in gameObject {gameObject.name}  {prop_IdPlanet}");
         }
+        _percentForAttackFleet = 70f;
     }
 
     private void Start()
@@ -104,13 +107,9 @@ public class ParametrPlanet_mono : MonoBehaviour
             AddShipsToDefPlanetFleet(locDataFleet);
             //test
             if (_randomCountFleetToAttack > _listDefenderFleet.Count)
-                GenerationFleet();
+                AttackFleet(_percentForAttackFleet);
+
         }
-
-       print($"Random {_randomCountFleetToAttack} count {_listDefenderFleet.Count}");
-
-
-
     }
 
     public void StartetConfig(SceneMembersData locMemberSceneDatasParent, Transform locParentTransform)
@@ -157,28 +156,26 @@ public class ParametrPlanet_mono : MonoBehaviour
     }
 
     //создание флота
-    private void GenerationFleet()
+    private void GenerationFleet(FleetStateStruct.enumFleetState locStateFleet, List<DataFleet> locAttackFleet)
     {
-        if (_listAttackFleet.Count == 0 )
+        if (locAttackFleet.Count > 0)
         {
-
             SetSpawnPoint(SetTarget());
 
             //создаем флот
-            GameObject fl = Instantiate(_prefabFleet, _pointSpawnFleet.position, _pointSpawnFleet.rotation) as GameObject;
+            GameObject fl =
+                Instantiate(_prefabFleet, _pointSpawnFleet.position, _pointSpawnFleet.rotation) as GameObject;
             //fl.transform.SetParent(_pointSpawnFleet); //устанавливаем парент для флота
             //проводим первичные настройки флота
             if (fl.GetComponent<FleetManager>())
             {
                 _fleetManager = fl.GetComponent<FleetManager>();
-                _fleetManager.ClearParamFleetAndDisplay();
-                _fleetManager.InitiateFleet(_listDefenderFleet, _materialPlanet);
-            }
-            _fleetManager.SetTarget(_targetToFleet);
-            _targetToFleet = new RectTransform();
-        }
-        
+                _fleetManager.InitiateFleet(locAttackFleet, _materialPlanet);
+                _fleetManager.SetTarget(_targetToFleet, locStateFleet);
 
+            }
+            Clear();
+        }
     }
 
     private void AddShipsToDefPlanetFleet(DataFleet locDataFleet)
@@ -228,5 +225,49 @@ public class ParametrPlanet_mono : MonoBehaviour
     private void SetGoldRepSecond(int locGoldForTechLvl = 0, int locGoldForPlanetLvl = 0)
     {
         _genGoldPerSecond = locGoldForTechLvl + locGoldForPlanetLvl;
+    }
+    //формирование атакующего флота
+    private void AttackFleet(float percentageOfTheDefenderFleet)
+    {
+        float locPercent = Mathf.Clamp(percentageOfTheDefenderFleet, 0f, 100f);
+        _stateFleet = FleetStateStruct.enumFleetState.Movement;
+        GenerationFleet(_stateFleet, CalculationPercentageOfTheFleet(locPercent));
+    }
+
+    public void DefenderFleet()
+    {
+        _stateFleet = FleetStateStruct.enumFleetState.Defence;
+        GenerationFleet(_stateFleet, _listDefenderFleet);
+    }
+
+    //какой процент кораблей из флота защиты перейдет во флот атаки
+    private List<DataFleet> CalculationPercentageOfTheFleet(float locPercent)
+    {
+        List <DataFleet> tempAttackFleet = new List <DataFleet>();
+        float tempPercent = _listDefenderFleet.Count * (locPercent / 100);
+       
+        print($"процент  {locPercent} кол-во кораблей  {_listDefenderFleet.Count} сколько получилось {tempPercent}" +
+              $" меньшую сторону {Mathf.Floor(tempPercent)}");
+
+        for (int i = 0; i < _listDefenderFleet.Count; i++)
+        {
+            //доделать расчет  процент кораблей которые перейдут из флота защиты во флот атаки
+
+        }
+
+        return tempAttackFleet;
+    }
+
+    //добавляем корабли во флот защиты
+    private void AddShipToDefFleet(DataFleet loDataFleetToAddToFleet)
+    {
+        _listDefenderFleet.Add(loDataFleetToAddToFleet);
+    }
+
+
+    private void Clear()
+    {
+        _stateFleet = FleetStateStruct.enumFleetState.Idle;
+        _targetToFleet = new RectTransform();
     }
 }

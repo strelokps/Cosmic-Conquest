@@ -10,6 +10,8 @@ public struct FleetStateStruct
         Idle = 0,
         Attack = 1,
         Movement = 2,
-        SetTarget = 3,
+        Defence = 3,
+        PreAttack = 4
+
     }
 }

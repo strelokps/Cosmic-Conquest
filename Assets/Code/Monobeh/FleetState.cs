@@ -7,6 +7,7 @@ public class FleetState : MonoBehaviour
 {
     [SerializeField] private FleetStateStruct.enumFleetState _stateFleet = FleetStateStruct.enumFleetState.Idle;
     [ShowInInspector] private Vector3 _targetToMove;
+    [ShowInInspector] private Transform _target;
     [SerializeField] private float speedMove = 1f;
 
     [SerializeField] private float _stopBefore;
@@ -25,7 +26,7 @@ public class FleetState : MonoBehaviour
 
     //string нужен для теста
     //Устанавливаем цель и переключаем sate на моve
-    public void SetTargetToMove(Vector3 locTargetPosition)
+    private void SetTargetToMove(Vector3 locTargetPosition)
     {
         _targetToMove = locTargetPosition;
         _stateFleet = FleetStateStruct.enumFleetState.Movement;
@@ -38,6 +39,8 @@ public class FleetState : MonoBehaviour
 
         CheckDistance(_targetToMove);
     }
+
+
 
     private void FleetStateMeth()
     {
@@ -52,6 +55,9 @@ public class FleetState : MonoBehaviour
                 break;
             case FleetStateStruct.enumFleetState.Attack:
                 break;
+            case FleetStateStruct.enumFleetState.Defence:
+
+                break;
         }
     }
 
@@ -61,7 +67,7 @@ public class FleetState : MonoBehaviour
 
         if (_distanceSqr < _stopBefore)
         {
-            _stateFleet = FleetStateStruct.enumFleetState.Attack;
+            _stateFleet = FleetStateStruct.enumFleetState.PreAttack;
         }
     }
 
@@ -69,5 +75,16 @@ public class FleetState : MonoBehaviour
     {
         _distanceSqr = 0f;
         _targetToMove = new Vector3();
+    }
+
+    public void SetState(Transform locTargetPosition, FleetStateStruct.enumFleetState locStateFleet)
+    {
+        _stateFleet = locStateFleet;
+        _target = locTargetPosition;
+    }
+
+    private void PreAttack()
+    {
+        _target?.GetComponent<ParametrPlanet_mono>().DefenderFleet();
     }
 }
