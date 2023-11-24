@@ -7,7 +7,9 @@ public class FleetState : MonoBehaviour
 {
     [SerializeField] private FleetStateStruct.enumFleetState _stateFleet = FleetStateStruct.enumFleetState.Idle;
     [ShowInInspector] private Vector3 _targetToMove;
-    [ShowInInspector] private Transform _target;
+    [ShowInInspector] private Transform _targetTransform;
+
+    [ShowInInspector] private ParametrPlanet_mono _managerAttackPlanet;
     [SerializeField] private float speedMove = 1f;
 
     [SerializeField] private float _stopBefore;
@@ -15,7 +17,7 @@ public class FleetState : MonoBehaviour
 
     private void Start()
     {
-        _stopBefore = 16f; // дистанция остановки перед объектом
+        _stopBefore = 16; // дистанция остановки перед объектом
         speedMove = 0.5f;
     }
 
@@ -80,11 +82,13 @@ public class FleetState : MonoBehaviour
     public void SetState(Transform locTargetPosition, FleetStateStruct.enumFleetState locStateFleet)
     {
         _stateFleet = locStateFleet;
-        _target = locTargetPosition;
+        _targetTransform = locTargetPosition;
+        _targetToMove = locTargetPosition.position;
     }
 
     private void PreAttack()
     {
-        _target?.GetComponent<ParametrPlanet_mono>().DefenderFleet();
+        //TODO Сделать спавн точку для деф флота, который встает перед атакующем флотом
+        _managerAttackPlanet = _targetTransform?.GetComponent<ParametrPlanet_mono>();
     }
 }

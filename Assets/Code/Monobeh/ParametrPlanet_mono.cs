@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Net;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -29,7 +30,7 @@ public class ParametrPlanet_mono : MonoBehaviour
     [SerializeField] private Transform _pointSpawnFleet;
     [SerializeField] private GameObject _prefabFleet;
     private List<DataFleet> _listDefenderFleet = new List<DataFleet>();
-    private List<DataFleet> _listAttackFleet = new List<DataFleet>();
+    private List<DataFleet> _listAttackersFleet = new List<DataFleet>(); //список нападающших на планету флотов
     private FleetManager _fleetManager = new FleetManager();
     private Transform _targetToFleet;
     [SerializeField] private FleetStateStruct.enumFleetState _stateFleet;
@@ -39,6 +40,7 @@ public class ParametrPlanet_mono : MonoBehaviour
     private int _randomCountFleetToAttack;
     [SerializeField] private float  _percentForAttackFleet;
     [SerializeField] private int _numShipsInFleet;
+    private int _numRandomShipsForAttack;
 
 
     
@@ -87,11 +89,13 @@ public class ParametrPlanet_mono : MonoBehaviour
     {
         //StartCoroutine("TestGenerationFleet");
 
-        _timer = 3f;
+        _timer = 1f;
         _tempTimer = 0;
 
     }
-
+                                                /// <summary>
+                                                /// Update
+                                                /// </summary>
     private void Update()
     {
         GenerationGold();
@@ -105,8 +109,10 @@ public class ParametrPlanet_mono : MonoBehaviour
             locDataFleet.defence = 10;
             locDataFleet.colorFleet = _colorPlanet;
             AddShipsToDefPlanetFleet(locDataFleet);
+            print($"количетство кораблей защиты: {_listDefenderFleet.Count} > {_randomCountFleetToAttack}  " +
+                  $" id:  {_idPlanet}");
             //test
-            if (_randomCountFleetToAttack > _listDefenderFleet.Count)
+            if (_randomCountFleetToAttack < _listDefenderFleet.Count)
                 AttackFleet(_percentForAttackFleet);
 
         }
@@ -229,7 +235,7 @@ public class ParametrPlanet_mono : MonoBehaviour
     //формирование атакующего флота
     private void AttackFleet(float percentageOfTheDefenderFleet)
     {
-        float locPercent = Mathf.Clamp(percentageOfTheDefenderFleet, 0f, 100f);
+        float locPercent = Mathf.Clamp(percentageOfTheDefenderFleet, 0f, 100f); // устанавливаем диапазон процентного значения 
         _stateFleet = FleetStateStruct.enumFleetState.Movement;
         GenerationFleet(_stateFleet, CalculationPercentageOfTheFleet(locPercent));
     }
@@ -243,18 +249,35 @@ public class ParametrPlanet_mono : MonoBehaviour
     //какой процент кораблей из флота защиты перейдет во флот атаки
     private List<DataFleet> CalculationPercentageOfTheFleet(float locPercent)
     {
-        List <DataFleet> tempAttackFleet = new List <DataFleet>();
-        float tempPercent = _listDefenderFleet.Count * (locPercent / 100);
-       
-        print($"процент  {locPercent} кол-во кораблей  {_listDefenderFleet.Count} сколько получилось {tempPercent}" +
-              $" меньшую сторону {Mathf.Floor(tempPercent)}");
+        List<DataFleet> tempAttackFleet = new List<DataFleet>();
 
-        for (int i = 0; i < _listDefenderFleet.Count; i++)
+        if (_listDefenderFleet.Count > 0)
         {
-            //доделать расчет  процент кораблей которые перейдут из флота защиты во флот атаки
+            float tempPercent = Mathf.Floor(_listDefenderFleet.Count * (locPercent / 100));
+            float tempCountShipsToAttack = 0;
 
+            print($"входящий процент :  {locPercent} состав Def флота:  {_listDefenderFleet.Count} " 
+                  + $"полученный процент : {tempPercent}  id: {_idPlanet}");
+
+            if (tempPercent > _listDefenderFleet.Count)
+                tempCountShipsToAttack = _listDefenderFleet.Count;
+            else
+                tempCountShipsToAttack = tempPercent;
+            var tempCountDefFleet = _listDefenderFleet.Count;
+            for (int i = 0; tempPercent >= tempAttackFleet.Count; i++)
+            {
+
+                tempAttackFleet.Add(_listDefenderFleet[0]);
+                _listDefenderFleet.Remove(_listDefenderFleet[0]);
+                tempCountShipsToAttack--;
+                if (tempCountShipsToAttack <= 0)
+                {
+                    print($"кол-во кораблей после: {_listDefenderFleet.Count} " +
+                          $" сколько получилось в атакующем флоте: {tempAttackFleet.Count}  id: {_idPlanet}");
+                    return tempAttackFleet;
+                }
+            }
         }
-
         return tempAttackFleet;
     }
 
