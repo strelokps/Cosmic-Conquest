@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1254257694260417280}
   m_Layer: 0
-  m_Name: SpawnPoint
+  m_Name: SpawnPointAttack
   m_TagString: Untagged
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -64,6 +64,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1254257694260417280}
+  - {fileID: 1393487259139945159}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -145,9 +146,43 @@ MonoBehaviour:
   _idPlanet: 0
   _colorPlanet: {r: 0, g: 0, b: 0, a: 0}
   selfTransform: {fileID: 0}
-  timerGenSolarium: 0
   _timerForGenGold: 1
   _genGoldPerSecond: 1
-  _pointSpawnFleet: {fileID: 1254257694260417280}
+  _spawnPointAttackFleet: {fileID: 1254257694260417280}
+  _spawnPointDefenceFleet: {fileID: 1393487259139945159}
   _prefabFleet: {fileID: 0}
+  _stateFleet: 0
+  _percentForAttackFleet: 0
+  _numShipsInFleet: 0
   _currentLvlPlanet: 1
+--- !u!1 &4286012676955379948
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1393487259139945159}
+  m_Layer: 0
+  m_Name: SpawnPointDefence
+  m_TagString: Untagged
+  m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1393487259139945159
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4286012676955379948}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.89, y: 1.79, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1649089076114254521}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

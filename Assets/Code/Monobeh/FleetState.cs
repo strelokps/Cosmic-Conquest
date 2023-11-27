@@ -9,7 +9,7 @@ public class FleetState : MonoBehaviour
     [ShowInInspector] private Vector3 _targetToMove;
     [ShowInInspector] private Transform _targetTransform;
 
-    [ShowInInspector] private ParametrPlanet_mono _managerAttackPlanet;
+    [ShowInInspector] private ParametrPlanet_mono _managerTheAttackedPlanet;
     [SerializeField] private float speedMove = 1f;
 
     [SerializeField] private float _stopBefore;
@@ -55,10 +55,14 @@ public class FleetState : MonoBehaviour
             case FleetStateStruct.enumFleetState.Idle:
                 //print($"idle");
                 break;
+            case FleetStateStruct.enumFleetState.PreAttack:
+                PreAttack();
+                break;
             case FleetStateStruct.enumFleetState.Attack:
+                print($"На абордаж!!!!");
                 break;
             case FleetStateStruct.enumFleetState.Defence:
-
+                print($"На нас напали, Милорд");
                 break;
         }
     }
@@ -69,7 +73,7 @@ public class FleetState : MonoBehaviour
 
         if (_distanceSqr < _stopBefore)
         {
-            _stateFleet = FleetStateStruct.enumFleetState.PreAttack;
+            _stateFleet = FleetStateStruct.enumFleetState.Attack;
         }
     }
 
@@ -89,6 +93,13 @@ public class FleetState : MonoBehaviour
     private void PreAttack()
     {
         //TODO Сделать спавн точку для деф флота, который встает перед атакующем флотом
-        _managerAttackPlanet = _targetTransform?.GetComponent<ParametrPlanet_mono>();
+        _managerTheAttackedPlanet = _targetTransform?.GetComponent<ParametrPlanet_mono>();
+        _managerTheAttackedPlanet.DefenderFleet(transform);
+        _stateFleet = FleetStateStruct.enumFleetState.Movement;
+    }
+
+    private void FIreToTarget()
+    {
+
     }
 }

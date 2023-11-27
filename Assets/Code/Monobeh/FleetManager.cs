@@ -34,15 +34,18 @@ public class FleetManager : MonoBehaviour
         _fleetState = GetComponent<FleetState>();
     }
 
-    
+    public void AddShipToFleet(DataFleet locDataFleet)
+    {
+        _dataFleetList.Add(locDataFleet);
+        DisplayAttackAndDefenceFleet();
+    }
 
 
 
-   
+
+
     public void RemoveAttackAndDefence(DataFleet locDatafleet)
     {
-        //_attack -= locDatafleet.attack;
-        //_defence -= locDatafleet.defence;
         DisplayAttackAndDefenceFleet();
     }
 
