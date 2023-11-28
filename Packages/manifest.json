@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "com.scellecs.morpeh": "file:F:/MorpehECS_Distr/morpeh-master",
+    "com.scellecs.morpeh": "file:D:/Unity/Morpeh/morpeh-main",
     "com.unity.collab-proxy": "2.1.0",
     "com.unity.feature.development": "1.0.1",
     "com.unity.inputsystem": "1.7.0",

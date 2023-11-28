@@ -92,6 +92,15 @@ public class ParametrPlanet_mono : MonoBehaviour
         _percentForAttackFleet = 70f;
         _controls = new InputControls();
     }
+    private void OnDisable()
+    {
+        _controls.Disable();
+    }
+
+    private void OnEnable()
+    {
+        _controls.Enable();
+    }
 
     private void Start()
     {
@@ -106,19 +115,16 @@ public class ParametrPlanet_mono : MonoBehaviour
                                                 /// </summary>
     private void FixedUpdate()
     {
+        Vector2 move = _controls.Main.NewA.ReadValue<Vector2>();
+        print($"move {move}");
 
-        if (_controls.Main.Mouse.WasPerformedThisFrame())
-        {
-            print($" ноль есть ноль");
-
-        }
-        if (_controls.Main.Mouse.WasReleasedThisFrame())
+        if (_controls.Main.NewA.WasPressedThisFrame())
         {
             print($" ноль есть ноль 1");
 
         }
 
-        if (_controls.Main.Mouse.WasPressedThisFrame())
+        if (_controls.Main.NewA.WasReleasedThisFrame())
         {
             print($" ноль есть ноль 2");
 
@@ -143,12 +149,12 @@ public class ParametrPlanet_mono : MonoBehaviour
                 {
                     print($"количетство кораблей защиты: ");
                     //{_listDefenderFleet.Count} > {_randomCountFleetToAttack}  " + $" id:  {_idPlanet}
-                    if (Input.GetButton("Fire1"))
+                    if (_controls.Main.Mouse.triggered)
                     {
                         //print($" {_randomCountFleetToAttack} < {_listDefenderFleet.Count}  {_idPlanet}");
 
-                        print(" атака  19");
-                        AttackFleet(_percentForAttackFleet);
+                        //print(" атака  19");
+                        //AttackFleet(_percentForAttackFleet);
 
                     }
                 }
@@ -188,18 +194,9 @@ public class ParametrPlanet_mono : MonoBehaviour
         goDefFleet = new List<GameObject>();
         //test
         _randomCountFleetToAttack = Random.Range(2, 10);
-        _controls = new InputControls();
     }
 
-    private void OnDisable()
-    {
-        _controls.Disable();
-    }
 
-    private void OnEnable()
-    {
-        _controls.Enable();
-    }
 
     public void SetColorPlanet(Color locColorPlanet)
     {
@@ -207,7 +204,7 @@ public class ParametrPlanet_mono : MonoBehaviour
         if (gameObject.GetComponent<Material>())
             _materialPlanet = new Material(gameObject.GetComponent<Material>());
         _materialPlanet.color = _colorPlanet;
-        _materialPlanet.SetColor("_EmissionColor", locColorPlanet * (0.85f)); //цифра обозначает интенсивность свечения
+        _materialPlanet.SetColor("_EmissionColor", locColorPlanet * (0.65f)); //цифра обозначает интенсивность свечения
     }
 
     public void SetPrefabFleet(GameObject locPrefabFleet)

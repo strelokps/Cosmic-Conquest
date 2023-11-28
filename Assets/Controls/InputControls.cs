@@ -29,7 +29,7 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
             ""actions"": [
                 {
                     ""name"": ""Space"",
-                    ""type"": ""Value"",
+                    ""type"": ""Button"",
                     ""id"": ""3a4b2385-9c54-42b6-aa73-e4046ca53978"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
@@ -38,12 +38,12 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""UpArrow"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""7784c8ea-4310-4e32-a66a-816826589dc7"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""Mouse"",
@@ -53,6 +53,15 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""NewA"",
+                    ""type"": ""Value"",
+                    ""id"": ""59fea893-270d-415d-9a2a-70eaf78538ab"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -74,6 +83,17 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard + mouse"",
+                    ""action"": ""UpArrow"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8350e1c6-e3a2-4090-8aa4-b31a728ffe89"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
                     ""action"": ""UpArrow"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -110,6 +130,61 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
                     ""action"": ""Mouse"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D"",
+                    ""id"": ""d9ccc5a6-1c97-4460-b2ec-63107612cea4"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NewA"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Up"",
+                    ""id"": ""685db081-22c6-4c58-883d-4e092a7a3723"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard + mouse"",
+                    ""action"": ""NewA"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Down"",
+                    ""id"": ""b96d264b-81e1-4ff2-bb28-5728addced55"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard + mouse"",
+                    ""action"": ""NewA"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Left"",
+                    ""id"": ""15081861-a4d7-4219-a149-72f790b70a19"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard + mouse"",
+                    ""action"": ""NewA"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Right"",
+                    ""id"": ""e41e6fe1-5782-4e6f-b0dc-4794fe7e20d2"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard + mouse"",
+                    ""action"": ""NewA"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -138,6 +213,7 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
         m_Main_Space = m_Main.FindAction("Space", throwIfNotFound: true);
         m_Main_UpArrow = m_Main.FindAction("UpArrow", throwIfNotFound: true);
         m_Main_Mouse = m_Main.FindAction("Mouse", throwIfNotFound: true);
+        m_Main_NewA = m_Main.FindAction("NewA", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -202,6 +278,7 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Main_Space;
     private readonly InputAction m_Main_UpArrow;
     private readonly InputAction m_Main_Mouse;
+    private readonly InputAction m_Main_NewA;
     public struct MainActions
     {
         private @InputControls m_Wrapper;
@@ -209,6 +286,7 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
         public InputAction @Space => m_Wrapper.m_Main_Space;
         public InputAction @UpArrow => m_Wrapper.m_Main_UpArrow;
         public InputAction @Mouse => m_Wrapper.m_Main_Mouse;
+        public InputAction @NewA => m_Wrapper.m_Main_NewA;
         public InputActionMap Get() { return m_Wrapper.m_Main; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -227,6 +305,9 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
             @Mouse.started += instance.OnMouse;
             @Mouse.performed += instance.OnMouse;
             @Mouse.canceled += instance.OnMouse;
+            @NewA.started += instance.OnNewA;
+            @NewA.performed += instance.OnNewA;
+            @NewA.canceled += instance.OnNewA;
         }
 
         private void UnregisterCallbacks(IMainActions instance)
@@ -240,6 +321,9 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
             @Mouse.started -= instance.OnMouse;
             @Mouse.performed -= instance.OnMouse;
             @Mouse.canceled -= instance.OnMouse;
+            @NewA.started -= instance.OnNewA;
+            @NewA.performed -= instance.OnNewA;
+            @NewA.canceled -= instance.OnNewA;
         }
 
         public void RemoveCallbacks(IMainActions instance)
@@ -271,5 +355,6 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
         void OnSpace(InputAction.CallbackContext context);
         void OnUpArrow(InputAction.CallbackContext context);
         void OnMouse(InputAction.CallbackContext context);
+        void OnNewA(InputAction.CallbackContext context);
     }
 }

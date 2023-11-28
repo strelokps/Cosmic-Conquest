@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.43424186, g: 0.4811319, b: 0.56203955, a: 1}
+  m_IndirectSpecularColor: {r: 0.43667683, g: 0.48427218, b: 0.5645258, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3583,8 +3583,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d56b3e52712d46745a2f275da73087c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _material: {fileID: 0}
-  _gameObject: {fileID: 0}
+  _material: {fileID: 2100000, guid: ce95bfb2f896600469f06fa0e4b00902, type: 2}
+  _gameObject: {fileID: 936330996}
 --- !u!65 &936330998
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5826,7 +5826,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'ver.: 0.1.228.763.0'
+  m_text: 'ver.: 0.1.273.808.0'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

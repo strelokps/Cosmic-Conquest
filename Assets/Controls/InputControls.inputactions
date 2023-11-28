@@ -7,7 +7,7 @@
             "actions": [
                 {
                     "name": "Space",
-                    "type": "Value",
+                    "type": "Button",
                     "id": "3a4b2385-9c54-42b6-aa73-e4046ca53978",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -16,12 +16,12 @@
                 },
                 {
                     "name": "UpArrow",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "7784c8ea-4310-4e32-a66a-816826589dc7",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Mouse",
@@ -31,6 +31,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "NewA",
+                    "type": "Value",
+                    "id": "59fea893-270d-415d-9a2a-70eaf78538ab",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -52,6 +61,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard + mouse",
+                    "action": "UpArrow",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8350e1c6-e3a2-4090-8aa4-b31a728ffe89",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "UpArrow",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -88,6 +108,61 @@
                     "action": "Mouse",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "2D",
+                    "id": "d9ccc5a6-1c97-4460-b2ec-63107612cea4",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NewA",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Up",
+                    "id": "685db081-22c6-4c58-883d-4e092a7a3723",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard + mouse",
+                    "action": "NewA",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Down",
+                    "id": "b96d264b-81e1-4ff2-bb28-5728addced55",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard + mouse",
+                    "action": "NewA",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Left",
+                    "id": "15081861-a4d7-4219-a149-72f790b70a19",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard + mouse",
+                    "action": "NewA",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Right",
+                    "id": "e41e6fe1-5782-4e6f-b0dc-4794fe7e20d2",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard + mouse",
+                    "action": "NewA",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }
