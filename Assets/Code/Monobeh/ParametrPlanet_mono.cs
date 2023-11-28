@@ -4,6 +4,7 @@ using System.ComponentModel.Design;
 using System.Net;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ParametrPlanet_mono : MonoBehaviour 
 {
@@ -52,6 +53,9 @@ public class ParametrPlanet_mono : MonoBehaviour
     private DataPlanet _dataPlanet = new DataPlanet();
 
 
+    [Header("[ Input Controls ]")] 
+    private InputControls _controls;
+
     //Test
     private float _timer;
     private float _tempTimer;
@@ -86,6 +90,7 @@ public class ParametrPlanet_mono : MonoBehaviour
             Debug.Log($"Not found MeshRenderer in gameObject {gameObject.name}  {prop_IdPlanet}");
         }
         _percentForAttackFleet = 70f;
+        _controls = new InputControls();
     }
 
     private void Start()
@@ -99,11 +104,23 @@ public class ParametrPlanet_mono : MonoBehaviour
                                                 /// <summary>
                                                 ///              Update
                                                 /// </summary>
-    private void Update()
+    private void FixedUpdate()
     {
-        if (_memberSceneDatasParent.membersID == 0 & _idPlanet == 19)
+
+        if (_controls.Main.Mouse.WasPerformedThisFrame())
         {
             print($" ноль есть ноль");
+
+        }
+        if (_controls.Main.Mouse.WasReleasedThisFrame())
+        {
+            print($" ноль есть ноль 1");
+
+        }
+
+        if (_controls.Main.Mouse.WasPressedThisFrame())
+        {
+            print($" ноль есть ноль 2");
 
         }
 
@@ -118,20 +135,22 @@ public class ParametrPlanet_mono : MonoBehaviour
             locDataFleet.defence = 10;
             locDataFleet.colorFleet = _colorPlanet;
             AddShipsToDefPlanetFleet(locDataFleet);
-            //print($"количетство кораблей защиты: {_listDefenderFleet.Count} > {_randomCountFleetToAttack}  " +
-            //      $" id:  {_idPlanet}");
+
             //test
             if (_randomCountFleetToAttack < _listDefenderFleet.Count)
             {
                 if (_idPlanet == 19)
                 {
-                    print($" {_randomCountFleetToAttack } < {_listDefenderFleet.Count}  {_idPlanet}");
-                    if ((Input.GetKey(KeyCode.UpArrow)))
+                    print($"количетство кораблей защиты: ");
+                    //{_listDefenderFleet.Count} > {_randomCountFleetToAttack}  " + $" id:  {_idPlanet}
+                    if (Input.GetButton("Fire1"))
                     {
+                        //print($" {_randomCountFleetToAttack} < {_listDefenderFleet.Count}  {_idPlanet}");
+
                         print(" атака  19");
                         AttackFleet(_percentForAttackFleet);
-                    }
 
+                    }
                 }
 
                 if (_idPlanet != 19)
@@ -169,6 +188,17 @@ public class ParametrPlanet_mono : MonoBehaviour
         goDefFleet = new List<GameObject>();
         //test
         _randomCountFleetToAttack = Random.Range(2, 10);
+        _controls = new InputControls();
+    }
+
+    private void OnDisable()
+    {
+        _controls.Disable();
+    }
+
+    private void OnEnable()
+    {
+        _controls.Enable();
     }
 
     public void SetColorPlanet(Color locColorPlanet)

@@ -92,13 +92,12 @@ public class FleetState : MonoBehaviour
 
     private void PreAttack()
     {
-        //TODO Сделать спавн точку для деф флота, который встает перед атакующем флотом
         _managerTheAttackedPlanet = _targetTransform?.GetComponent<ParametrPlanet_mono>();
         _managerTheAttackedPlanet.DefenderFleet(transform);
         _stateFleet = FleetStateStruct.enumFleetState.Movement;
     }
 
-    private void FIreToTarget()
+    private void FireToTarget()
     {
 
     }
