@@ -11,7 +11,8 @@ public struct FleetStateStruct
         Attack = 1,
         Movement = 2,
         Defence = 3,
-        PreAttack = 4
+        PreAttack = 4,
+        JoinToDefender = 5
 
     }
 }

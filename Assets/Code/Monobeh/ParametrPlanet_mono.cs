@@ -6,17 +6,20 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(PlanetCapturing))]
+
 public class ParametrPlanet_mono : MonoBehaviour 
 {
     [SerializeField] private int _idPlanet;
     private int _lvlTechPlanet;
     [SerializeField] private Color _colorPlanet;
-    private SceneMembersData _memberSceneDatasParent = new SceneMembersData();
+    private SceneMembersData _memberSceneData = new SceneMembersData();
     private Material _materialPlanet;
     private Material _materialFleet;
     private MeshRenderer _meshRendererPlanet;
     private Transform _parentTransform;
     private ParentManager _parentManager;
+    private PlanetCapturing _planetCapturing;
 
     [HideInInspector] public Transform selfTransform;
 
@@ -40,7 +43,7 @@ public class ParametrPlanet_mono : MonoBehaviour
     private FleetManager _defFleetManager;
 
     //test
-    DataFleet locDataFleet = new DataFleet();
+    DataFleet locDataFleetTest = new DataFleet();
     private int _randomCountFleetToAttack;
     [SerializeField] private float  _percentForAttackFleet;
     [SerializeField] private int _numShipsInFleet;
@@ -93,6 +96,7 @@ public class ParametrPlanet_mono : MonoBehaviour
         }
         _percentForAttackFleet = 70f;
         _controls = new InputControls();
+        _planetCapturing = gameObject.GetComponent<PlanetCapturing>();
     }
     private void OnDisable()
     {
@@ -110,7 +114,6 @@ public class ParametrPlanet_mono : MonoBehaviour
 
         _timer = 1f;
         _tempTimer = 0;
-
     }
                                                 /// <summary>
                                                 ///              Update
@@ -140,23 +143,26 @@ public class ParametrPlanet_mono : MonoBehaviour
 
         //}
 
+        if (_idPlanet == 19 & locDataFleetTest.attack > 0)
+            AddShipsToDefPlanetFleet(locDataFleetTest); //добавляем корабли во внутренний флот
+
         GenerationGold();
         _tempTimer += Time.deltaTime;
         if (_tempTimer > _timer)
         {
             _tempTimer = 0;
             numShip = 1;
-            
-            locDataFleet.attack = 2;
-            locDataFleet.defence = 10;
-            locDataFleet.colorFleet = _colorPlanet;
-            AddShipsToDefPlanetFleet(locDataFleet);
+
+            locDataFleetTest.attack = 2;
+            locDataFleetTest.defence = 10;
+            locDataFleetTest.colorFleet = _colorPlanet;
 
             //test
             if (_randomCountFleetToAttack < _listDefenderFleet.Count)
             {
                 if (_idPlanet == 19)
                 {
+
                     print(" атака  19");
                     //print($"количетство кораблей защиты: {_listDefenderFleet.Count} > {_randomCountFleetToAttack}  " + $" id:  {_idPlanet}");
 
@@ -195,13 +201,13 @@ public class ParametrPlanet_mono : MonoBehaviour
         //Gold
         _tempTimerForGenGold = _timerForGenGold;
 
-        _memberSceneDatasParent = locMemberSceneDatasParent;
-        _idPlanet = _memberSceneDatasParent.membersID;
-        SetColorPlanet(_memberSceneDatasParent.colorMembers);
+        _memberSceneData = locMemberSceneDatasParent;
+        _idPlanet = _memberSceneData.membersID;
+        SetColorPlanet(_memberSceneData.colorMembers);
 
-        if (_memberSceneDatasParent.prefabFleet != null)
-            SetPrefabFleet(_memberSceneDatasParent.prefabFleet); //подгружаеи соответствующий префаб флота
-        _materialFleet = _memberSceneDatasParent.fleet_Material;
+        if (_memberSceneData.prefabFleet != null)
+            SetPrefabFleet(_memberSceneData.prefabFleet); //подгружаеи соответствующий префаб флота
+        _materialFleet = _memberSceneData.fleet_Material;
         SetParentTransform(locParentTransform);
         _parentManager = _parentTransform.GetComponent<ParentManager>();
         SetGoldRepSecond(locMemberSceneDatasParent.lvlTech, _dataPlanet.SetPlanetLvl(_currentLvlPlanet));
@@ -248,7 +254,8 @@ public class ParametrPlanet_mono : MonoBehaviour
             if (fl.GetComponent<FleetManager>())
             {
                 _fleetManager = fl.GetComponent<FleetManager>();
-                _fleetManager.InitiateFleet(locListAttackedOrDefenderFleet, _materialPlanet, transform);
+                _fleetManager.InitiateFleet(locListAttackedOrDefenderFleet, _materialPlanet, transform
+                    , _parentTransform);
                 _fleetManager.SetTarget(locTarget, locStateFleet);
                 if (flagDefFleet )
                 {
@@ -274,13 +281,33 @@ public class ParametrPlanet_mono : MonoBehaviour
 
     }
 
+    public void AddFleetToDefPlanetFleet(List<DataFleet> locListDataFleet)
+    {
+        if (goDefFleet.Count > 0)
+        {
+            for (int i = 0; i < locListDataFleet.Count; i++)
+            {
+                _defFleetManager.AddShipToFleet(locListDataFleet[i]);// добавляем во флот защиты, который на данный момент активен
+
+            }
+        }
+        else
+        {
+            for (int i = 0; i < locListDataFleet.Count; i++)
+            {
+                _listDefenderFleet.Add(locListDataFleet[i]); // добавляем в список защитников планеты
+            }
+        }
+
+    }
+
     public Transform SetTarget(Transform locTrarget = null)
     {
         //для теста устанавливаем цель 
-        if (_memberSceneDatasParent.enemy.Count > 0)
+        if (_memberSceneData.enemy.Count > 0)
         {
-            int locNumberEnemy = Random.Range(0, _memberSceneDatasParent.enemy.Count);
-            var x = _memberSceneDatasParent.enemy[locNumberEnemy];
+            int locNumberEnemy = Random.Range(0, _memberSceneData.enemy.Count);
+            var x = _memberSceneData.enemy[locNumberEnemy];
             var y1 = x.parentTransform;
             var y = y1.GetComponent<ParentManager>();
             if (y._planetList.Count == 0)
@@ -354,6 +381,7 @@ public class ParametrPlanet_mono : MonoBehaviour
             _listDefenderFleet.Clear(); //очищаем список флота на планете, т.к. все корабли были переданы в деф флот
             Clear();
         }
+        
     }
 
     //какой процент кораблей из флота защиты перейдет во флот атаки
@@ -386,11 +414,29 @@ public class ParametrPlanet_mono : MonoBehaviour
         return tempAttackFleet;
     }
 
-    public void AddAttackerFleetToList(GameObject locGOArrivalAttackerFleet)
+    public SceneMembersData TakeMembersData()
     {
-            _listAttackersFleet.Add(locGOArrivalAttackerFleet);
+        return _memberSceneData;
     }
 
+    public bool ChangeOwnerPlanet(SceneMembersData locNewMembersData, Transform locNewParentTransform)
+    {
+        bool flagChangeOwnerPlanet = false;
+        if (_listDefenderFleet.Count == 0 & goDefFleet.Count == 0)
+        {
+            StartetConfig(locNewMembersData, locNewParentTransform);
+            flagChangeOwnerPlanet = true;
+        }
+
+        return flagChangeOwnerPlanet;
+    }
+
+    public bool CompareParents(Transform locOtherParentTransform)
+    {
+        bool flagCompare = _parentTransform == locOtherParentTransform;
+
+        return flagCompare;
+    }
 
     private void Clear()
     {

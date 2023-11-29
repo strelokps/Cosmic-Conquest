@@ -15,11 +15,14 @@ public class FleetState : MonoBehaviour
 
     [SerializeField] private float _stopBefore;
     [SerializeField] private float  _distanceSqr;
+    private FleetManager _fleetManager;
 
     private void Start()
     {
         _stopBefore = 16; // дистанция остановки перед объектом
         speedMove = 2.5f;
+        _fleetManager = transform.GetComponent<FleetManager>();
+
     }
 
     private void Update()
@@ -40,7 +43,7 @@ public class FleetState : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, new Vector3(_targetToMove.x, 0, _targetToMove.z)
             , speedMove * Time.deltaTime);
 
-        CheckDistance(_targetToMove);
+        CheckDistanceToAttack(_targetToMove);
     }
 
 
@@ -61,21 +64,33 @@ public class FleetState : MonoBehaviour
                 break;
             case FleetStateStruct.enumFleetState.Attack:
                 print($"На абордаж!!!!");
+                FireToTarget();
                 break;
             case FleetStateStruct.enumFleetState.Defence:
                 print($"На нас напали, Милорд");
                 break;
+            case FleetStateStruct.enumFleetState.JoinToDefender:
+                break;
         }
     }
 
-    private void CheckDistance(Vector3 locTargetToMove)
+    private void CheckDistanceToAttack(Vector3 locTargetToMove)
     {
-        _distanceSqr = (locTargetToMove - transform.position).sqrMagnitude;
 
         if (_distanceSqr < _stopBefore)
         {
             CheckOtherAttackersFleet();
             _stateFleet = FleetStateStruct.enumFleetState.Attack;
+        }
+    }
+
+    private void CheckDistanceToJoin(Vector3 locTargetToMove)
+    {
+
+        if (_distanceSqr < _stopBefore)
+        {
+            CheckOtherAttackersFleet();
+            _stateFleet = FleetStateStruct.enumFleetState.JoinToDefender;
         }
     }
 
@@ -90,21 +105,24 @@ public class FleetState : MonoBehaviour
         _stateFleet = locStateFleet;
         _targetTransform = locTargetPosition;
         _targetToMove = locTargetPosition.position;
+        _distanceSqr = (_targetToMove - transform.position).sqrMagnitude;
+
     }
 
     private void PreAttack()
     {
+
         _managerTheAttackedPlanet = _targetTransform?.GetComponent<ParametrPlanet_mono>();
         //если у планеты нет флота защитника, то генерим новый
-        if (_managerTheAttackedPlanet.goDefFleet.Count <= 0) 
-            _managerTheAttackedPlanet.DefenderFleet(transform);
+        if (_managerTheAttackedPlanet.goDefFleet.Count <= 0)
+             _managerTheAttackedPlanet.DefenderFleet(transform);
 
         _stateFleet = FleetStateStruct.enumFleetState.Movement;
     }
 
     private void FireToTarget()
     {
-
+        CheckHaveAPlanetDefFllet();
     }
 
     //проверяем наличиу у нападающих флотов соотвествие по transform планеты, если совпало, то добавляем к фл
@@ -112,17 +130,18 @@ public class FleetState : MonoBehaviour
     {
         if (_managerTheAttackedPlanet._listAttackersFleet.Count > 0)
         {
-            FleetManager locflManager = transform.GetComponent<FleetManager>();
             for (int i = 0; i < _managerTheAttackedPlanet._listAttackersFleet.Count; i++)
             {
                 print($"dist: {_managerTheAttackedPlanet._listAttackersFleet[i].GetComponent<FleetManager>().planetIsOwenerFleet}" +
-                      $"self: {locflManager.planetIsOwenerFleet}");
+                      $"self: {_fleetManager.planetIsOwenerFleet}");
                 if (_managerTheAttackedPlanet._listAttackersFleet[i].GetComponent<FleetManager>().planetIsOwenerFleet
-                    == locflManager.planetIsOwenerFleet)
+                    == _fleetManager.planetIsOwenerFleet)
                 {
-                    _managerTheAttackedPlanet._listAttackersFleet[i].GetComponent<FleetManager>()
-                        .MergFleets(locflManager.GetDataFleetList());
-                    locflManager.DestroyFleet();
+                    _managerTheAttackedPlanet
+                        ._listAttackersFleet[i]
+                        .GetComponent<FleetManager>()
+                        .MergFleets(_fleetManager.GetDataFleetList());
+                    _fleetManager.DestroyFleet();
                 }
             }
         }
@@ -132,4 +151,14 @@ public class FleetState : MonoBehaviour
         }
 
     }
+
+    private void CheckHaveAPlanetDefFllet()
+    {
+        if(_managerTheAttackedPlanet.ChangeOwnerPlanet(_fleetManager.GetMembersData(), _fleetManager.GetParentTransform()))
+        {
+            
+        }
+
+    }
+
 }

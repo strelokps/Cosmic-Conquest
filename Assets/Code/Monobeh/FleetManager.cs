@@ -24,6 +24,8 @@ public class FleetManager : MonoBehaviour
     [SerializeField] private List<DataFleet> _dataFleetList = new List<DataFleet>();
     private FleetState _fleetState;
     private Transform _target;
+    private SceneMembersData _membersDataInFleet;
+    private Transform _parentTransformInFleet;
 
 
 
@@ -45,6 +47,16 @@ public class FleetManager : MonoBehaviour
     public List<DataFleet> GetDataFleetList()
     {
         return _dataFleetList;
+    }
+
+    public SceneMembersData GetMembersData()
+    {
+        return _membersDataInFleet;
+    }
+
+    public Transform GetParentTransform()
+    {
+        return _parentTransformInFleet;
     }
 
 
@@ -85,7 +97,8 @@ public class FleetManager : MonoBehaviour
 
     }
 
-    public void InitiateFleet(List<DataFleet> locDataFleet, Material locMaterial, Transform locPlanetIsOwenerFleet)
+    public void InitiateFleet(List<DataFleet> locDataFleet, Material locMaterial, Transform locPlanetIsOwnerFleet
+        , Transform locParentTransform)
     {
         ClearParamFleetAndDisplay();
         _dataFleetList = new List<DataFleet>{new DataFleet() { attack = 0, defence = 0} };
@@ -97,7 +110,9 @@ public class FleetManager : MonoBehaviour
         _imageFleet_R.GetComponent<Image>().material = new Material(locMaterial) ;
         _imageFleet_R.GetComponent<Image>().material.SetColor("_EmissionColor", locMaterial.color * 1.9f);
 
-        planetIsOwenerFleet = locPlanetIsOwenerFleet;
+        planetIsOwenerFleet = locPlanetIsOwnerFleet;
+        _parentTransformInFleet = locParentTransform;
+        _membersDataInFleet = planetIsOwenerFleet.GetComponent<ParametrPlanet_mono>().TakeMembersData();
         DisplayAttackAndDefenceFleet();
         DisplayNumShipInFleet();
     }
@@ -105,6 +120,16 @@ public class FleetManager : MonoBehaviour
     public void SetTarget(Transform locTargetPosition, FleetStateStruct.enumFleetState locStateFleet)
     {
         _target = locTargetPosition;
+        if (_target.GetComponent<ParametrPlanet_mono>())
+        {
+            var prPlanet = _target.GetComponent<ParametrPlanet_mono>();
+            if (prPlanet.CompareParents(_parentTransformInFleet))
+            {
+                
+            }
+            elae
+        }
+
         _fleetState.SetState( locTargetPosition, locStateFleet);
     }
 
@@ -116,6 +141,12 @@ public class FleetManager : MonoBehaviour
         }
         DisplayAttackAndDefenceFleet();
         DisplayNumShipInFleet();
+    }
+
+    private void JoinToDefender(List<DataFleet> locDataFleets)
+    {
+        prPlanet.AddFleetToDefPlanetFleet(_dataFleetList);
+        DestroyFleet();
     }
 
     public void DestroyFleet()
