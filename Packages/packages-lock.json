@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.scellecs.morpeh": {
-      "version": "file:D:/Unity/Morpeh/morpeh-main",
+      "version": "file:F:/Unity project/morpeh-main/morpeh-main",
       "depth": 0,
       "source": "local",
       "dependencies": {}

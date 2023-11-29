@@ -8,6 +8,7 @@ public class FleetState : MonoBehaviour
     [SerializeField] private FleetStateStruct.enumFleetState _stateFleet = FleetStateStruct.enumFleetState.Idle;
     [ShowInInspector] private Vector3 _targetToMove;
     [ShowInInspector] private Transform _targetTransform;
+    private Transform ownFleetPlanet;
 
     [ShowInInspector] private ParametrPlanet_mono _managerTheAttackedPlanet;
     [SerializeField] private float speedMove = 1f;
@@ -18,7 +19,7 @@ public class FleetState : MonoBehaviour
     private void Start()
     {
         _stopBefore = 16; // дистанция остановки перед объектом
-        speedMove = 0.5f;
+        speedMove = 2.5f;
     }
 
     private void Update()
@@ -73,6 +74,7 @@ public class FleetState : MonoBehaviour
 
         if (_distanceSqr < _stopBefore)
         {
+            CheckOtherAttackersFleet();
             _stateFleet = FleetStateStruct.enumFleetState.Attack;
         }
     }
@@ -93,12 +95,41 @@ public class FleetState : MonoBehaviour
     private void PreAttack()
     {
         _managerTheAttackedPlanet = _targetTransform?.GetComponent<ParametrPlanet_mono>();
-        _managerTheAttackedPlanet.DefenderFleet(transform);
+        //если у планеты нет флота защитника, то генерим новый
+        if (_managerTheAttackedPlanet.goDefFleet.Count <= 0) 
+            _managerTheAttackedPlanet.DefenderFleet(transform);
+
         _stateFleet = FleetStateStruct.enumFleetState.Movement;
     }
 
     private void FireToTarget()
     {
+
+    }
+
+    //проверяем наличиу у нападающих флотов соотвествие по transform планеты, если совпало, то добавляем к фл
+    private void CheckOtherAttackersFleet()
+    {
+        if (_managerTheAttackedPlanet._listAttackersFleet.Count > 0)
+        {
+            FleetManager locflManager = transform.GetComponent<FleetManager>();
+            for (int i = 0; i < _managerTheAttackedPlanet._listAttackersFleet.Count; i++)
+            {
+                print($"dist: {_managerTheAttackedPlanet._listAttackersFleet[i].GetComponent<FleetManager>().planetIsOwenerFleet}" +
+                      $"self: {locflManager.planetIsOwenerFleet}");
+                if (_managerTheAttackedPlanet._listAttackersFleet[i].GetComponent<FleetManager>().planetIsOwenerFleet
+                    == locflManager.planetIsOwenerFleet)
+                {
+                    _managerTheAttackedPlanet._listAttackersFleet[i].GetComponent<FleetManager>()
+                        .MergFleets(locflManager.GetDataFleetList());
+                    locflManager.DestroyFleet();
+                }
+            }
+        }
+        else
+        {
+            _managerTheAttackedPlanet._listAttackersFleet.Add(gameObject);
+        }
 
     }
 }

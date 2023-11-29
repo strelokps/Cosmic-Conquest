@@ -31,12 +31,12 @@ public class ParametrPlanet_mono : MonoBehaviour
     [SerializeField] private Transform _spawnPointAttackFleet;
     [SerializeField] private Transform _spawnPointDefenceFleet;
     [SerializeField] private GameObject _prefabFleet;
-    private List<DataFleet> _listDefenderFleet = new List<DataFleet>();
-    private List<DataFleet> _listAttackersFleet = new List<DataFleet>(); //список нападающших на планету флотов
+    private List<DataFleet> _listDefenderFleet = new List<DataFleet>();     //список кораблей для защиты внутри планеты 
+    public List<GameObject> _listAttackersFleet = new List<GameObject>();    //список нападающших на планету флотов
     private FleetManager _fleetManager = new FleetManager();
     private Transform _targetToFleet;
     [SerializeField] private FleetStateStruct.enumFleetState _stateFleet;
-    public List<GameObject> goDefFleet;
+    public List<GameObject> goDefFleet;                                     //Флот защиты на орбите
     private FleetManager _defFleetManager;
 
     //test
@@ -45,9 +45,11 @@ public class ParametrPlanet_mono : MonoBehaviour
     [SerializeField] private float  _percentForAttackFleet;
     [SerializeField] private int _numShipsInFleet;
     private int _numRandomShipsForAttack;
+    bool testFlag = false;
 
 
-    
+
+
     [Header("[ Lvl Planet ]")]
     [SerializeField] private int _currentLvlPlanet;
     private DataPlanet _dataPlanet = new DataPlanet();
@@ -113,22 +115,30 @@ public class ParametrPlanet_mono : MonoBehaviour
                                                 /// <summary>
                                                 ///              Update
                                                 /// </summary>
-    private void FixedUpdate()
+                                                
+    private void Update()
     {
-        Vector2 move = _controls.Main.NewA.ReadValue<Vector2>();
-        print($"move {move}");
+        //Vector2 move = _controls.Main.NewA.ReadValue<Vector2>();
+        print($"move {testFlag}");
 
-        if (_controls.Main.NewA.WasPressedThisFrame())
+        if (_controls.Main.Mouse.triggered & _idPlanet == 19)
         {
-            print($" ноль есть ноль 1");
+            print($" ноль есть ноль");
+            testFlag = true;
 
         }
 
-        if (_controls.Main.NewA.WasReleasedThisFrame())
-        {
-            print($" ноль есть ноль 2");
+        //if (_controls.Main.NewA.WasPressedThisFrame())
+        //{
+        //    print($" ноль есть ноль 1");
 
-        }
+        //}
+
+        //if (_controls.Main.NewA.WasReleasedThisFrame())
+        //{
+        //    print($" ноль есть ноль 2");
+
+        //}
 
         GenerationGold();
         _tempTimer += Time.deltaTime;
@@ -147,28 +157,32 @@ public class ParametrPlanet_mono : MonoBehaviour
             {
                 if (_idPlanet == 19)
                 {
-                    print($"количетство кораблей защиты: ");
-                    //{_listDefenderFleet.Count} > {_randomCountFleetToAttack}  " + $" id:  {_idPlanet}
-                    if (_controls.Main.Mouse.triggered)
-                    {
-                        //print($" {_randomCountFleetToAttack} < {_listDefenderFleet.Count}  {_idPlanet}");
+                    print(" атака  19");
+                    //print($"количетство кораблей защиты: {_listDefenderFleet.Count} > {_randomCountFleetToAttack}  " + $" id:  {_idPlanet}");
 
-                        //print(" атака  19");
-                        //AttackFleet(_percentForAttackFleet);
+                    //
+                    if (testFlag)
+                    {
+                        print($" {_randomCountFleetToAttack} < {_listDefenderFleet.Count}  {_idPlanet}");
+
+                        AttackFleet(_percentForAttackFleet);
+                        testFlag = false;
 
                     }
                 }
 
                 if (_idPlanet != 19)
                 {
-                    //print($" {_randomCountFleetToAttack} < {_listDefenderFleet.Count}  {_idPlanet}");
-                    if (Input.GetKey(KeyCode.Backspace))
+                    //print($" Атака не 19 {_idPlanet}");
+                    if (_controls.Main.NewA.IsPressed())
+                        //print($" {_randomCountFleetToAttack} < {_listDefenderFleet.Count}  {_idPlanet}");
                     {
-                        print($" Атака не 19 {_idPlanet}");
                         AttackFleet(_percentForAttackFleet);
                     }
                 }
+
             }
+
 
         }
     }
@@ -234,9 +248,9 @@ public class ParametrPlanet_mono : MonoBehaviour
             if (fl.GetComponent<FleetManager>())
             {
                 _fleetManager = fl.GetComponent<FleetManager>();
-                _fleetManager.InitiateFleet(locListAttackedOrDefenderFleet, _materialPlanet);
+                _fleetManager.InitiateFleet(locListAttackedOrDefenderFleet, _materialPlanet, transform);
                 _fleetManager.SetTarget(locTarget, locStateFleet);
-                if (flagDefFleet)
+                if (flagDefFleet )
                 {
                     goDefFleet.Add(fl);
                     _defFleetManager = _fleetManager;
@@ -372,7 +386,10 @@ public class ParametrPlanet_mono : MonoBehaviour
         return tempAttackFleet;
     }
 
-
+    public void AddAttackerFleetToList(GameObject locGOArrivalAttackerFleet)
+    {
+            _listAttackersFleet.Add(locGOArrivalAttackerFleet);
+    }
 
 
     private void Clear()

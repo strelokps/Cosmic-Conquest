@@ -10,6 +10,8 @@ public class FleetManager : MonoBehaviour
 {
     [SerializeField] private Transform _selfTransform;
     [SerializeField] private Transform _pointToFire;
+    public Transform planetIsOwenerFleet;
+
     [SerializeField] private Image _imageFleet_L;
     [SerializeField] private Image _imageFleet_R;
     [SerializeField] private TMP_Text _textNumShipInFleet;
@@ -40,7 +42,10 @@ public class FleetManager : MonoBehaviour
         DisplayAttackAndDefenceFleet();
     }
 
-
+    public List<DataFleet> GetDataFleetList()
+    {
+        return _dataFleetList;
+    }
 
 
 
@@ -80,7 +85,7 @@ public class FleetManager : MonoBehaviour
 
     }
 
-    public void InitiateFleet(List<DataFleet> locDataFleet, Material locMaterial)
+    public void InitiateFleet(List<DataFleet> locDataFleet, Material locMaterial, Transform locPlanetIsOwenerFleet)
     {
         ClearParamFleetAndDisplay();
         _dataFleetList = new List<DataFleet>{new DataFleet() { attack = 0, defence = 0} };
@@ -92,6 +97,7 @@ public class FleetManager : MonoBehaviour
         _imageFleet_R.GetComponent<Image>().material = new Material(locMaterial) ;
         _imageFleet_R.GetComponent<Image>().material.SetColor("_EmissionColor", locMaterial.color * 1.9f);
 
+        planetIsOwenerFleet = locPlanetIsOwenerFleet;
         DisplayAttackAndDefenceFleet();
         DisplayNumShipInFleet();
     }
@@ -100,5 +106,20 @@ public class FleetManager : MonoBehaviour
     {
         _target = locTargetPosition;
         _fleetState.SetState( locTargetPosition, locStateFleet);
+    }
+
+    public void MergFleets(List<DataFleet> locListDataFleetToMerg)
+    {
+        for (int i = 0; i < locListDataFleetToMerg.Count; i++)
+        {
+            _dataFleetList.Add(locListDataFleetToMerg[i]);
+        }
+        DisplayAttackAndDefenceFleet();
+        DisplayNumShipInFleet();
+    }
+
+    public void DestroyFleet()
+    {
+        Destroy(gameObject);
     }
 }

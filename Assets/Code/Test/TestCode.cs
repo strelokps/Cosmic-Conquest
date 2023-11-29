@@ -36,12 +36,8 @@ public class TestCode : MonoBehaviour
     private void Update()
     {
         
-        transform.Rotate(new Vector3(0.5f,1f,1f) * 2f);
+        transform.Rotate(new Vector3(0.5f,1f,1.3f) * 0.2f);
 
-        if (_controls.Main.Mouse.triggered)
-        {
-            print($" ноль есть ноль");
-
-        }
+       
     }
 }
