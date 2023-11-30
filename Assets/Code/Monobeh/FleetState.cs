@@ -10,7 +10,7 @@ public class FleetState : MonoBehaviour
     [ShowInInspector] private Transform _targetTransform;
     private Transform ownFleetPlanet;
 
-    [ShowInInspector] private ParametrPlanet_mono _managerTheAttackedPlanet;
+    [ShowInInspector] private ParametrPlanet_mono _distPlanetMonoinState;
     [SerializeField] private float speedMove = 1f;
 
     [SerializeField] private float _stopBefore;
@@ -30,20 +30,13 @@ public class FleetState : MonoBehaviour
         FleetStateMeth();
     }
 
-    //string нужен для теста
-    //Устанавливаем цель и переключаем sate на моve
-    private void SetTargetToMove(Vector3 locTargetPosition)
-    {
-        _targetToMove = locTargetPosition;
-        _stateFleet = FleetStateStruct.enumFleetState.Movement;
-    }
+    
 
     private void Movement()
     {
         transform.position = Vector3.MoveTowards(transform.position, new Vector3(_targetToMove.x, 0, _targetToMove.z)
             , speedMove * Time.deltaTime);
 
-        CheckDistanceToAttack(_targetToMove);
     }
 
 
@@ -54,6 +47,8 @@ public class FleetState : MonoBehaviour
         {
             case FleetStateStruct.enumFleetState.Movement:
                 Movement();
+                CheckDistanceToAttack();
+
                 //print($"move");
                 break;
             case FleetStateStruct.enumFleetState.Idle:
@@ -69,28 +64,49 @@ public class FleetState : MonoBehaviour
             case FleetStateStruct.enumFleetState.Defence:
                 print($"На нас напали, Милорд");
                 break;
-            case FleetStateStruct.enumFleetState.JoinToDefender:
+            case FleetStateStruct.enumFleetState.PreGoHome:
+                _stopBefore = 1f;
+                _stateFleet = FleetStateStruct.enumFleetState.GoHome;
+                break;
+            case FleetStateStruct.enumFleetState.GoHome:
+                Movement();
+                CheckDistanceToJoin(_targetToMove);
                 break;
         }
     }
 
-    private void CheckDistanceToAttack(Vector3 locTargetToMove)
+    private void CheckDistanceToAttack()
     {
-
+        _distanceSqr = (_targetToMove - transform.position).sqrMagnitude;
         if (_distanceSqr < _stopBefore)
         {
-            CheckOtherAttackersFleet();
-            _stateFleet = FleetStateStruct.enumFleetState.Attack;
+            //проверка является ли планета все еще врагом
+            if (!_distPlanetMonoinState.CompareParents(_fleetManager.GetParentTransform()))
+            {
+                //TODO другой флот уже воюет, но нижние условие не сработает
+
+                if (_distPlanetMonoinState.DefenderFleet(transform))
+                {
+                    print($"Attack !!!!!");
+                    CheckOtherAttackersFleet();
+
+                }
+            }
+
+
+
+                _stateFleet = FleetStateStruct.enumFleetState.Attack;
+            
         }
     }
 
     private void CheckDistanceToJoin(Vector3 locTargetToMove)
     {
-
+        _distanceSqr = (_targetToMove - transform.position).sqrMagnitude;
         if (_distanceSqr < _stopBefore)
         {
             CheckOtherAttackersFleet();
-            _stateFleet = FleetStateStruct.enumFleetState.JoinToDefender;
+            _fleetManager.JoinToDefender();
         }
     }
 
@@ -100,23 +116,18 @@ public class FleetState : MonoBehaviour
         _targetToMove = new Vector3();
     }
 
-    public void SetState(Transform locTargetPosition, FleetStateStruct.enumFleetState locStateFleet)
+    public void SetState(Transform locTargetPosition, FleetStateStruct.enumFleetState locStateFleet, 
+        ParametrPlanet_mono locDistPlanetMono )
     {
         _stateFleet = locStateFleet;
         _targetTransform = locTargetPosition;
-        _targetToMove = locTargetPosition.position;
-        _distanceSqr = (_targetToMove - transform.position).sqrMagnitude;
+        _targetToMove = locDistPlanetMono.selfTransform.position;
+        _distPlanetMonoinState = locDistPlanetMono;
 
     }
 
     private void PreAttack()
     {
-
-        _managerTheAttackedPlanet = _targetTransform?.GetComponent<ParametrPlanet_mono>();
-        //если у планеты нет флота защитника, то генерим новый
-        if (_managerTheAttackedPlanet.goDefFleet.Count <= 0)
-             _managerTheAttackedPlanet.DefenderFleet(transform);
-
         _stateFleet = FleetStateStruct.enumFleetState.Movement;
     }
 
@@ -128,16 +139,16 @@ public class FleetState : MonoBehaviour
     //проверяем наличиу у нападающих флотов соотвествие по transform планеты, если совпало, то добавляем к фл
     private void CheckOtherAttackersFleet()
     {
-        if (_managerTheAttackedPlanet._listAttackersFleet.Count > 0)
+        if (_distPlanetMonoinState._listAttackersFleet.Count > 0)
         {
-            for (int i = 0; i < _managerTheAttackedPlanet._listAttackersFleet.Count; i++)
+            for (int i = 0; i < _distPlanetMonoinState._listAttackersFleet.Count; i++)
             {
-                print($"dist: {_managerTheAttackedPlanet._listAttackersFleet[i].GetComponent<FleetManager>().planetIsOwenerFleet}" +
-                      $"self: {_fleetManager.planetIsOwenerFleet}");
-                if (_managerTheAttackedPlanet._listAttackersFleet[i].GetComponent<FleetManager>().planetIsOwenerFleet
-                    == _fleetManager.planetIsOwenerFleet)
+                print($"dist: {_distPlanetMonoinState._listAttackersFleet[i].GetComponent<FleetManager>()._selfPlanetTransform}" +
+                      $"self: {_fleetManager._selfPlanetTransform}");
+                if (_distPlanetMonoinState._listAttackersFleet[i].GetComponent<FleetManager>()._selfPlanetTransform
+                    == _fleetManager._selfPlanetTransform)
                 {
-                    _managerTheAttackedPlanet
+                    _distPlanetMonoinState
                         ._listAttackersFleet[i]
                         .GetComponent<FleetManager>()
                         .MergFleets(_fleetManager.GetDataFleetList());
@@ -147,18 +158,32 @@ public class FleetState : MonoBehaviour
         }
         else
         {
-            _managerTheAttackedPlanet._listAttackersFleet.Add(gameObject);
+            _distPlanetMonoinState._listAttackersFleet.Add(gameObject);
         }
 
     }
 
     private void CheckHaveAPlanetDefFllet()
     {
-        if(_managerTheAttackedPlanet.ChangeOwnerPlanet(_fleetManager.GetMembersData(), _fleetManager.GetParentTransform()))
+        if(_distPlanetMonoinState.ChangeOwnerPlanet(_fleetManager.GetMembersData(), _fleetManager.GetParentTransform()))
         {
             
         }
 
+    }
+
+    private bool CheckDefEnemyFleetonOrbit()
+    {
+        var flagCheckEnemyDefFleet = false;
+
+        //если у планеты нет флота защитника, то генерим новый
+        if (_distPlanetMonoinState.DefenderFleet(transform))
+        {
+            _distPlanetMonoinState.DefenderFleet(transform);
+            flagCheckEnemyDefFleet = true;
+        }
+
+        return flagCheckEnemyDefFleet;
     }
 
 }

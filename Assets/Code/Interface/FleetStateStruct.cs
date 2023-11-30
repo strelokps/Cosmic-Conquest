@@ -12,7 +12,10 @@ public struct FleetStateStruct
         Movement = 2,
         Defence = 3,
         PreAttack = 4,
-        JoinToDefender = 5
+        PreGoHome = 5,
+        GoHome = 7
+
+        
 
     }
 }

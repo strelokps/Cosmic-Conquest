@@ -17,7 +17,7 @@ public class ParametrPlanet_mono : MonoBehaviour
     private Material _materialPlanet;
     private Material _materialFleet;
     private MeshRenderer _meshRendererPlanet;
-    private Transform _parentTransform;
+    [SerializeField] private Transform _parentTransformFromPlanet;
     private ParentManager _parentManager;
     private PlanetCapturing _planetCapturing;
 
@@ -49,6 +49,7 @@ public class ParametrPlanet_mono : MonoBehaviour
     [SerializeField] private int _numShipsInFleet;
     private int _numRandomShipsForAttack;
     bool testFlag = false;
+    [SerializeField] private int couintShipsInDefenderFleet;
 
 
 
@@ -76,6 +77,8 @@ public class ParametrPlanet_mono : MonoBehaviour
         get => _lvlTechPlanet;
         set => _lvlTechPlanet = value;
     }
+
+    public Transform prop_ParentTransformFromPlanet => _parentTransformFromPlanet;
 
 
     private void Awake()
@@ -115,36 +118,29 @@ public class ParametrPlanet_mono : MonoBehaviour
         _timer = 1f;
         _tempTimer = 0;
     }
-                                                /// <summary>
-                                                ///              Update
-                                                /// </summary>
-                                                
+
+    /// <summary>
+    ///              Update
+    /// </summary>
+
     private void Update()
     {
-        //Vector2 move = _controls.Main.NewA.ReadValue<Vector2>();
-        print($"move {testFlag}");
-
-        if (_controls.Main.Mouse.triggered & _idPlanet == 19)
+        if (_controls.Main.Mouse.IsPressed())
         {
-            print($" ноль есть ноль");
             testFlag = true;
-
         }
 
-        //if (_controls.Main.NewA.WasPressedThisFrame())
-        //{
-        //    print($" ноль есть ноль 1");
-
-        //}
-
-        //if (_controls.Main.NewA.WasReleasedThisFrame())
-        //{
-        //    print($" ноль есть ноль 2");
-
-        //}
+        couintShipsInDefenderFleet = _listDefenderFleet.Count;
 
         if (_idPlanet == 19 & locDataFleetTest.attack > 0)
             AddShipsToDefPlanetFleet(locDataFleetTest); //добавляем корабли во внутренний флот
+
+        if (_idPlanet == 1 & locDataFleetTest.attack > 0 & _controls.Main.Space.IsPressed())
+        {
+            AddShipsToDefPlanetFleet(locDataFleetTest); //добавляем корабли во внутренний флот
+            print("Добавил к флоту единички");
+        }
+
 
         GenerationGold();
         _tempTimer += Time.deltaTime;
@@ -169,7 +165,7 @@ public class ParametrPlanet_mono : MonoBehaviour
                     //
                     if (testFlag)
                     {
-                        print($" {_randomCountFleetToAttack} < {_listDefenderFleet.Count}  {_idPlanet}");
+                        //print($" {_randomCountFleetToAttack} < {_listDefenderFleet.Count}  {_idPlanet}");
 
                         AttackFleet(_percentForAttackFleet);
                         testFlag = false;
@@ -191,6 +187,7 @@ public class ParametrPlanet_mono : MonoBehaviour
 
 
         }
+
     }
 
     public void StartetConfig(SceneMembersData locMemberSceneDatasParent, Transform locParentTransform)
@@ -209,7 +206,7 @@ public class ParametrPlanet_mono : MonoBehaviour
             SetPrefabFleet(_memberSceneData.prefabFleet); //подгружаеи соответствующий префаб флота
         _materialFleet = _memberSceneData.fleet_Material;
         SetParentTransform(locParentTransform);
-        _parentManager = _parentTransform.GetComponent<ParentManager>();
+        _parentManager = _parentTransformFromPlanet.GetComponent<ParentManager>();
         SetGoldRepSecond(locMemberSceneDatasParent.lvlTech, _dataPlanet.SetPlanetLvl(_currentLvlPlanet));
         goDefFleet = new List<GameObject>();
         //test
@@ -234,19 +231,23 @@ public class ParametrPlanet_mono : MonoBehaviour
 
     public void SetParentTransform(Transform locParentTransform)
     {
-        _parentTransform = locParentTransform;
-        transform.SetParent(_parentTransform);
+        _parentTransformFromPlanet = locParentTransform;
+        transform.SetParent(_parentTransformFromPlanet);
     }
 
                                                 /// <summary>
                                                 /// создание флота
                                                 /// </summary>
-    private void GenerationFleet(FleetStateStruct.enumFleetState locStateFleet, List<DataFleet> locListAttackedOrDefenderFleet
-        ,Transform locSpawnPosition, Transform locTarget, bool flagDefFleet )
+    private void GenerationFleet(FleetStateStruct.enumFleetState locStateFleet,
+        List<DataFleet> locListAttackedOrDefenderFleet, Transform locSpawnPosition, 
+        Transform locTarget, bool flagDefFleet)
     {
-        if (locListAttackedOrDefenderFleet.Count > 0)
-        {
 
+        var TargetPlanetMono = locTarget.GetComponent<ParametrPlanet_mono>();
+
+        if (locListAttackedOrDefenderFleet.Count > 0 & TargetPlanetMono)
+        {
+            print($" GenerationFleet  {locTarget}");
             //создаем флот
             GameObject fl =
                 Instantiate(_prefabFleet, locSpawnPosition.position, locSpawnPosition.rotation) as GameObject;
@@ -255,16 +256,15 @@ public class ParametrPlanet_mono : MonoBehaviour
             {
                 _fleetManager = fl.GetComponent<FleetManager>();
                 _fleetManager.InitiateFleet(locListAttackedOrDefenderFleet, _materialPlanet, transform
-                    , _parentTransform);
-                _fleetManager.SetTarget(locTarget, locStateFleet);
-                if (flagDefFleet )
+                    , _parentTransformFromPlanet, TargetPlanetMono, _memberSceneData, locStateFleet);
+                if (flagDefFleet)
                 {
                     goDefFleet.Add(fl);
                     _defFleetManager = _fleetManager;
                 }
             }
 
-            
+
         }
     }
 
@@ -316,12 +316,15 @@ public class ParametrPlanet_mono : MonoBehaviour
             }
 
             _targetToFleet  = y._planetList[0].selfTransform;
+            print($"SetTarget selfParent {_parentTransformFromPlanet} targetParent {_targetToFleet.transform.GetComponent<ParametrPlanet_mono>()._parentTransformFromPlanet}");
+
             return _targetToFleet;
         }
 
         return locTrarget;
     }
 
+    //точка откуда вылетает корабль у планету
     private void SetSpawnPointToAttack(Transform locSpawnPointToTarget)
     {
         float y = _spawnPointAttackFleet.localPosition.y;
@@ -370,18 +373,21 @@ public class ParametrPlanet_mono : MonoBehaviour
         Clear();
     }
 
-    public void DefenderFleet(Transform locTransformAttackerFleet)
+    public bool DefenderFleet(Transform locTransformAttackerFleet)
     {
-        if (_listDefenderFleet.Count > 0)
+        bool flagCanGenDefFleet = false;
+        if (_listDefenderFleet.Count > 0 & goDefFleet.Count <= 0)
         {
             SetSpawnPointToDefence(locTransformAttackerFleet);
             _stateFleet = FleetStateStruct.enumFleetState.Defence;
             GenerationFleet(_stateFleet, _listDefenderFleet, _spawnPointDefenceFleet, 
                 locTransformAttackerFleet, true);
             _listDefenderFleet.Clear(); //очищаем список флота на планете, т.к. все корабли были переданы в деф флот
+            flagCanGenDefFleet = true;
             Clear();
         }
-        
+
+        return flagCanGenDefFleet;
     }
 
     //какой процент кораблей из флота защиты перейдет во флот атаки
@@ -414,10 +420,7 @@ public class ParametrPlanet_mono : MonoBehaviour
         return tempAttackFleet;
     }
 
-    public SceneMembersData TakeMembersData()
-    {
-        return _memberSceneData;
-    }
+   
 
     public bool ChangeOwnerPlanet(SceneMembersData locNewMembersData, Transform locNewParentTransform)
     {
@@ -433,7 +436,8 @@ public class ParametrPlanet_mono : MonoBehaviour
 
     public bool CompareParents(Transform locOtherParentTransform)
     {
-        bool flagCompare = _parentTransform == locOtherParentTransform;
+        print($" CompareParents {_parentTransformFromPlanet} targetParent {locOtherParentTransform}");
+        bool flagCompare = _parentTransformFromPlanet == locOtherParentTransform;
 
         return flagCompare;
     }

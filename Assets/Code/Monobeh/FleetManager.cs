@@ -10,7 +10,7 @@ public class FleetManager : MonoBehaviour
 {
     [SerializeField] private Transform _selfTransform;
     [SerializeField] private Transform _pointToFire;
-    public Transform planetIsOwenerFleet;
+    public Transform _selfPlanetTransform;
 
     [SerializeField] private Image _imageFleet_L;
     [SerializeField] private Image _imageFleet_R;
@@ -25,8 +25,13 @@ public class FleetManager : MonoBehaviour
     private FleetState _fleetState;
     private Transform _target;
     private SceneMembersData _membersDataInFleet;
-    private Transform _parentTransformInFleet;
+    [SerializeField] private Transform _parentTransformInFleet;
+    [SerializeField] private Transform _distParentTransform;
+    private ParametrPlanet_mono _distParametrPlanetMono;
 
+    public ParametrPlanet_mono prop_DistParametrPlanetMono => _distParametrPlanetMono;
+
+    public Transform prop_DistParentTransform => _distParentTransform;
 
 
     private void Awake()
@@ -97,8 +102,10 @@ public class FleetManager : MonoBehaviour
 
     }
 
-    public void InitiateFleet(List<DataFleet> locDataFleet, Material locMaterial, Transform locPlanetIsOwnerFleet
-        , Transform locParentTransform)
+    public void InitiateFleet(List<DataFleet> locDataFleet, Material locMaterial, 
+        Transform locPlanetIsOwnerFleet, Transform locParentTransform, 
+        ParametrPlanet_mono locTargetPlanetMono, SceneMembersData locMembersDataInFleet,
+        FleetStateStruct.enumFleetState _locFleetState)
     {
         ClearParamFleetAndDisplay();
         _dataFleetList = new List<DataFleet>{new DataFleet() { attack = 0, defence = 0} };
@@ -110,29 +117,19 @@ public class FleetManager : MonoBehaviour
         _imageFleet_R.GetComponent<Image>().material = new Material(locMaterial) ;
         _imageFleet_R.GetComponent<Image>().material.SetColor("_EmissionColor", locMaterial.color * 1.9f);
 
-        planetIsOwenerFleet = locPlanetIsOwnerFleet;
+        _selfPlanetTransform = locPlanetIsOwnerFleet;
         _parentTransformInFleet = locParentTransform;
-        _membersDataInFleet = planetIsOwenerFleet.GetComponent<ParametrPlanet_mono>().TakeMembersData();
+        _distParametrPlanetMono = locTargetPlanetMono;
+        _membersDataInFleet = locMembersDataInFleet;
+        _distParentTransform = locTargetPlanetMono.prop_ParentTransformFromPlanet;
+        _fleetState.SetState(_distParentTransform, _locFleetState, locTargetPlanetMono);
+
         DisplayAttackAndDefenceFleet();
         DisplayNumShipInFleet();
     }
 
-    public void SetTarget(Transform locTargetPosition, FleetStateStruct.enumFleetState locStateFleet)
-    {
-        _target = locTargetPosition;
-        if (_target.GetComponent<ParametrPlanet_mono>())
-        {
-            var prPlanet = _target.GetComponent<ParametrPlanet_mono>();
-            if (prPlanet.CompareParents(_parentTransformInFleet))
-            {
-                
-            }
-            elae
-        }
 
-        _fleetState.SetState( locTargetPosition, locStateFleet);
-    }
-
+    //присоединение кораблей другого флота к себе при атаке на планету, если оба флота были отправленны с одной и той же планеты
     public void MergFleets(List<DataFleet> locListDataFleetToMerg)
     {
         for (int i = 0; i < locListDataFleetToMerg.Count; i++)
@@ -143,9 +140,9 @@ public class FleetManager : MonoBehaviour
         DisplayNumShipInFleet();
     }
 
-    private void JoinToDefender(List<DataFleet> locDataFleets)
+    public void JoinToDefender()
     {
-        prPlanet.AddFleetToDefPlanetFleet(_dataFleetList);
+        _distParametrPlanetMono.AddFleetToDefPlanetFleet(_dataFleetList);
         DestroyFleet();
     }
 
