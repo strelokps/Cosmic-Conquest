@@ -47,6 +47,7 @@ public class ParametrPlanet_mono : MonoBehaviour
     private int _randomCountFleetToAttack;
     [SerializeField] private float  _percentForAttackFleet;
     [SerializeField] private int _numShipsInFleet;
+    [SerializeField] private int _numShipsInAttackersFleet;
     private int _numRandomShipsForAttack;
     bool testFlag = false;
     [SerializeField] private int couintShipsInDefenderFleet;
@@ -65,7 +66,6 @@ public class ParametrPlanet_mono : MonoBehaviour
     //Test
     private float _timer;
     private float _tempTimer;
-    private int numShip;
 
     public int prop_IdPlanet
     {
@@ -125,6 +125,8 @@ public class ParametrPlanet_mono : MonoBehaviour
 
     private void Update()
     {
+        _numShipsInAttackersFleet = _listAttackersFleet.Count;
+
         if (_controls.Main.Mouse.IsPressed())
         {
             testFlag = true;
@@ -135,10 +137,11 @@ public class ParametrPlanet_mono : MonoBehaviour
         if (_idPlanet == 19 & locDataFleetTest.attack > 0)
             AddShipsToDefPlanetFleet(locDataFleetTest); //добавляем корабли во внутренний флот
 
-        if (_idPlanet == 1 & locDataFleetTest.attack > 0 & _controls.Main.Space.IsPressed())
+        if (_idPlanet == 1 & locDataFleetTest.attack > 0 )
         {
             AddShipsToDefPlanetFleet(locDataFleetTest); //добавляем корабли во внутренний флот
-            print("Добавил к флоту единички");
+            _numShipsInFleet = _listDefenderFleet.Count;
+
         }
 
 
@@ -147,7 +150,6 @@ public class ParametrPlanet_mono : MonoBehaviour
         if (_tempTimer > _timer)
         {
             _tempTimer = 0;
-            numShip = 1;
 
             locDataFleetTest.attack = 2;
             locDataFleetTest.defence = 10;
@@ -211,6 +213,8 @@ public class ParametrPlanet_mono : MonoBehaviour
         goDefFleet = new List<GameObject>();
         //test
         _randomCountFleetToAttack = Random.Range(2, 10);
+        testFlag = false;
+
     }
 
 
@@ -247,7 +251,6 @@ public class ParametrPlanet_mono : MonoBehaviour
 
         if (locListAttackedOrDefenderFleet.Count > 0 & TargetPlanetMono)
         {
-            print($" GenerationFleet  {locTarget}");
             //создаем флот
             GameObject fl =
                 Instantiate(_prefabFleet, locSpawnPosition.position, locSpawnPosition.rotation) as GameObject;
@@ -267,7 +270,7 @@ public class ParametrPlanet_mono : MonoBehaviour
 
         }
     }
-
+    //добавляем корабли к флоту защиты на орбите
     private void AddShipsToDefPlanetFleet(DataFleet locDataFleet)
     {
         if (goDefFleet.Count > 0)
@@ -281,6 +284,7 @@ public class ParametrPlanet_mono : MonoBehaviour
 
     }
 
+    //добавляем флот к флоту защиты на орбите
     public void AddFleetToDefPlanetFleet(List<DataFleet> locListDataFleet)
     {
         if (goDefFleet.Count > 0)
@@ -316,7 +320,6 @@ public class ParametrPlanet_mono : MonoBehaviour
             }
 
             _targetToFleet  = y._planetList[0].selfTransform;
-            print($"SetTarget selfParent {_parentTransformFromPlanet} targetParent {_targetToFleet.transform.GetComponent<ParametrPlanet_mono>()._parentTransformFromPlanet}");
 
             return _targetToFleet;
         }
@@ -373,7 +376,7 @@ public class ParametrPlanet_mono : MonoBehaviour
         Clear();
     }
 
-    public bool DefenderFleet(Transform locTransformAttackerFleet)
+    public bool CallDefenderFleet(Transform locTransformAttackerFleet)
     {
         bool flagCanGenDefFleet = false;
         if (_listDefenderFleet.Count > 0 & goDefFleet.Count <= 0)

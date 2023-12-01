@@ -17,9 +17,13 @@ public class FleetState : MonoBehaviour
     [SerializeField] private float  _distanceSqr;
     private FleetManager _fleetManager;
 
+    private float distanceToAttack;
+    private float distanceToMoveForJoin;
+
     private void Start()
     {
-        _stopBefore = 16; // дистанция остановки перед объектом
+        _stopBefore = distanceToAttack = 16f; // дистанция остановки перед объектом для атаки
+        distanceToMoveForJoin = 2f; //дистанция остановки перед объектом для join
         speedMove = 2.5f;
         _fleetManager = transform.GetComponent<FleetManager>();
 
@@ -64,13 +68,13 @@ public class FleetState : MonoBehaviour
             case FleetStateStruct.enumFleetState.Defence:
                 print($"На нас напали, Милорд");
                 break;
-            case FleetStateStruct.enumFleetState.PreGoHome:
+            case FleetStateStruct.enumFleetState.PreTowardsPlanet:
                 _stopBefore = 1f;
-                _stateFleet = FleetStateStruct.enumFleetState.GoHome;
+                _stateFleet = FleetStateStruct.enumFleetState.MovingTowardsPlanet;
                 break;
-            case FleetStateStruct.enumFleetState.GoHome:
+            case FleetStateStruct.enumFleetState.MovingTowardsPlanet:
                 Movement();
-                CheckDistanceToJoin(_targetToMove);
+                CheckDistanceMovingTowardsPlanet();
                 break;
         }
     }
@@ -83,29 +87,41 @@ public class FleetState : MonoBehaviour
             //проверка является ли планета все еще врагом
             if (!_distPlanetMonoinState.CompareParents(_fleetManager.GetParentTransform()))
             {
-                //TODO другой флот уже воюет, но нижние условие не сработает
 
-                if (_distPlanetMonoinState.DefenderFleet(transform))
+                if (_distPlanetMonoinState.goDefFleet.Count > 0)
                 {
-                    print($"Attack !!!!!");
-                    CheckOtherAttackersFleet();
+                    //TODO атака уже существующего флота
+                    print($"Attack def fleet on orbit!!!!!");
+                    _stateFleet = FleetStateStruct.enumFleetState.Attack;
+                    CheckOtherAttackersFleetFromOnePlanetToJoin();
 
                 }
+                else
+                if (_distPlanetMonoinState.CallDefenderFleet(transform))
+                {
+                    print($"Gen def fleet and Attack !!!!!");
+                    _stateFleet = FleetStateStruct.enumFleetState.Attack;
+                    CheckOtherAttackersFleetFromOnePlanetToJoin();
+
+                }
+                else
+                {
+                    MovingTowardsPlanet();
+                }
             }
-
-
-
-                _stateFleet = FleetStateStruct.enumFleetState.Attack;
-            
+            else
+            {
+                MovingTowardsPlanet();
+            }
         }
     }
 
-    private void CheckDistanceToJoin(Vector3 locTargetToMove)
+    private void CheckDistanceMovingTowardsPlanet()
     {
         _distanceSqr = (_targetToMove - transform.position).sqrMagnitude;
         if (_distanceSqr < _stopBefore)
         {
-            CheckOtherAttackersFleet();
+            CheckOtherAttackersFleetFromOnePlanetToJoin();
             _fleetManager.JoinToDefender();
         }
     }
@@ -136,15 +152,18 @@ public class FleetState : MonoBehaviour
         CheckHaveAPlanetDefFllet();
     }
 
-    //проверяем наличиу у нападающих флотов соотвествие по transform планеты, если совпало, то добавляем к фл
-    private void CheckOtherAttackersFleet()
+    
+    //проверяем наличие у нападающих флотов соотвествие по transform планеты, если совпало, то добавляем к фл
+    private void CheckOtherAttackersFleetFromOnePlanetToJoin()
     {
+        //уже есть атакующий флот
         if (_distPlanetMonoinState._listAttackersFleet.Count > 0)
         {
             for (int i = 0; i < _distPlanetMonoinState._listAttackersFleet.Count; i++)
             {
                 print($"dist: {_distPlanetMonoinState._listAttackersFleet[i].GetComponent<FleetManager>()._selfPlanetTransform}" +
                       $"self: {_fleetManager._selfPlanetTransform}");
+                //проверяем наличие флотов вылетивших с той же планеты что и данный флот, если есть, то добавляемся.
                 if (_distPlanetMonoinState._listAttackersFleet[i].GetComponent<FleetManager>()._selfPlanetTransform
                     == _fleetManager._selfPlanetTransform)
                 {
@@ -177,13 +196,19 @@ public class FleetState : MonoBehaviour
         var flagCheckEnemyDefFleet = false;
 
         //если у планеты нет флота защитника, то генерим новый
-        if (_distPlanetMonoinState.DefenderFleet(transform))
+        if (_distPlanetMonoinState.CallDefenderFleet(transform))
         {
-            _distPlanetMonoinState.DefenderFleet(transform);
+            _distPlanetMonoinState.CallDefenderFleet(transform);
             flagCheckEnemyDefFleet = true;
         }
 
         return flagCheckEnemyDefFleet;
+    }
+
+    private void MovingTowardsPlanet()
+    {
+        _stopBefore = distanceToMoveForJoin;
+        _stateFleet = FleetStateStruct.enumFleetState.MovingTowardsPlanet;
     }
 
 }

@@ -12,8 +12,8 @@ public struct FleetStateStruct
         Movement = 2,
         Defence = 3,
         PreAttack = 4,
-        PreGoHome = 5,
-        GoHome = 7
+        PreTowardsPlanet = 5,
+        MovingTowardsPlanet = 7
 
         
 

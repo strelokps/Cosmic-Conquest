@@ -132,6 +132,7 @@ public class FleetManager : MonoBehaviour
     //присоединение кораблей другого флота к себе при атаке на планету, если оба флота были отправленны с одной и той же планеты
     public void MergFleets(List<DataFleet> locListDataFleetToMerg)
     {
+        print($"Merg {locListDataFleetToMerg.Count}");
         for (int i = 0; i < locListDataFleetToMerg.Count; i++)
         {
             _dataFleetList.Add(locListDataFleetToMerg[i]);
