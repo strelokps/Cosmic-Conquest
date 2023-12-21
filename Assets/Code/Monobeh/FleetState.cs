@@ -19,6 +19,7 @@ public class FleetState : MonoBehaviour
 
     private float distanceToAttack;
     private float distanceToMoveForJoin;
+    [SerializeField] private string _targetTransformName;
 
     private void Start()
     {
@@ -69,7 +70,7 @@ public class FleetState : MonoBehaviour
                 print($"На нас напали, Милорд");
                 break;
             case FleetStateStruct.enumFleetState.PreTowardsPlanet:
-                _stopBefore = 1f;
+                _stopBefore = 16f;
                 _stateFleet = FleetStateStruct.enumFleetState.MovingTowardsPlanet;
                 break;
             case FleetStateStruct.enumFleetState.MovingTowardsPlanet:
@@ -132,13 +133,13 @@ public class FleetState : MonoBehaviour
         _targetToMove = new Vector3();
     }
 
-    public void SetState(Transform locTargetPosition, FleetStateStruct.enumFleetState locStateFleet, 
+    public void SetState(FleetStateStruct.enumFleetState locStateFleet, 
         ParametrPlanet_mono locDistPlanetMono )
     {
         _stateFleet = locStateFleet;
-        _targetTransform = locTargetPosition;
-        _targetToMove = locDistPlanetMono.selfTransform.position;
+        _targetToMove = locDistPlanetMono.SelfTransform.position;
         _distPlanetMonoinState = locDistPlanetMono;
+        _targetTransformName = locDistPlanetMono.SelfTransform.name + "    " + locDistPlanetMono.prop_ParentTransformFromPlanet.name; //test
 
     }
 

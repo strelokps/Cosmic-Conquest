@@ -26,11 +26,14 @@ public class TestCode : MonoBehaviour
     private void OnEnable()
     {
         _controls.Enable();
+        print($"OnEnable in test");
     }
 
     private void OnDisable()
     {
         _controls.Disable();
+        print($"OnDisable in test");
+
     }
 
     private void Update()

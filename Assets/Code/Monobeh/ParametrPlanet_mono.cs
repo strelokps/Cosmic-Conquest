@@ -21,7 +21,7 @@ public class ParametrPlanet_mono : MonoBehaviour
     private ParentManager _parentManager;
     private PlanetCapturing _planetCapturing;
 
-    [HideInInspector] public Transform selfTransform;
+    [HideInInspector] private Transform selfTransform;
 
     [Header("[ Gold ]")] 
     [SerializeField] private float _timerForGenGold = 1f;
@@ -77,6 +77,8 @@ public class ParametrPlanet_mono : MonoBehaviour
         get => _lvlTechPlanet;
         set => _lvlTechPlanet = value;
     }
+
+    public Transform SelfTransform => selfTransform;
 
     public Transform prop_ParentTransformFromPlanet => _parentTransformFromPlanet;
 

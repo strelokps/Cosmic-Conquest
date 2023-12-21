@@ -121,8 +121,7 @@ public class FleetManager : MonoBehaviour
         _parentTransformInFleet = locParentTransform;
         _distParametrPlanetMono = locTargetPlanetMono;
         _membersDataInFleet = locMembersDataInFleet;
-        _distParentTransform = locTargetPlanetMono.prop_ParentTransformFromPlanet;
-        _fleetState.SetState(_distParentTransform, _locFleetState, locTargetPlanetMono);
+        _fleetState.SetState( _locFleetState, locTargetPlanetMono);
 
         DisplayAttackAndDefenceFleet();
         DisplayNumShipInFleet();
