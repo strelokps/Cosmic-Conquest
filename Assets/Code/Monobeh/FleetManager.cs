@@ -140,7 +140,7 @@ public class FleetManager : MonoBehaviour
         DisplayNumShipInFleet();
     }
 
-    public void JoinToDefender()
+    public void JoinToDefenderFleet()
     {
         _distParametrPlanetMono.AddFleetToDefPlanetFleet(_dataFleetList);
         DestroyFleet();
