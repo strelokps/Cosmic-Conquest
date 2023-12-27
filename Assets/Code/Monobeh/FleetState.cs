@@ -43,11 +43,7 @@ public class FleetState : MonoBehaviour
         _stateFleet = locStateFleet;
         _distParametrPlanetMono = locDistPlanetMono;
         _targetTransformName = locDistPlanetMono.SelfTransform.name + "    " + locDistPlanetMono.prop_ParentTransformFromPlanet.name; //test
-        
-
     }
-
-
 
     private void FleetStateMeth()
     {
@@ -91,7 +87,7 @@ public class FleetState : MonoBehaviour
                 break;
             
             case FleetStateStruct.enumFleetState.MovingTowardsDefenceFleet:
-
+                MovingTowardsToDefenceFleet();
                 break;
             
             case FleetStateStruct.enumFleetState.StartForDefence:
@@ -133,7 +129,14 @@ public class FleetState : MonoBehaviour
         _distParametrPlanetMono.CreateDefenceFleet(gameObject, _fleetManager);
     }
 
-    
+    private void MovingTowardsToDefenceFleet()
+    {
+        Vector3 targetRotation = _targetTransform.transform.position - transform.position;
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(targetRotation), 4f * Time.deltaTime);
+        float angle = Quaternion.Angle(transform.rotation, _targetTransform.rotation);
+        print($"”гол {angle}");
+
+    }
 
     private void Movement()
     {
@@ -168,22 +171,25 @@ public class FleetState : MonoBehaviour
         return flagChkDistance;
     }
 
+    //атакующий флот вызывает флот защиты на орбиту
     private void CallDefFleet()
     {
         //проверка €вл€етс€ ли планета все еще врагом через сравнение родителей
         if (!CheckDistPlanetIsEnemy())
         {
-            //если у планеты есть флот защиты 
+            //если у планеты есть флот защиты то будем атаковать его
             if (_distParametrPlanetMono.GetCountDefenceFleet() > 0)
             {
                 //TODO атака уже существующего флота
                 print($"Attack def fleet on orbit!!!!!");
                 _stateFleet = FleetStateStruct.enumFleetState.MovingTowardsDefenceFleet;
+                _targetTransform = _distParametrPlanetMono.GetTransformDefenceFleet();
+               
             }
             else
             {
                 _distParametrPlanetMono.CallDefenderFleet(transform);
-                print($"Gen def fleet and Attack !!!!!");
+                //print($"Gen def fleet and Attack !!!!!");
                 _stateFleet = FleetStateStruct.enumFleetState.MoveToOrbitAttack;
             }
         }
