@@ -6,6 +6,15 @@
       "source": "local",
       "dependencies": {}
     },
+    "com.unity.ai.navigation": {
+      "version": "1.1.4",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.modules.ai": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
     "com.unity.collab-proxy": {
       "version": "2.1.0",
       "depth": 0,
@@ -28,7 +37,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.feature.development": {
-      "version": "1.0.1",
+      "version": "1.0.2",
       "depth": 0,
       "source": "builtin",
       "dependencies": {
@@ -83,7 +92,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.postprocessing": {
-      "version": "3.2.2",
+      "version": "3.3.0",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -129,7 +138,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.timeline": {
-      "version": "1.7.3",
+      "version": "1.8.2",
       "depth": 0,
       "source": "registry",
       "dependencies": {

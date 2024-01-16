@@ -23,15 +23,13 @@ public class FleetState : MonoBehaviour
     [SerializeField] private string _targetTransformName;
 
     //test
-    private Logger logger;
+
 
 
     private void Update()
     {
-        logger.WriteLine(_stateFleet.ToString() + "  U1");
 
         FleetStateMeth();
-        logger.WriteLine(_stateFleet.ToString() + "  U2");
 
     }
 
@@ -54,8 +52,6 @@ public class FleetState : MonoBehaviour
         _stopDistForCallDefendefFleet = _stopBefore + locSQRDistCallDefendefFleet;
 
         _targetTransformName = locDistPlanetMono.SelfTransform.name + "    " + locDistPlanetMono.prop_ParentTransformFromPlanet.name; //test
-        logger = new Logger("D:\\unity"); //test
-        logger.WriteLine(_targetTransformName + " || " + _stateFleet.ToString());
 
     }
 
@@ -64,69 +60,38 @@ public class FleetState : MonoBehaviour
         switch (_stateFleet)
         {
             case FleetStateStruct.enumFleetState.StartForAttack: //I.
+
                 _stopBefore = _stopDistForCallDefendefFleet;
                 _stateFleet = FleetStateStruct.enumFleetState.OrbitCallDefendefFleet;
                 break;
 
             case FleetStateStruct.enumFleetState.OrbitCallDefendefFleet: //II.
-                print($"OrbitCallDefendefFleet S1");
 
                 Movement();
-                print($"OrbitCallDefendefFleet S2");
-
                 if (CheckDistanceToAttack())
                 {
                     _stopBefore = 16f;
                     _stateFleet = FleetStateStruct.enumFleetState.MoveToOrbitAttack;
-                    print($"OrbitCallDefendefFleet CallDefFleet S1");
-
                     CallDefFleet();
-
-                    logger.WriteLine("OrbitCallDefendefFleet CallDefFleet S2");
-
                 }
-                print($"OrbitCallDefendefFleet E1");
-
-
                 break;
 
             case FleetStateStruct.enumFleetState.MoveToOrbitAttack: //III.
-                logger.WriteLine("MoveToOrbitAttack S1");
 
                 Movement();
-                logger.WriteLine("MoveToOrbitAttack S2");
-
-               
-
                 if (CheckDistanceToAttack())
                 {
-                    logger.WriteLine("CheckDistanceToAttack  MoveToOrbitAttack S1");
-
                     _stateFleet = FleetStateStruct.enumFleetState.OrbitAttack;
-                    logger.WriteLine("CheckDistanceToAttack  MoveToOrbitAttack S2");
-
                 }
-                
-                logger.WriteLine("MoveToOrbitAttack E1");
-
                 break;
 
             case FleetStateStruct.enumFleetState.OrbitAttack:   //IV.
-                logger.WriteLine("OrbitAttack S1");
-
                 CallDefFleet();
-                logger.WriteLine("OrbitAttack S2");
-
-
                 _stateFleet = FleetStateStruct.enumFleetState.Idle;
-                logger.WriteLine("OrbitAttack E1");
-
-
                 break;
             
             case FleetStateStruct.enumFleetState.MovingTowardsPlanetForDecent:
                 Movement();
-
                 break;
             
             case FleetStateStruct.enumFleetState.OrbitJoinToDefenderFleet:
@@ -137,7 +102,6 @@ public class FleetState : MonoBehaviour
                 break;
             
             case FleetStateStruct.enumFleetState.StartForDefence:
-                logger.WriteLine("StartForDefence S1");
 
                 break;
             
