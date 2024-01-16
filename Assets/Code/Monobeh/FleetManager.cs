@@ -49,10 +49,6 @@ public class FleetManager : MonoBehaviour
         DisplayAttackAndDefenceFleet();
     }
 
-    public List<DataFleet> GetDataFleetList()
-    {
-        return _dataFleetList;
-    }
 
     public SceneMembersData GetMembersData()
     {

@@ -32,7 +32,7 @@ public class ParametrPlanet_mono : MonoBehaviour
 
     [Header("[ Fleet ]")]
     [SerializeField] private Transform _spawnPointAttackFleet;
-    [SerializeField] private Transform _spawnPointDefenceFleet;
+    [SerializeField] public Transform _spawnPointDefenceFleet;
     [SerializeField] private GameObject _prefabFleet;
     private List<DataFleet> _listDefenderFleet = new List<DataFleet>();     //список кораблей для защиты внутри планеты 
     private List<GameObject> _attackersFleet_LGO = new List<GameObject>();    //список нападающших на планету флотов
@@ -40,18 +40,18 @@ public class ParametrPlanet_mono : MonoBehaviour
     private FleetManager _fleetManager = new FleetManager();
     private Transform _targetToFleet;
     [SerializeField] private FleetStateStruct.enumFleetState _stateFleet;
-    private List<GameObject> defFleetOnOrbitPlanet_LGO;                                     //Флот защиты на орбите
+    private GameObject defFleetOnOrbitPlanet_GO;                                     //Флот защиты на орбите
     private FleetManager _defFleetManager;
 
     //test
     DataFleet locDataFleetTest = new DataFleet();
     private int _randomCountFleetToAttack;
     [SerializeField] private float  _percentForAttackFleet;
-    [SerializeField] private int _numShipsInFleet;
-    [SerializeField] private int _numShipsInAttackersFleet;
+    [SerializeField] private int _numShipsInDefenderFleet;
+    [SerializeField] private int _numShipsInDefenceFleet;
+    [SerializeField] private int _numShipsInAttackingFleet;
     private int _numRandomShipsForAttack;
     bool testFlag = false;
-    [SerializeField] private int couintShipsInDefenderFleet;
 
 
 
@@ -67,6 +67,7 @@ public class ParametrPlanet_mono : MonoBehaviour
     //Test
     private float _timer;
     private float _tempTimer;
+    private Logger logger;
 
     public int prop_IdPlanet
     {
@@ -128,26 +129,39 @@ public class ParametrPlanet_mono : MonoBehaviour
 
     private void Update()
     {
-        _numShipsInAttackersFleet = _attackersFleet_LGO.Count; //test
+        _controls.Disable();
 
-        if (_controls.Main.Mouse.IsPressed())
-        {
-            testFlag = true;
-        }
 
-        couintShipsInDefenderFleet = _listDefenderFleet.Count;
+        _numShipsInAttackingFleet = _attackersFleet_LGO.Count; //test
 
+        //if (_controls.Main.Mouse.IsPressed())
+        //{
+        //    testFlag = true;
+        //}
+        testFlag = true;
         if (_idPlanet == 19 & locDataFleetTest.attack > 0)
-            AddShipsToDefenderFleetOnPlanet(locDataFleetTest); //добавляем корабли во внутренний флот
+        {
+            AddShipsToDefenderFleetOnPlanet(locDataFleetTest); //добавляем корабли во внутренний флот | для игрока | test
+
+        }
 
         if (_idPlanet == 1 & locDataFleetTest.attack > 0 )
         {
-            AddShipsToDefenderFleetOnPlanet(locDataFleetTest); //добавляем корабли во внутренний флот
-            _numShipsInFleet = _listDefenderFleet.Count;
+            AddShipsToDefenderFleetOnPlanet(locDataFleetTest); //добавляем корабли во внутренний флот | для AI | test
+            _numShipsInDefenderFleet = _listDefenderFleet.Count;
+        }
+
+        if (defFleetOnOrbitPlanet_GO != null)
+        {
+            print($"Нажал мышку {defFleetOnOrbitPlanet_GO.name}");
+
 
         }
 
+        print($"defFleetOnOrbitPlanet_GOvactiv ? ");
 
+
+        //AddShipsToDefenceFleetOnOrbit();
         GenerationGold();
         _tempTimer += Time.deltaTime;
         if (_tempTimer > _timer)
@@ -187,12 +201,8 @@ public class ParametrPlanet_mono : MonoBehaviour
                         CreateAttackerFleet(_percentForAttackFleet);
                     }
                 }
-
             }
-
-
         }
-
     }
 
     public void StartetConfig(SceneMembersData locMemberSceneDatasParent, Transform locParentTransform)
@@ -213,11 +223,11 @@ public class ParametrPlanet_mono : MonoBehaviour
         SetParentTransform(locParentTransform);
         _parentManager = _parentTransformFromPlanet.GetComponent<ParentManager>();
         SetGoldRepSecond(locMemberSceneDatasParent.lvlTech, _dataPlanet.SetPlanetLvl(_currentLvlPlanet));
-        defFleetOnOrbitPlanet_LGO = new List<GameObject>();
+        //defFleetOnOrbitPlanet_GO = new GameObject();
         //test
         _randomCountFleetToAttack = Random.Range(2, 10);
         testFlag = false;
-
+        logger = new Logger("D:\\unity");
     }
 
 
@@ -253,12 +263,13 @@ public class ParametrPlanet_mono : MonoBehaviour
         {
             var TargetPlanetMono = new ParametrPlanet_mono();
             if (locTarget.GetComponent<ParametrPlanet_mono>()) 
-                TargetPlanetMono = locTarget.GetComponent<ParametrPlanet_mono>();
+                TargetPlanetMono = locTarget.GetComponent<ParametrPlanet_mono>(); //для атакующего флота
             if (locStateFleet == FleetStateStruct.enumFleetState.StartForDefence)
-                TargetPlanetMono = this.GetComponent<ParametrPlanet_mono>();
+                TargetPlanetMono = this.GetComponent<ParametrPlanet_mono>();//для флота защиты
 
             if (_prefabFleet.GetComponent<FleetManager>())
             {
+
                 //создаем флот
                 GameObject fl =
                     Instantiate(_prefabFleet, locSpawnPosition.position, locSpawnPosition.rotation) as GameObject;
@@ -266,55 +277,63 @@ public class ParametrPlanet_mono : MonoBehaviour
                 _fleetManager = fl.GetComponent<FleetManager>();
                 _fleetManager.InitiateFleet(locListAttackedOrDefenderFleet, _materialPlanet, transform
                     , _parentTransformFromPlanet, TargetPlanetMono, _memberSceneData, locStateFleet);
-               
+                defFleetOnOrbitPlanet_GO = fl;
+
+                if (locStateFleet == FleetStateStruct.enumFleetState.StartForDefence &
+                    defFleetOnOrbitPlanet_GO  == null)
+                {
+                    defFleetOnOrbitPlanet_GO = fl;
+                    
+                    logger.WriteLine("DEF  " + _idPlanet.ToString() + "  ||   " + prop_ParentTransformFromPlanet.name);
+                }
+
+                logger.WriteLine("ATC  " + _idPlanet.ToString() + "  ||   " + prop_ParentTransformFromPlanet.name);
+
+
             }
         }
     }
-    //добавляем корабли к флоту защиты на планете
+    //добавляем корабли к флоту  на планете
     private void AddShipsToDefenderFleetOnPlanet(DataFleet locDataFleet)
     {
         _listDefenderFleet.Add(locDataFleet); // добавляем в список защитников планеты
         AddShipsToDefenceFleetOnOrbit();
+
     }
 
-    //добавление кораблей к флоту на орбите
+    //добавление кораблей из флота на планете к флоту на орбите
     private void AddShipsToDefenceFleetOnOrbit()
     {
-        if (_listDefenderFleet.Count > 0 & defFleetOnOrbitPlanet_LGO.Count > 0)
+
+        if (_listDefenderFleet.Count > 0 & defFleetOnOrbitPlanet_GO != null)
         {
-            var managerDefFleet = defFleetOnOrbitPlanet_LGO[0].GetComponent<FleetManager>();
+            var managerDefFleet = defFleetOnOrbitPlanet_GO.GetComponent<FleetManager>();
             for (int i = 0; i < _listDefenderFleet.Count; i++)
             {
                 managerDefFleet.AddShipToFleet(_listDefenderFleet[i]);
             }
             _listDefenderFleet.Clear();
         }
+
     }
 
-    public void CreateDefenceFleet(GameObject locGODefenceFleet, FleetManager locFleetManager)
-    {
-        if (defFleetOnOrbitPlanet_LGO.Count == 0)
-        {
-            defFleetOnOrbitPlanet_LGO.Add(locGODefenceFleet);
-            _defFleetManager = locFleetManager;
 
-        }
-    }
 
     public Transform GetTransformDefenceFleet()
     {
-        return defFleetOnOrbitPlanet_LGO[0].transform;
+        return defFleetOnOrbitPlanet_GO.transform;
     }
 
     public void DestroyDefenceFleet()
     {
-        defFleetOnOrbitPlanet_LGO.Clear();
+        Destroy(defFleetOnOrbitPlanet_GO); 
     }
 
     //добавляем внешний флот к флоту планеты или к флоту на орбите
     public void AddFleetToDefPlanetFleet(List<DataFleet> locListDataFleet)
     {
-        if (defFleetOnOrbitPlanet_LGO.Count > 0)
+
+        if (defFleetOnOrbitPlanet_GO != null)
         {
             for (int i = 0; i < locListDataFleet.Count; i++)
             {
@@ -332,24 +351,24 @@ public class ParametrPlanet_mono : MonoBehaviour
 
     }
 
-    public int GetCountDefenceFleet()
-    {
-        return defFleetOnOrbitPlanet_LGO.Count;
-    }
 
     //вызов на орбиту защитного флота планеты
-    public void CallDefenderFleet(Transform locTransformAttackerFleet)
+    public void CallDefenderFleet(Transform locTransformAttackingFleet)
     {
-        if (_listDefenderFleet.Count > 0 & defFleetOnOrbitPlanet_LGO.Count <= 0)
+
+        AddShipsToDefenceFleetOnOrbit();
+
+
+        if (_listDefenderFleet.Count > 0 & defFleetOnOrbitPlanet_GO == null)
         {
-            SetSpawnPointToDefence(locTransformAttackerFleet);
+            SetSpawnPointToDefence(locTransformAttackingFleet);
             _stateFleet = FleetStateStruct.enumFleetState.StartForDefence;
             GenerationFleet(_stateFleet, _listDefenderFleet, _spawnPointDefenceFleet,
-                locTransformAttackerFleet);
+                locTransformAttackingFleet);
             _listDefenderFleet.Clear(); //очищаем список флота на планете, т.к. все корабли были переданы в деф флот
             Clear();
         }
-       
+
     }
 
     public Transform SetTarget(Transform locTrarget = null)
@@ -357,7 +376,8 @@ public class ParametrPlanet_mono : MonoBehaviour
         //для теста устанавливаем цель 
         if (_memberSceneData.enemy.Count > 0)
         {
-            int locNumberEnemy = Random.Range(0, _memberSceneData.enemy.Count);
+            //int locNumberEnemy = Random.Range(0, _memberSceneData.enemy.Count);
+            int locNumberEnemy = 1;
             var x = _memberSceneData.enemy[locNumberEnemy];
             var y1 = x.parentTransform;
             var y = y1.GetComponent<ParentManager>();
@@ -480,7 +500,7 @@ public class ParametrPlanet_mono : MonoBehaviour
     public bool ChangeOwnerPlanet(SceneMembersData locNewMembersData, Transform locNewParentTransform)
     {
         bool flagChangeOwnerPlanet = false;
-        if (_listDefenderFleet.Count == 0 & defFleetOnOrbitPlanet_LGO.Count == 0)
+        if (_listDefenderFleet.Count == 0 & defFleetOnOrbitPlanet_GO == null )
         {
             StartetConfig(locNewMembersData, locNewParentTransform);
             flagChangeOwnerPlanet = true;

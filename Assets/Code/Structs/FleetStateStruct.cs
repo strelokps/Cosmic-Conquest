@@ -14,7 +14,7 @@ public interface FleetStateStruct
         OrbitAttack,
         OrbitJoinToDefenderFleet,
         PreMovingTowardsPlanet,
-        MovingTowardsPlanet ,
+        MovingTowardsPlanetForDecent ,
         MovingTowardsDefenceFleet,
         StartForDefence,
         OrbitDefence
