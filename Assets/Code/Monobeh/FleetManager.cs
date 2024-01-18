@@ -20,8 +20,7 @@ public class FleetManager : MonoBehaviour
     private int _numShipInFleet;
     [SerializeField] private int _attack;
     [SerializeField] private int _defence;
-    private DataFleet _dataFleet ;
-    [SerializeField] private List<DataFleet> _dataFleetList = new List<DataFleet>();
+    [SerializeField] private List<DataFleet> _dataFleetList ; //список кораблей во флоту
     private FleetState _fleetState;
     private Transform _target;
     private SceneMembersData _membersDataInFleet;
@@ -60,7 +59,10 @@ public class FleetManager : MonoBehaviour
         return _parentTransformInFleet;
     }
 
-
+    public List<DataFleet> GetListDataFleet()
+    {
+        return _dataFleetList;
+    }
 
     public void RemoveAttackAndDefence(DataFleet locDatafleet)
     {
@@ -103,11 +105,10 @@ public class FleetManager : MonoBehaviour
         ParametrPlanet_mono locTargetPlanetMono, SceneMembersData locMembersDataInFleet,
         FleetStateStruct.enumFleetState _locFleetState)
     {
+        _dataFleetList = new List<DataFleet> { new DataFleet() { attack = 0, defence = 0 } };
         ClearParamFleetAndDisplay();
-        _dataFleetList = new List<DataFleet>{new DataFleet() { attack = 0, defence = 0} };
 
-        _dataFleet = new DataFleet();
-        _dataFleetList = locDataFleet;
+        _dataFleetList.AddRange(locDataFleet);
         Color locColor = new Color(locMaterial.color.r, locMaterial.color.g, locMaterial.color.r, 1f);
         _imageFleet_R.GetComponent<Image>().color = locColor;
         _imageFleet_R.GetComponent<Image>().material = new Material(locMaterial) ;

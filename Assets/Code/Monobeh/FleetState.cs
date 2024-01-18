@@ -87,6 +87,7 @@ public class FleetState : MonoBehaviour
 
             case FleetStateStruct.enumFleetState.OrbitAttack:   //IV.
                 CallDefFleet();
+                CheckOtherAttackersFleetFromOnePlanetToJoin();
                 _stateFleet = FleetStateStruct.enumFleetState.Idle;
                 break;
             
@@ -234,35 +235,35 @@ public class FleetState : MonoBehaviour
     //}
 
 
-    ////проверяем наличие у нападающих флотов соотвествие по transform планеты, если совпало, то добавляем к фл
-    //private void CheckOtherAttackersFleetFromOnePlanetToJoin()
-    //{
-    //    //уже есть атакующий флот
-    //    if (_distParametrPlanetMono._attackersFleet_LGO.Count > 0)
-    //    {
-    //        for (int i = 0; i < _distParametrPlanetMono._attackersFleet_LGO.Count; i++)
-    //        {
-    //            print($"dist: {_distParametrPlanetMono._attackersFleet_LGO[i].GetComponent<FleetManager>()._selfPlanetTransform}" +
-    //                  $"self: {_fleetManager._selfPlanetTransform}");
-    //            //проверяем наличие флотов вылетивших с той же планеты что и данный флот, если есть, то добавляемся.
-    //            if (_distParametrPlanetMono._attackersFleet_LGO[i]
-    //                    .GetComponent<FleetManager>()
-    //                    ._selfPlanetTransform == _fleetManager._selfPlanetTransform)
-    //            {
-    //                _distParametrPlanetMono
-    //                    ._attackersFleet_LGO[i]
-    //                    .GetComponent<FleetManager>()
-    //                    .MergFleets(_fleetManager.GetDataFleetList());
-    //                _fleetManager.DestroyFleet();
-    //            }
-    //        }
-    //    }
-    //    else
-    //    {
-    //        _distParametrPlanetMono.AddToListAttackerFleet(gameObject);
-    //    }
+    //проверяем наличие у нападающих флотов соотвествие по transform планеты, если совпало, то добавляем к фл
+    private void CheckOtherAttackersFleetFromOnePlanetToJoin()
+    {
+        //уже есть атакующий флот
+        if (_distParametrPlanetMono.attackingFleet_LGO.Count > 0)
+        {
+            for (int i = 0; i < _distParametrPlanetMono.attackingFleet_LGO.Count; i++)
+            {
+                print($"dist: {_distParametrPlanetMono.attackingFleet_LGO[i].GetComponent<FleetManager>()._selfPlanetTransform}" +
+                      $"self: {_fleetManager._selfPlanetTransform}");
+                //проверяем наличие флотов вылетивших с той же планеты что и данный флот, если есть, то добавляемся.
+                if (_distParametrPlanetMono.attackingFleet_LGO[i]
+                        .GetComponent<FleetManager>()
+                        ._selfPlanetTransform == _fleetManager._selfPlanetTransform)
+                {
+                    _distParametrPlanetMono
+                        .attackingFleet_LGO[i]
+                        .GetComponent<FleetManager>()
+                        .MergFleets(_fleetManager.GetListDataFleet());
+                    _fleetManager.DestroyFleet();
+                }
+            }
+        }
+        else
+        {
+            _distParametrPlanetMono.AddToListAttackerFleet(gameObject);
+        }
 
-    //}
+    }
 
     //private void CheckPlanetHaveDefFleet()
     //{

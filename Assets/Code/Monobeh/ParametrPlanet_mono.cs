@@ -35,7 +35,7 @@ public class ParametrPlanet_mono : MonoBehaviour
     [SerializeField] public Transform _spawnPointDefenceFleet;
     [SerializeField] private GameObject _prefabFleet;
     private List<DataFleet> _listDefenderFleet = new List<DataFleet>();     //список кораблей для защиты внутри планеты 
-    private List<GameObject> _attackersFleet_LGO = new List<GameObject>();    //список нападающших на планету флотов
+    public List<GameObject> attackingFleet_LGO = new List<GameObject>();    //список нападающших на планету флотов
     private List<GameObject> _friendlyFleet_LGO = new List<GameObject>();    //список подлетающего дружественного флота
     private FleetManager _fleetManager = new FleetManager();
     private Transform _targetToFleet;
@@ -133,7 +133,7 @@ public class ParametrPlanet_mono : MonoBehaviour
         _controls.Disable();
 
 
-        _numShipsInAttackingFleet = _attackersFleet_LGO.Count; //test
+        _numShipsInAttackingFleet = attackingFleet_LGO.Count; //test
 
         //if (_controls.Main.Mouse.IsPressed())
         //{
@@ -302,17 +302,13 @@ public class ParametrPlanet_mono : MonoBehaviour
         if (_listDefenderFleet.Count > 0 & defFleetOnOrbitPlanet_GO_test != null)
         {
             var managerDefFleet = defFleetOnOrbitPlanet_GO_test.GetComponent<FleetManager>();
-
-            int c = _listDefenderFleet.Count;
-            for (int i = 0; i < c; i++)
-            {
-                managerDefFleet.AddShipToFleet(_listDefenderFleet[i]);
+           
+                managerDefFleet.MergFleets(_listDefenderFleet);
                 print($"{_listDefenderFleet.Count}");
-                if (_listDefenderFleet.Count >888)
-                    break;
-            }
 
-            _listDefenderFleet.Clear();
+            
+
+            _listDefenderFleet = new List<DataFleet>();
             
         }
 
@@ -366,7 +362,7 @@ public class ParametrPlanet_mono : MonoBehaviour
             _stateFleet = FleetStateStruct.enumFleetState.StartForDefence;
             GenerationFleet(_stateFleet, _listDefenderFleet, _spawnPointDefenceFleet,
                 locTransformAttackingFleet);
-            _listDefenderFleet.Clear(); //очищаем список флота на планете, т.к. все корабли были переданы в деф флот
+            _listDefenderFleet = new List<DataFleet>(); //очищаем список флота на планете, т.к. все корабли были переданы в деф флот
             Clear();
         }
 
@@ -459,11 +455,11 @@ public class ParametrPlanet_mono : MonoBehaviour
 
     public void AddToListAttackerFleet(GameObject locAttackerFleet)
     {
-        _attackersFleet_LGO.Add(locAttackerFleet);
+        attackingFleet_LGO.Add(locAttackerFleet);
     }
     public void RemoveToListAttackerFleet(GameObject locAttackerFleet)
     {
-        _attackersFleet_LGO.Remove(locAttackerFleet);
+        attackingFleet_LGO.Remove(locAttackerFleet);
     }
 
     //какой процент кораблей из флота защиты перейдет во флот атаки
