@@ -254,7 +254,7 @@ public class FleetState : MonoBehaviour
                         .attackingFleet_LGO[i]
                         .GetComponent<FleetManager>()
                         .MergFleets(_fleetManager.GetListDataFleet());
-                    _fleetManager.DestroyFleet();
+                    _fleetManager.DestroyAttackingFleet();
                 }
             }
         }

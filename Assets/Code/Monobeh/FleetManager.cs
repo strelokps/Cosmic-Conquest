@@ -27,6 +27,7 @@ public class FleetManager : MonoBehaviour
     [SerializeField] private Transform _parentTransformInFleet;
     [SerializeField] private Transform _distParentTransform;
     private ParametrPlanet_mono _distParametrPlanetMono;
+    private ParametrPlanet_mono _selfParametrPlanetMono;
 
     public ParametrPlanet_mono prop_DistParametrPlanetMono => _distParametrPlanetMono;
 
@@ -119,6 +120,7 @@ public class FleetManager : MonoBehaviour
         _distParametrPlanetMono = locTargetPlanetMono;
         _membersDataInFleet = locMembersDataInFleet;
         _fleetState.SetState( _locFleetState, locTargetPlanetMono);
+        _selfParametrPlanetMono = locPlanetIsOwnerFleet.GetComponent<ParametrPlanet_mono>();
 
         DisplayAttackAndDefenceFleet();
         DisplayNumShipInFleet();
@@ -140,11 +142,17 @@ public class FleetManager : MonoBehaviour
     public void JoinToDefenderFleet()
     {
         _distParametrPlanetMono.AddFleetToDefPlanetFleet(_dataFleetList);
-        DestroyFleet();
+        DestroyAttackingFleet();
     }
 
-    public void DestroyFleet()
+    public void DestroyAttackingFleet()
     {
         Destroy(gameObject);
+    }
+
+    public void DestroyDefenceFleet()
+    {
+        _selfParametrPlanetMono.ClearDefenceFleet();
+
     }
 }
