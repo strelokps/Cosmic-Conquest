@@ -8,6 +8,7 @@ public class FleetState : MonoBehaviour
     [SerializeField] private FleetStateStruct.enumFleetState _stateFleet = FleetStateStruct.enumFleetState.Idle;
     [ShowInInspector] private Vector3 _targetToMove;
     [ShowInInspector] private Transform _targetTransform;
+
     private Transform ownFleetPlanet;
 
     [ShowInInspector] private ParametrPlanet_mono _distParametrPlanetMono;
@@ -22,15 +23,14 @@ public class FleetState : MonoBehaviour
     private float distanceToMoveForJoin;
     [SerializeField] private string _targetTransformName;
 
+    private bool flagChkDistance; // флаг для проверки дистанции
     //test
 
 
 
     private void Update()
     {
-
         FleetStateMeth();
-
     }
 
 
@@ -82,6 +82,13 @@ public class FleetState : MonoBehaviour
                 if (CheckDistanceToAttack())
                 {
                     _stateFleet = FleetStateStruct.enumFleetState.OrbitAttack;
+                    if (_distParametrPlanetMono.GetTransformDefenceFleet(ref _targetTransform))
+                    {
+                        _distParametrPlanetMono.GetTransformDefenceFleet(ref _targetTransform);
+
+                        //transform.rotation = Quaternion.Slerp(); 
+
+                    };
                 }
                 break;
 
@@ -142,8 +149,9 @@ public class FleetState : MonoBehaviour
 
     public bool CheckDistanceToAttack()
     {
-        var flagChkDistance = false;
+        flagChkDistance = false;
         _distanceSqr = (_targetToMove - transform.position).sqrMagnitude;
+
         if (_distanceSqr < _stopBefore)
             flagChkDistance = true;
 
@@ -235,7 +243,7 @@ public class FleetState : MonoBehaviour
     //}
 
 
-    //проверяем наличие у нападающих флотов соотвествие по transform планеты, если совпало, то добавляем к фл
+    //проверяем наличие у нападающих флотов соотвествие по вылету из одной и тойже планеты, если совпало, то добавляем к фл
     private void CheckOtherAttackersFleetFromOnePlanetToJoin()
     {
         //уже есть атакующий флот
@@ -243,8 +251,9 @@ public class FleetState : MonoBehaviour
         {
             for (int i = 0; i < _distParametrPlanetMono.attackingFleet_LGO.Count; i++)
             {
-                print($"dist: {_distParametrPlanetMono.attackingFleet_LGO[i].GetComponent<FleetManager>()._selfPlanetTransform}" +
-                      $"self: {_fleetManager._selfPlanetTransform}");
+                //print($"dist: " +
+                //      $"{_distParametrPlanetMono.attackingFleet_LGO[i].GetComponent<FleetManager>()._selfPlanetTransform}" +
+                //      $"self: {_fleetManager._selfPlanetTransform}");
                 //проверяем наличие флотов вылетивших с той же планеты что и данный флот, если есть, то добавляемся.
                 if (_distParametrPlanetMono.attackingFleet_LGO[i]
                         .GetComponent<FleetManager>()

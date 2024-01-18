@@ -312,10 +312,7 @@ public class ParametrPlanet_mono : MonoBehaviour
 
 
 
-    public Transform GetTransformDefenceFleet()
-    {
-        return defFleetOnOrbitPlanet_GO.transform;
-    }
+
 
     public void DestroyDefenceFleet()
     {
@@ -518,4 +515,16 @@ public class ParametrPlanet_mono : MonoBehaviour
         defFleetOnOrbitPlanet_GO = null;
     }
 
+    public bool GetTransformDefenceFleet(ref Transform locTransformDefFleet)
+    {
+        bool locFlagTransfomDefenceFleet = false;
+
+        if (defFleetOnOrbitPlanet_GO != null)
+        {
+            locFlagTransfomDefenceFleet = true;
+            locTransformDefFleet = defFleetOnOrbitPlanet_GO.transform;
+        }
+
+        return locFlagTransfomDefenceFleet;
+    }
 }

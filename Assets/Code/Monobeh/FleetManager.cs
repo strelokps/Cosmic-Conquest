@@ -33,14 +33,29 @@ public class FleetManager : MonoBehaviour
 
     public Transform prop_DistParentTransform => _distParentTransform;
 
+    //Test
+
+    [SerializeField] private bool flagDestroy; 
+
 
     private void Awake()
     {
         _attack = 0;
         _defence = 0;
         _numShipInFleet = 0;
-        // _colorFon = _ColorObjTest.gameObject.GetComponent<Renderer>().material.color;
         _fleetState = GetComponent<FleetState>();
+    }
+
+    private void OnDisable()
+    {
+        DestroyAttackingFleet();
+        print($"<color=green> OnDisable</color>");
+    }
+
+    private void Update()
+    {
+        if (flagDestroy)
+            DestroyAttackingFleet();
     }
 
     public void AddShipToFleet(DataFleet locDataFleet)
@@ -145,14 +160,29 @@ public class FleetManager : MonoBehaviour
         DestroyAttackingFleet();
     }
 
+    private void RemoveAttackingFleetFromListOnPlanet()
+    {
+        for (int i = 0; i < _distParametrPlanetMono.attackingFleet_LGO.Count; i++)
+        {
+            if (_distParametrPlanetMono.attackingFleet_LGO[i] == gameObject)
+            {
+                _distParametrPlanetMono.attackingFleet_LGO.RemoveAt(i);
+            }
+        }
+    }
+
     public void DestroyAttackingFleet()
     {
+        print($"<color=green> DestroyAttackingFleet</color>");
+        RemoveAttackingFleetFromListOnPlanet();
         Destroy(gameObject);
+
     }
 
     public void DestroyDefenceFleet()
     {
         _selfParametrPlanetMono.ClearDefenceFleet();
-
     }
+
+
 }
