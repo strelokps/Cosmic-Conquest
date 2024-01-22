@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -35,8 +36,7 @@ public class FleetManager : MonoBehaviour
 
     //Test
 
-    [SerializeField] private bool flagDestroy; 
-
+    [SerializeField] private bool flagDestroy;
 
     private void Awake()
     {
@@ -50,6 +50,8 @@ public class FleetManager : MonoBehaviour
     {
         DestroyAttackingFleet();
         print($"<color=green> OnDisable</color>");
+        //test
+        _selfParametrPlanetMono.DestroyDefenceFleet();
     }
 
     private void Update()
@@ -139,6 +141,8 @@ public class FleetManager : MonoBehaviour
 
         DisplayAttackAndDefenceFleet();
         DisplayNumShipInFleet();
+
+
     }
 
 
