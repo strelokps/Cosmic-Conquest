@@ -36,7 +36,7 @@ public class ParametrPlanet_mono : MonoBehaviour
     [SerializeField] private Transform _spawnPointAttackFleet;
     [SerializeField] public Transform _spawnPointDefenceFleet;
     [SerializeField] private GameObject _prefabFleet;
-    private List<DataFleet> _listDefenderFleet = new List<DataFleet>();     //список кораблей для защиты внутри планеты 
+    private List<DataShip> _listDefenderFleet = new List<DataShip>();     //список кораблей для защиты внутри планеты 
     public List<GameObject> attackingFleet_LGO = new List<GameObject>();    //список нападающших на планету флотов
     private List<GameObject> _friendlyFleet_LGO = new List<GameObject>();    //список подлетающего дружественного флота
     private FleetManager _fleetManager = new FleetManager();
@@ -47,7 +47,7 @@ public class ParametrPlanet_mono : MonoBehaviour
     private FleetManager _defFleetManager;
 
     //test
-    DataFleet locDataFleetTest = new DataFleet();
+    DataShip _locDataShipTest = new DataShip();
     private int _randomCountFleetToAttack;
     [SerializeField] private float  _percentForAttackFleet;
     [SerializeField] private int _numShipsInDefenderFleet;
@@ -141,15 +141,15 @@ public class ParametrPlanet_mono : MonoBehaviour
         //    testFlag = true;
         //}
         testFlag = true;
-        if (_idPlanet == 19 & locDataFleetTest.attack > 0)
+        if (_idPlanet == 19 & _locDataShipTest.damageShip > 0)
         {
-            AddShipsToDefenderFleetOnPlanet(locDataFleetTest); //добавляем корабли во внутренний флот | для игрока | test
+            AddShipsToDefenderFleetOnPlanet(_locDataShipTest); //добавляем корабли во внутренний флот | для игрока | test
 
         }
 
-        if (_idPlanet == 1 & locDataFleetTest.attack > 0)
+        if (_idPlanet == 1 & _locDataShipTest.damageShip > 0)
         {
-            AddShipsToDefenderFleetOnPlanet(locDataFleetTest); //добавляем корабли во внутренний флот | для AI | test
+            AddShipsToDefenderFleetOnPlanet(_locDataShipTest); //добавляем корабли во внутренний флот | для AI | test
             _numShipsInDefenderFleet = _listDefenderFleet.Count;
         }
 
@@ -170,9 +170,8 @@ public class ParametrPlanet_mono : MonoBehaviour
         {
             _tempTimer = 0;
 
-            locDataFleetTest.attack = 2;
-            locDataFleetTest.defence = 10;
-            locDataFleetTest.colorFleet = _colorPlanet;
+            _locDataShipTest.damageShip = 2;
+            _locDataShipTest.armorShip = 10;
 
             
             //test
@@ -257,7 +256,7 @@ public class ParametrPlanet_mono : MonoBehaviour
                                                 /// создание флота
                                                 /// </summary>
     private void GenerationFleet(FleetStateStruct.enumFleetState locStateFleet,
-        List<DataFleet> locListAttackedOrDefenderFleet, Transform locSpawnPosition, 
+        List<DataShip> locListAttackedOrDefenderFleet, Transform locSpawnPosition, 
         Transform locTarget)
     {
         if (locListAttackedOrDefenderFleet.Count > 0 )
@@ -290,9 +289,9 @@ public class ParametrPlanet_mono : MonoBehaviour
         }
     }
     //добавляем корабли с верфи к флоту  на планете
-    private void AddShipsToDefenderFleetOnPlanet(DataFleet locDataFleet)
+    private void AddShipsToDefenderFleetOnPlanet(DataShip locDataShip)
     {
-        _listDefenderFleet.Add(locDataFleet); // добавляем в список защитников планеты
+        _listDefenderFleet.Add(locDataShip); // добавляем в список защитников планеты
 
     }
 
@@ -306,7 +305,7 @@ public class ParametrPlanet_mono : MonoBehaviour
             _defFleetManager.MergFleets(_listDefenderFleet);
             print($"<color=_colorPlanet>{_listDefenderFleet.Count}</color>");
 
-            _listDefenderFleet = new List<DataFleet>();
+            _listDefenderFleet = new List<DataShip>();
             
         }
 
@@ -322,7 +321,7 @@ public class ParametrPlanet_mono : MonoBehaviour
     }
 
     //добавляем внешний флот к флоту планеты или к флоту на орбите
-    public void AddFleetToDefPlanetFleet(List<DataFleet> locListDataFleet)
+    public void AddFleetToDefPlanetFleet(List<DataShip> locListDataFleet)
     {
 
         if (defFleetOnOrbitPlanet_GO != null)
@@ -353,7 +352,7 @@ public class ParametrPlanet_mono : MonoBehaviour
             _stateFleet = FleetStateStruct.enumFleetState.StartForDefence;
             GenerationFleet(_stateFleet, _listDefenderFleet, _spawnPointDefenceFleet,
                 locTransformAttackingFleet);
-            _listDefenderFleet = new List<DataFleet>(); //очищаем список флота на планете, т.к. все корабли были переданы в деф флот
+            _listDefenderFleet = new List<DataShip>(); //очищаем список флота на планете, т.к. все корабли были переданы в деф флот
             Clear();
         }
 
@@ -454,9 +453,9 @@ public class ParametrPlanet_mono : MonoBehaviour
     }
 
     //какой процент кораблей из флота защиты перейдет во флот атаки
-    private List<DataFleet> CalculationPercentageOfTheFleet(float locPercent)
+    private List<DataShip> CalculationPercentageOfTheFleet(float locPercent)
     {
-        List<DataFleet> tempAttackFleet = new List<DataFleet>();
+        List<DataShip> tempAttackFleet = new List<DataShip>();
 
         if (_listDefenderFleet.Count > 0)
         {

@@ -37,7 +37,7 @@ public class FleetState : MonoBehaviour
     public void SetState(FleetStateStruct.enumFleetState locStateFleet, ParametrPlanet_mono locDistPlanetMono)
     {
         distanceToMoveForJoin = 2f; //дистанция остановки перед объектом для join
-        speedMove = 2.5f;
+        speedMove = 5.5f;
 
         _stopBefore = _tempStopBefore = 16f; // дистанция остановки перед объектом для атаки
         _fleetManager = transform.GetComponent<FleetManager>();

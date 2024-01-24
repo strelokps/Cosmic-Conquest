@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface FleetStateStruct
+public struct FleetStateStruct
 {
     public enum enumFleetState
     {

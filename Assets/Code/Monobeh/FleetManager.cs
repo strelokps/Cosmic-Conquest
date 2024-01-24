@@ -19,9 +19,9 @@ public class FleetManager : MonoBehaviour
     [SerializeField] private TMP_Text _attackShipInFleetText;
     [SerializeField] private TMP_Text _defenceShipInFleetText;
     private int _numShipInFleet;
-    [SerializeField] private int _attack;
-    [SerializeField] private int _defence;
-    [SerializeField] private List<DataFleet> _dataFleetList ; //список кораблей во флоту
+    [SerializeField] private float _attackFleet;
+    [SerializeField] private float _armorFleet;
+    [SerializeField] private List<DataShip> _dataFleetList ; //список кораблей во флоту
     private FleetState _fleetState;
     private Transform _target;
     private SceneMembersData _membersDataInFleet;
@@ -40,8 +40,8 @@ public class FleetManager : MonoBehaviour
 
     private void Awake()
     {
-        _attack = 0;
-        _defence = 0;
+        _attackFleet = 0;
+        _armorFleet = 0;
         _numShipInFleet = 0;
         _fleetState = GetComponent<FleetState>();
     }
@@ -60,9 +60,9 @@ public class FleetManager : MonoBehaviour
             DestroyAttackingFleet();
     }
 
-    public void AddShipToFleet(DataFleet locDataFleet)
+    public void AddShipToFleet(DataShip locDataShip)
     {
-        _dataFleetList.Add(locDataFleet);
+        _dataFleetList.Add(locDataShip);
         DisplayAttackAndDefenceFleet();
     }
 
@@ -77,12 +77,12 @@ public class FleetManager : MonoBehaviour
         return _parentTransformInFleet;
     }
 
-    public List<DataFleet> GetListDataFleet()
+    public List<DataShip> GetListDataFleet()
     {
         return _dataFleetList;
     }
 
-    public void RemoveAttackAndDefence(DataFleet locDatafleet)
+    public void RemoveAttackAndDefence(DataShip locDatafleet)
     {
         DisplayAttackAndDefenceFleet();
     }
@@ -97,11 +97,11 @@ public class FleetManager : MonoBehaviour
         ClearParamFleetAnd();
         foreach (var idx in _dataFleetList)
         {
-            _attack += idx.attack;
-            _defence += idx.defence;
+            _attackFleet += idx.damageShip;
+            _armorFleet += idx.armorShip;
         }
-        _attackShipInFleetText.text = _attack.ToString();
-        _defenceShipInFleetText.text = _defence.ToString();
+        _attackShipInFleetText.text = _attackFleet.ToString();
+        _defenceShipInFleetText.text = _armorFleet.ToString();
     }
 
     public void ClearParamFleetAndDisplay()
@@ -112,18 +112,18 @@ public class FleetManager : MonoBehaviour
 
     public void ClearParamFleetAnd()
     {
-        _attack = 0;
-        _defence = 0;
+        _attackFleet = 0;
+        _armorFleet = 0;
         _numShipInFleet = 0;
 
     }
 
-    public void InitiateFleet(List<DataFleet> locDataFleet, Material locMaterial, 
+    public void InitiateFleet(List<DataShip> locDataFleet, Material locMaterial, 
         Transform locPlanetIsOwnerFleet, Transform locParentTransform, 
         ParametrPlanet_mono locTargetPlanetMono, SceneMembersData locMembersDataInFleet,
         FleetStateStruct.enumFleetState _locFleetState)
     {
-        _dataFleetList = new List<DataFleet> { new DataFleet() { attack = 0, defence = 0 } };
+        _dataFleetList = new List<DataShip> { new DataShip() { damageShip = 0, armorShip = 0 } };
         ClearParamFleetAndDisplay();
 
         _dataFleetList.AddRange(locDataFleet);
@@ -147,7 +147,7 @@ public class FleetManager : MonoBehaviour
 
 
     //присоединение кораблей другого флота к себе при атаке на планету, если оба флота были отправленны с одной и той же планеты
-    public void MergFleets(List<DataFleet> locListDataFleetToMerg)
+    public void MergFleets(List<DataShip> locListDataFleetToMerg)
     {
         print($"Merg {locListDataFleetToMerg.Count}");
         for (int i = 0; i < locListDataFleetToMerg.Count; i++)
