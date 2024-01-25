@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(PlanetCapturing))]
+[RequireComponent(typeof(BuyShip))]
 
 public class ParametrPlanet_mono : MonoBehaviour 
 {
@@ -22,12 +24,16 @@ public class ParametrPlanet_mono : MonoBehaviour
     [SerializeField] private Transform _parentTransformFromPlanet;
     private ParentManager _parentManager;
     private PlanetCapturing _planetCapturing;
+    private BuyShip _buyShip;
 
     [HideInInspector] private Transform selfTransform;
 
-    [Header("[ Gold ]")] 
+    [Header("[ Gold ]")]
+    [FoldoutGroup("Gold")]
     [SerializeField] private float _timerForGenGold = 1f;
+    [FoldoutGroup("Gold")]
     private float _tempTimerForGenGold;
+    [FoldoutGroup("Gold")]
     [SerializeField] private int _genGoldPerSecond;
 
 
@@ -225,6 +231,8 @@ public class ParametrPlanet_mono : MonoBehaviour
         _parentManager = _parentTransformFromPlanet.GetComponent<ParentManager>();
         SetGoldRepSecond(locMemberSceneDatasParent.lvlTech, _dataPlanet.SetPlanetLvl(_currentLvlPlanet));
         //defFleetOnOrbitPlanet_GO = new GameObject();
+        _buyShip = GetComponent<BuyShip>();
+        _buyShip.InitBuyShip();
         //test
         _randomCountFleetToAttack = Random.Range(2, 10);
         testFlag = false;

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -17,7 +18,6 @@ public class ParentManager : MonoBehaviour
 
     [Header("Display solarium")]
     [SerializeField] private int _solarium;
-    [SerializeField] private TMP_Text _locTextSolarium;
 
     public int prop_id { get => id; }
 
@@ -72,14 +72,7 @@ public class ParentManager : MonoBehaviour
     private void DisplaySolarium()
     {
         if (_flagPlayer)
-        {
-            if (_locTextSolarium == null)
-            {
-                var goText = GameObject.FindGameObjectWithTag("DisplaySolarium");
-                _locTextSolarium = goText.GetComponent<TMP_Text>();
-            }
-            _locTextSolarium.text = _solarium.ToString();
-        }
+            EventBus.Instans.InvokeSolarium(_solarium);
     }
 
 

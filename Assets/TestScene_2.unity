@@ -492,7 +492,6 @@ MonoBehaviour:
   _planetList: []
   enemyTransform: {fileID: 0}
   _solarium: 0
-  _locTextSolarium: {fileID: 0}
 --- !u!1 &144859961
 GameObject:
   m_ObjectHideFlags: 0
@@ -3680,9 +3679,10 @@ GameObject:
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
   - component: {fileID: 963194229}
+  - component: {fileID: 963194232}
   - component: {fileID: 963194230}
   - component: {fileID: 963194231}
-  - component: {fileID: 963194232}
+  - component: {fileID: 963194233}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3865,6 +3865,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _textVersion: {fileID: 1395205701}
+--- !u!114 &963194233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1f26f2eba9f89a469becd39d1f4b21c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _locTextSolarium: {fileID: 67988133}
 --- !u!1 &1010983274
 GameObject:
   m_ObjectHideFlags: 0
@@ -5640,7 +5653,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'ver.: 0.1.483.1018.0'
+  m_text: 'ver.: 0.1.492.1027.0'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5750,7 +5763,6 @@ MonoBehaviour:
   _planetList: []
   enemyTransform: {fileID: 0}
   _solarium: 0
-  _locTextSolarium: {fileID: 0}
 --- !u!4 &1478295161
 Transform:
   m_ObjectHideFlags: 0
@@ -6622,7 +6634,6 @@ MonoBehaviour:
   _planetList: []
   enemyTransform: {fileID: 0}
   _solarium: 0
-  _locTextSolarium: {fileID: 0}
 --- !u!1 &1826182312
 GameObject:
   m_ObjectHideFlags: 0
@@ -6769,7 +6780,6 @@ MonoBehaviour:
   _planetList: []
   enemyTransform: {fileID: 0}
   _solarium: 0
-  _locTextSolarium: {fileID: 0}
 --- !u!1 &1840238376
 GameObject:
   m_ObjectHideFlags: 0
@@ -6976,7 +6986,6 @@ MonoBehaviour:
   _planetList: []
   enemyTransform: {fileID: 0}
   _solarium: 0
-  _locTextSolarium: {fileID: 0}
 --- !u!1 &1846990982
 GameObject:
   m_ObjectHideFlags: 0

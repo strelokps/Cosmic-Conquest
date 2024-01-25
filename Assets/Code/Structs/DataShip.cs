@@ -10,5 +10,6 @@ public struct DataShip
     public float regenShield;
     public float speedShip;
     public float timeToBuild;
+    public float coastShip;
 
 }

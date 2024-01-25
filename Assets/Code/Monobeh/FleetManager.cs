@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Sirenix.OdinInspector;
+
 using static UnityEngine.GraphicsBuffer;
 
 [RequireComponent(typeof(FleetState))]
