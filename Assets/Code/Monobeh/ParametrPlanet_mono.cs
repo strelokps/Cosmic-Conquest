@@ -11,8 +11,9 @@ using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(PlanetCapturing))]
 [RequireComponent(typeof(BuyShip))]
+[RequireComponent(typeof(Shipyard))]
 
-public class ParametrPlanet_mono : MonoBehaviour 
+public class ParametrPlanet_mono : MonoBehaviour
 {
     [SerializeField] private int _idPlanet;
     private int _lvlTechPlanet;
@@ -25,37 +26,39 @@ public class ParametrPlanet_mono : MonoBehaviour
     private ParentManager _parentManager;
     private PlanetCapturing _planetCapturing;
     private BuyShip _buyShip;
+    private Shipyard _shipyard;
+
 
     [HideInInspector] private Transform selfTransform;
 
-    [Header("[ Gold ]")]
-    [FoldoutGroup("Gold")]
-    [SerializeField] private float _timerForGenGold = 1f;
-    [FoldoutGroup("Gold")]
-    private float _tempTimerForGenGold;
-    [FoldoutGroup("Gold")]
-    [SerializeField] private int _genGoldPerSecond;
+    [Header("[ Gold ]")] [FoldoutGroup("Gold")] [SerializeField]
+    private float _timerForGenGold = 1f;
+
+    [FoldoutGroup("Gold")] private float _tempTimerForGenGold;
+
+    [FoldoutGroup("Gold")] [SerializeField]
+    private int _genGoldPerSecond;
 
 
 
-    [Header("[ Fleet ]")]
-    [SerializeField] private Transform _spawnPointAttackFleet;
+    [Header("[ Fleet ]")] [SerializeField] private Transform _spawnPointAttackFleet;
     [SerializeField] public Transform _spawnPointDefenceFleet;
     [SerializeField] private GameObject _prefabFleet;
-    private List<DataShip> _listDefenderFleet = new List<DataShip>();     //список кораблей для защиты внутри планеты 
-    public List<GameObject> attackingFleet_LGO = new List<GameObject>();    //список нападающших на планету флотов
-    private List<GameObject> _friendlyFleet_LGO = new List<GameObject>();    //список подлетающего дружественного флота
+    [ShowInInspector]
+    private List<DataShip> _listDefenderFleet = new List<DataShip>(); //список кораблей для защиты внутри планеты 
+    public List<GameObject> attackingFleet_LGO = new List<GameObject>(); //список нападающших на планету флотов
+    private List<GameObject> _friendlyFleet_LGO = new List<GameObject>(); //список подлетающего дружественного флота
     private FleetManager _fleetManager = new FleetManager();
     private Transform _targetToFleet;
     [SerializeField] private FleetStateStruct.enumFleetState _stateFleet;
-    private GameObject defFleetOnOrbitPlanet_GO;                                     //Флот защиты на орбите
+    private GameObject defFleetOnOrbitPlanet_GO; //Флот защиты на орбите
 
     private FleetManager _defFleetManager;
 
     //test
     DataShip _locDataShipTest = new DataShip();
     private int _randomCountFleetToAttack;
-    [SerializeField] private float  _percentForAttackFleet;
+    [SerializeField] private float _percentForAttackFleet;
     [SerializeField] private int _numShipsInDefenderFleet;
     [SerializeField] private int _numShipsInDefenceFleet;
     [SerializeField] private int _numShipsInAttackingFleet;
@@ -65,13 +68,13 @@ public class ParametrPlanet_mono : MonoBehaviour
 
 
 
-    [Header("[ Lvl Planet ]")]
-    [SerializeField] private int _currentLvlPlanet;
+    [Header("[ Lvl Planet ]")] [SerializeField]
+    private int _currentLvlPlanet;
+
     private DataPlanet _dataPlanet = new DataPlanet();
 
 
-    [Header("[ Input Controls ]")] 
-    private InputControls _controls;
+    [Header("[ Input Controls ]")] private InputControls _controls;
 
     //Test
     private float _timer;
@@ -82,6 +85,7 @@ public class ParametrPlanet_mono : MonoBehaviour
         get => _idPlanet;
         set => _idPlanet = value;
     }
+
     public int prop_LvlTechPlanet
     {
         get => _lvlTechPlanet;
@@ -91,6 +95,11 @@ public class ParametrPlanet_mono : MonoBehaviour
     public Transform SelfTransform => selfTransform;
 
     public Transform prop_ParentTransformFromPlanet => _parentTransformFromPlanet;
+
+    public ParentManager pParentManager
+    {
+        get { return _parentManager; }
+    }
 
 
     private void Awake()
@@ -139,7 +148,7 @@ public class ParametrPlanet_mono : MonoBehaviour
     {
         _controls.Disable();
 
-
+        _numShipsInDefenderFleet = _listDefenderFleet.Count;
         _numShipsInAttackingFleet = attackingFleet_LGO.Count; //test
 
         //if (_controls.Main.Mouse.IsPressed())
@@ -147,16 +156,11 @@ public class ParametrPlanet_mono : MonoBehaviour
         //    testFlag = true;
         //}
         testFlag = true;
-        if (_idPlanet == 19 & _locDataShipTest.damageShip > 0)
-        {
-            AddShipsToDefenderFleetOnPlanet(_locDataShipTest); //добавляем корабли во внутренний флот | для игрока | test
+       
 
-        }
-
-        if (_idPlanet == 1 & _locDataShipTest.damageShip > 0)
+        if (_idPlanet == 1 & _locDataShipTest.damageShipMin > 0)
         {
             AddShipsToDefenderFleetOnPlanet(_locDataShipTest); //добавляем корабли во внутренний флот | для AI | test
-            _numShipsInDefenderFleet = _listDefenderFleet.Count;
         }
 
         if (defFleetOnOrbitPlanet_GO != null)
@@ -169,14 +173,14 @@ public class ParametrPlanet_mono : MonoBehaviour
 
 
         AddShipsToDefenceFleetOnOrbit();
-        GenerationGold();
+        //GenerationGold();
 
         _tempTimer += Time.deltaTime;
         if (_tempTimer > _timer)
         {
             _tempTimer = 0;
 
-            _locDataShipTest.damageShip = 2;
+            _locDataShipTest.damageShipMin = 2;
             _locDataShipTest.armorShip = 10;
 
             
@@ -232,10 +236,17 @@ public class ParametrPlanet_mono : MonoBehaviour
         SetGoldRepSecond(locMemberSceneDatasParent.lvlTech, _dataPlanet.SetPlanetLvl(_currentLvlPlanet));
         //defFleetOnOrbitPlanet_GO = new GameObject();
         _buyShip = GetComponent<BuyShip>();
-        _buyShip.InitBuyShip();
+        _shipyard = GetComponent<Shipyard>();
+        _shipyard.InitShipyard(this);
+        _buyShip.InitBuyShip(_shipyard);
+
+
+
+
         //test
         _randomCountFleetToAttack = Random.Range(2, 10);
         testFlag = false;
+        _parentManager.AddSolarium(100);
     }
 
 
@@ -297,9 +308,12 @@ public class ParametrPlanet_mono : MonoBehaviour
         }
     }
     //добавляем корабли с верфи к флоту  на планете
-    private void AddShipsToDefenderFleetOnPlanet(DataShip locDataShip)
+    public void AddShipsToDefenderFleetOnPlanet(DataShip locDataShip)
     {
         _listDefenderFleet.Add(locDataShip); // добавляем в список защитников планеты
+        //test
+        if (_idPlanet == 19)
+        print($"<color=blue>Флот защиты {_listDefenderFleet.Count}</color>");
 
     }
 

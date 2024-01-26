@@ -23,7 +23,8 @@ public class FleetManager : MonoBehaviour
     private int _numShipInFleet;
     [SerializeField] private float _attackFleet;
     [SerializeField] private float _armorFleet;
-    [SerializeField] private List<DataShip> _dataFleetList ; //список кораблей во флоту
+    
+    [ShowInInspector] private List<DataShip> _dataFleetList ; //список кораблей во флоту
     private FleetState _fleetState;
     private Transform _target;
     private SceneMembersData _membersDataInFleet;
@@ -51,7 +52,6 @@ public class FleetManager : MonoBehaviour
     private void OnDisable()
     {
         DestroyAttackingFleet();
-        print($"<color=green> OnDisable</color>");
         //test
         _selfParametrPlanetMono.DestroyDefenceFleet();
     }
@@ -99,7 +99,7 @@ public class FleetManager : MonoBehaviour
         ClearParamFleetAnd();
         foreach (var idx in _dataFleetList)
         {
-            _attackFleet += idx.damageShip;
+            _attackFleet += idx.damageShipMin;
             _armorFleet += idx.armorShip;
         }
         _attackShipInFleetText.text = _attackFleet.ToString();
@@ -125,10 +125,9 @@ public class FleetManager : MonoBehaviour
         ParametrPlanet_mono locTargetPlanetMono, SceneMembersData locMembersDataInFleet,
         FleetStateStruct.enumFleetState _locFleetState)
     {
-        _dataFleetList = new List<DataShip> { new DataShip() { damageShip = 0, armorShip = 0 } };
+        _dataFleetList = new List<DataShip> ( locDataFleet );
         ClearParamFleetAndDisplay();
 
-        _dataFleetList.AddRange(locDataFleet);
         Color locColor = new Color(locMaterial.color.r, locMaterial.color.g, locMaterial.color.r, 1f);
         _imageFleet_R.GetComponent<Image>().color = locColor;
         _imageFleet_R.GetComponent<Image>().material = new Material(locMaterial) ;
@@ -151,7 +150,6 @@ public class FleetManager : MonoBehaviour
     //присоединение кораблей другого флота к себе при атаке на планету, если оба флота были отправленны с одной и той же планеты
     public void MergFleets(List<DataShip> locListDataFleetToMerg)
     {
-        print($"Merg {locListDataFleetToMerg.Count}");
         for (int i = 0; i < locListDataFleetToMerg.Count; i++)
         {
             _dataFleetList.Add(locListDataFleetToMerg[i]);
@@ -179,7 +177,6 @@ public class FleetManager : MonoBehaviour
 
     public void DestroyAttackingFleet()
     {
-        print($"<color=green> DestroyAttackingFleet</color>");
         RemoveAttackingFleetFromListOnPlanet();
         Destroy(gameObject);
 

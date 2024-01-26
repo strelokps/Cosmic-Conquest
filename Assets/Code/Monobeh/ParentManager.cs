@@ -64,6 +64,11 @@ public class ParentManager : MonoBehaviour
         DisplaySolarium();
     }
 
+    public int TakeAmountSolarium()
+    {
+        return _solarium;
+    }
+
     private int CheckNumChild() 
     {
         return _parentTransform.childCount;
