@@ -44,9 +44,13 @@ public struct HealthSystem
         DataShip locDataShip = new DataShip();
         for (int i = 0; i < locSelfShips.Count; i++)
         {
-            locDataShip = locSelfShips[i];
-            locDataShip.shieldShip += Math.Min(locSelfShips[i].maxShieldShip - locSelfShips[i].shieldShip, locSelfShips[i].regenShield); // Вычисляем что меньше, 
-            locSelfShips[i] = locDataShip;
+            if (locSelfShips[i].shieldShip < locSelfShips[i].maxShieldShip)
+            {
+                locDataShip = locSelfShips[i];
+                locDataShip.shieldShip += Math.Min(locSelfShips[i].maxShieldShip - locSelfShips[i].shieldShip,
+                    locSelfShips[i].regenShield); // Вычисляем что меньше, 
+                locSelfShips[i] = locDataShip;
+            }
         }
     }
 }
