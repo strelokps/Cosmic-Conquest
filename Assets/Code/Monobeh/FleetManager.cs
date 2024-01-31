@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Sirenix.OdinInspector;
-
+using UnityEditor.ShaderGraph.Internal;
 using static UnityEngine.GraphicsBuffer;
 using Object = System.Object;
 
@@ -42,9 +42,14 @@ public class FleetManager : MonoBehaviour
 
     public Transform prop_DistParentTransform => _distParentTransform;
 
+    [Header("Time")] 
+    private float _timer;
+    private float _tempTimer;
+
     //Test
 
     [SerializeField] private bool flagDestroy;
+    private float t;
 
     private void Awake()
     {
@@ -63,6 +68,14 @@ public class FleetManager : MonoBehaviour
 
     private void Update()
     {
+        _tempTimer += Time.deltaTime;
+
+        if (_tempTimer > _timer)
+        {
+            CallRegenShield();
+            _tempTimer = 0;
+        }
+
         if (flagDestroy)
             DestroyAttackingFleet();
     }
@@ -146,6 +159,9 @@ public class FleetManager : MonoBehaviour
         _fleetState.speedMove = GetMinSpeedFleet(locDataFleet);
         _selfParametrPlanetMono = locPlanetIsOwnerFleet.GetComponent<ParametrPlanet_mono>();
 
+        _timer = 1f;
+        _tempTimer = 0;
+
         DisplayAttackAndDefenceFleet();
         DisplayNumShipInFleet();
 
@@ -214,11 +230,12 @@ public class FleetManager : MonoBehaviour
     //Стартуем таймер, который будет вызывать метод, который вызывает метод в health sysytem. Да, знаю что выглядит не очень.
     public void StartRegenShield()
     {
-        var _timer = new Timer(CallRegenShield, null, 0, 1000);
+        //var _timer = new Timer(CallRegenShield, null, 0, 1000);
     }
 
-    private void CallRegenShield(Object o)
+    private void CallRegenShield()
     {
+        print($"<color=yellow> Время : {t} {_dataFleetList[0].shieldShip}</color>");
         _healthSystem.RegenerationShield(_dataFleetList);
     }
 }

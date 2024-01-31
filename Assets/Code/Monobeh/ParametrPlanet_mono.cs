@@ -171,7 +171,7 @@ public class ParametrPlanet_mono : MonoBehaviour
 
 
         AddShipsToDefenceFleetOnOrbit();
-        //GenerationGold();
+        GenerationGold();
 
         _tempTimer += Time.deltaTime;
         if (_tempTimer > _timer)
