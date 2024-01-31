@@ -12,7 +12,7 @@ public class FleetState : MonoBehaviour
     private Transform ownFleetPlanet;
 
     [ShowInInspector] private ParametrPlanet_mono _distParametrPlanetMono;
-    [SerializeField] private float speedMove = 1f;
+    public float speedMove = 1f;
 
     [SerializeField] private float _stopBefore;
     [SerializeField] private float _tempStopBefore;
@@ -72,6 +72,7 @@ public class FleetState : MonoBehaviour
                 {
                     _stopBefore = 16f;
                     _stateFleet = FleetStateStruct.enumFleetState.MoveToOrbitAttack;
+                    _fleetManager.StartRegenShield();
                     CallDefFleet();
                 }
                 break;
@@ -274,48 +275,5 @@ public class FleetState : MonoBehaviour
 
     }
 
-    //private void CheckPlanetHaveDefFleet()
-    //{
-    //    if(_distParametrPlanetMono.ChangeOwnerPlanet(_fleetManager.GetMembersData(), _fleetManager.GetParentTransform()))
-    //    {
-
-    //    }
-
-    //}
-
-    //private bool CheckDefleetOnOrbit()
-    //{
-    //    var flagCheckEnemyDefFleet = false;
-
-    //    //если у планеты нет флота защитника, то генерим новый
-    //    if (_distParametrPlanetMono.CallDefenderFleet(transform))
-    //    {
-    //        _distParametrPlanetMono.CallDefenderFleet(transform);
-    //        flagCheckEnemyDefFleet = true;
-    //    }
-
-    //    return flagCheckEnemyDefFleet;
-    //}
-
-    //private void MovingTowardsPlanetForDecent()
-    //{
-    //    _stopBefore = distanceToMoveForJoin;
-    //    _stateFleet = FleetStateStruct.enumFleetState.MovingTowardsPlanetForDecent;
-    //}
-
-
-    //private void AddAttackerFleetToPlanetAttackOrDefFleet()
-    //{
-    //    if (!CheckDistPlanetIsEnemy())
-    //    {
-    //        //добавлемся в список атакующего флота
-    //        _distParametrPlanetMono.AddToListAttackerFleet(gameObject);
-    //    }
-    //    else
-    //    {
-    //        //добавляемся в список дружественного флота
-    //        _distParametrPlanetMono.AddToListIncomeFriendlyFleet(gameObject);
-    //    }
-
-    //}
+   
 }

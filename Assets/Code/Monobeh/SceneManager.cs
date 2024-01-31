@@ -53,6 +53,7 @@ public class SceneManager : MonoBehaviour
                             SceneMembersData locMB = indexMembers.enemy[i];
                             locMB.parentTransform = indexTransform;
                             indexMembers.enemy[i] = locMB;
+                            indexTransform.name = locMB.nameMembers;
                         }
                     }
                     // AI + Player

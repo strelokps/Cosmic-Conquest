@@ -160,14 +160,12 @@ public class ParametrPlanet_mono : MonoBehaviour
 
         if (_idPlanet == 1 & _locDataShipTest.damageShipMin > 0)
         {
-            AddShipsToDefenderFleetOnPlanet(_locDataShipTest); //добавляем корабли во внутренний флот | для AI | test
+            //AddShipsToDefenderFleetOnPlanet(_locDataShipTest); //добавляем корабли во внутренний флот | для AI | test
         }
 
         if (defFleetOnOrbitPlanet_GO != null)
         {
             print($"Нажал мышку {defFleetOnOrbitPlanet_GO.name}");
-
-
         }
 
 
@@ -182,7 +180,6 @@ public class ParametrPlanet_mono : MonoBehaviour
 
             _locDataShipTest.damageShipMin = 2;
             _locDataShipTest.armorShip = 10;
-
             
             //test
             if (_randomCountFleetToAttack < _listDefenderFleet.Count)
@@ -195,11 +192,8 @@ public class ParametrPlanet_mono : MonoBehaviour
                     //
                     if (testFlag)
                     {
-                        //print($" {_randomCountFleetToAttack} < {_listDefenderFleet.Count}  {_idPlanet}");
-
                         CreateAttackerFleet(_percentForAttackFleet);
                         testFlag = false;
-
                     }
                 }
 
@@ -207,7 +201,6 @@ public class ParametrPlanet_mono : MonoBehaviour
                 {
                     //print($" Атака не 19 {_idPlanet}");
                     if (_controls.Main.NewA.IsPressed())
-                        //print($" {_randomCountFleetToAttack} < {_listDefenderFleet.Count}  {_idPlanet}");
                     {
                         CreateAttackerFleet(_percentForAttackFleet);
                     }
@@ -288,7 +281,6 @@ public class ParametrPlanet_mono : MonoBehaviour
 
             if (_prefabFleet.GetComponent<FleetManager>())
             {
-
                 //создаем флот
                 GameObject fl =
                     Instantiate(_prefabFleet, locSpawnPosition.position, locSpawnPosition.rotation) as GameObject;
@@ -303,7 +295,6 @@ public class ParametrPlanet_mono : MonoBehaviour
                     defFleetOnOrbitPlanet_GO = fl;
                     _defFleetManager = defFleetOnOrbitPlanet_GO.GetComponent<FleetManager>();
                 }
-
             }
         }
     }

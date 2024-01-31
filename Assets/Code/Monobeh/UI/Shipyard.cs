@@ -11,7 +11,7 @@ public class Shipyard : MonoBehaviour
     private float tempTimerToBuild;
     private ParametrPlanet_mono _selfParametrPlanetMono;
     [ShowInInspector]
-    private List<DataShip> _listDataShip;
+    private List<DataShip> _listDataShip; //очередь кораблей на постройку
     private enum StateBuildShip
     {
         idle,
@@ -25,6 +25,7 @@ public class Shipyard : MonoBehaviour
     public void InitShipyard(ParametrPlanet_mono locParametrPlanetMono)
     {
         _selfParametrPlanetMono = locParametrPlanetMono;
+
         _listDataShip = new List<DataShip>();
     }
 
@@ -44,7 +45,10 @@ public class Shipyard : MonoBehaviour
     public void BuildShipInShipyard(DataShip locDataShip)
     {
         if (!CheckEnoughSolariumForBuildSHip(locDataShip.coastShip)) //на врем€ test. подробности в TODO 
+        {
+            print("ћилор, нужно больше блест€щих кругл€шков");
             return;
+        }
 
         _selfParametrPlanetMono.pParentManager.RemoveSolarium(locDataShip.coastShip);
         _listDataShip.Add(locDataShip);

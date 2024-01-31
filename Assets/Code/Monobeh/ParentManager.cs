@@ -37,7 +37,7 @@ public class ParentManager : MonoBehaviour
 
         for (int i = 0; i < numChild; i++)
         {
-            if (transform.GetChild(i).GetComponent<ParametrPlanet_mono>() & gameObject.activeSelf)
+            if (transform.GetChild(i).GetComponent<ParametrPlanet_mono>() & gameObject.activeInHierarchy)
             {
                 
                 var pl = _parentTransform.GetChild(i).GetComponent<ParametrPlanet_mono>();
@@ -74,6 +74,7 @@ public class ParentManager : MonoBehaviour
         return _parentTransform.childCount;
     }
 
+    //Запускаем обновление отображения солариума на UI
     private void DisplaySolarium()
     {
         if (_flagPlayer)

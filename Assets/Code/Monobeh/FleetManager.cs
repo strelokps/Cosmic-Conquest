@@ -1,12 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Sirenix.OdinInspector;
 
 using static UnityEngine.GraphicsBuffer;
+using Object = System.Object;
 
 [RequireComponent(typeof(FleetState))]
 public class FleetManager : MonoBehaviour
@@ -21,8 +23,8 @@ public class FleetManager : MonoBehaviour
     [SerializeField] private TMP_Text _attackShipInFleetText;
     [SerializeField] private TMP_Text _defenceShipInFleetText;
     private int _numShipInFleet;
-    [SerializeField] private float _attackFleet;
-    [SerializeField] private float _armorFleet;
+    [SerializeField] private int _attackFleet;
+    [SerializeField] private int _armorFleet;
     
     [ShowInInspector] private List<DataShip> _dataFleetList ; //список кораблей во флоту
     private FleetState _fleetState;
@@ -33,6 +35,9 @@ public class FleetManager : MonoBehaviour
     private ParametrPlanet_mono _distParametrPlanetMono;
     private ParametrPlanet_mono _selfParametrPlanetMono;
 
+
+    [Header("Health | Damage")] 
+    private HealthSystem _healthSystem;
     public ParametrPlanet_mono prop_DistParametrPlanetMono => _distParametrPlanetMono;
 
     public Transform prop_DistParentTransform => _distParentTransform;
@@ -138,6 +143,7 @@ public class FleetManager : MonoBehaviour
         _distParametrPlanetMono = locTargetPlanetMono;
         _membersDataInFleet = locMembersDataInFleet;
         _fleetState.SetState( _locFleetState, locTargetPlanetMono);
+        _fleetState.speedMove = GetMinSpeedFleet(locDataFleet);
         _selfParametrPlanetMono = locPlanetIsOwnerFleet.GetComponent<ParametrPlanet_mono>();
 
         DisplayAttackAndDefenceFleet();
@@ -187,5 +193,32 @@ public class FleetManager : MonoBehaviour
         _selfParametrPlanetMono.ClearDefenceFleet();
     }
 
+    //получаем минимальную скорость из всех кораблей флота
+    public float GetMinSpeedFleet(List<DataShip> locDataShips)
+    {
+        float minSpeed = 100000f;
+        for (int i = 0; i < locDataShips.Count; i++)
+        {
+            if (locDataShips[i].speedShip < minSpeed)
+                minSpeed = locDataShips[i].speedShip;
+        }
 
+        return minSpeed;
+    }
+
+    public void TakeDamageFromAttackingFleet( int locDamageAttackingFleet)
+    {
+        _healthSystem.TakeDamage(ref _dataFleetList, locDamageAttackingFleet);
+    }
+
+    //Стартуем таймер, который будет вызывать метод, который вызывает метод в health sysytem. Да, знаю что выглядит не очень.
+    public void StartRegenShield()
+    {
+        var _timer = new Timer(CallRegenShield, null, 0, 1000);
+    }
+
+    private void CallRegenShield(Object o)
+    {
+        _healthSystem.RegenerationShield(_dataFleetList);
+    }
 }

@@ -4,11 +4,12 @@ using UnityEngine;
 
 public struct DataShip
 {
-    public float damageShipMin;
-    public float damageShipMax;
+    public int damageShipMin;
+    public int damageShipMax;
     public int armorShip;
+    public int maxShieldShip;
     public int shieldShip;
-    public float regenShield;
+    public int regenShield;
     public float speedShip;
     public float timeToBuild;
     public int coastShip;
