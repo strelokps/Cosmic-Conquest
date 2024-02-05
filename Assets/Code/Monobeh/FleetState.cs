@@ -8,6 +8,7 @@ public class FleetState : MonoBehaviour
     [SerializeField] private FleetStateStruct.enumFleetState _stateFleet = FleetStateStruct.enumFleetState.Idle;
     [ShowInInspector] private Vector3 _targetToMove;
     [ShowInInspector] private Transform _targetTransform;
+    [ShowInInspector] private Vector3 _targetPosition;
 
     private Transform ownFleetPlanet;
 
@@ -83,22 +84,19 @@ public class FleetState : MonoBehaviour
                 if (CheckDistanceToAttack())
                 {
                     _stateFleet = FleetStateStruct.enumFleetState.OrbitAttack;
-                    if (_distParametrPlanetMono.GetTransformDefenceFleet(ref _targetTransform))
-                    {
-                        _distParametrPlanetMono.GetTransformDefenceFleet(ref _targetTransform);
-
-                        //transform.rotation = Quaternion.Slerp(); 
-
-                    };
+                   
                 }
                 break;
 
             case FleetStateStruct.enumFleetState.OrbitAttack:   //IV.
                 CallDefFleet();
                 CheckOtherAttackersFleetFromOnePlanetToJoin();
-                _stateFleet = FleetStateStruct.enumFleetState.Idle;
                 break;
-            
+
+            case FleetStateStruct.enumFleetState.Attack:
+                Attack();
+                break;
+
             case FleetStateStruct.enumFleetState.MovingTowardsPlanetForDecent:
                 Movement();
                 break;
@@ -162,7 +160,6 @@ public class FleetState : MonoBehaviour
     //атакующий флот вызывает флот защиты на орбиту
     private void CallDefFleet()
     {
-
         //проверка является ли планета все еще врагом через сравнение родителей
         if (!CheckDistPlanetIsEnemy())
         {
@@ -182,67 +179,6 @@ public class FleetState : MonoBehaviour
     {
     }
 
-    /*
-     *
-     *  //проверка является ли планета все еще врагом через сравнение родителей
-       if (!CheckDistPlanetIsEnemy())
-       {
-       //если у планеты есть флот защиты 
-       if (_distParametrPlanetMono.GetCountDefenceFleet() > 0)
-       {
-       //TODO атака уже существующего флота
-       print($"Attack def fleet on orbit!!!!!");
-       _stateFleet = FleetStateStruct.enumFleetState.Attack;
-       
-       }
-       else
-       if (_distParametrPlanetMono.CallDefenderFleet(transform))
-       {
-       print($"Gen def fleet and Attack !!!!!");
-       _stateFleet = FleetStateStruct.enumFleetState.Attack;
-       CheckOtherAttackersFleetFromOnePlanetToJoin();
-       
-       }
-       else
-       {
-       MovingTowardsPlanetForDecent();
-       }
-       }
-       else
-       {
-       MovingTowardsPlanetForDecent();
-       }
-     */
-
-
-    //private void CheckDistanceMovingTowardsPlanet()
-    //{
-    //    _distanceSqr = (_targetToMove - transform.position).sqrMagnitude;
-    //    if (_distanceSqr < _stopBefore)
-    //    {
-    //        CheckOtherAttackersFleetFromOnePlanetToJoin();
-    //        _fleetManager.JoinToDefenderFleet();
-    //    }
-    //}
-
-    //private void ClearParam()
-    //{
-    //    _distanceSqr = 0f;
-    //    _targetToMove = new Vector3();
-    //}
-
-
-
-    //private void PreAttack()
-    //{
-    //    _stateFleet = FleetStateStruct.enumFleetState.Movement;
-    //}
-
-    //private void FireToTarget()
-    //{
-    //    CheckPlanetHaveDefFleet();
-    //}
-
 
     //проверяем наличие у нападающих флотов соотвествие по вылету из одной и тойже планеты, если совпало, то добавляем к фл
     private void CheckOtherAttackersFleetFromOnePlanetToJoin()
@@ -252,9 +188,6 @@ public class FleetState : MonoBehaviour
         {
             for (int i = 0; i < _distParametrPlanetMono.attackingFleet_LGO.Count; i++)
             {
-                //print($"dist: " +
-                //      $"{_distParametrPlanetMono.attackingFleet_LGO[i].GetComponent<FleetManager>()._selfPlanetTransform}" +
-                //      $"self: {_fleetManager._selfPlanetTransform}");
                 //проверяем наличие флотов вылетивших с той же планеты что и данный флот, если есть, то добавляемся.
                 if (_distParametrPlanetMono.attackingFleet_LGO[i]
                         .GetComponent<FleetManager>()
@@ -272,8 +205,39 @@ public class FleetState : MonoBehaviour
         {
             _distParametrPlanetMono.AddToListAttackerFleet(gameObject);
         }
+    }
+
+    private void PreparingAttack()
+    {
+        _distParametrPlanetMono.GetTransformDefenceFleet(ref _targetTransform);
+        if (_targetTransform != null)
+        {
+            _stateFleet = FleetStateStruct.enumFleetState.Attack;
+        }
+        else
+        {
+            _stateFleet = FleetStateStruct.enumFleetState.MovingTowardsPlanetForDecent;
+        }
+    }
+
+    private void Attack()
+    {
+        if (_distParametrPlanetMono.)
+        {
+            //attack
+            print($"<color=green>Attack</color>");
+        }
+        else
+        {
+            //captur planet
+        }
+    }
+
+
+    private void Shooting()
+    {
 
     }
 
-   
+
 }

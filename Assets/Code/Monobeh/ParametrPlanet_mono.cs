@@ -529,16 +529,12 @@ public class ParametrPlanet_mono : MonoBehaviour
         defFleetOnOrbitPlanet_GO = null;
     }
 
-    public bool GetTransformDefenceFleet(ref Transform locTransformDefFleet)
+    public void GetTransformDefenceFleet(ref Transform locTransfor)
     {
-        bool locFlagTransfomDefenceFleet = false;
-
+        Transform target = null;
         if (defFleetOnOrbitPlanet_GO != null)
         {
-            locFlagTransfomDefenceFleet = true;
-            locTransformDefFleet = defFleetOnOrbitPlanet_GO.transform;
+            target = defFleetOnOrbitPlanet_GO.transform;
         }
-
-        return locFlagTransfomDefenceFleet;
     }
 }

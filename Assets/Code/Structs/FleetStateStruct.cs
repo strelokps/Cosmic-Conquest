@@ -12,6 +12,7 @@ public struct FleetStateStruct
         MoveToOrbitAttack,
         OrbitCallDefendefFleet,
         OrbitAttack,
+        Attack,
         OrbitJoinToDefenderFleet,
         PreMovingTowardsPlanet,
         MovingTowardsPlanetForDecent ,
