@@ -31,7 +31,7 @@ public class BuyShip : MonoBehaviour
         _ship.regenShield = 1;
         _ship.speedShip = 4.5f;
         _ship.coastShip = 5;
-        _ship.timeToBuild = 2f;
+        _ship.timeToBuild = 0.2f;
         _ship.typeShip = eShipType.light;
 
         SetShipToBuildInShipyard();

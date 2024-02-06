@@ -191,7 +191,8 @@ public class FleetState : MonoBehaviour
                 //проверяем наличие флотов вылетивших с той же планеты что и данный флот, если есть, то добавляемся.
                 if (_distParametrPlanetMono.attackingFleet_LGO[i]
                         .GetComponent<FleetManager>()
-                        ._selfPlanetTransform == _fleetManager._selfPlanetTransform)
+                        ._selfPlanetTransform == _fleetManager._selfPlanetTransform 
+                        & _distParametrPlanetMono.attackingFleet_LGO[i] != gameObject)
                 {
                     _distParametrPlanetMono
                         .attackingFleet_LGO[i]
@@ -222,7 +223,7 @@ public class FleetState : MonoBehaviour
 
     private void Attack()
     {
-        if (_distParametrPlanetMono.)
+        if (_distParametrPlanetMono)
         {
             //attack
             print($"<color=green>Attack</color>");

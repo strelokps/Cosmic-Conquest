@@ -57,7 +57,6 @@ public class ParametrPlanet_mono : MonoBehaviour
 
     //test
     DataShip _locDataShipTest = new DataShip();
-    private int _randomCountFleetToAttack;
     [SerializeField] private float _percentForAttackFleet;
     [SerializeField] private int _numShipsInDefenderFleet;
     [SerializeField] private int _numShipsInDefenceFleet;
@@ -140,6 +139,16 @@ public class ParametrPlanet_mono : MonoBehaviour
         _tempTimer = 4f;
     }
 
+    [Button("Push Ships")]
+    private void PushShips()
+    {
+        //test
+        print("<color=blue> атака  19 </color>");
+        CreateAttackerFleet(_percentForAttackFleet);
+    }
+
+
+
     /// <summary>
     ///              Update
     /// </summary>
@@ -181,21 +190,7 @@ public class ParametrPlanet_mono : MonoBehaviour
             _locDataShipTest.damageShipMin = 2;
             _locDataShipTest.armorShip = 10;
             
-            //test
-            if (_randomCountFleetToAttack < _listDefenderFleet.Count)
-            {
-                if (_idPlanet == 19)
-                {
-                    print("<color=blue> атака  19 </color>");
-                    //print($"количетство кораблей защиты: {_listDefenderFleet.Count} > {_randomCountFleetToAttack}  " + $" id:  {_idPlanet}");
-
-                    //
-                    if (testFlag)
-                    {
-                        CreateAttackerFleet(_percentForAttackFleet);
-                        testFlag = false;
-                    }
-                }
+            
 
                 if (_idPlanet != 19)
                 {
@@ -205,7 +200,6 @@ public class ParametrPlanet_mono : MonoBehaviour
                         CreateAttackerFleet(_percentForAttackFleet);
                     }
                 }
-            }
         }
     }
 
@@ -236,8 +230,6 @@ public class ParametrPlanet_mono : MonoBehaviour
 
 
 
-        //test
-        _randomCountFleetToAttack = Random.Range(2, 10);
         testFlag = false;
         _parentManager.AddSolarium(100);
     }

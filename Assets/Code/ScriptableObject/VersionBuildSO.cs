@@ -11,7 +11,6 @@ public class VersionBuildSO : ScriptableObject
     [SerializeField] private int _minor;
     [SerializeField] private int _buildMinor;
     [SerializeField] private int _build;
-    [SerializeField] private int _patch;
     [Header("[ Test bug ]")]
     [SerializeField] private int _tempMinor;
     [SerializeField] private int _tempMinorDvaPlusa;
@@ -20,7 +19,6 @@ public class VersionBuildSO : ScriptableObject
     public int prop_Major => _major;
     public int prop_Minor => _minor;
     public int BuildMinor => _buildMinor;
-    public int prop_Patch => _patch;
     public int prop_Build => _build;
 
 
@@ -47,7 +45,7 @@ public class VersionBuildSO : ScriptableObject
 
     public void ShowBuild(TMP_Text _loctextVersion)
     {
-        string str = String.Format($"ver.: {_major}.{_minor}.{_buildMinor}.{_build}.{_patch}");
+        string str = String.Format($"ver.: {_major}.{_minor}.{_buildMinor}.{_build}");
         
         _loctextVersion.text = str ;
     }
