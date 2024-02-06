@@ -22,8 +22,15 @@ public class FleetState : MonoBehaviour
     private FleetManager _fleetManager;
 
     private float _stopDistForCallDefendefFleet;
-    private float distanceToMoveForJoin;
     [SerializeField] private string _targetTransformName;
+
+    [Header("Scale")]
+    [SerializeField] private float _timeToScale;
+
+    private float _endScale;
+    private float _startScale;
+    private Vector3 _originalScale;
+    private float elapsedTime;
 
     private bool flagChkDistance; // флаг для проверки дистанции
     //test
@@ -38,7 +45,6 @@ public class FleetState : MonoBehaviour
 
     public void SetState(FleetStateStruct.enumFleetState locStateFleet, ParametrPlanet_mono locDistPlanetMono)
     {
-        distanceToMoveForJoin = 2f; //дистанция остановки перед объектом для join
         speedMove = 5.5f;
 
         _stopBefore = _tempStopBefore = 16f; // дистанция остановки перед объектом для атаки
@@ -46,8 +52,9 @@ public class FleetState : MonoBehaviour
 
         _stateFleet = locStateFleet;
         _distParametrPlanetMono = locDistPlanetMono;
-        //вычисляем расстоние от вражеской планеты до точки вызова флота защитны с планеты атакующим флотом, в зависимости от 
-        //точки защиты и точки атаки
+        //вычисляем расстояние от вражеской планеты до точки вызова флота защитны с планеты атакующим флотом, в зависимости от 
+        //точки защиты и точки атаки. 
+        //расстояние между орбитой вызова деф флота и орбитой атаки равна растоянию между планетой и точкой спауна деф флота
         _targetToMove = _distParametrPlanetMono.SelfTransform.position;
         var posDefPOint = _distParametrPlanetMono._spawnPointDefenceFleet.position;
         var locSQRDistCallDefendefFleet = (posDefPOint - _targetToMove).sqrMagnitude;
@@ -55,6 +62,16 @@ public class FleetState : MonoBehaviour
 
         _targetTransformName = locDistPlanetMono.SelfTransform.name + "    " + locDistPlanetMono.prop_ParentTransformFromPlanet.name; //test
 
+        //scale
+        elapsedTime = 0f;
+    }
+
+    private void SetParamScale(float locTimeToScale, float locStartScale, float locEndScale, Vector3 locOriginalScale)
+    {
+        _timeToScale = locTimeToScale;
+        _startScale = locStartScale;
+        _endScale = locEndScale;
+        _originalScale = locOriginalScale;
     }
 
     private void FleetStateMeth()
@@ -65,6 +82,8 @@ public class FleetState : MonoBehaviour
 
                 _stopBefore = _stopDistForCallDefendefFleet;
                 _stateFleet = FleetStateStruct.enumFleetState.OrbitCallDefendefFleet;
+                SetParamScale(0.5f, 0.02f, 1f, transform.localScale);
+
                 break;
 
             case FleetStateStruct.enumFleetState.OrbitCallDefendefFleet: //II.
@@ -85,11 +104,11 @@ public class FleetState : MonoBehaviour
                 if (CheckDistanceToAttack())
                 {
                     _stateFleet = FleetStateStruct.enumFleetState.OrbitAttack;
-                   
                 }
                 break;
 
             case FleetStateStruct.enumFleetState.OrbitAttack:   //IV.
+                SetParamScale(0.7f, 1f, 0.002f, transform.localScale);
                 CheckOtherAttackersFleetFromOnePlanetToJoin();
                 CallDefFleet();
                 break;
@@ -98,8 +117,13 @@ public class FleetState : MonoBehaviour
                 Attack();
                 break;
 
-            case FleetStateStruct.enumFleetState.MovingTowardsPlanetForDecent:
+            case FleetStateStruct.enumFleetState.MovingTowardsPlanetForDescent:
                 Movement();
+                ScaleForDescent(_startScale, _endScale);
+                if (CheckDistanceToAttack())
+                {
+                    _fleetManager.JoinToDefenderFleet();
+                }
                 break;
             
             case FleetStateStruct.enumFleetState.OrbitJoinToDefenderFleet:
@@ -110,10 +134,18 @@ public class FleetState : MonoBehaviour
                 break;
             
             case FleetStateStruct.enumFleetState.StartForDefence:
+                _targetToMove = _distParametrPlanetMono._spawnPointDefenceFleet.position;
+                Vector3 tempPosition = transform.position;
+                tempPosition = _distParametrPlanetMono.SelfTransform.position;
+                transform.position = tempPosition;
+                _originalScale = new Vector3(0.02f, 0.02f, 0.02f);
+                _stateFleet = FleetStateStruct.enumFleetState.OrbitDefence;
+                SetParamScale(0.5f, 0.02f, 1f, transform.localScale);
 
                 break;
             
             case FleetStateStruct.enumFleetState.OrbitDefence:
+                ScaleForDescent(_startScale, _endScale);
                 Movement();
                 break;
 
@@ -123,11 +155,6 @@ public class FleetState : MonoBehaviour
         }
     }
 
-    //если планета враждебна, то добавляемся в список атакующего флота, если своя, то в дружественный  на подлете к планете 
-   
-
-
-   
 
     private void Movement()
     {
@@ -145,6 +172,18 @@ public class FleetState : MonoBehaviour
         bool flagCheckDistPlanetIsEnemy = _distParametrPlanetMono.CompareParents(_fleetManager.GetParentTransform());
 
         return flagCheckDistPlanetIsEnemy;
+    }
+
+    private void SetStopBeforeForDescent()
+    {
+        _stopBefore = 2.5f;
+    }
+
+    private void ScaleForDescent(float locStart, float locEnd)
+    {
+        float scaleModifier = Mathf.Lerp(locStart, locEnd, elapsedTime / _timeToScale);
+        elapsedTime += Time.deltaTime;
+        transform.localScale = _originalScale * scaleModifier;
     }
 
     public bool CheckDistanceToAttack()
@@ -174,8 +213,11 @@ public class FleetState : MonoBehaviour
             {
                 if (_stateFleet == FleetStateStruct.enumFleetState.OrbitAttack)
                 {
-                    _stateFleet = FleetStateStruct.enumFleetState.MovingTowardsPlanetForDecent;
+                    _stateFleet = FleetStateStruct.enumFleetState.MovingTowardsPlanetForDescent;
                     print($"<color=aqua>на абардаж!!!</color>");
+                    _fleetManager.CapturePlanet();
+                    SetStopBeforeForDescent();
+                    _distParametrPlanetMono.RemoveToListAttackerFleet(gameObject);
                 }
             }
         }
@@ -184,14 +226,13 @@ public class FleetState : MonoBehaviour
             //если планета дружественная и флот на орбите атаки, то летим присоединяться к флоту зашиты на планете
             if (_stateFleet == FleetStateStruct.enumFleetState.OrbitAttack)
             {
-                _stateFleet = FleetStateStruct.enumFleetState.MovingTowardsPlanetForDecent;
+                _stateFleet = FleetStateStruct.enumFleetState.MovingTowardsPlanetForDescent;
+                SetStopBeforeForDescent();
             }
         }
     }
 
-    private void StartForDefence()
-    {
-    }
+  
 
 
     //проверяем наличие у нападающих флотов соотвествие по вылету из одной и тойже планеты, если совпало, то добавляем к фл
@@ -232,7 +273,7 @@ public class FleetState : MonoBehaviour
         }
         else
         {
-            _stateFleet = FleetStateStruct.enumFleetState.MovingTowardsPlanetForDecent;
+            _stateFleet = FleetStateStruct.enumFleetState.MovingTowardsPlanetForDescent;
         }
     }
 

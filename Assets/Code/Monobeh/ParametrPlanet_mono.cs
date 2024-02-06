@@ -265,21 +265,26 @@ public class ParametrPlanet_mono : MonoBehaviour
         if (locListAttackedOrDefenderFleet.Count > 0 )
         {
             var TargetPlanetMono = new ParametrPlanet_mono();
+            var originalScale = transform.localScale;
             if (locTarget.GetComponent<ParametrPlanet_mono>()) 
                 TargetPlanetMono = locTarget.GetComponent<ParametrPlanet_mono>(); //для атакующего флота
             if (locStateFleet == FleetStateStruct.enumFleetState.StartForDefence)
-                TargetPlanetMono = this.GetComponent<ParametrPlanet_mono>();//для флота защиты
+            {
+                TargetPlanetMono = this.GetComponent<ParametrPlanet_mono>(); //для флота защиты
+                //originalScale = new Vector3(0.02f, 0.02f, 0.02f);
+            }
 
             if (_prefabFleet.GetComponent<FleetManager>())
             {
                 //создаем флот
                 GameObject fl =
-                    Instantiate(_prefabFleet, locSpawnPosition.position, locSpawnPosition.rotation) as GameObject;
+                    Instantiate(_prefabFleet, transform.position, locSpawnPosition.rotation) as GameObject;
                 //проводим первичные настройки флота
                 _fleetManager = fl.GetComponent<FleetManager>();
                 _fleetManager.InitiateFleet(locListAttackedOrDefenderFleet, _materialPlanet, transform
                     , _parentTransformFromPlanet, TargetPlanetMono, _memberSceneData, locStateFleet);
                 fl.name = _parentManager.GetIdForFleet();
+                fl.transform.localScale = originalScale; //для флота защиты, что бы сразу формировался уменьшиный
                 if (locStateFleet == FleetStateStruct.enumFleetState.StartForDefence &
                     defFleetOnOrbitPlanet_GO  == null)
                 {
@@ -293,10 +298,6 @@ public class ParametrPlanet_mono : MonoBehaviour
     public void AddShipsToDefenderFleetOnPlanet(DataShip locDataShip)
     {
         _listDefenderFleet.Add(locDataShip); // добавляем в список защитников планеты
-        //test
-        if (_idPlanet == 19)
-        print($"<color=blue>Флот защиты {_listDefenderFleet.Count}</color>");
-
     }
 
     //добавление кораблей из флота на планете к флоту на орбите
@@ -392,7 +393,7 @@ public class ParametrPlanet_mono : MonoBehaviour
 
     private void SetSpawnPointToDefence(Transform locDefTransform)
     {
-        Vector3 setDefSpawnPointPosition = (locDefTransform.position - transform.position).normalized * 3f;
+        Vector3 setDefSpawnPointPosition = (locDefTransform.position - transform.position).normalized * 3f; //считаем точку появления флота защитника на орбите планеты
         _spawnPointDefenceFleet.localPosition = 
             new Vector3(setDefSpawnPointPosition.x, locDefTransform.position.y, setDefSpawnPointPosition.z);
         _spawnPointDefenceFleet.rotation = Quaternion.LookRotation(setDefSpawnPointPosition);

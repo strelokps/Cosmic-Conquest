@@ -210,7 +210,7 @@ public class FleetManager : MonoBehaviour
     //получаем минимальную скорость из всех кораблей флота
     public float GetMinSpeedFleet(List<DataShip> locDataShips)
     {
-        float minSpeed = 100000f;
+        float minSpeed = locDataShips[0].speedShip;
         for (int i = 0; i < locDataShips.Count; i++)
         {
             if (locDataShips[i].speedShip < minSpeed)
@@ -235,5 +235,10 @@ public class FleetManager : MonoBehaviour
     {
         print($"<color=yellow> Время : {t} {_dataFleetList[0].shieldShip}</color>");
         _healthSystem.RegenerationShield(_dataFleetList);
+    }
+
+    public void CapturePlanet()
+    {
+        _distParametrPlanetMono.ChangeOwnerPlanet(_membersDataInFleet, _parentTransformInFleet);
     }
 }
