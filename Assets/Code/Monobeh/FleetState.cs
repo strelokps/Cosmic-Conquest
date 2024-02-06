@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -89,8 +90,8 @@ public class FleetState : MonoBehaviour
                 break;
 
             case FleetStateStruct.enumFleetState.OrbitAttack:   //IV.
-                CallDefFleet();
                 CheckOtherAttackersFleetFromOnePlanetToJoin();
+                CallDefFleet();
                 break;
 
             case FleetStateStruct.enumFleetState.Attack:
@@ -163,7 +164,20 @@ public class FleetState : MonoBehaviour
         //проверка является ли планета все еще врагом через сравнение родителей
         if (!CheckDistPlanetIsEnemy())
         {
-            _distParametrPlanetMono.CallDefenderFleet(transform);
+           GameObject go = _distParametrPlanetMono.CallDefenderFleet(transform);
+            if (go != null & _stateFleet == FleetStateStruct.enumFleetState.OrbitAttack)
+            {
+                _stateFleet = FleetStateStruct.enumFleetState.Attack;
+                print($"<color=red> В атаку!!! </color>");
+            }
+            else
+            {
+                if (_stateFleet == FleetStateStruct.enumFleetState.OrbitAttack)
+                {
+                    _stateFleet = FleetStateStruct.enumFleetState.MovingTowardsPlanetForDecent;
+                    print($"<color=aqua>на абардаж!!!</color>");
+                }
+            }
         }
         else
         {
@@ -199,6 +213,7 @@ public class FleetState : MonoBehaviour
                         .GetComponent<FleetManager>()
                         .MergFleets(_fleetManager.GetListDataFleet());
                     _fleetManager.DestroyAttackingFleet();
+                    return;
                 }
             }
         }

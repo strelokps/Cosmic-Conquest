@@ -13,6 +13,7 @@ public class ParentManager : MonoBehaviour
     private Transform _parentTransform;
     private int numChild;
     private bool _flagPlayer;
+    private int _idFleet;
 
     [SerializeField] private Transform enemyTransform;
 
@@ -81,5 +82,12 @@ public class ParentManager : MonoBehaviour
             EventBus.Instans.InvokeSolarium(_solarium);
     }
 
+    //создаем ID название для флота
+    public string GetIdForFleet()
+    {
+        if (_idFleet > 999999)
+            _idFleet = 0;
+        return transform.name + "_" + _idFleet.ToString();
+    }
 
 }

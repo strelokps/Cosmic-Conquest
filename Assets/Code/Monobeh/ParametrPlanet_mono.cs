@@ -143,7 +143,6 @@ public class ParametrPlanet_mono : MonoBehaviour
     private void PushShips()
     {
         //test
-        print("<color=blue> атака  19 </color>");
         CreateAttackerFleet(_percentForAttackFleet);
     }
 
@@ -179,7 +178,7 @@ public class ParametrPlanet_mono : MonoBehaviour
 
 
 
-        AddShipsToDefenceFleetOnOrbit();
+        AddShipsToDefenceFleetOnOrbit(); 
         GenerationGold();
 
         _tempTimer += Time.deltaTime;
@@ -229,7 +228,7 @@ public class ParametrPlanet_mono : MonoBehaviour
 
 
 
-
+        //test
         testFlag = false;
         _parentManager.AddSolarium(100);
     }
@@ -280,7 +279,7 @@ public class ParametrPlanet_mono : MonoBehaviour
                 _fleetManager = fl.GetComponent<FleetManager>();
                 _fleetManager.InitiateFleet(locListAttackedOrDefenderFleet, _materialPlanet, transform
                     , _parentTransformFromPlanet, TargetPlanetMono, _memberSceneData, locStateFleet);
-
+                fl.name = _parentManager.GetIdForFleet();
                 if (locStateFleet == FleetStateStruct.enumFleetState.StartForDefence &
                     defFleetOnOrbitPlanet_GO  == null)
                 {
@@ -345,12 +344,8 @@ public class ParametrPlanet_mono : MonoBehaviour
 
 
     //вызов на орбиту защитного флота планеты
-    public void CallDefenderFleet(Transform locTransformAttackingFleet)
+    public GameObject CallDefenderFleet(Transform locTransformAttackingFleet)
     {
-
-        AddShipsToDefenceFleetOnOrbit();
-
-
         if (_listDefenderFleet.Count > 0 & defFleetOnOrbitPlanet_GO == null)
         {
             SetSpawnPointToDefence(locTransformAttackingFleet);
@@ -360,7 +355,7 @@ public class ParametrPlanet_mono : MonoBehaviour
             _listDefenderFleet = new List<DataShip>(); //очищаем список флота на планете, т.к. все корабли были переданы в деф флот
             Clear();
         }
-
+        return defFleetOnOrbitPlanet_GO;
     }
 
     public Transform SetTarget(Transform locTrarget = null)
@@ -488,7 +483,7 @@ public class ParametrPlanet_mono : MonoBehaviour
     }
 
    
-
+    //Смена владельца планеты
     public bool ChangeOwnerPlanet(SceneMembersData locNewMembersData, Transform locNewParentTransform)
     {
         bool flagChangeOwnerPlanet = false;
