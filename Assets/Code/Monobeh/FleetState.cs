@@ -14,6 +14,7 @@ public class FleetState : MonoBehaviour
     private Transform ownFleetPlanet;
 
     [ShowInInspector] private ParametrPlanet_mono _distParametrPlanetMono;
+    private ParametrPlanet_mono _selfParametrPlanetMono;
     public float speedMove = 1f;
 
     [SerializeField] private float _stopBefore;
@@ -48,7 +49,8 @@ public class FleetState : MonoBehaviour
     }
 
 
-    public void SetState(FleetStateStruct.enumFleetState locStateFleet, ParametrPlanet_mono locDistPlanetMono)
+    public void SetState
+        (FleetStateStruct.enumFleetState locStateFleet, ParametrPlanet_mono locDistPlanetMono, ParametrPlanet_mono selfPlanetMono)
     {
         speedMove = 5.5f;
 
@@ -58,7 +60,9 @@ public class FleetState : MonoBehaviour
         _fleetShootingSystem = GetComponent<FleetShootingSystem>();
 
         _stateFleet = locStateFleet;
+
         _distParametrPlanetMono = locDistPlanetMono;
+        _selfParametrPlanetMono = selfPlanetMono;
 
         //вычисляем расстояние от вражеской планеты до точки вызова флота защитны с планеты атакующим флотом, в зависимости от 
         //точки защиты и точки атаки. 
@@ -147,7 +151,6 @@ public class FleetState : MonoBehaviour
             
             case FleetStateStruct.enumFleetState.StartForDefence:
                 StartDefence();
-
                 break;
             
             case FleetStateStruct.enumFleetState.OrbitDefence:
@@ -155,6 +158,7 @@ public class FleetState : MonoBehaviour
                 Movement();
                 if (scaleModifier >= 1)
                 {
+                    _fleetShootingSystem.SetTarget(TakeTarget()); //выбираем и устанавливаем цель
                     _stateFleet = FleetStateStruct.enumFleetState.Attack;
                 }
                 break;
@@ -165,6 +169,28 @@ public class FleetState : MonoBehaviour
         }
     }
 
+
+    private GameObject TakeTarget()
+    {
+        GameObject go = null;
+        if (_selfParametrPlanetMono.attackingFleet_LGO.Count > 0)
+        {
+            go = _selfParametrPlanetMono.attackingFleet_LGO[0];
+        }
+        if (go != null)
+        {
+            //TODO сделать анимацию посадки на планету с уничтожеием флота
+            RefundDefenceFleet();
+        }
+        return go;
+    }
+
+    //возврат флота защиты на планету
+    private void RefundDefenceFleet()
+    {
+        _stateFleet = FleetStateStruct.enumFleetState.MovingTowardsPlanetForDescent;
+        _targetToMove = _selfParametrPlanetMono.SelfTransform.position;
+    }
 
     private void Movement()
     {

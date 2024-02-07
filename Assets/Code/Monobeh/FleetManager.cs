@@ -172,7 +172,7 @@ public class FleetManager : MonoBehaviour
         _distParametrPlanetMono = locTargetPlanetMono;
         _membersDataInFleet = locMembersDataInFleet;
 
-        _fleetState.SetState( _locFleetState, locTargetPlanetMono);
+        _fleetState.SetState( _locFleetState, locTargetPlanetMono, _selfParametrPlanetMono);
         _fleetState.speedMove = GetMinSpeedFleet(locDataFleet);
 
         _selfParametrPlanetMono = locPlanetIsOwnerFleet.GetComponent<ParametrPlanet_mono>();

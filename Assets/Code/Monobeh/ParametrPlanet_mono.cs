@@ -299,16 +299,16 @@ public class ParametrPlanet_mono : MonoBehaviour
         }
     }
 
-
-
-
-
     public void DestroyDefenceFleet()
     {
         Destroy(defFleetOnOrbitPlanet_GO); 
     }
 
-    //добавляем внешний флот к флоту планеты или к флоту на орбите
+    /// <summary>
+    /// добавляем внешний флот к флоту планеты или к флоту на орбите
+    /// </summary>
+    /// <param name="locListDataFleet"></param>
+    
     public void AddFleetToDefPlanetFleet(List<DataShip> locListDataFleet)
     {
         if (defFleetOnOrbitPlanet_GO != null)
