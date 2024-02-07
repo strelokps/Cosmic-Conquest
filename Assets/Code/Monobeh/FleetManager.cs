@@ -38,6 +38,8 @@ public class FleetManager : MonoBehaviour
 
     [Header("Health | Damage")] 
     private HealthSystem _healthSystem;
+
+
     public ParametrPlanet_mono prop_DistParametrPlanetMono => _distParametrPlanetMono;
 
     public Transform prop_DistParentTransform => _distParentTransform;
@@ -49,7 +51,6 @@ public class FleetManager : MonoBehaviour
     //Test
 
     [SerializeField] private bool flagDestroy;
-    private float t;
 
     private void Awake()
     {
@@ -68,15 +69,10 @@ public class FleetManager : MonoBehaviour
 
     private void Update()
     {
-        _tempTimer += Time.deltaTime;
-
-        if (_tempTimer > _timer)
-        {
             CallRegenShield();
-            _tempTimer = 0;
-        }
 
-        if (flagDestroy)
+
+            if (flagDestroy)
             DestroyAttackingFleet();
     }
 
@@ -220,9 +216,9 @@ public class FleetManager : MonoBehaviour
         return minSpeed;
     }
 
-    public void TakeDamageFromAttackingFleet( int locDamageAttackingFleet)
+    public void TakeDamageFromAttackingFleet( List<DataShip> locDataShips)
     {
-        _healthSystem.TakeDamage(ref _dataFleetList, locDamageAttackingFleet);
+        _healthSystem.TakeDamage(ref _dataFleetList, locDataShips);
     }
 
     //Стартуем таймер, который будет вызывать метод, который вызывает метод в health sysytem. Да, знаю что выглядит не очень.
@@ -233,8 +229,15 @@ public class FleetManager : MonoBehaviour
 
     private void CallRegenShield()
     {
-        print($"<color=yellow> Время : {t} {_dataFleetList[0].shieldShip}</color>");
-        _healthSystem.RegenerationShield(_dataFleetList);
+        _tempTimer += Time.deltaTime;
+
+        if (_tempTimer > _timer)
+        {
+            _tempTimer = 0;
+
+            print($"<color=yellow> Shield : {_dataFleetList[0].shieldShip}</color>");
+            _healthSystem.RegenerationShield(_dataFleetList);
+        }
     }
 
     public void CapturePlanet()

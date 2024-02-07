@@ -62,7 +62,6 @@ public class ParametrPlanet_mono : MonoBehaviour
     [SerializeField] private int _numShipsInDefenceFleet;
     [SerializeField] private int _numShipsInAttackingFleet;
     private int _numRandomShipsForAttack;
-    bool testFlag = false;
 
 
 
@@ -159,25 +158,8 @@ public class ParametrPlanet_mono : MonoBehaviour
         _numShipsInDefenderFleet = _listDefenderFleet.Count;
         _numShipsInAttackingFleet = attackingFleet_LGO.Count; //test
 
-        //if (_controls.Main.Mouse.IsPressed())
-        //{
-        //    testFlag = true;
-        //}
-        testFlag = true;
        
-
-        if (_idPlanet == 1 & _locDataShipTest.damageShipMin > 0)
-        {
-            //AddShipsToDefenderFleetOnPlanet(_locDataShipTest); //добавляем корабли во внутренний флот | для AI | test
-        }
-
-        if (defFleetOnOrbitPlanet_GO != null)
-        {
-            print($"Нажал мышку {defFleetOnOrbitPlanet_GO.name}");
-        }
-
-
-
+        
         AddShipsToDefenceFleetOnOrbit(); 
         GenerationGold();
 
@@ -229,7 +211,6 @@ public class ParametrPlanet_mono : MonoBehaviour
 
 
         //test
-        testFlag = false;
         _parentManager.AddSolarium(100);
     }
 
@@ -271,7 +252,7 @@ public class ParametrPlanet_mono : MonoBehaviour
             if (locStateFleet == FleetStateStruct.enumFleetState.StartForDefence)
             {
                 TargetPlanetMono = this.GetComponent<ParametrPlanet_mono>(); //для флота защиты
-                //originalScale = new Vector3(0.02f, 0.02f, 0.02f);
+                originalScale = new Vector3(0.02f, 0.02f, 0.02f);
             }
 
             if (_prefabFleet.GetComponent<FleetManager>())

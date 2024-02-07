@@ -27,6 +27,8 @@ public class FleetState : MonoBehaviour
     [Header("Scale")]
     [SerializeField] private float _timeToScale;
 
+    private float scaleModifier;
+
     private float _endScale;
     private float _startScale;
     private Vector3 _originalScale;
@@ -82,11 +84,13 @@ public class FleetState : MonoBehaviour
 
                 _stopBefore = _stopDistForCallDefendefFleet;
                 _stateFleet = FleetStateStruct.enumFleetState.OrbitCallDefendefFleet;
-                SetParamScale(0.5f, 0.02f, 1f, transform.localScale);
+                SetParamScale(0.8f, 0.02f, 1f, new Vector3(1f, 1f, 1f));
+
 
                 break;
 
             case FleetStateStruct.enumFleetState.OrbitCallDefendefFleet: //II.
+                ScaleForDescent(_startScale, _endScale);
 
                 Movement();
                 if (CheckDistanceToAttack())
@@ -108,7 +112,7 @@ public class FleetState : MonoBehaviour
                 break;
 
             case FleetStateStruct.enumFleetState.OrbitAttack:   //IV.
-                SetParamScale(0.7f, 1f, 0.002f, transform.localScale);
+                SetParamScale(0.8f, 1f, 0.002f, transform.localScale);
                 CheckOtherAttackersFleetFromOnePlanetToJoin();
                 CallDefFleet();
                 break;
@@ -134,19 +138,17 @@ public class FleetState : MonoBehaviour
                 break;
             
             case FleetStateStruct.enumFleetState.StartForDefence:
-                _targetToMove = _distParametrPlanetMono._spawnPointDefenceFleet.position;
-                Vector3 tempPosition = transform.position;
-                tempPosition = _distParametrPlanetMono.SelfTransform.position;
-                transform.position = tempPosition;
-                _originalScale = new Vector3(0.02f, 0.02f, 0.02f);
-                _stateFleet = FleetStateStruct.enumFleetState.OrbitDefence;
-                SetParamScale(0.5f, 0.02f, 1f, transform.localScale);
+                
 
                 break;
             
             case FleetStateStruct.enumFleetState.OrbitDefence:
                 ScaleForDescent(_startScale, _endScale);
                 Movement();
+                if (scaleModifier >= 1)
+                {
+                    _stateFleet = FleetStateStruct.enumFleetState.Attack;
+                }
                 break;
 
             case FleetStateStruct.enumFleetState.Idle:
@@ -181,7 +183,8 @@ public class FleetState : MonoBehaviour
 
     private void ScaleForDescent(float locStart, float locEnd)
     {
-        float scaleModifier = Mathf.Lerp(locStart, locEnd, elapsedTime / _timeToScale);
+        scaleModifier = Mathf.Lerp(locStart, locEnd, elapsedTime / _timeToScale);
+       
         elapsedTime += Time.deltaTime;
         transform.localScale = _originalScale * scaleModifier;
     }
@@ -197,6 +200,16 @@ public class FleetState : MonoBehaviour
         return flagChkDistance;
     }
 
+    private void StartDefence()
+    {
+        _targetToMove = _distParametrPlanetMono._spawnPointDefenceFleet.position;
+        Vector3 tempPosition = transform.position;
+        tempPosition = _distParametrPlanetMono.SelfTransform.position;
+        transform.position = tempPosition;
+        _stateFleet = FleetStateStruct.enumFleetState.OrbitDefence;
+        speedMove = 3f;
+        SetParamScale(0.7f, 0.002f, 1f, new Vector3(1f, 1f, 1f));
+    }
     //атакующий флот вызывает флот защиты на орбиту
     private void CallDefFleet()
     {
