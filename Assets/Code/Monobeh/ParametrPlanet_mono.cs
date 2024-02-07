@@ -247,8 +247,10 @@ public class ParametrPlanet_mono : MonoBehaviour
         {
             var TargetPlanetMono = new ParametrPlanet_mono();
             var originalScale = transform.localScale;
+
             if (locTarget.GetComponent<ParametrPlanet_mono>()) 
                 TargetPlanetMono = locTarget.GetComponent<ParametrPlanet_mono>(); //для атакующего флота
+
             if (locStateFleet == FleetStateStruct.enumFleetState.StartForDefence)
             {
                 TargetPlanetMono = this.GetComponent<ParametrPlanet_mono>(); //для флота защиты
@@ -260,12 +262,16 @@ public class ParametrPlanet_mono : MonoBehaviour
                 //создаем флот
                 GameObject fl =
                     Instantiate(_prefabFleet, transform.position, locSpawnPosition.rotation) as GameObject;
+
                 //проводим первичные настройки флота
                 _fleetManager = fl.GetComponent<FleetManager>();
+
                 _fleetManager.InitiateFleet(locListAttackedOrDefenderFleet, _materialPlanet, transform
                     , _parentTransformFromPlanet, TargetPlanetMono, _memberSceneData, locStateFleet);
+
                 fl.name = _parentManager.GetIdForFleet();
                 fl.transform.localScale = originalScale; //для флота защиты, что бы сразу формировался уменьшиный
+
                 if (locStateFleet == FleetStateStruct.enumFleetState.StartForDefence &
                     defFleetOnOrbitPlanet_GO  == null)
                 {
@@ -284,17 +290,13 @@ public class ParametrPlanet_mono : MonoBehaviour
     //добавление кораблей из флота на планете к флоту на орбите
     private void AddShipsToDefenceFleetOnOrbit()
     {
-
         if (_listDefenderFleet.Count > 0 & defFleetOnOrbitPlanet_GO != null)
         {
-
             _defFleetManager.MergFleets(_listDefenderFleet);
             print($"<color=_colorPlanet>{_listDefenderFleet.Count}</color>");
 
             _listDefenderFleet = new List<DataShip>();
-            
         }
-
     }
 
 
@@ -309,7 +311,6 @@ public class ParametrPlanet_mono : MonoBehaviour
     //добавляем внешний флот к флоту планеты или к флоту на орбите
     public void AddFleetToDefPlanetFleet(List<DataShip> locListDataFleet)
     {
-
         if (defFleetOnOrbitPlanet_GO != null)
         {
                 _defFleetManager.MergFleets(locListDataFleet);// добавляем во флот защиты, который на данный момент активен
@@ -321,7 +322,6 @@ public class ParametrPlanet_mono : MonoBehaviour
                 _listDefenderFleet.Add(locListDataFleet[i]); // добавляем в список защитников планеты
             }
         }
-
     }
 
 
@@ -332,11 +332,13 @@ public class ParametrPlanet_mono : MonoBehaviour
         {
             SetSpawnPointToDefence(locTransformAttackingFleet);
             _stateFleet = FleetStateStruct.enumFleetState.StartForDefence;
-            GenerationFleet(_stateFleet, _listDefenderFleet, _spawnPointDefenceFleet,
-                locTransformAttackingFleet);
+
+            GenerationFleet(_stateFleet, _listDefenderFleet, _spawnPointDefenceFleet, locTransformAttackingFleet);
             _listDefenderFleet = new List<DataShip>(); //очищаем список флота на планете, т.к. все корабли были переданы в деф флот
+
             Clear();
         }
+
         return defFleetOnOrbitPlanet_GO;
     }
 
@@ -367,7 +369,9 @@ public class ParametrPlanet_mono : MonoBehaviour
     private void SetSpawnPointToAttack(Transform locSpawnPointToTarget)
     {
         float y = _spawnPointAttackFleet.localPosition.y;
+
         Vector3 tempVector = (locSpawnPointToTarget.position - transform.position).normalized * 2f;
+
         _spawnPointAttackFleet.localPosition = new Vector3(tempVector.x, y, tempVector.z);
         _spawnPointAttackFleet.rotation = Quaternion.LookRotation(tempVector);
     }
@@ -375,8 +379,10 @@ public class ParametrPlanet_mono : MonoBehaviour
     private void SetSpawnPointToDefence(Transform locDefTransform)
     {
         Vector3 setDefSpawnPointPosition = (locDefTransform.position - transform.position).normalized * 3f; //считаем точку появления флота защитника на орбите планеты
+        
         _spawnPointDefenceFleet.localPosition = 
             new Vector3(setDefSpawnPointPosition.x, locDefTransform.position.y, setDefSpawnPointPosition.z);
+
         _spawnPointDefenceFleet.rotation = Quaternion.LookRotation(setDefSpawnPointPosition);
 
     }

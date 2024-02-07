@@ -11,6 +11,8 @@ using static UnityEngine.GraphicsBuffer;
 using Object = System.Object;
 
 [RequireComponent(typeof(FleetState))]
+[RequireComponent(typeof(FleetShootingSystem))]
+
 public class FleetManager : MonoBehaviour
 {
     [SerializeField] private Transform _selfTransform;
@@ -38,6 +40,8 @@ public class FleetManager : MonoBehaviour
 
     [Header("Health | Damage")] 
     private HealthSystem _healthSystem;
+    public FleetShootingSystem _fleetShootingSystem;
+    [SerializeField] private GameObject _prefabBullet;
 
 
     public ParametrPlanet_mono prop_DistParametrPlanetMono => _distParametrPlanetMono;
@@ -131,28 +135,46 @@ public class FleetManager : MonoBehaviour
         _attackFleet = 0;
         _armorFleet = 0;
         _numShipInFleet = 0;
-
     }
 
-    public void InitiateFleet(List<DataShip> locDataFleet, Material locMaterial, 
-        Transform locPlanetIsOwnerFleet, Transform locParentTransform, 
-        ParametrPlanet_mono locTargetPlanetMono, SceneMembersData locMembersDataInFleet,
-        FleetStateStruct.enumFleetState _locFleetState)
+    //test
+    private DataBullet SetDataBullet()
+    {
+        DataBullet bullet = new DataBullet();
+        bullet.damageBullet = _dataFleetList;
+        bullet.speedBullet = 3f;
+        bullet.fireRateBullet = 1f;
+        bullet.lifaTimeBullet = 0;
+        return bullet;
+    }
+
+    public void InitiateFleet(List<DataShip> locDataFleet, Material locMaterial 
+        ,Transform locPlanetIsOwnerFleet, Transform locParentTransform 
+        ,ParametrPlanet_mono locTargetPlanetMono, SceneMembersData locMembersDataInFleet
+        ,FleetStateStruct.enumFleetState _locFleetState)
     {
         _dataFleetList = new List<DataShip> ( locDataFleet );
+
+        _fleetShootingSystem = GetComponent<FleetShootingSystem>();
+        _fleetShootingSystem.InitShootingSystem(_prefabBullet, SetDataBullet());
+
         ClearParamFleetAndDisplay();
 
         Color locColor = new Color(locMaterial.color.r, locMaterial.color.g, locMaterial.color.r, 1f);
+
         _imageFleet_R.GetComponent<Image>().color = locColor;
         _imageFleet_R.GetComponent<Image>().material = new Material(locMaterial) ;
         _imageFleet_R.GetComponent<Image>().material.SetColor("_EmissionColor", locMaterial.color * 1.9f);
 
         _selfPlanetTransform = locPlanetIsOwnerFleet;
         _parentTransformInFleet = locParentTransform;
+
         _distParametrPlanetMono = locTargetPlanetMono;
         _membersDataInFleet = locMembersDataInFleet;
+
         _fleetState.SetState( _locFleetState, locTargetPlanetMono);
         _fleetState.speedMove = GetMinSpeedFleet(locDataFleet);
+
         _selfParametrPlanetMono = locPlanetIsOwnerFleet.GetComponent<ParametrPlanet_mono>();
 
         _timer = 1f;
@@ -160,8 +182,6 @@ public class FleetManager : MonoBehaviour
 
         DisplayAttackAndDefenceFleet();
         DisplayNumShipInFleet();
-
-
     }
 
 
@@ -207,6 +227,7 @@ public class FleetManager : MonoBehaviour
     public float GetMinSpeedFleet(List<DataShip> locDataShips)
     {
         float minSpeed = locDataShips[0].speedShip;
+
         for (int i = 0; i < locDataShips.Count; i++)
         {
             if (locDataShips[i].speedShip < minSpeed)

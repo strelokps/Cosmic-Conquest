@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public struct BulletStruct
+public struct DataBullet
 {
-    public float damageBullet;
+    public List<DataShip> damageBullet;
     public float lifaTimeBullet;
     public float speedBullet;
     public float fireRateBullet;

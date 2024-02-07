@@ -34,6 +34,9 @@ public class FleetState : MonoBehaviour
     private Vector3 _originalScale;
     private float elapsedTime;
 
+    private FleetShootingSystem _fleetShootingSystem;
+
+
     private bool flagChkDistance; // флаг для проверки дистанции
     //test
 
@@ -50,16 +53,21 @@ public class FleetState : MonoBehaviour
         speedMove = 5.5f;
 
         _stopBefore = _tempStopBefore = 16f; // дистанция остановки перед объектом для атаки
+
         _fleetManager = transform.GetComponent<FleetManager>();
+        _fleetShootingSystem = GetComponent<FleetShootingSystem>();
 
         _stateFleet = locStateFleet;
         _distParametrPlanetMono = locDistPlanetMono;
+
         //вычисляем расстояние от вражеской планеты до точки вызова флота защитны с планеты атакующим флотом, в зависимости от 
         //точки защиты и точки атаки. 
         //расстояние между орбитой вызова деф флота и орбитой атаки равна растоянию между планетой и точкой спауна деф флота
         _targetToMove = _distParametrPlanetMono.SelfTransform.position;
+        
         var posDefPOint = _distParametrPlanetMono._spawnPointDefenceFleet.position;
         var locSQRDistCallDefendefFleet = (posDefPOint - _targetToMove).sqrMagnitude;
+        
         _stopDistForCallDefendefFleet = _stopBefore + locSQRDistCallDefendefFleet;
 
         _targetTransformName = locDistPlanetMono.SelfTransform.name + "    " + locDistPlanetMono.prop_ParentTransformFromPlanet.name; //test
@@ -138,7 +146,7 @@ public class FleetState : MonoBehaviour
                 break;
             
             case FleetStateStruct.enumFleetState.StartForDefence:
-                
+                StartDefence();
 
                 break;
             
@@ -181,6 +189,7 @@ public class FleetState : MonoBehaviour
         _stopBefore = 2.5f;
     }
 
+    //маштабирование для анимации взлета и посадки на планету.
     private void ScaleForDescent(float locStart, float locEnd)
     {
         scaleModifier = Mathf.Lerp(locStart, locEnd, elapsedTime / _timeToScale);
@@ -220,6 +229,9 @@ public class FleetState : MonoBehaviour
             if (go != null & _stateFleet == FleetStateStruct.enumFleetState.OrbitAttack)
             {
                 _stateFleet = FleetStateStruct.enumFleetState.Attack;
+
+                _distParametrPlanetMono.AddToListAttackerFleet(gameObject);
+
                 print($"<color=red> В атаку!!! </color>");
             }
             else
@@ -271,10 +283,7 @@ public class FleetState : MonoBehaviour
                 }
             }
         }
-        else
-        {
-            _distParametrPlanetMono.AddToListAttackerFleet(gameObject);
-        }
+      
     }
 
     private void PreparingAttack()
