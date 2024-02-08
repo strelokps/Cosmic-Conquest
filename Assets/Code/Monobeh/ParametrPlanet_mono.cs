@@ -51,7 +51,7 @@ public class ParametrPlanet_mono : MonoBehaviour
     private FleetManager _fleetManager = new FleetManager();
     private Transform _targetToFleet;
     [SerializeField] private FleetStateStruct.enumFleetState _stateFleet;
-    private GameObject defFleetOnOrbitPlanet_GO; //Флот защиты на орбите
+    public GameObject defFleetOnOrbitPlanet_GO; //Флот защиты на орбите
 
     private FleetManager _defFleetManager;
 

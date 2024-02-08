@@ -142,7 +142,7 @@ public class FleetState : MonoBehaviour
                 }
                 break;
             
-            case FleetStateStruct.enumFleetState.OrbitJoinToDefenderFleet:
+            case FleetStateStruct.enumFleetState.FoundTarget:
                 //print($"На нас напали, Милорд");
                 break;
             
@@ -158,8 +158,7 @@ public class FleetState : MonoBehaviour
                 Movement();
                 if (scaleModifier >= 1)
                 {
-                    _fleetShootingSystem.SetTarget(TakeTarget()); //выбираем и устанавливаем цель
-                    _stateFleet = FleetStateStruct.enumFleetState.Attack;
+                    _fleetShootingSystem.SetTarget(TakeTargetForDefenceFleet()); //выбираем и устанавливаем цель для флота защитника
                 }
                 break;
 
@@ -170,14 +169,33 @@ public class FleetState : MonoBehaviour
     }
 
 
-    private GameObject TakeTarget()
+    private GameObject TakeTargetForDefenceFleet()
     {
         GameObject go = null;
         if (_selfParametrPlanetMono.attackingFleet_LGO.Count > 0)
         {
             go = _selfParametrPlanetMono.attackingFleet_LGO[0];
+            _stateFleet = FleetStateStruct.enumFleetState.Attack;
+
         }
-        if (go != null)
+        if (go == null)
+        {
+            //TODO сделать анимацию посадки на планету с уничтожеием флота
+            RefundDefenceFleet();
+        }
+        return go;
+    }
+
+    private GameObject TakeTargetForAttackingFleet()
+    {
+        GameObject go = null;
+        if (_distParametrPlanetMono.defFleetOnOrbitPlanet_GO != null)
+        {
+            go = _distParametrPlanetMono.defFleetOnOrbitPlanet_GO;
+            _stateFleet = FleetStateStruct.enumFleetState.Attack;
+
+        }
+        if (go == null)
         {
             //TODO сделать анимацию посадки на планету с уничтожеием флота
             RefundDefenceFleet();
@@ -243,7 +261,7 @@ public class FleetState : MonoBehaviour
         transform.position = tempPosition;
         _stateFleet = FleetStateStruct.enumFleetState.OrbitDefence;
         speedMove = 3f;
-        SetParamScale(0.7f, 0.002f, 1f, new Vector3(1f, 1f, 1f));
+        SetParamScale(0.8f, 0.002f, 1f, new Vector3(1f, 1f, 1f));
     }
     //атакующий флот вызывает флот защиты на орбиту
     private void CallDefFleet()
@@ -257,6 +275,8 @@ public class FleetState : MonoBehaviour
                 _stateFleet = FleetStateStruct.enumFleetState.Attack;
 
                 _distParametrPlanetMono.AddToListAttackerFleet(gameObject);
+                //_fleetShootingSystem.SetTarget(TakeTargetForAttackingFleet()); //выбираем и устанавливаем цель для флота атаки
+
 
                 print($"<color=red> В атаку!!! </color>");
             }
@@ -327,15 +347,7 @@ public class FleetState : MonoBehaviour
 
     private void Attack()
     {
-        if (_distParametrPlanetMono)
-        {
-            //attack
-            print($"<color=green>Attack</color>");
-        }
-        else
-        {
-            //captur planet
-        }
+        _fleetShootingSystem.Fire();
     }
 
 

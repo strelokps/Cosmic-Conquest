@@ -10,33 +10,54 @@ public struct HealthSystem
     public void TakeDamage(ref List<DataShip> locSelfListShips, List<DataShip> locEnemyDataShips) 
     {
         float locTotalDamage = 0;
+        float increasedDamage = 0;
         System.Random random = new System.Random();
 
-
+        int countBreak = 0;
         for (int i = 0; i < locEnemyDataShips.Count; i++)
         {
             locTotalDamage =
                 UnityEngine.Random.Range(locEnemyDataShips[i].damageShipMin, locEnemyDataShips[i].damageShipMax);
 
+            Debug.Log($"Общий урон {locTotalDamage}");
+
 
             while (locTotalDamage > 0 && locSelfListShips.Count > 0)
             {
+                countBreak++;
+                if (countBreak > 10000)
+                    break;
                 int targetIndex = random.Next(0, locSelfListShips.Count); // Выбираем случайный корабль
 
                 DataShip targetShip = locSelfListShips[targetIndex];
+
+                if (locEnemyDataShips[i].typeShipIncreasedDamage == targetShip.typeShip)
+                    increasedDamage *= locEnemyDataShips[i].increasedDamage;
+                else
+                {
+                    increasedDamage = 1f;
+                }
+
+                Debug.Log($"Есть ли увеличенный урон? {increasedDamage == 1f}");
+
                 float damageToApply =
-                    Math.Min(targetShip.armorShip + targetShip.shieldShip, locTotalDamage); // Вычисляем урон
+                    Math.Min(targetShip.armorShip + targetShip.shieldShip, (locTotalDamage * increasedDamage)); // Вычисляем урон
+                Debug.Log($" До <color=red> shield {targetShip.shieldShip}  armor {targetShip.armorShip} </color>");
 
                 // Распределяем урон между броней и щитом
                 if (damageToApply <= targetShip.shieldShip)
                 {
                     targetShip.shieldShip -= damageToApply;
+                    locSelfListShips[targetIndex] = targetShip;
                 }
                 else
                 {
                     float remainingDamage = damageToApply - targetShip.shieldShip;
                     targetShip.shieldShip = 0;
                     targetShip.armorShip -= remainingDamage;
+
+                    locSelfListShips[targetIndex] = targetShip;
+
                 }
 
                 // Проверяем, нужно ли убрать корабль из списка
@@ -44,6 +65,7 @@ public struct HealthSystem
                 {
                     locSelfListShips.RemoveAt(targetIndex);
                 }
+                Debug.Log($"<color=green> После shield {targetShip.shieldShip}  armor {targetShip.armorShip} </color>");
 
                 locTotalDamage -= damageToApply; // Обновляем оставшееся повреждение
             }

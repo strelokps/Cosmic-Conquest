@@ -156,7 +156,7 @@ public class FleetManager : MonoBehaviour
         _dataFleetList = new List<DataShip> ( locDataFleet );
 
         _fleetShootingSystem = GetComponent<FleetShootingSystem>();
-        _fleetShootingSystem.InitShootingSystem(_prefabBullet, SetDataBullet());
+        _fleetShootingSystem.InitShootingSystem(_prefabBullet, SetDataBullet(), _dataFleetList);
 
         ClearParamFleetAndDisplay();
 
@@ -238,7 +238,7 @@ public class FleetManager : MonoBehaviour
         return minSpeed;
     }
 
-    public void TakeDamageFromAttackingFleet( List<DataShip> locDataShips)
+    public void TakeDamageFleet( List<DataShip> locDataShips)
     {
         _healthSystem.TakeDamage(ref _dataFleetList, locDataShips);
     }
@@ -256,8 +256,7 @@ public class FleetManager : MonoBehaviour
         if (_tempTimer > _timer)
         {
             _tempTimer = 0;
-
-            print($"<color=yellow> Shield : {_dataFleetList[0].shieldShip}</color>");
+            
             _healthSystem.RegenerationShield(_dataFleetList);
         }
     }

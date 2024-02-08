@@ -13,11 +13,15 @@ public class FleetShootingSystem : MonoBehaviour
     private DataBullet _dataBullet;       
     private GameObject _prefabBullet;
 
+    [Header("Sefl fleet")]
+    private List<DataShip> _selfFleet;
 
-    public void InitShootingSystem(GameObject locPrefabBullet, DataBullet locDataBullet)
+
+    public void InitShootingSystem(GameObject locPrefabBullet, DataBullet locDataBullet, List<DataShip> locSelfFleet)
     {
         _dataBullet = locDataBullet;
         _prefabBullet = locPrefabBullet;
+        _selfFleet = locSelfFleet;
     }
 
     public void SetTarget(GameObject locTarget)
@@ -31,7 +35,9 @@ public class FleetShootingSystem : MonoBehaviour
         _directShooting = (_targetFleet.transform.position - transform.position).normalized;
         var dist = (_targetFleet.transform.position - transform.position).sqrMagnitude;
         _directShootingDistance = dist/_dataBullet.speedBullet;
+        print($"{transform.name}");
         print($"<color=magenta>кэп, вот расстояние до цели {_directShootingDistance}  а это время жизни пули {_directShootingDistance}</color>");
+        print("***************");
     }
 
     // Update is called once per frame
@@ -40,5 +46,10 @@ public class FleetShootingSystem : MonoBehaviour
         
     }
 
+    public void Fire()
+    {
+        //test
+        _targetFleet.GetComponent<FleetManager>().TakeDamageFleet(_selfFleet);
+    }
 
 }

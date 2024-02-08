@@ -13,7 +13,7 @@ public struct FleetStateStruct
         OrbitCallDefendefFleet,
         OrbitAttack,
         Attack,
-        OrbitJoinToDefenderFleet,
+        FoundTarget,
         PreMovingTowardsPlanet,
         MovingTowardsPlanetForDescent ,
         MovingTowardsDefenceFleet,

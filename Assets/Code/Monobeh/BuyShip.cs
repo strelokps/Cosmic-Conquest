@@ -28,7 +28,7 @@ public class BuyShip : MonoBehaviour
         _ship.armorShip = 10f;
         _ship.maxShieldShip = 5f;
         _ship.shieldShip = 5f;
-        _ship.regenShield = 1f;
+        _ship.regenShield = 0.1f;
         _ship.speedShip = 4.5f;
         _ship.coastShip = 5;
         _ship.timeToBuild = 0.2f;
