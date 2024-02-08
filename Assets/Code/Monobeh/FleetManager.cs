@@ -117,8 +117,8 @@ public class FleetManager : MonoBehaviour
         ClearParamFleetAnd();
         foreach (var idx in _dataFleetList)
         {
-            _attackFleet += idx.damageShipMin;
-            _armorFleet += idx.armorShip;
+            _attackFleet += (int)idx.damageShipMin;
+            _armorFleet += (int)idx.armorShip;
         }
         _attackShipInFleetText.text = _attackFleet.ToString();
         _defenceShipInFleetText.text = _armorFleet.ToString();
@@ -172,10 +172,11 @@ public class FleetManager : MonoBehaviour
         _distParametrPlanetMono = locTargetPlanetMono;
         _membersDataInFleet = locMembersDataInFleet;
 
+        _selfParametrPlanetMono = locPlanetIsOwnerFleet.GetComponent<ParametrPlanet_mono>();
+        
         _fleetState.SetState( _locFleetState, locTargetPlanetMono, _selfParametrPlanetMono);
         _fleetState.speedMove = GetMinSpeedFleet(locDataFleet);
 
-        _selfParametrPlanetMono = locPlanetIsOwnerFleet.GetComponent<ParametrPlanet_mono>();
 
         _timer = 1f;
         _tempTimer = 0;

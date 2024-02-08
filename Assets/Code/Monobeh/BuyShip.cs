@@ -23,16 +23,18 @@ public class BuyShip : MonoBehaviour
     private void BuildShipLight()
     {
         _ship = new DataShip();
-        _ship.damageShipMin = 1;
-        _ship.damageShipMax = 3;
-        _ship.armorShip = 10;
-        _ship.maxShieldShip = 5;
-        _ship.shieldShip = 5;
-        _ship.regenShield = 1;
+        _ship.damageShipMin = 1f;
+        _ship.damageShipMax = 3f;
+        _ship.armorShip = 10f;
+        _ship.maxShieldShip = 5f;
+        _ship.shieldShip = 5f;
+        _ship.regenShield = 1f;
         _ship.speedShip = 4.5f;
         _ship.coastShip = 5;
         _ship.timeToBuild = 0.2f;
         _ship.typeShip = eShipType.light;
+        _ship.typeShipIncreasedDamage = eShipType.heavy;
+        _ship.increasedDamage = 1.3f;
 
         SetShipToBuildInShipyard();
         print($"Корабль отправлен на верфь");
@@ -53,6 +55,8 @@ public class BuyShip : MonoBehaviour
         _ship.coastShip = 10;
         _ship.timeToBuild = 5f;
         _ship.typeShip = eShipType.medium;
+        _ship.typeShipIncreasedDamage = eShipType.light;
+        _ship.increasedDamage = 1.3f;
 
         SetShipToBuildInShipyard();
         print($"Корабль отправлен на верфь");
@@ -73,6 +77,8 @@ public class BuyShip : MonoBehaviour
         _ship.coastShip = 15;
         _ship.timeToBuild = 8f;
         _ship.typeShip = eShipType.heavy;
+        _ship.typeShipIncreasedDamage = eShipType.medium;
+        _ship.increasedDamage = 1.3f;
 
         SetShipToBuildInShipyard();
         print($"Корабль отправлен на верфь");
