@@ -16,5 +16,6 @@ public struct DataShip
     public ShipType.eShipType typeShip;
     public ShipType.eShipType typeShipIncreasedDamage;
     public float increasedDamage;
+    public string startPlanet;
 }
 

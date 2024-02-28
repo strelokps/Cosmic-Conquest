@@ -50,6 +50,7 @@ public class Shipyard : MonoBehaviour
             return;
         }
 
+        locDataShip.startPlanet = _selfParametrPlanetMono.name;
         _selfParametrPlanetMono.pParentManager.RemoveSolarium(locDataShip.coastShip);
         _listDataShip.Add(locDataShip);
         timerToBuild = locDataShip.timeToBuild;

@@ -275,7 +275,7 @@ public class FleetState : MonoBehaviour
                 _stateFleet = FleetStateStruct.enumFleetState.Attack;
 
                 _distParametrPlanetMono.AddToListAttackerFleet(gameObject);
-                //_fleetShootingSystem.SetTarget(TakeTargetForAttackingFleet()); //выбираем и устанавливаем цель для флота атаки
+                _fleetShootingSystem.SetTarget(TakeTargetForAttackingFleet()); //выбираем и устанавливаем цель для флота атаки
 
 
                 print($"<color=red> В атаку!!! </color>");

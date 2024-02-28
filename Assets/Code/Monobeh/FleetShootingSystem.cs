@@ -40,16 +40,26 @@ public class FleetShootingSystem : MonoBehaviour
         print("***************");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+  
 
     public void Fire()
     {
+        if (_targetFleet == null)
+        {
+
+        }
+
         //test
         _targetFleet.GetComponent<FleetManager>().TakeDamageFleet(_selfFleet);
+
+        var fleet = _targetFleet.GetComponent<FleetManager>().GetListDataFleet();
+
+        if (fleet.Count == 0)
+        {
+            Destroy(_targetFleet);
+            Debug.LogError("all out");
+        }
+
     }
 
 }
