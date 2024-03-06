@@ -240,7 +240,7 @@ public class FleetManager : MonoBehaviour
 
     public void TakeDamageFleet( List<DataShip> locDataShips)
     {
-        _healthSystem.TakeDamage(ref _dataFleetList, locDataShips);
+        _healthSystem.TakeDamage(this, locDataShips);
     }
 
     //Стартуем таймер, который будет вызывать метод, который вызывает метод в health sysytem. Да, знаю что выглядит не очень.

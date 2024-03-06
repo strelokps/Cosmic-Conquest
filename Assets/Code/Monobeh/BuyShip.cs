@@ -49,7 +49,7 @@ public class BuyShip : MonoBehaviour
         _ship.damageShipMin = 3;
         _ship.damageShipMax = 7;
         _ship.damageShip = _ship.damageShipMin;
-        _ship.armorShip = 20000;
+        _ship.armorShip = 7000;
         _ship.maxShieldShip = 10;
         _ship.shieldShip = 10;
         _ship.regenShield = 2;

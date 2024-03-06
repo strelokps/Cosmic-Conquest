@@ -7,10 +7,11 @@ using Random = System.Random;
 public struct HealthSystem
 {
     private DataShip _dataShip;
-    public void TakeDamage(ref List<DataShip> locSelfListShips, List<DataShip> locEnemyDataShips) 
+    public void TakeDamage(FleetManager _selfFleetManager, List<DataShip> locEnemyDataShips) 
     {
+        List<DataShip> locSelfListShips = _selfFleetManager.GetListDataFleet();
         float locTotalDamage = 0;
-        float increasedDamage = 0;
+        float increasedDamage = 1;
         System.Random random = new System.Random();
 
         int countBreak = 0;
@@ -21,7 +22,7 @@ public struct HealthSystem
 
             //Debug.Log($"Общий урон {locTotalDamage}");
 
-
+            //Атакующей флот стреляет. Флот по которому попали обрабатывает попадание. 
             while (locTotalDamage > 0 && locSelfListShips.Count > 0)
             {
                 countBreak++;
@@ -45,7 +46,7 @@ public struct HealthSystem
                 Debug.Log($"Есть ли увеличенный урон? {increasedDamage != 1f}");
 
                 float damageToApply =
-                    Math.Min(targetShip.armorShip + targetShip.shieldShip, (locTotalDamage * increasedDamage)); // Вычисляем урон
+                    Math.Min(targetShip.armorShip + targetShip.shieldShip, ( locTotalDamage * increasedDamage)); // Вычисляем урон
 
                 Debug.Log($" До <color=red> shield {targetShip.shieldShip}  armor {targetShip.armorShip} </color>");
 
