@@ -16,8 +16,8 @@ public struct HealthSystem
         int countBreak = 0;
         for (int i = 0; i < locEnemyDataShips.Count; i++)
         {
-            locTotalDamage =
-                UnityEngine.Random.Range(locEnemyDataShips[i].damageShipMin, locEnemyDataShips[i].damageShipMax);
+            locTotalDamage = locEnemyDataShips[i].damageShip;
+
 
             //Debug.Log($"Общий урон {locTotalDamage}");
 
@@ -73,11 +73,6 @@ public struct HealthSystem
                 Debug.Log($"<color=green> После shield {targetShip.shieldShip}  armor {targetShip.armorShip} </color>");
 
                 locTotalDamage -= damageToApply; // Обновляем оставшееся повреждение
-
-                if (locSelfListShips.Count == 0)
-                {
-                    Debug.LogError("all out");
-                }
             }
         }
     }

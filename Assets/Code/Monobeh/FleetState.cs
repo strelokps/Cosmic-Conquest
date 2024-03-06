@@ -230,7 +230,7 @@ public class FleetState : MonoBehaviour
 
     private void SetStopBeforeForDescent()
     {
-        _stopBefore = 2.5f;
+        _stopBefore = 1.5f;
     }
 
     //маштабирование для анимации взлета и посадки на планету.

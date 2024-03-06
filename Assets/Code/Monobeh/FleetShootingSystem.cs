@@ -34,7 +34,7 @@ public class FleetShootingSystem : MonoBehaviour
     {
         _directShooting = (_targetFleet.transform.position - transform.position).normalized;
         var dist = (_targetFleet.transform.position - transform.position).sqrMagnitude;
-        _directShootingDistance = dist/_dataBullet.speedBullet;
+        _directShootingDistance = dist / _dataBullet.speedBullet;
         print($"{transform.name}");
         print($"<color=magenta>кэп, вот расстояние до цели {_directShootingDistance}  а это время жизни пули {_directShootingDistance}</color>");
         print("***************");
@@ -46,7 +46,7 @@ public class FleetShootingSystem : MonoBehaviour
     {
         if (_targetFleet == null)
         {
-
+            print($"<color=magenta> Нужна новая цель </color> ");
         }
 
         //test

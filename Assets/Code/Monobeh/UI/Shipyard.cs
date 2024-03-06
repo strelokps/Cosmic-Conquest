@@ -51,6 +51,7 @@ public class Shipyard : MonoBehaviour
         }
 
         locDataShip.startPlanet = _selfParametrPlanetMono.name;
+        locDataShip.damageShip = UnityEngine.Random.Range(locDataShip.damageShipMin, locDataShip.damageShipMax);
         _selfParametrPlanetMono.pParentManager.RemoveSolarium(locDataShip.coastShip);
         _listDataShip.Add(locDataShip);
         timerToBuild = locDataShip.timeToBuild;
