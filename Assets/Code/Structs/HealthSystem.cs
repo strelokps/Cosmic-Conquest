@@ -43,12 +43,12 @@ public struct HealthSystem
                     increasedDamage = 1f;
                 }
 
-                Debug.Log($"Есть ли увеличенный урон? {increasedDamage != 1f}");
+                //Debug.Log($"Есть ли увеличенный урон? {increasedDamage != 1f}");
 
                 float damageToApply =
                     Math.Min(targetShip.armorShip + targetShip.shieldShip, ( locTotalDamage * increasedDamage)); // Вычисляем урон
 
-                Debug.Log($" До <color=red> shield {targetShip.shieldShip}  armor {targetShip.armorShip} </color>");
+                //Debug.Log($" До <color=red> shield {targetShip.shieldShip}  armor {targetShip.armorShip} </color>");
 
                 // Распределяем урон между броней и щитом
                 if (damageToApply <= targetShip.shieldShip)
@@ -71,7 +71,7 @@ public struct HealthSystem
                 {
                     locSelfListShips.RemoveAt(targetIndex);
                 }
-                Debug.Log($"<color=green> После shield {targetShip.shieldShip}  armor {targetShip.armorShip} </color>");
+                //Debug.Log($"<color=green> После shield {targetShip.shieldShip}  armor {targetShip.armorShip} </color>");
 
                 locTotalDamage -= damageToApply; // Обновляем оставшееся повреждение
             }

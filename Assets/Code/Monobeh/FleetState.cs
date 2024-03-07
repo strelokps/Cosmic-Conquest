@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Color = System.Drawing.Color;
 
 public class FleetState : MonoBehaviour
 {
@@ -142,15 +143,17 @@ public class FleetState : MonoBehaviour
                     _fleetManager.JoinToDefenderFleet();
                 }
                 break;
-
-                case FleetStateStruct.enumFleetState.FoundTargetForAttackingFleet:
-                _fleetShootingSystem.SetTarget(TakeTargetForAttackingFleet()); //выбираем и устанавливаем цель для флота атаки
+            case FleetStateStruct.enumFleetState.RefundDefenceFleet:
+                Movement();
+                ScaleForDescent(_startScale, _endScale);
+                if (CheckDistanceToAttack())
+                {
+                    _fleetManager.JoinToDefenderFleet();
+                }
                 break;
-            
-            case FleetStateStruct.enumFleetState.FoundTargetForDefenceFleet:
-                //print($"На нас напали, Милорд");
-                _fleetShootingSystem.SetTarget(TakeTargetForDefenceFleet()); //выбираем и устанавливаем цель для флота защитника
 
+            case FleetStateStruct.enumFleetState.FoundTarget:
+                FoundTarget();
                 break;
             
             case FleetStateStruct.enumFleetState.MovingTowardsDefenceFleet:
@@ -165,7 +168,7 @@ public class FleetState : MonoBehaviour
                 Movement();
                 if (scaleModifier >= 1)
                 {
-                    _stateFleet = FleetStateStruct.enumFleetState.FoundTargetForDefenceFleet;
+                    _stateFleet = FleetStateStruct.enumFleetState.FoundTarget;
                 }
                 break;
 
@@ -175,6 +178,20 @@ public class FleetState : MonoBehaviour
         }
     }
 
+
+    private void FoundTarget()
+    {
+        if (_fleetManager.isDefenceFleet)
+        {
+            print($"Scaning for new target for Def");
+            _fleetShootingSystem.SetTarget(TakeTargetForDefenceFleet()); //выбираем и устанавливаем цель для флота защитника
+        }
+        else
+        {
+            print($"Scaning for new target for Attack");
+            _fleetShootingSystem.SetTarget(TakeTargetForAttackingFleet()); //выбираем и устанавливаем цель для флота атаки
+        }
+    }
 
     private GameObject TakeTargetForDefenceFleet()
     {
@@ -206,7 +223,7 @@ public class FleetState : MonoBehaviour
         if (go == null)
         {
             //TODO сделать анимацию посадки на планету с уничтожеием флота
-            RefundDefenceFleet();
+            _stateFleet = FleetStateStruct.enumFleetState.OrbitAttack;
         }
         return go;
     }
@@ -214,7 +231,7 @@ public class FleetState : MonoBehaviour
     //возврат флота защиты на планету
     private void RefundDefenceFleet()
     {
-        _stateFleet = FleetStateStruct.enumFleetState.MovingTowardsPlanetForDescent;
+        _stateFleet = FleetStateStruct.enumFleetState.RefundDefenceFleet;
         _targetToMove = _selfParametrPlanetMono.SelfTransform.position;
     }
 
@@ -263,6 +280,7 @@ public class FleetState : MonoBehaviour
 
     private void StartDefence()
     {
+        _fleetManager.isDefenceFleet = true;
         _targetToMove = _distParametrPlanetMono._spawnPointDefenceFleet.position;
         Vector3 tempPosition = transform.position;
         tempPosition = _distParametrPlanetMono.SelfTransform.position;
@@ -280,7 +298,7 @@ public class FleetState : MonoBehaviour
            GameObject go = _distParametrPlanetMono.CallDefenderFleet(transform);
             if (go != null & _stateFleet == FleetStateStruct.enumFleetState.OrbitAttack)
             {
-                _stateFleet = FleetStateStruct.enumFleetState.FoundTargetForAttackingFleet;
+                _stateFleet = FleetStateStruct.enumFleetState.FoundTarget;
 
                 _distParametrPlanetMono.AddToListAttackerFleet(gameObject);
 
@@ -295,6 +313,8 @@ public class FleetState : MonoBehaviour
                     print($"<color=aqua>на абардаж!!!</color>");
                     _fleetManager.CapturePlanet();
                     SetStopBeforeForDescent();
+                    _distParametrPlanetMono.AddFleetToDefenceFleetOnPlanet(_fleetManager.GetListDataFleet());
+
                     _distParametrPlanetMono.RemoveToListAttackerFleet(gameObject);
                 }
             }
@@ -321,17 +341,37 @@ public class FleetState : MonoBehaviour
         {
             for (int i = 0; i < _distParametrPlanetMono.attackingFleet_LGO.Count; i++)
             {
+                if (_distParametrPlanetMono.attackingFleet_LGO[i] == null)
+                {
+                    print("1");
+                }
+
+                if (_distParametrPlanetMono.attackingFleet_LGO[i].activeInHierarchy)
+                {
+                    print($"<color=gold> A name {_distParametrPlanetMono.attackingFleet_LGO[i].name} </color>");
+                }
+                else
+                {
+                    print($"<color=aqua> !!!A name {_distParametrPlanetMono.attackingFleet_LGO[i].name} </color>");
+                }
                 //проверяем наличие флотов вылетивших с той же планеты что и данный флот, если есть, то добавляемся.
                 if (_distParametrPlanetMono.attackingFleet_LGO[i]
                         .GetComponent<FleetManager>()
-                        ._selfPlanetTransform == _fleetManager._selfPlanetTransform 
-                        & _distParametrPlanetMono.attackingFleet_LGO[i] != gameObject)
+                        ._selfPlanetTransform 
+                        == 
+                        _fleetManager
+                        ._selfPlanetTransform 
+                        & 
+                        _distParametrPlanetMono.attackingFleet_LGO[i] != gameObject)
                 {
                     _distParametrPlanetMono
                         .attackingFleet_LGO[i]
                         .GetComponent<FleetManager>()
                         .MergFleets(_fleetManager.GetListDataFleet());
-                    _fleetManager.DestroyAttackingFleet();
+
+                    _distParametrPlanetMono.RemoveToListAttackerFleet(gameObject);
+                    _fleetManager.Destroy();
+
                     return;
                 }
             }
@@ -339,18 +379,6 @@ public class FleetState : MonoBehaviour
       
     }
 
-    private void PreparingAttack()
-    {
-        _distParametrPlanetMono.GetTransformDefenceFleet(ref _targetTransform);
-        if (_targetTransform != null)
-        {
-            _stateFleet = FleetStateStruct.enumFleetState.Attack;
-        }
-        else
-        {
-            _stateFleet = FleetStateStruct.enumFleetState.MovingTowardsPlanetForDescent;
-        }
-    }
 
     private void Attack()
     {
@@ -358,10 +386,6 @@ public class FleetState : MonoBehaviour
     }
 
 
-    private void Shooting()
-    {
-
-    }
 
 
 }

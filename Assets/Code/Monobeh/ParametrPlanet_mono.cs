@@ -299,28 +299,26 @@ public class ParametrPlanet_mono : MonoBehaviour
         }
     }
 
-    public void DestroyDefenceFleet()
-    {
-        Destroy(defFleetOnOrbitPlanet_GO); 
-    }
 
     /// <summary>
     /// добавляем внешний флот к флоту планеты или к флоту на орбите
     /// </summary>
     /// <param name="locListDataFleet"></param>
     
-    public void AddFleetToDefPlanetFleet(List<DataShip> locListDataFleet)
+    public void AddFleetToDefenceFleetOnPlanet(List<DataShip> locListDataFleet)
+    {
+
+        for (int i = 0; i < locListDataFleet.Count; i++)
+        {
+            _listDefenderFleet.Add(locListDataFleet[i]); // добавляем в список защитников планеты
+        }
+    }
+
+    public void AddFleetToDefenderFleetOnOrbit(List<DataShip> locListDataFleet)
     {
         if (defFleetOnOrbitPlanet_GO != null)
         {
-                _defFleetManager.MergFleets(locListDataFleet);// добавляем во флот защиты, который на данный момент активен
-        }
-        else
-        {
-            for (int i = 0; i < locListDataFleet.Count; i++)
-            {
-                _listDefenderFleet.Add(locListDataFleet[i]); // добавляем в список защитников планеты
-            }
+            _defFleetManager.MergFleets(locListDataFleet); // добавляем во флот защиты, который на данный момент активен
         }
     }
 

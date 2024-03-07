@@ -18,6 +18,7 @@ public class FleetManager : MonoBehaviour
     [SerializeField] private Transform _selfTransform;
     [SerializeField] private Transform _pointToFire;
     public Transform _selfPlanetTransform;
+    public bool isDefenceFleet = false;
 
     [SerializeField] private Image _imageFleet_L;
     [SerializeField] private Image _imageFleet_R;
@@ -66,9 +67,7 @@ public class FleetManager : MonoBehaviour
 
     private void OnDisable()
     {
-        DestroyAttackingFleet();
-        //test
-        _selfParametrPlanetMono.DestroyDefenceFleet();
+        Destroy();
     }
 
     private void Update()
@@ -76,8 +75,8 @@ public class FleetManager : MonoBehaviour
             CallRegenShield();
 
 
-            if (flagDestroy)
-            DestroyAttackingFleet();
+            //if (flagDestroy)
+            //DestroyAttackingFleet();
     }
 
     public void AddShipToFleet(DataShip locDataShip)
@@ -153,6 +152,7 @@ public class FleetManager : MonoBehaviour
         ,ParametrPlanet_mono locTargetPlanetMono, SceneMembersData locMembersDataInFleet
         ,FleetStateStruct.enumFleetState _locFleetState)
     {
+
         _dataFleetList = new List<DataShip> ( locDataFleet );
 
         _fleetShootingSystem = GetComponent<FleetShootingSystem>();
@@ -197,8 +197,8 @@ public class FleetManager : MonoBehaviour
 
     public void JoinToDefenderFleet()
     {
-        _distParametrPlanetMono.AddFleetToDefPlanetFleet(_dataFleetList);
-        DestroyAttackingFleet();
+        _distParametrPlanetMono.AddFleetToDefenceFleetOnPlanet(_dataFleetList);
+        Destroy();
     }
 
     private void RemoveAttackingFleetFromListOnPlanet()
@@ -212,6 +212,18 @@ public class FleetManager : MonoBehaviour
         }
     }
 
+    public void Destroy()
+    {
+        if (isDefenceFleet)
+        {
+            DestroyDefenceFleet();
+        }
+        else
+        {
+            DestroyAttackingFleet();
+        }
+    }
+
     public void DestroyAttackingFleet()
     {
         RemoveAttackingFleetFromListOnPlanet();
@@ -222,6 +234,8 @@ public class FleetManager : MonoBehaviour
     public void DestroyDefenceFleet()
     {
         _selfParametrPlanetMono.ClearDefenceFleet();
+        Destroy(gameObject);
+
     }
 
     //получаем минимальную скорость из всех кораблей флота

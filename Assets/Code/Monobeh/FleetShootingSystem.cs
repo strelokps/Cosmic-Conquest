@@ -26,6 +26,8 @@ public class FleetShootingSystem : MonoBehaviour
 
     public void SetTarget(GameObject locTarget)
     {
+        if (locTarget == null)
+            return;
         _targetFleet = locTarget;
         CalculationDirectionAndDistance();
     }
@@ -36,7 +38,7 @@ public class FleetShootingSystem : MonoBehaviour
         var dist = (_targetFleet.transform.position - transform.position).sqrMagnitude;
         _directShootingDistance = dist / _dataBullet.speedBullet;
         print($"{transform.name}");
-        print($"<color=magenta>кэп, вот расстояние до цели {_directShootingDistance}  а это время жизни пули {_directShootingDistance}</color>");
+        print($"<color=magenta>кэп, вот расстояние до цели {dist}  а это время жизни пули {_directShootingDistance}</color>");
         print("***************");
     }
 
@@ -56,8 +58,8 @@ public class FleetShootingSystem : MonoBehaviour
 
         if (fleet.Count == 0)
         {
-            Destroy(_targetFleet);
-            Debug.LogError("all out");
+            _targetFleet.GetComponent<FleetManager>().Destroy();
+            GetComponent<FleetState>()._stateFleet = FleetStateStruct.enumFleetState.FoundTarget;
         }
 
     }
