@@ -56,7 +56,6 @@ public class ParametrPlanet_mono : MonoBehaviour
     private FleetManager _defFleetManager;
 
     //test
-    DataShip _locDataShipTest = new DataShip();
     [SerializeField] private float _percentForAttackFleet;
     [SerializeField] private int _numShipsInDefenderFleet;
     [SerializeField] private int _numShipsInDefenceFleet;
@@ -168,20 +167,16 @@ public class ParametrPlanet_mono : MonoBehaviour
         {
             _tempTimer = 0;
 
-            _locDataShipTest.damageShipMin = 2;
-            _locDataShipTest.armorShip = 10;
-            
-            
-
-                if (_idPlanet != 19)
+            if (_idPlanet != 19)
+            {
+                //print($" Атака не 19 {_idPlanet}");
+                if (_controls.Main.NewA.IsPressed())
                 {
-                    //print($" Атака не 19 {_idPlanet}");
-                    if (_controls.Main.NewA.IsPressed())
-                    {
-                        CreateAttackerFleet(_percentForAttackFleet);
-                    }
+                    CreateAttackerFleet(_percentForAttackFleet);
                 }
+            }
         }
+
     }
 
     public void StartetConfig(SceneMembersData locMemberSceneDatasParent, Transform locParentTransform)
@@ -211,7 +206,7 @@ public class ParametrPlanet_mono : MonoBehaviour
 
 
         //test
-        _parentManager.AddSolarium(100);
+        _parentManager.AddSolarium(1000);
     }
 
 
@@ -307,7 +302,6 @@ public class ParametrPlanet_mono : MonoBehaviour
     
     public void AddFleetToDefenceFleetOnPlanet(List<DataShip> locListDataFleet)
     {
-
         for (int i = 0; i < locListDataFleet.Count; i++)
         {
             _listDefenderFleet.Add(locListDataFleet[i]); // добавляем в список защитников планеты

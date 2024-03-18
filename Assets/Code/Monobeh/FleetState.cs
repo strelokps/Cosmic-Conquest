@@ -137,10 +137,11 @@ public class FleetState : MonoBehaviour
 
             case FleetStateStruct.enumFleetState.MovingTowardsPlanetForDescent:
                 Movement();
-                ScaleForDescent(_startScale, _endScale);
+                //ScaleForDescent(_startScale, _endScale);
                 if (CheckDistanceToAttack())
                 {
                     _fleetManager.JoinToDefenderFleet();
+                    _fleetManager.Destroy();
                 }
                 break;
             case FleetStateStruct.enumFleetState.RefundDefenceFleet:
@@ -255,7 +256,7 @@ public class FleetState : MonoBehaviour
 
     private void SetStopBeforeForDescent()
     {
-        _stopBefore = 1.5f;
+        _stopBefore = 2.5f;
     }
 
     //маштабирование для анимации взлета и посадки на планету.
@@ -273,7 +274,11 @@ public class FleetState : MonoBehaviour
         _distanceSqr = (_targetToMove - transform.position).sqrMagnitude;
 
         if (_distanceSqr < _stopBefore)
+        {
             flagChkDistance = true;
+
+        }
+        print($"{_distanceSqr} {_stopBefore}   {flagChkDistance}");
 
         return flagChkDistance;
     }
@@ -309,12 +314,9 @@ public class FleetState : MonoBehaviour
             {
                 if (_stateFleet == FleetStateStruct.enumFleetState.OrbitAttack)
                 {
-                    _stateFleet = FleetStateStruct.enumFleetState.MovingTowardsPlanetForDescent;
-                    print($"<color=aqua>на абардаж!!!</color>");
                     _fleetManager.CapturePlanet();
-                    SetStopBeforeForDescent();
-                    _distParametrPlanetMono.AddFleetToDefenceFleetOnPlanet(_fleetManager.GetListDataFleet());
-
+                    DescentOnPlanet();
+                    print($"<color=aqua>на абардаж!!!</color>");
                     _distParametrPlanetMono.RemoveToListAttackerFleet(gameObject);
                 }
             }
@@ -324,8 +326,7 @@ public class FleetState : MonoBehaviour
             //если планета дружественная и флот на орбите атаки, то летим присоединяться к флоту зашиты на планете
             if (_stateFleet == FleetStateStruct.enumFleetState.OrbitAttack)
             {
-                _stateFleet = FleetStateStruct.enumFleetState.MovingTowardsPlanetForDescent;
-                SetStopBeforeForDescent();
+                DescentOnPlanet();
             }
         }
     }
@@ -386,6 +387,11 @@ public class FleetState : MonoBehaviour
     }
 
 
-
+    private void DescentOnPlanet()
+    {
+        _stateFleet = FleetStateStruct.enumFleetState.MovingTowardsPlanetForDescent;
+        _distParametrPlanetMono.AddFleetToDefenceFleetOnPlanet(_fleetManager.GetListDataFleet());
+        SetStopBeforeForDescent();
+    }
 
 }
