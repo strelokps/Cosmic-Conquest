@@ -45,7 +45,10 @@ public class ParametrPlanet_mono : MonoBehaviour
     [SerializeField] public Transform _spawnPointDefenceFleet;
     [SerializeField] private GameObject _prefabFleet;
     [ShowInInspector]
-    private List<DataShip> _listDefenderFleet = new List<DataShip>(); //список кораблей для защиты внутри планеты 
+    //private List<DataShip> _listDefenderFleet = new List<DataShip>(); //список кораблей для защиты внутри планеты 
+    [ShowInInspector] private List<DataShip> _listLightShipDefenderFleet = new List<DataShip>(); //список кораблей для защиты внутри планеты 
+    [ShowInInspector] private List<DataShip> _listMediumShipDefenderFleet = new List<DataShip>();//список кораблей для защиты внутри планеты 
+    [ShowInInspector] private List<DataShip> _listHeavyShipDefenderFleet = new List<DataShip>();//список кораблей для защиты внутри планеты 
     public List<GameObject> attackingFleet_LGO = new List<GameObject>(); //список нападающших на планету флотов
     private List<GameObject> _friendlyFleet_LGO = new List<GameObject>(); //список подлетающего дружественного флота
     private FleetManager _fleetManager = new FleetManager();
@@ -57,7 +60,7 @@ public class ParametrPlanet_mono : MonoBehaviour
 
     //test
     [SerializeField] private float _percentForAttackFleet;
-    [SerializeField] private int _numShipsInDefenderFleet;
+    //[SerializeField] private int _numShipsInDefenderFleet;
     [SerializeField] private int _numShipsInDefenceFleet;
     [SerializeField] private int _numShipsInAttackingFleet;
     private int _numRandomShipsForAttack;
@@ -154,7 +157,6 @@ public class ParametrPlanet_mono : MonoBehaviour
     {
         _controls.Disable();
 
-        _numShipsInDefenderFleet = _listDefenderFleet.Count;
         _numShipsInAttackingFleet = attackingFleet_LGO.Count; //test
 
        
@@ -279,7 +281,15 @@ public class ParametrPlanet_mono : MonoBehaviour
     //добавляем корабли с верфи к флоту  на планете
     public void AddShipsToDefenderFleetOnPlanet(DataShip locDataShip)
     {
-        _listDefenderFleet.Add(locDataShip); // добавляем в список защитников планеты
+        /*_listDefenderFleet.Add(locDataShip);*/ // добавляем в список защитников планеты
+        if (locDataShip.typeShip == ShipType.eShipType.light)
+            _listLightShipDefenderFleet.Add(locDataShip);
+
+        if (locDataShip.typeShip == ShipType.eShipType.medium)
+            _listMediumShipDefenderFleet.Add(locDataShip);
+
+        if (locDataShip.typeShip == ShipType.eShipType.heavy)
+            _listHeavyShipDefenderFleet.Add(locDataShip);
     }
 
     //добавление кораблей из флота на планете к флоту на орбите
@@ -341,9 +351,13 @@ public class ParametrPlanet_mono : MonoBehaviour
         {
             //int locNumberEnemy = Random.Range(0, _memberSceneData.enemy.Count);
             int locNumberEnemy = 1;
+
             var x = _memberSceneData.enemy[locNumberEnemy];
+
             var y1 = x.parentTransform;
+
             var y = y1.GetComponent<ParentManager>();
+
             if (y._planetList.Count == 0)
             {
                 Debug.LogError("error");

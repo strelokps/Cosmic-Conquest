@@ -185,12 +185,14 @@ public class FleetState : MonoBehaviour
     {
         if (_fleetManager.isDefenceFleet)
         {
-            print($"Scaning for new target for Def");
+            print($"Scaning for new target for Def fleet");
+
             _fleetShootingSystem.SetTarget(TakeTargetForDefenceFleet()); //выбираем и устанавливаем цель для флота защитника
         }
         else
         {
-            print($"Scaning for new target for Attack");
+            print($"Scaning for new target for Attacking fleet");
+
             _fleetShootingSystem.SetTarget(TakeTargetForAttackingFleet()); //выбираем и устанавливаем цель для флота атаки
         }
     }
@@ -266,6 +268,7 @@ public class FleetState : MonoBehaviour
         scaleModifier = Mathf.Lerp(locStart, locEnd, elapsedTime / _timeToScale);
        
         elapsedTime += Time.deltaTime;
+
         transform.localScale = _originalScale * scaleModifier;
     }
 
@@ -277,9 +280,7 @@ public class FleetState : MonoBehaviour
         if (_distanceSqr < _stopBefore)
         {
             flagChkDistance = true;
-
         }
-        print($"{_distanceSqr} {_stopBefore}   {flagChkDistance}");
 
         return flagChkDistance;
     }
@@ -287,12 +288,19 @@ public class FleetState : MonoBehaviour
     private void StartDefence()
     {
         _fleetManager.isDefenceFleet = true;
+
         _targetToMove = _distParametrPlanetMono._spawnPointDefenceFleet.position;
+
         Vector3 tempPosition = transform.position;
+
         tempPosition = _distParametrPlanetMono.SelfTransform.position;
+
         transform.position = tempPosition;
+
         _stateFleet = FleetStateStruct.enumFleetState.OrbitDefence;
+
         speedMove = 3f;
+
         SetParamScale(0.8f, 0.002f, 1f, new Vector3(1f, 1f, 1f));
     }
     //атакующий флот вызывает флот защиты на орбиту
@@ -302,6 +310,7 @@ public class FleetState : MonoBehaviour
         if (!CheckDistPlanetIsEnemy())
         {
            GameObject go = _distParametrPlanetMono.CallDefenderFleet(transform);
+
             if (go != null & _stateFleet == FleetStateStruct.enumFleetState.OrbitAttack)
             {
                 _stateFleet = FleetStateStruct.enumFleetState.FoundTarget;
@@ -316,8 +325,10 @@ public class FleetState : MonoBehaviour
                 if (_stateFleet == FleetStateStruct.enumFleetState.OrbitAttack)
                 {
                     _fleetManager.CapturePlanet();
+
                     DescentOnPlanet();
                     print($"<color=aqua>на абардаж!!!</color>");
+
                     _distParametrPlanetMono.RemoveToListAttackerFleet(gameObject);
                 }
             }
@@ -391,7 +402,9 @@ public class FleetState : MonoBehaviour
     private void DescentOnPlanet()
     {
         _stateFleet = FleetStateStruct.enumFleetState.MovingTowardsPlanetForDescent;
+
         _distParametrPlanetMono.AddFleetToDefenceFleetOnPlanet(_fleetManager.GetListDataFleet());
+
         SetStopBeforeForDescent();
     }
 

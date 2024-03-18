@@ -28,6 +28,7 @@ public class VersionBuildSO : ScriptableObject
 
     public void Increase()
     {
+ 
         _build++;
         if (_tempMinor != _minor)
         {
