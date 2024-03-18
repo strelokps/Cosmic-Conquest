@@ -126,7 +126,8 @@ public class FleetState : MonoBehaviour
                 break;
 
             case FleetStateStruct.enumFleetState.OrbitAttack:   //IV.
-                SetParamScale(0.8f, 1f, 0.002f, transform.localScale);
+                SetParamScale(0.8f, 1f, 0.2f, transform.localScale);
+                elapsedTime = 0f;
                 CheckOtherAttackersFleetFromOnePlanetToJoin();
                 CallDefFleet();
                 break;
@@ -137,7 +138,7 @@ public class FleetState : MonoBehaviour
 
             case FleetStateStruct.enumFleetState.MovingTowardsPlanetForDescent:
                 Movement();
-                //ScaleForDescent(_startScale, _endScale);
+                ScaleForDescent(_startScale, _endScale);
                 if (CheckDistanceToAttack())
                 {
                     _fleetManager.JoinToDefenderFleet();
