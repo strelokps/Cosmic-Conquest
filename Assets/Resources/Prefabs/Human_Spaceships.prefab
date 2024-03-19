@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6675991342512196851}
   - component: {fileID: 9178620155251108711}
   m_Layer: 0
-  m_Name: Human_Spaceships_pref (2)
+  m_Name: Spaceships_Human_pref_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -195,7 +195,7 @@ GameObject:
   - component: {fileID: 7984573955750609738}
   - component: {fileID: 3462108098525957564}
   m_Layer: 0
-  m_Name: Human_Spaceships_pref (1)
+  m_Name: Spaceships_Human_pref_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1437,7 +1437,7 @@ GameObject:
   - component: {fileID: 4758215756200402927}
   - component: {fileID: 7344354273673423653}
   m_Layer: 0
-  m_Name: Human_Spaceships_pref
+  m_Name: Spaceships_Human_pref
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

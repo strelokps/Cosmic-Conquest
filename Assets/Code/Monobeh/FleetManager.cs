@@ -32,7 +32,7 @@ public class FleetManager : MonoBehaviour
     [SerializeField] private int _armorFleet;
     
     [ShowInInspector] private List<DataShip> _dataFleetList ; //список кораблей во флоту
-    [ShowInInspector] private List<GameObject> arrayOfTypeShip = new List<GameObject>(); //массив префабов типа кораблей( light, medium, heavy) и их point fire
+    [ShowInInspector] private List<GameObject> _arrayOfTypeShip = new List<GameObject>(); //массив префабов типа кораблей( light, medium, heavy) и их point fire
     private FleetState _fleetState;
     private Transform _target;
     private SceneMembersData _membersDataInFleet;
@@ -66,7 +66,10 @@ public class FleetManager : MonoBehaviour
         _armorFleet = 0;
         _numShipInFleet = 0;
         _fleetState = GetComponent<FleetState>();
-        test();
+
+
+        FindSpaceshipsInChildren(transform);
+
     }
 
     private void OnDisable()
@@ -284,12 +287,21 @@ public class FleetManager : MonoBehaviour
         _distParametrPlanetMono.ChangeOwnerPlanet(_membersDataInFleet, _parentTransformInFleet);
     }
 
-    private void test()
+   private void FindSpaceshipsInChildren(Transform parent)
     {
-        for (int i = 0; i < arrayOfTypeShip.Count; i++)
+        if (_arrayOfTypeShip.Count <= 0)
         {
-            print($" test name ship: {arrayOfTypeShip[i].name}");
+            foreach (Transform child in parent)
+            {
+                if (child.name.Contains("Spaceships"))
+                {
+                    _arrayOfTypeShip.Add(child.gameObject);
+                    Debug.Log("Найден космический корабль: " + child.name);
+                }
 
+                // Рекурсивно вызываем функцию для всех дочерних объектов
+                FindSpaceshipsInChildren(child);
+            }
         }
     }
 }
