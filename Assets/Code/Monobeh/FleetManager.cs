@@ -32,7 +32,15 @@ public class FleetManager : MonoBehaviour
     [SerializeField] private int _armorFleet;
     
     [ShowInInspector] private List<DataShip> _dataFleetList ; //список кораблей во флоту
-    [ShowInInspector] private List<GameObject> _arrayOfTypeShip = new List<GameObject>(); //массив префабов типа кораблей( light, medium, heavy) и их point fire
+    private List<GameObject> _arrayShipInPrefabFleet = new List<GameObject>(); //массив кораблей из префаба флота для последующей активации и парсинга для типа кораблей ( light, medium, heavy) и их point fire
+    [ShowInInspector] private int[] _arrayOfTypeShip = new int[3]; //массив типа кораблей light, medium, heavy 
+
+    [ShowInInspector] private Dictionary<ShipType.eShipType, int> shipCountByType = new Dictionary<ShipType.eShipType, int>
+    {
+        {ShipType.eShipType.heavy, 0},
+        {ShipType.eShipType.medium, 0},
+        {ShipType.eShipType.light, 0},
+    };
     private FleetState _fleetState;
     private Transform _target;
     private SceneMembersData _membersDataInFleet;
@@ -188,6 +196,8 @@ public class FleetManager : MonoBehaviour
         _timer = 1f;
         _tempTimer = 0;
 
+        ParseTypeShipInFleet(locDataFleet); //парсим тип кораблей для дальнейшего отображения ГО в префабе(для каждого типа свой ГО)
+
         DisplayAttackAndDefenceFleet();
         DisplayNumShipInFleet();
     }
@@ -288,20 +298,61 @@ public class FleetManager : MonoBehaviour
     }
 
    private void FindSpaceshipsInChildren(Transform parent)
-    {
-        if (_arrayOfTypeShip.Count <= 0)
+   {
+
+        if (_arrayShipInPrefabFleet.Count <= 0)
         {
             foreach (Transform child in parent)
             {
                 if (child.name.Contains("Spaceships"))
                 {
-                    _arrayOfTypeShip.Add(child.gameObject);
-                    Debug.Log("Найден космический корабль: " + child.name);
+                    _arrayShipInPrefabFleet.Add(child.gameObject);
+                    child.gameObject.SetActive(false);
                 }
 
                 // Рекурсивно вызываем функцию для всех дочерних объектов
                 FindSpaceshipsInChildren(child);
             }
         }
+    }
+
+   private void ParseTypeShipInFleet(List<DataShip> locDataFleet)
+   {
+       //проверяем какие типы кораблей есть во флоте
+       for (int i = 0; i < locDataFleet.Count; i++)
+       {
+           if (locDataFleet[i].typeShip == ShipType.eShipType.heavy)
+           {
+               _arrayOfTypeShip[0] = 1;
+                shipCountByType[ShipType.eShipType.heavy]++;
+           }
+
+           if (locDataFleet[i].typeShip == ShipType.eShipType.medium)
+           {
+               _arrayOfTypeShip[1] = 1;
+               shipCountByType[ShipType.eShipType.medium]++;
+
+            }
+
+            if (locDataFleet[i].typeShip == ShipType.eShipType.light)
+           {
+               _arrayOfTypeShip[2] = 1;
+               shipCountByType[ShipType.eShipType.light]++;
+            }
+        }
+
+       int count = 0;
+
+       foreach (ShipType.eShipType type in Enum.GetValues(typeof(ShipType.eShipType)))
+       {
+           if (shipCountByType[type] > 0)
+           {
+               _arrayShipInPrefabFleet[count].SetActive(true);
+               _arrayShipInPrefabFleet[count].name = type.ToString();
+
+               count++; 
+           }
+       }
+       
     }
 }

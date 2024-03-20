@@ -6,8 +6,8 @@ public struct ShipType
 {
     public enum eShipType
     {
-        light = 0,
+        heavy = 0,
         medium = 1,
-        heavy = 2
+        light = 2
     }
 }
