@@ -69,16 +69,16 @@ public class BuyShip : MonoBehaviour
     private void BuildShipHeavy()
     {
         _ship = new DataShip();
-        _ship.damageShipMin = 5;
-        _ship.damageShipMax = 13;
+        _ship.damageShipMin = 1;
+        _ship.damageShipMax = 1;
         _ship.damageShip = _ship.damageShipMin;
-        _ship.armorShip = 50;
+        _ship.armorShip = 9000;
         _ship.maxShieldShip = 20;
         _ship.shieldShip = 20;
         _ship.regenShield = 5;
         _ship.speedShip = 3.5f;
         _ship.coastShip = 15;
-        _ship.timeToBuild = 8f;
+        _ship.timeToBuild = 0.8f;
         _ship.typeShip = eShipType.heavy;
         _ship.typeShipIncreasedDamage = eShipType.medium;
         _ship.increasedDamage = 1.3f;

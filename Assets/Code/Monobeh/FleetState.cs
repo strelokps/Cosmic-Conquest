@@ -111,7 +111,6 @@ public class FleetState : MonoBehaviour
                 {
                     _stopBefore = 16f;
                     _stateFleet = FleetStateStruct.enumFleetState.MoveToOrbitAttack;
-                    _fleetManager.StartRegenShield();
                     CallDefFleet();
                 }
                 break;
@@ -315,7 +314,7 @@ public class FleetState : MonoBehaviour
             {
                 _stateFleet = FleetStateStruct.enumFleetState.FoundTarget;
 
-                _distParametrPlanetMono.AddToListAttackerFleet(gameObject);
+                _distParametrPlanetMono.attackingFleet_LGO.Add(gameObject);
 
 
                 print($"<color=red> В атаку!!! </color>");
@@ -356,7 +355,8 @@ public class FleetState : MonoBehaviour
             {
                 if (_distParametrPlanetMono.attackingFleet_LGO[i] == null)
                 {
-                    print("1");
+                    print($"_selfParametrPlanetMono = {_selfParametrPlanetMono.SelfTransform.name} ");
+                    var x = _fleetManager.GetListDataFleet();
                 }
 
                 if (_distParametrPlanetMono.attackingFleet_LGO[i].activeInHierarchy)

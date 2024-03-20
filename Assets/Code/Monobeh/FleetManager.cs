@@ -33,7 +33,6 @@ public class FleetManager : MonoBehaviour
     
     [ShowInInspector] private List<DataShip> _dataFleetList ; //список кораблей во флоту
     private List<GameObject> _arrayShipInPrefabFleet = new List<GameObject>(); //массив кораблей из префаба флота для последующей активации и парсинга для типа кораблей ( light, medium, heavy) и их point fire
-    [ShowInInspector] private int[] _arrayOfTypeShip = new int[3]; //массив типа кораблей light, medium, heavy 
 
     [ShowInInspector] private Dictionary<ShipType.eShipType, int> shipCountByType = new Dictionary<ShipType.eShipType, int>
     {
@@ -76,13 +75,12 @@ public class FleetManager : MonoBehaviour
         _fleetState = GetComponent<FleetState>();
 
 
-        FindSpaceshipsInChildren(transform);
 
     }
 
     private void OnDisable()
     {
-        Destroy();
+        //Destroy();
     }
 
     private void Update()
@@ -167,6 +165,7 @@ public class FleetManager : MonoBehaviour
         ,ParametrPlanet_mono locTargetPlanetMono, SceneMembersData locMembersDataInFleet
         ,FleetStateStruct.enumFleetState _locFleetState)
     {
+        FindSpaceshipsInChildren(transform);
 
         _dataFleetList = new List<DataShip> ( locDataFleet );
 
@@ -208,6 +207,7 @@ public class FleetManager : MonoBehaviour
     {
 
         _dataFleetList.AddRange(locListDataFleetToMerg);
+        ParseTypeShipInFleet(locListDataFleetToMerg);
         DisplayAttackAndDefenceFleet();
         DisplayNumShipInFleet();
     }
@@ -243,7 +243,7 @@ public class FleetManager : MonoBehaviour
 
     public void DestroyAttackingFleet()
     {
-        RemoveAttackingFleetFromListOnPlanet();
+        //RemoveAttackingFleetFromListOnPlanet();
         Destroy(gameObject);
 
     }
@@ -274,11 +274,7 @@ public class FleetManager : MonoBehaviour
         _healthSystem.TakeDamage(this, locDataShips);
     }
 
-    //Стартуем таймер, который будет вызывать метод, который вызывает метод в health sysytem. Да, знаю что выглядит не очень.
-    public void StartRegenShield()
-    {
-        //var _timer = new Timer(CallRegenShield, null, 0, 1000);
-    }
+
 
     private void CallRegenShield()
     {
@@ -321,25 +317,24 @@ public class FleetManager : MonoBehaviour
        //проверяем какие типы кораблей есть во флоте
        for (int i = 0; i < locDataFleet.Count; i++)
        {
-           if (locDataFleet[i].typeShip == ShipType.eShipType.heavy)
+           if (locDataFleet[i].typeShip == ShipType.eShipType.light)
            {
-               _arrayOfTypeShip[0] = 1;
-                shipCountByType[ShipType.eShipType.heavy]++;
+                shipCountByType[ShipType.eShipType.light]++;
            }
-
+           else
+           
            if (locDataFleet[i].typeShip == ShipType.eShipType.medium)
            {
-               _arrayOfTypeShip[1] = 1;
                shipCountByType[ShipType.eShipType.medium]++;
 
-            }
-
-            if (locDataFleet[i].typeShip == ShipType.eShipType.light)
+           }
+           else
+           
+           if (locDataFleet[i].typeShip == ShipType.eShipType.heavy)
            {
-               _arrayOfTypeShip[2] = 1;
-               shipCountByType[ShipType.eShipType.light]++;
-            }
-        }
+               shipCountByType[ShipType.eShipType.heavy]++;
+           }
+       }
 
        int count = 0;
 

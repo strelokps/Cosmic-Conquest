@@ -307,13 +307,13 @@ public class ParametrPlanet_mono : MonoBehaviour
         }
     }
 
-    public void AddFleetToDefenderFleetOnOrbit(List<DataShip> locListDataFleet)
-    {
-        if (defFleetOnOrbitPlanet_GO != null)
-        {
-            _defFleetManager.MergFleets(locListDataFleet); // добавляем во флот защиты, который на данный момент активен
-        }
-    }
+    //public void AddFleetToDefenderFleetOnOrbit(List<DataShip> locListDataFleet)
+    //{
+    //    if (defFleetOnOrbitPlanet_GO != null)
+    //    {
+    //        _defFleetManager.MergFleets(locListDataFleet); // добавляем во флот защиты, который на данный момент активен
+    //    }
+    //}
 
 
     //вызов на орбиту защитного флота планеты
@@ -426,10 +426,10 @@ public class ParametrPlanet_mono : MonoBehaviour
         _friendlyFleet_LGO.Remove(locIncomeFriedlyFleet);
     }
 
-    public void AddToListAttackerFleet(GameObject locAttackerFleet)
-    {
-        attackingFleet_LGO.Add(locAttackerFleet);
-    }
+    //public void AddToListAttackerFleet(GameObject locAttackerFleet)
+    //{
+    //    attackingFleet_LGO.Add(locAttackerFleet);
+    //}
     public void RemoveToListAttackerFleet(GameObject locAttackerFleet)
     {
         attackingFleet_LGO.Remove(locAttackerFleet);
