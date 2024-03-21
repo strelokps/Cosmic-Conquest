@@ -317,9 +317,7 @@ public class FleetState : MonoBehaviour
 
                 _distParametrPlanetMono.attackingFleet_LGO.Add(gameObject);
                 count++;
-                print($"<color=pink> add to list Attack {transform.name} || {count}</color>");
-
-
+                print($"<color=7FFFD4> add to list Attack {transform.name} || {count}</color>");
             }
             else
             {
@@ -394,8 +392,7 @@ public class FleetState : MonoBehaviour
                 }
             }
         }
-                    return flagToMerg;
-
+        return flagToMerg;
     }
 
 

@@ -4676,6 +4676,18 @@ PrefabInstance:
       value: Planet_prefab
       objectReference: {fileID: 0}
     - target: {fileID: 2399686680153646355, guid: c7c03e9ee069c84498ef71ff01d93fe7, type: 3}
+      propertyPath: _colorPlanet.b
+      value: 0.516006
+      objectReference: {fileID: 0}
+    - target: {fileID: 2399686680153646355, guid: c7c03e9ee069c84498ef71ff01d93fe7, type: 3}
+      propertyPath: _colorPlanet.g
+      value: 0.028435374
+      objectReference: {fileID: 0}
+    - target: {fileID: 2399686680153646355, guid: c7c03e9ee069c84498ef71ff01d93fe7, type: 3}
+      propertyPath: _colorPlanet.r
+      value: 0.6698113
+      objectReference: {fileID: 0}
+    - target: {fileID: 2399686680153646355, guid: c7c03e9ee069c84498ef71ff01d93fe7, type: 3}
       propertyPath: _fleetTransform
       value: 
       objectReference: {fileID: 0}
@@ -5654,7 +5666,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'ver.: 0.1.804.1339'
+  m_text: 'ver.: 0.1.813.1348'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
