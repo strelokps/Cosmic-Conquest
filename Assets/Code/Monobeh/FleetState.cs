@@ -43,7 +43,7 @@ public class FleetState : MonoBehaviour
     private bool flagChkDistance; // флаг для проверки дистанции
     //test
 
-
+    private int count = 0;
 
     private void Update()
     {
@@ -127,7 +127,8 @@ public class FleetState : MonoBehaviour
             case FleetStateStruct.enumFleetState.OrbitAttack:   //IV.
                 SetParamScale(0.8f, 1f, 0.2f, transform.localScale);
                 elapsedTime = 0f;
-                CheckOtherAttackersFleetFromOnePlanetToJoin();
+                if(CheckOtherAttackersFleetFromOnePlanetToJoin())
+                    break;
                 CallDefFleet();
                 break;
 
@@ -315,6 +316,9 @@ public class FleetState : MonoBehaviour
                 _stateFleet = FleetStateStruct.enumFleetState.FoundTarget;
 
                 _distParametrPlanetMono.attackingFleet_LGO.Add(gameObject);
+                count++;
+                print($"<color=pink> add to list Attack {transform.name} || {count}</color>");
+
 
             }
             else
@@ -343,8 +347,9 @@ public class FleetState : MonoBehaviour
 
 
     //проверяем наличие у нападающих флотов соотвествие по вылету из одной и тойже планеты, если совпало, то добавляем к фл
-    private void CheckOtherAttackersFleetFromOnePlanetToJoin()
+    private bool CheckOtherAttackersFleetFromOnePlanetToJoin()
     {
+        bool flagToMerg = false;
         //уже есть атакующий флот
         if (_distParametrPlanetMono.attackingFleet_LGO.Count > 0)
         {
@@ -380,13 +385,17 @@ public class FleetState : MonoBehaviour
                         .MergFleets(_fleetManager.GetListDataFleet());
 
                     _distParametrPlanetMono.RemoveToListAttackerFleet(gameObject);
+
+                    count++;
+                    print($"<color=red> merg {transform.name} || {count}</color>");
+                    flagToMerg = true;
                     _fleetManager.Destroy();
 
-                    break;
                 }
             }
         }
-      
+                    return flagToMerg;
+
     }
 
 
