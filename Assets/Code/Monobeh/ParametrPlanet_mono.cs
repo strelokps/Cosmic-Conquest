@@ -115,7 +115,7 @@ public class ParametrPlanet_mono : MonoBehaviour
         {
             Debug.Log($"Not found MeshRenderer in gameObject {gameObject.name}  {prop_IdPlanet}");
         }
-        _percentForAttackFleet = 70f;
+        _percentForAttackFleet = 100f;
         _controls = new InputControls();
         _planetCapturing = gameObject.GetComponent<PlanetCapturing>();
     }

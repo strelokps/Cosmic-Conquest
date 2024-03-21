@@ -87,7 +87,7 @@ public class ParentManager : MonoBehaviour
     {
         if (_idFleet > 999999)
             _idFleet = 0;
-        return transform.name + "_" + _idFleet.ToString();
+        return transform.name + "_" + _idFleet++.ToString();
     }
 
 }

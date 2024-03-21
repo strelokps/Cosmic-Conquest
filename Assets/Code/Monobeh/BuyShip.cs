@@ -38,7 +38,6 @@ public class BuyShip : MonoBehaviour
         _ship.increasedDamage = 1.3f;
 
         SetShipToBuildInShipyard();
-        print($"Корабль отправлен на верфь");
     }
 
 
@@ -61,7 +60,6 @@ public class BuyShip : MonoBehaviour
         _ship.increasedDamage = 1.3f;
 
         SetShipToBuildInShipyard();
-        print($"Корабль отправлен на верфь");
     }
 
 
@@ -84,7 +82,6 @@ public class BuyShip : MonoBehaviour
         _ship.increasedDamage = 1.3f;
 
         SetShipToBuildInShipyard();
-        print($"Корабль отправлен на верфь");
     }
 
     private void SetShipToBuildInShipyard()

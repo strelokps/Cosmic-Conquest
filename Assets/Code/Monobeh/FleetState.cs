@@ -196,7 +196,7 @@ public class FleetState : MonoBehaviour
         }
     }
 
-    private GameObject TakeTargetForDefenceFleet()
+    public GameObject TakeTargetForDefenceFleet()
     {
         GameObject go = null;
         if (_selfParametrPlanetMono.attackingFleet_LGO.Count > 0)
@@ -214,7 +214,7 @@ public class FleetState : MonoBehaviour
         return go;
     }
 
-    private GameObject TakeTargetForAttackingFleet()
+    public GameObject TakeTargetForAttackingFleet()
     {
         GameObject go = null;
         if (_distParametrPlanetMono.defFleetOnOrbitPlanet_GO != null)
@@ -316,8 +316,6 @@ public class FleetState : MonoBehaviour
 
                 _distParametrPlanetMono.attackingFleet_LGO.Add(gameObject);
 
-
-                print($"<color=red> В атаку!!! </color>");
             }
             else
             {
@@ -326,7 +324,6 @@ public class FleetState : MonoBehaviour
                     _fleetManager.CapturePlanet();
 
                     DescentOnPlanet();
-                    print($"<color=aqua>на абардаж!!!</color>");
 
                     _distParametrPlanetMono.RemoveToListAttackerFleet(gameObject);
                 }
@@ -385,7 +382,7 @@ public class FleetState : MonoBehaviour
                     _distParametrPlanetMono.RemoveToListAttackerFleet(gameObject);
                     _fleetManager.Destroy();
 
-                    return;
+                    break;
                 }
             }
         }

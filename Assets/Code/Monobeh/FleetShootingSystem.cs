@@ -15,6 +15,8 @@ public class FleetShootingSystem : MonoBehaviour
 
     [Header("Sefl fleet")]
     private List<DataShip> _selfFleet;
+    private FleetState _fleetStateSelfFleet = new FleetState();
+    private FleetManager _selfFleetManager = new FleetManager();
 
 
     public void InitShootingSystem(GameObject locPrefabBullet, DataBullet locDataBullet, List<DataShip> locSelfFleet)
@@ -22,6 +24,8 @@ public class FleetShootingSystem : MonoBehaviour
         _dataBullet = locDataBullet;
         _prefabBullet = locPrefabBullet;
         _selfFleet = locSelfFleet;
+        _fleetStateSelfFleet = GetComponent<FleetState>();
+        _selfFleetManager = GetComponent<FleetManager>();
     }
 
     public void SetTarget(GameObject locTarget)
@@ -49,6 +53,18 @@ public class FleetShootingSystem : MonoBehaviour
         if (_targetFleet == null)
         {
             print($"<color=magenta> Ќужна нова€ цель </color> ");
+            if (_selfFleetManager)
+            {
+                print("поиск цели дл€ def fleet from shooting system   " + _selfFleetManager._selfPlanetTransform.name);
+
+                _fleetStateSelfFleet._stateFleet = FleetStateStruct.enumFleetState.FoundTarget;
+            }
+            else
+            {
+                print("поиск цели дл€ attacking fleet from shooting system   " + _selfFleetManager._selfPlanetTransform.name);
+
+                _fleetStateSelfFleet._stateFleet = FleetStateStruct.enumFleetState.FoundTarget;
+            }
         }
 
         //test

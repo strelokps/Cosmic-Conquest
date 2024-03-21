@@ -74,13 +74,12 @@ public class FleetManager : MonoBehaviour
         _numShipInFleet = 0;
         _fleetState = GetComponent<FleetState>();
 
-
-
     }
 
     private void OnDisable()
     {
-        //Destroy();
+        Destroy();
+        //print($"disable {_distParametrPlanetMono.attackingFleet_LGO.Count}  {_parentTransformInFleet.name}");
     }
 
     private void Update()
@@ -243,7 +242,7 @@ public class FleetManager : MonoBehaviour
 
     public void DestroyAttackingFleet()
     {
-        //RemoveAttackingFleetFromListOnPlanet();
+        RemoveAttackingFleetFromListOnPlanet();
         Destroy(gameObject);
 
     }
@@ -272,6 +271,11 @@ public class FleetManager : MonoBehaviour
     public void TakeDamageFleet( List<DataShip> locDataShips)
     {
         _healthSystem.TakeDamage(this, locDataShips);
+        if (locDataShips.Count == 0)
+        {
+            print($"kill me");
+            Destroy();
+        }
     }
 
 
