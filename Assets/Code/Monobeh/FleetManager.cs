@@ -72,7 +72,6 @@ public class FleetManager : MonoBehaviour
         _attackFleet = 0;
         _armorFleet = 0;
         _numShipInFleet = 0;
-        _fleetState = GetComponent<FleetState>();
 
     }
 
@@ -86,14 +85,12 @@ public class FleetManager : MonoBehaviour
     {
             CallRegenShield();
 
-
-            //if (flagDestroy)
-            //DestroyAttackingFleet();
     }
 
     public void AddShipToFleet(DataShip locDataShip)
     {
         _dataFleetList.Add(locDataShip);
+
         DisplayAttackAndDefenceFleet();
     }
 
@@ -186,7 +183,8 @@ public class FleetManager : MonoBehaviour
         _membersDataInFleet = locMembersDataInFleet;
 
         _selfParametrPlanetMono = locPlanetIsOwnerFleet.GetComponent<ParametrPlanet_mono>();
-        
+
+        _fleetState = GetComponent<FleetState>();
         _fleetState.SetState( _locFleetState, locTargetPlanetMono, _selfParametrPlanetMono);
         _fleetState.speedMove = GetMinSpeedFleet(locDataFleet);
 
@@ -213,6 +211,7 @@ public class FleetManager : MonoBehaviour
 
     public void JoinToDefenderFleet()
     {
+        _healthSystem.SetMaxArmorAndShield(_dataFleetList);
         _distParametrPlanetMono.AddFleetToDefenceFleetOnPlanet(_dataFleetList);
         Destroy();
     }

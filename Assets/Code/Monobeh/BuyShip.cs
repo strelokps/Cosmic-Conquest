@@ -27,6 +27,7 @@ public class BuyShip : MonoBehaviour
         _ship.damageShipMax = 3f;
         _ship.damageShip = _ship.damageShipMin;
         _ship.armorShip = 10f;
+        _ship.maxArmorShip = _ship.armorShip;
         _ship.maxShieldShip = 5f;
         _ship.shieldShip = 5f;
         _ship.regenShield = 0.1f;
@@ -49,6 +50,7 @@ public class BuyShip : MonoBehaviour
         _ship.damageShipMax = 7;
         _ship.damageShip = _ship.damageShipMin;
         _ship.armorShip = 7000;
+        _ship.maxArmorShip = _ship.armorShip;
         _ship.maxShieldShip = 10;
         _ship.shieldShip = 10;
         _ship.regenShield = 2;
@@ -71,6 +73,7 @@ public class BuyShip : MonoBehaviour
         _ship.damageShipMax = 1;
         _ship.damageShip = _ship.damageShipMin;
         _ship.armorShip = 9000;
+        _ship.maxArmorShip = _ship.armorShip;
         _ship.maxShieldShip = 20;
         _ship.shieldShip = 20;
         _ship.regenShield = 5;

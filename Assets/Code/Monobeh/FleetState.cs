@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Security.Cryptography;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Color = System.Drawing.Color;
@@ -142,7 +143,6 @@ public class FleetState : MonoBehaviour
                 if (CheckDistanceToAttack())
                 {
                     _fleetManager.JoinToDefenderFleet();
-                    _fleetManager.Destroy();
                 }
                 break;
             case FleetStateStruct.enumFleetState.RefundDefenceFleet:
@@ -317,15 +317,16 @@ public class FleetState : MonoBehaviour
 
                 _distParametrPlanetMono.attackingFleet_LGO.Add(gameObject);
                 count++;
-                print($"<color=7FFFD4> add to list Attack {transform.name} || {count}</color>");
             }
             else
             {
                 if (_stateFleet == FleetStateStruct.enumFleetState.OrbitAttack)
                 {
+                    _stateFleet = FleetStateStruct.enumFleetState.MovingTowardsPlanetForDescent;
+                    
                     _fleetManager.CapturePlanet();
-
-                    DescentOnPlanet();
+                    
+                    print($"<color=bisque> DescentOnPlanet  1 {transform.name} || {count}</color>");
 
                     _distParametrPlanetMono.RemoveToListAttackerFleet(gameObject);
                 }
@@ -336,7 +337,10 @@ public class FleetState : MonoBehaviour
             //если планета дружественная и флот на орбите атаки, то летим присоединяться к флоту зашиты на планете
             if (_stateFleet == FleetStateStruct.enumFleetState.OrbitAttack)
             {
-                DescentOnPlanet();
+                _stateFleet = FleetStateStruct.enumFleetState.MovingTowardsPlanetForDescent;
+
+                print($"<color=bisque> DescentOnPlanet  2 {transform.name} || {count}</color>");
+
             }
         }
     }
@@ -353,20 +357,19 @@ public class FleetState : MonoBehaviour
         {
             for (int i = 0; i < _distParametrPlanetMono.attackingFleet_LGO.Count; i++)
             {
-                if (_distParametrPlanetMono.attackingFleet_LGO[i] == null)
-                {
-                    print($"_selfParametrPlanetMono = {_selfParametrPlanetMono.SelfTransform.name} ");
-                    var x = _fleetManager.GetListDataFleet();
-                }
+                //if (_distParametrPlanetMono.attackingFleet_LGO[i] == null)
+                //{
+                //    print($"_selfParametrPlanetMono = {_selfParametrPlanetMono.SelfTransform.name} ");
+                //}
 
-                if (_distParametrPlanetMono.attackingFleet_LGO[i].activeInHierarchy)
-                {
-                    print($"<color=gold> A name {_distParametrPlanetMono.attackingFleet_LGO[i].name} </color>");
-                }
-                else
-                {
-                    print($"<color=aqua> !!!A name {_distParametrPlanetMono.attackingFleet_LGO[i].name} </color>");
-                }
+                //if (_distParametrPlanetMono.attackingFleet_LGO[i].activeInHierarchy)
+                //{
+                //    print($"<color=gold> A name {_distParametrPlanetMono.attackingFleet_LGO[i].name} </color>");
+                //}
+                //else
+                //{
+                //    print($"<color=aqua> !!!A name {_distParametrPlanetMono.attackingFleet_LGO[i].name} </color>");
+                //}
                 //проверяем наличие флотов вылетивших с той же планеты что и данный флот, если есть, то добавляемся.
                 if (_distParametrPlanetMono.attackingFleet_LGO[i]
                         .GetComponent<FleetManager>()
@@ -409,6 +412,9 @@ public class FleetState : MonoBehaviour
         _distParametrPlanetMono.AddFleetToDefenceFleetOnPlanet(_fleetManager.GetListDataFleet());
 
         SetStopBeforeForDescent();
+        print($"<color=aqua> DescentOnPlanet  3 {transform.name} || {count}</color>");
+       
+
     }
 
 }

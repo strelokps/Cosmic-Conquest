@@ -7,9 +7,9 @@ using Random = System.Random;
 public struct HealthSystem
 {
     private DataShip _dataShip;
-    public void TakeDamage(FleetManager _selfFleetManager, List<DataShip> locEnemyDataShips) 
+    public void TakeDamage(FleetManager _selfFleetManager, List<DataShip> locEnemyDataShips)
     {
-        List<DataShip> locSelfListShips = _selfFleetManager.GetListDataFleet();
+        List <DataShip> locSelfListShips = _selfFleetManager.GetListDataFleet();
         float locTotalDamage = 0;
         float increasedDamage = 1;
         System.Random random = new System.Random();
@@ -32,7 +32,12 @@ public struct HealthSystem
                     break;
                 }
 
-                int targetIndex = random.Next(0, locSelfListShips.Count); // Выбираем случайный корабль
+                int targetIndex = random.Next(0, locSelfListShips.Count); // Выбираем случайный корабль для нанемения урона
+                
+                if (targetIndex == locSelfListShips.Count)
+                {
+                    Debug.LogError("в TakeDamage, targetIndex == locSelfListShips.Count должен быть выход за диапазон locSelfListShips[targetIndex] ?!!");
+                }
 
                 DataShip targetShip = locSelfListShips[targetIndex];
 
@@ -49,12 +54,12 @@ public struct HealthSystem
                     Math.Min(targetShip.armorShip + targetShip.shieldShip, ( locTotalDamage * increasedDamage)); // Вычисляем урон
 
                 //Debug.Log($" До <color=red> shield {targetShip.shieldShip}  armor {targetShip.armorShip} </color>");
-
+                
                 // Распределяем урон между броней и щитом
                 if (damageToApply <= targetShip.shieldShip)
                 {
                     targetShip.shieldShip -= damageToApply;
-                    locSelfListShips[targetIndex] = targetShip;
+                    locSelfListShips[targetIndex] = targetShip;     //копируем корабль обратно в список
                 }
                 else
                 {
@@ -62,7 +67,7 @@ public struct HealthSystem
                     targetShip.shieldShip = 0;
                     targetShip.armorShip -= remainingDamage;
 
-                    locSelfListShips[targetIndex] = targetShip;
+                    locSelfListShips[targetIndex] = targetShip;     //копируем корабль обратно в список
 
                 }
 
@@ -89,6 +94,31 @@ public struct HealthSystem
 
                 locDataShip.shieldShip += Math.Min(locSelfShips[i].maxShieldShip - locSelfShips[i].shieldShip,
                     locSelfShips[i].regenShield); // Вычисляем что меньше, уроень регинераци или разница между max и текущем уровнем щита
+
+                locSelfShips[i] = locDataShip;
+            }
+        }
+    }
+
+    public void SetMaxArmorAndShield(List<DataShip> locSelfShips)
+    {
+        DataShip locDataShip = new DataShip();
+        for (int i = 0; i < locSelfShips.Count; i++)
+        {
+            if (locSelfShips[i].shieldShip < locSelfShips[i].maxShieldShip)
+            {
+                locDataShip = locSelfShips[i];
+
+                locDataShip.shieldShip = locDataShip.maxShieldShip; 
+
+                locSelfShips[i] = locDataShip;
+            }
+
+            if (locSelfShips[i].armorShip < locSelfShips[i].maxArmorShip)
+            {
+                locDataShip = locSelfShips[i];
+
+                locDataShip.armorShip = locDataShip.maxArmorShip; 
 
                 locSelfShips[i] = locDataShip;
             }

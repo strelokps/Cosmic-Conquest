@@ -3,6 +3,9 @@ using System.IO;
 
 public class Logger
 {
+    //private Logger log ;
+    //log = new Logger("d:\\");
+    //log.WriteLine($" ");
 
     public Logger(string logFilePath)
     {

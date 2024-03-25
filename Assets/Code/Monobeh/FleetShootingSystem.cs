@@ -75,6 +75,7 @@ public class FleetShootingSystem : MonoBehaviour
         if (fleet.Count == 0)
         {
             _targetFleet.GetComponent<FleetManager>().Destroy();
+            _targetFleet = null;
             GetComponent<FleetState>()._stateFleet = FleetStateStruct.enumFleetState.FoundTarget;
         }
 
