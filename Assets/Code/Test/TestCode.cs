@@ -8,6 +8,9 @@ public class TestCode : MonoBehaviour
     [SerializeField] private Material _material;
     [SerializeField] private GameObject _gameObject;
     private InputControls _controls;
+    private float x;
+    private float y;
+    private float z;
 
     private void Awake()
     {
@@ -17,10 +20,15 @@ public class TestCode : MonoBehaviour
 
     private void Start()
     {
-        
-        _material = gameObject.GetComponent<MeshRenderer>().material;
-        _material.color = Color.blue;
-        _material.SetColor("_EmissionColor", Color.blue * 1);
+        x = Random.Range(0.1f, 1.5f);
+        y = Random.Range(0.1f, 1.5f);
+        z = Random.Range(0.1f, 1.5f);
+        if (_material != null)
+        {
+            _material = gameObject.GetComponent<MeshRenderer>().material;
+            _material.color = Color.blue;
+            _material.SetColor("_EmissionColor", Color.blue * 1);
+        }
     }
 
     private void OnEnable()
@@ -39,7 +47,7 @@ public class TestCode : MonoBehaviour
     private void Update()
     {
         
-        transform.Rotate(new Vector3(0.5f,1f,1.3f) * 0.2f);
+        transform.Rotate(new Vector3(x,y,z) * 0.2f);
 
        
     }

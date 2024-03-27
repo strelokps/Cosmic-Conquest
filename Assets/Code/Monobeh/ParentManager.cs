@@ -14,6 +14,7 @@ public class ParentManager : MonoBehaviour
     private int numChild;
     private bool _flagPlayer;
     private int _idFleet;
+    private int _idPlanet;
 
     [SerializeField] private Transform enemyTransform;
 
@@ -36,17 +37,21 @@ public class ParentManager : MonoBehaviour
         numChild = CheckNumChild();
         _planetList = new List<ParametrPlanet_mono>();
 
-        for (int i = 0; i < numChild; i++)
-        {
-            if (transform.GetChild(i).GetComponent<ParametrPlanet_mono>() & gameObject.activeInHierarchy)
-            {
-                
-                var pl = _parentTransform.GetChild(i).GetComponent<ParametrPlanet_mono>();
-                _planetList.Add(pl);
-                pl.StartetConfig(_memberSceneDatasParent, _parentTransform);
-            }
-        }
-       
+        SearchAllChildren(transform);
+
+        //for (int i = 0; i < numChild; i++)
+        //{
+        //    if (transform.GetChild(i).GetComponent<ParametrPlanet_mono>() 
+        //        & gameObject.activeSelf 
+        //        & transform.GetChild(i).gameObject.activeSelf)
+        //    {
+
+        //        var pl = _parentTransform.GetChild(i).GetComponent<ParametrPlanet_mono>();
+        //        _planetList.Add(pl);
+        //        pl.StartetConfig(_memberSceneDatasParent, _parentTransform);
+        //    }
+        //}
+
     }
 
     public void AddSolarium(int locAddSolarium)
@@ -87,7 +92,37 @@ public class ParentManager : MonoBehaviour
     {
         if (_idFleet > 999999)
             _idFleet = 0;
-        return transform.name + "_" + _idFleet++.ToString();
+        return "Fleet_" + transform.name + "_" + _idFleet++.ToString();
     }
 
+    //создаем ID название для планеты
+    public string GetIdForPlanet()
+    {
+        if (_idPlanet > 999999)
+            _idPlanet = 0;
+        return "Planet_" + transform.name + "_" + _idPlanet++.ToString();
+    }
+
+    private void SearchAllChildren(Transform parenTransform)
+    {
+        foreach (Transform child in parenTransform)
+        {
+
+            if (child.GetComponent<ParametrPlanet_mono>() 
+                & gameObject.activeSelf 
+                & child.gameObject.activeSelf
+                )
+            {
+                if (child.GetComponent<ParametrPlanet_mono>().pParentManager == null)
+                {
+                    var pl = child.GetComponent<ParametrPlanet_mono>();
+                    _planetList.Add(pl);
+                    pl.StartetConfig(_memberSceneDatasParent, _parentTransform);
+                }
+            }
+
+            // Рекурсивно вызываем функцию для всех дочерних объектов
+            SearchAllChildren(child);
+        }
+    }
 }

@@ -202,7 +202,7 @@ public class ParametrPlanet_mono : MonoBehaviour
         _shipyard.InitShipyard(this);
         _buyShip.InitBuyShip(_shipyard);
 
-
+        gameObject.name = _parentManager.GetIdForPlanet(); //прописываем уникальное имя
 
         //test
         _parentManager.AddSolarium(1000);

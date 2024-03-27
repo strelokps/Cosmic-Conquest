@@ -326,8 +326,8 @@ public class FleetState : MonoBehaviour
                     
                     _fleetManager.CapturePlanet();
                     
-                    print($"<color=bisque> DescentOnPlanet  1 {transform.name} || {count}</color>");
-
+                    print($"<color=aquamarine> DescentOnPlanet  1 {transform.name} || {count}</color>");
+                    
                     _distParametrPlanetMono.RemoveToListAttackerFleet(gameObject);
                 }
             }
@@ -373,12 +373,12 @@ public class FleetState : MonoBehaviour
                 //проверяем наличие флотов вылетивших с той же планеты что и данный флот, если есть, то добавляемся.
                 if (_distParametrPlanetMono.attackingFleet_LGO[i]
                         .GetComponent<FleetManager>()
-                        ._selfPlanetTransform 
+                        ._selfPlanetTransform //берем трансформ с атакующего флота
                         == 
                         _fleetManager
-                        ._selfPlanetTransform 
+                        ._selfPlanetTransform //берем тарнсформ с подлетающего флота
                         & 
-                        _distParametrPlanetMono.attackingFleet_LGO[i] != gameObject)
+                        _distParametrPlanetMono.attackingFleet_LGO[i] != gameObject) //убираем из списка сравнения подлетющей флот
                 {
                     _distParametrPlanetMono
                         .attackingFleet_LGO[i]

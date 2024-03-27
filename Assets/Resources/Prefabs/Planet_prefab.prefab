@@ -44,6 +44,9 @@ GameObject:
   - component: {fileID: 480074383207666134}
   - component: {fileID: 2399686680153646354}
   - component: {fileID: 2399686680153646355}
+  - component: {fileID: 8378940135694607124}
+  - component: {fileID: 6870183126730721843}
+  - component: {fileID: 2356867024362792375}
   m_Layer: 0
   m_Name: Planet_prefab
   m_TagString: Untagged
@@ -145,16 +148,55 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _idPlanet: 0
   _colorPlanet: {r: 0, g: 0, b: 0, a: 0}
-  selfTransform: {fileID: 0}
+  _parentTransformFromPlanet: {fileID: 0}
   _timerForGenGold: 1
   _genGoldPerSecond: 1
   _spawnPointAttackFleet: {fileID: 1254257694260417280}
   _spawnPointDefenceFleet: {fileID: 1393487259139945159}
   _prefabFleet: {fileID: 0}
+  attackingFleet_LGO: []
   _stateFleet: 0
+  defFleetOnOrbitPlanet_GO: {fileID: 0}
   _percentForAttackFleet: 0
-  _numShipsInFleet: 0
+  _numShipsInDefenceFleet: 0
+  _numShipsInAttackingFleet: 0
   _currentLvlPlanet: 1
+--- !u!114 &8378940135694607124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2137359806950027267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc519837856e709469e5133067bd60ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6870183126730721843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2137359806950027267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b26d86fb5970b2c40a6afa5a11de94ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2356867024362792375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2137359806950027267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b7b0ab8a1512c9498fd3700bb40c194, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4286012676955379948
 GameObject:
   m_ObjectHideFlags: 0
