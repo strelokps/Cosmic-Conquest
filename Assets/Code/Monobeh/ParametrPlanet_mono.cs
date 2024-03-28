@@ -332,7 +332,7 @@ public class ParametrPlanet_mono : MonoBehaviour
             print($"eulerAngles CallDefenderFleet: {_spawnPointDefenceFleet.eulerAngles}");
             print($"loc eulerAngles CallDefenderFleet: {_spawnPointDefenceFleet.localEulerAngles}");
 
-            GenerationFleet(_stateFleet, _listDefenderFleet, _spawnPointDefenceFleet, locTransformAttackingFleet);
+            GenerationFleet(_stateFleet, _listDefenderFleet, SetSpawnPointToDefence(locTransformAttackingFleet), locTransformAttackingFleet);
             _listDefenderFleet = new List<DataShip>(); //очищаем список флота на планете, т.к. все корабли были переданы в деф флот
 
             Clear();
@@ -369,27 +369,36 @@ public class ParametrPlanet_mono : MonoBehaviour
         return locTrarget;
     }
 
+    private Transform f()
+    {
+        Transform t = _targetToFleet;
+        return t;
+    }
+
     //точка откуда вылетает корабль у планету
-    private void SetSpawnPointToAttack(Transform locSpawnPointToTarget)
+    private Transform SetSpawnPointToAttack(Transform locSpawnPointToTarget)
     {
         float y = _spawnPointAttackFleet.localPosition.y;
 
         Vector3 tempVector = (locSpawnPointToTarget.position - transform.position).normalized * 2f;
-
-        _spawnPointAttackFleet.localPosition = new Vector3(tempVector.x, y, tempVector.z);
-        _spawnPointAttackFleet.rotation = Quaternion.LookRotation(tempVector);
-
+        Transform tempPoint = _spawnPointAttackFleet;
+        tempPoint.localPosition = new Vector3(tempVector.x, y, tempVector.z);
+        tempPoint.rotation = Quaternion.LookRotation(tempVector, Vector3.up);
+        return tempPoint;
     }
 
-    private void SetSpawnPointToDefence(Transform locDefTransform)
+    private Transform SetSpawnPointToDefence(Transform locDefTransform)
     {
         Vector3 setDefSpawnPointPosition = (locDefTransform.position - _spawnPointDefenceFleet.position).normalized * 2f; //считаем точку появления флота защитника на орбите планеты
         
-        _spawnPointDefenceFleet.localPosition = 
-            new Vector3(setDefSpawnPointPosition.x, setDefSpawnPointPosition.y, setDefSpawnPointPosition.z);
-        _spawnPointDefenceFleet.rotation = Quaternion.LookRotation(setDefSpawnPointPosition);
-
-
+        //_spawnPointDefenceFleet.localPosition = 
+        //    new Vector3(setDefSpawnPointPosition.x, 0, setDefSpawnPointPosition.z);
+        //_spawnPointDefenceFleet.rotation = Quaternion.LookRotation(setDefSpawnPointPosition);
+        
+        Transform tempPoint = _spawnPointAttackFleet;
+        tempPoint.localPosition = new Vector3(setDefSpawnPointPosition.x, setDefSpawnPointPosition.y, setDefSpawnPointPosition.z);
+        tempPoint.rotation = Quaternion.LookRotation(setDefSpawnPointPosition, Vector3.up);
+        return tempPoint;
     }
 
     public void OnDrawGizmos()
@@ -398,6 +407,7 @@ public class ParametrPlanet_mono : MonoBehaviour
         Gizmos.DrawRay(_spawnPointDefenceFleet.position, _spawnPointDefenceFleet.forward * 4f);
         Gizmos.color = Color.magenta;
         Gizmos.DrawSphere(_spawnPointDefenceFleet.position, 0.3f);
+
     }
 
 

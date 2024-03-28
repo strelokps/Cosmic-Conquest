@@ -79,7 +79,7 @@ public class BuyShip : MonoBehaviour
         _ship.regenShield = 5;
         _ship.speedShip = 3.5f;
         _ship.coastShip = 15;
-        _ship.timeToBuild = 0.8f;
+        _ship.timeToBuild = 0.1f;
         _ship.typeShip = eShipType.heavy;
         _ship.typeShipIncreasedDamage = eShipType.medium;
         _ship.increasedDamage = 1.3f;
