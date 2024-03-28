@@ -7,6 +7,7 @@ using Random = System.Random;
 public struct HealthSystem
 {
     private DataShip _dataShip;
+    // locEnemyDataShips - входящий демаг от вражеского флота
     public void TakeDamage(FleetManager _selfFleetManager, List<DataShip> locEnemyDataShips)
     {
         List <DataShip> locSelfListShips = _selfFleetManager.GetListDataFleet();

@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Sirenix.OdinInspector;
+using Unity.VisualScripting;
 using UnityEditor.ShaderGraph.Internal;
 using static UnityEngine.GraphicsBuffer;
 using Object = System.Object;
@@ -269,11 +270,14 @@ public class FleetManager : MonoBehaviour
 
     public void TakeDamageFleet( List<DataShip> locDataShips)
     {
-        _healthSystem.TakeDamage(this, locDataShips);
         if (locDataShips.Count == 0)
         {
             print($"kill me");
             Destroy();
+        }
+        else
+        {
+            _healthSystem.TakeDamage(this, locDataShips);
         }
     }
 

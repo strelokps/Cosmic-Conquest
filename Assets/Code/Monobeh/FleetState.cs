@@ -49,6 +49,8 @@ public class FleetState : MonoBehaviour
     private void Update()
     {
         FleetStateMeth();
+        print($"fleet  U {transform.rotation}");
+
     }
 
 
@@ -57,7 +59,7 @@ public class FleetState : MonoBehaviour
     {
         speedMove = 5.5f;
 
-        _stopBefore = _tempStopBefore = 16f; // дистанция остановки перед объектом для атаки
+        _stopBefore = _tempStopBefore = 30f; // дистанция остановки перед объектом для атаки
 
         _fleetManager = transform.GetComponent<FleetManager>();
         _fleetShootingSystem = GetComponent<FleetShootingSystem>();
@@ -110,7 +112,7 @@ public class FleetState : MonoBehaviour
                 Movement();
                 if (CheckDistanceToAttack())
                 {
-                    _stopBefore = 16f;
+                    _stopBefore *= 0.7f;
                     _stateFleet = FleetStateStruct.enumFleetState.MoveToOrbitAttack;
                     CallDefFleet();
                 }
@@ -163,6 +165,7 @@ public class FleetState : MonoBehaviour
             
             case FleetStateStruct.enumFleetState.StartForDefence:
                 StartDefence();
+                print($"fleet {transform.rotation}");
                 break;
             
             case FleetStateStruct.enumFleetState.OrbitDefence:
@@ -291,11 +294,11 @@ public class FleetState : MonoBehaviour
 
         _targetToMove = _distParametrPlanetMono._spawnPointDefenceFleet.position;
 
-        Vector3 tempPosition = transform.position;
+        //Vector3 tempPosition = transform.position;
 
-        tempPosition = _distParametrPlanetMono.SelfTransform.position;
+        //tempPosition = _distParametrPlanetMono.SelfTransform.position;
 
-        transform.position = tempPosition;
+        //transform.position = tempPosition;
 
         _stateFleet = FleetStateStruct.enumFleetState.OrbitDefence;
 

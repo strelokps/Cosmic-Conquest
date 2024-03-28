@@ -43,7 +43,6 @@ public class FleetShootingSystem : MonoBehaviour
         _directShootingDistance = dist / _dataBullet.speedBullet;
         print($"{transform.name}");
         print($"<color=magenta>кэп, вот расстояние до цели {dist}  а это время жизни пули {_directShootingDistance}</color>");
-        print("***************");
     }
 
   

@@ -92,7 +92,7 @@ public class ParentManager : MonoBehaviour
     {
         if (_idFleet > 999999)
             _idFleet = 0;
-        return "Fleet_" + transform.name + "_" + _idFleet++.ToString();
+        return "Fleet_" + _memberSceneDatasParent.nameMembers + "_" + _idFleet++.ToString();
     }
 
     //создаем ID название для планеты
@@ -100,7 +100,7 @@ public class ParentManager : MonoBehaviour
     {
         if (_idPlanet > 999999)
             _idPlanet = 0;
-        return "Planet_" + transform.name + "_" + _idPlanet++.ToString();
+        return "Planet_" + _memberSceneDatasParent.nameMembers + "_" + _idPlanet++.ToString();
     }
 
     private void SearchAllChildren(Transform parenTransform)
