@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Net;
 using Unity.VisualScripting;
+using UnityEditor.ShaderGraph;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
@@ -76,6 +77,7 @@ public class ParametrPlanet_mono : MonoBehaviour
     //Test
     private float _timer;
     private float _tempTimer;
+    private InputAction.CallbackContext ctx;
 
     public int prop_IdPlanet
     {
@@ -117,6 +119,7 @@ public class ParametrPlanet_mono : MonoBehaviour
         }
         _percentForAttackFleet = 100f;
         _controls = new InputControls();
+        ctx = new InputAction.CallbackContext();
         _planetCapturing = gameObject.GetComponent<PlanetCapturing>();
     }
     private void OnDisable()
@@ -137,7 +140,6 @@ public class ParametrPlanet_mono : MonoBehaviour
         _tempTimer = 4f;
     }
 
-    [Button("Push Ships")]
     private void PushShips()
     {
         //test
@@ -152,12 +154,43 @@ public class ParametrPlanet_mono : MonoBehaviour
 
     private void Update()
     {
-        _controls.Disable();
 
         _numShipsInAttackingFleet = attackingFleet_LGO.Count; //test
 
-       
+
+
+        if (_controls.PC.MouseKeybord.IsPressed())
+        {
+                print($"<color=red> Charg!! </color>");
+        }
+
+
+        if (_controls.PC.MouseKeybord.WasPressedThisFrame() & _controls.PC.MouseKeybord.phase == InputActionPhase.Performed)
+        {
+                print($"<color=red> Charg 2!! </color>");
+        }
         
+        if (_controls.PC.MouseKeybord.WasPerformedThisFrame() & _controls.PC.MouseKeybord.phase == InputActionPhase.Performed)
+        {
+            print($"<color=red> Charg 5!! </color>");
+        }
+
+        if (_controls.PC.MouseKeybord.IsInProgress())
+        {
+            print($"<color=red> Charg 4!! </color>");
+        }
+
+
+        if (_controls.PC.MouseKeybord.phase == InputActionPhase.Performed)
+        {
+                print($"<color=red> Charg 3!! </color>");
+        }
+        if (_controls.PC.MouseKeybord.triggered)
+        {
+            print($"<color=red> Charg 6!! </color>");
+        }
+
+
         AddShipsToDefenceFleetOnOrbit(); 
         GenerationGold();
 
@@ -169,7 +202,7 @@ public class ParametrPlanet_mono : MonoBehaviour
             if (_idPlanet != 19)
             {
                 //print($" Атака не 19 {_idPlanet}");
-                if (_controls.Main.NewA.IsPressed())
+                if (_controls.PC.MouseKeybord.IsPressed())
                 {
                     CreateAttackerFleet(_percentForAttackFleet);
                 }
@@ -257,7 +290,6 @@ public class ParametrPlanet_mono : MonoBehaviour
                 //создаем флот
                 GameObject fl =
                     Instantiate(_prefabFleet, spawnPoint, locSpawnPosition.rotation) as GameObject;
-                print($"rot Gen: {locSpawnPosition.rotation}");
 
                 //проводим первичные настройки флота
                 _fleetManager = fl.GetComponent<FleetManager>();
@@ -289,7 +321,7 @@ public class ParametrPlanet_mono : MonoBehaviour
         if (_listDefenderFleet.Count > 0 & defFleetOnOrbitPlanet_GO != null)
         {
             _defFleetManager.MergFleets(_listDefenderFleet);
-            print($"<color=_colorPlanet>{_listDefenderFleet.Count}</color>");
+            print($"<color=yellow>{_listDefenderFleet.Count}</color>");
 
             _listDefenderFleet = new List<DataShip>();
         }
@@ -326,11 +358,6 @@ public class ParametrPlanet_mono : MonoBehaviour
             SetSpawnPointToDefence(locTransformAttackingFleet);
             _stateFleet = FleetStateStruct.enumFleetState.StartForDefence;
 
-            print($"rot CallDefenderFleet: {_spawnPointDefenceFleet.rotation}");
-            print($"loc rot: {_spawnPointDefenceFleet.localRotation}");
-
-            print($"eulerAngles CallDefenderFleet: {_spawnPointDefenceFleet.eulerAngles}");
-            print($"loc eulerAngles CallDefenderFleet: {_spawnPointDefenceFleet.localEulerAngles}");
 
             GenerationFleet(_stateFleet, _listDefenderFleet, SetSpawnPointToDefence(locTransformAttackingFleet), locTransformAttackingFleet);
             _listDefenderFleet = new List<DataShip>(); //очищаем список флота на планете, т.к. все корабли были переданы в деф флот
@@ -361,7 +388,6 @@ public class ParametrPlanet_mono : MonoBehaviour
             }
 
             _targetToFleet  = y._planetList[0].selfTransform;
-            print($"set target {_targetToFleet.rotation}   {_targetToFleet.eulerAngles}");
 
             return _targetToFleet;
         }

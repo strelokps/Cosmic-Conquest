@@ -49,35 +49,39 @@ public class FleetShootingSystem : MonoBehaviour
 
     public void Fire()
     {
+
         if (_targetFleet == null)
         {
             print($"<color=magenta> Нужна новая цель </color> ");
             if (_selfFleetManager)
             {
-                print("поиск цели для def fleet from shooting system   " + _selfFleetManager._selfPlanetTransform.name);
+                print("поиск цели для def fleet from shooting system   " +
+                      _selfFleetManager._selfPlanetTransform.name);
 
                 _fleetStateSelfFleet._stateFleet = FleetStateStruct.enumFleetState.FoundTarget;
             }
             else
             {
-                print("поиск цели для attacking fleet from shooting system   " + _selfFleetManager._selfPlanetTransform.name);
+                print("поиск цели для attacking fleet from shooting system   " +
+                      _selfFleetManager._selfPlanetTransform.name);
 
                 _fleetStateSelfFleet._stateFleet = FleetStateStruct.enumFleetState.FoundTarget;
             }
         }
 
-        //test
-        _targetFleet.GetComponent<FleetManager>().TakeDamageFleet(_selfFleet);
-
-        var fleet = _targetFleet.GetComponent<FleetManager>().GetListDataFleet();
-
-        if (fleet.Count == 0)
+        if (_targetFleet != null)
         {
-            _targetFleet.GetComponent<FleetManager>().Destroy();
-            _targetFleet = null;
-            GetComponent<FleetState>()._stateFleet = FleetStateStruct.enumFleetState.FoundTarget;
+            //test
+            _targetFleet.GetComponent<FleetManager>().TakeDamageFleet(_selfFleet);
+
+            var fleet = _targetFleet.GetComponent<FleetManager>().GetListDataFleet();
+
+            if (fleet.Count == 0)
+            {
+                _targetFleet.GetComponent<FleetManager>().Destroy();
+                _targetFleet = null;
+                GetComponent<FleetState>()._stateFleet = FleetStateStruct.enumFleetState.FoundTarget;
+            }
         }
-
     }
-
 }
