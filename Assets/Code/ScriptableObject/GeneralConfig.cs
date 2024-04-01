@@ -34,41 +34,4 @@ public class GeneralConfig : ScriptableObject
         if (playerID != 19)
             playerID = 19;
     }
-
-    //    public SceneMembersData SetPlayerData()
-    //    {
-    //        _playerData.friends = new List<SceneMembersData>();
-    //        _playerData.enemy = new List<SceneMembersData>();
-    //        _playerData.neutral = new List<SceneMembersData>();
-
-    //        _playerData.nameMembers = playerName;
-    //        _playerData.membersID = playerID;
-    //        _playerData.colorMembers = colorPlayer;
-    //        _playerData.lvlTech = _lvlTechPlayer;
-
-    //        return _playerData;
-    //    }
-    public Material prop_material_AI1_Planet => _material_AI1_planet;
-
-    public Material prop_material_AI2_Planet => _material_AI2_planet;
-
-    public Material prop_material_AI3_Planet => _material_AI3_planet;
-
-    public Material prop_material_AI4_Planet => _material_AI4_planet;
-
-    public Material prop_material_Neutral_Planet => _material_Neutral_planet;
-
-    public Material prop_material_Player_Planet => _material_Player_planet;
-
-    public Material prop_material_AI1_Fleet => _material_AI1_fleet;
-
-    public Material prop_material_AI2_Fleet => _material_AI2_fleet;
-
-    public Material prop_material_AI3_Fleet => _material_AI3_fleet;
-
-    public Material prop_material_AI4_Fleet => _material_AI4_fleet;
-
-    public Material prop_material_Neutral_Fleet => _material_Neutral_fleet;
-
-    public Material prop_material_Player_Fleet => _material_Player_fleet;
 }

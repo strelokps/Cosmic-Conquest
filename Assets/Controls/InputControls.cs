@@ -28,46 +28,55 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
             ""id"": ""f265b08c-927c-493f-b939-89d98e34d0cb"",
             ""actions"": [
                 {
-                    ""name"": ""MouseKeybord"",
+                    ""name"": ""Select"",
                     ""type"": ""Button"",
                     ""id"": ""7e1b6290-54a1-48eb-9102-fa2c7c49ca28"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""PushFleet"",
+                    ""type"": ""Button"",
+                    ""id"": ""c71178da-3b91-4bd5-8b52-f3532d3439d9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""450fa225-265f-405f-9a87-882e52f40509"",
+                    ""id"": ""d84c2c39-dbc5-45f4-8f1c-e29e944f0541"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8bcc027e-454b-45cf-b66d-9bcd9fc2a966"",
+                    ""path"": ""<Touchscreen>/Press"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""25ae20a6-2cbd-4bbc-82dc-e3b51cfd1579"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard + mouse"",
-                    ""action"": ""MouseKeybord"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""a163599b-ebf8-4728-82fb-d8f4d680d669"",
-                    ""path"": ""<Keyboard>/upArrow"",
-                    ""interactions"": ""Press"",
-                    ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""MouseKeybord"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""a21eb274-bdc4-4b17-8eb8-b3cf299826b5"",
-                    ""path"": ""<Keyboard>/downArrow"",
-                    ""interactions"": ""Hold"",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""MouseKeybord"",
+                    ""action"": ""PushFleet"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -123,7 +132,8 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
 }");
         // PC
         m_PC = asset.FindActionMap("PC", throwIfNotFound: true);
-        m_PC_MouseKeybord = m_PC.FindAction("MouseKeybord", throwIfNotFound: true);
+        m_PC_Select = m_PC.FindAction("Select", throwIfNotFound: true);
+        m_PC_PushFleet = m_PC.FindAction("PushFleet", throwIfNotFound: true);
         // Mobile
         m_Mobile = asset.FindActionMap("Mobile", throwIfNotFound: true);
         m_Mobile_Toch = m_Mobile.FindAction("Toch", throwIfNotFound: true);
@@ -188,12 +198,14 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
     // PC
     private readonly InputActionMap m_PC;
     private List<IPCActions> m_PCActionsCallbackInterfaces = new List<IPCActions>();
-    private readonly InputAction m_PC_MouseKeybord;
+    private readonly InputAction m_PC_Select;
+    private readonly InputAction m_PC_PushFleet;
     public struct PCActions
     {
         private @InputControls m_Wrapper;
         public PCActions(@InputControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @MouseKeybord => m_Wrapper.m_PC_MouseKeybord;
+        public InputAction @Select => m_Wrapper.m_PC_Select;
+        public InputAction @PushFleet => m_Wrapper.m_PC_PushFleet;
         public InputActionMap Get() { return m_Wrapper.m_PC; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -203,16 +215,22 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_PCActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_PCActionsCallbackInterfaces.Add(instance);
-            @MouseKeybord.started += instance.OnMouseKeybord;
-            @MouseKeybord.performed += instance.OnMouseKeybord;
-            @MouseKeybord.canceled += instance.OnMouseKeybord;
+            @Select.started += instance.OnSelect;
+            @Select.performed += instance.OnSelect;
+            @Select.canceled += instance.OnSelect;
+            @PushFleet.started += instance.OnPushFleet;
+            @PushFleet.performed += instance.OnPushFleet;
+            @PushFleet.canceled += instance.OnPushFleet;
         }
 
         private void UnregisterCallbacks(IPCActions instance)
         {
-            @MouseKeybord.started -= instance.OnMouseKeybord;
-            @MouseKeybord.performed -= instance.OnMouseKeybord;
-            @MouseKeybord.canceled -= instance.OnMouseKeybord;
+            @Select.started -= instance.OnSelect;
+            @Select.performed -= instance.OnSelect;
+            @Select.canceled -= instance.OnSelect;
+            @PushFleet.started -= instance.OnPushFleet;
+            @PushFleet.performed -= instance.OnPushFleet;
+            @PushFleet.canceled -= instance.OnPushFleet;
         }
 
         public void RemoveCallbacks(IPCActions instance)
@@ -287,7 +305,8 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
     }
     public interface IPCActions
     {
-        void OnMouseKeybord(InputAction.CallbackContext context);
+        void OnSelect(InputAction.CallbackContext context);
+        void OnPushFleet(InputAction.CallbackContext context);
     }
     public interface IMobileActions
     {

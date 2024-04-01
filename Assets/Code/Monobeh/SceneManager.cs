@@ -66,7 +66,11 @@ public class SceneManager : MonoBehaviour
                         }
                         else
                         {
-                            indexTransform.tag = "Player";
+                            if (indexMembers.flagPlayer)
+                            {
+                                indexTransform.tag = "Player";
+                                indexTransform.AddComponent<MouseObjectSelection>();
+                            }
                         }
 
                     }

@@ -6,46 +6,55 @@
             "id": "f265b08c-927c-493f-b939-89d98e34d0cb",
             "actions": [
                 {
-                    "name": "MouseKeybord",
+                    "name": "Select",
                     "type": "Button",
                     "id": "7e1b6290-54a1-48eb-9102-fa2c7c49ca28",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "PushFleet",
+                    "type": "Button",
+                    "id": "c71178da-3b91-4bd5-8b52-f3532d3439d9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
                 {
                     "name": "",
-                    "id": "450fa225-265f-405f-9a87-882e52f40509",
+                    "id": "d84c2c39-dbc5-45f4-8f1c-e29e944f0541",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8bcc027e-454b-45cf-b66d-9bcd9fc2a966",
+                    "path": "<Touchscreen>/Press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "25ae20a6-2cbd-4bbc-82dc-e3b51cfd1579",
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard + mouse",
-                    "action": "MouseKeybord",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "a163599b-ebf8-4728-82fb-d8f4d680d669",
-                    "path": "<Keyboard>/upArrow",
-                    "interactions": "Press",
-                    "processors": "",
                     "groups": "",
-                    "action": "MouseKeybord",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "a21eb274-bdc4-4b17-8eb8-b3cf299826b5",
-                    "path": "<Keyboard>/downArrow",
-                    "interactions": "Hold",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MouseKeybord",
+                    "action": "PushFleet",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

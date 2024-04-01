@@ -136,8 +136,8 @@ public class ParametrPlanet_mono : MonoBehaviour
     {
         //StartCoroutine("TestGenerationFleet");
 
-        _timer = 5f;
-        _tempTimer = 4f;
+        //_timer = 5f;
+        //_tempTimer = 4f;
     }
 
     private void PushShips()
@@ -159,55 +159,31 @@ public class ParametrPlanet_mono : MonoBehaviour
 
 
 
-        if (_controls.PC.MouseKeybord.IsPressed())
+       
+        if (_controls.PC.PushFleet.triggered & _idPlanet == 19)
         {
-                print($"<color=red> Charg!! </color>");
-        }
-
-
-        if (_controls.PC.MouseKeybord.WasPressedThisFrame() & _controls.PC.MouseKeybord.phase == InputActionPhase.Performed)
-        {
-                print($"<color=red> Charg 2!! </color>");
-        }
-        
-        if (_controls.PC.MouseKeybord.WasPerformedThisFrame() & _controls.PC.MouseKeybord.phase == InputActionPhase.Performed)
-        {
-            print($"<color=red> Charg 5!! </color>");
-        }
-
-        if (_controls.PC.MouseKeybord.IsInProgress())
-        {
-            print($"<color=red> Charg 4!! </color>");
-        }
-
-
-        if (_controls.PC.MouseKeybord.phase == InputActionPhase.Performed)
-        {
-                print($"<color=red> Charg 3!! </color>");
-        }
-        if (_controls.PC.MouseKeybord.triggered)
-        {
-            print($"<color=red> Charg 6!! </color>");
+            print($"<color=red> Charg !! {_parentManager.transform.name}</color>");
+            CreateAttackerFleet(_percentForAttackFleet);
         }
 
 
         AddShipsToDefenceFleetOnOrbit(); 
         GenerationGold();
 
-        _tempTimer += Time.deltaTime;
-        if (_tempTimer > _timer)
-        {
-            _tempTimer = 0;
+        //_tempTimer += Time.deltaTime;
+        //if (_tempTimer > _timer)
+        //{
+        //    _tempTimer = 0;
 
-            if (_idPlanet != 19)
-            {
-                //print($" Атака не 19 {_idPlanet}");
-                if (_controls.PC.MouseKeybord.IsPressed())
-                {
-                    CreateAttackerFleet(_percentForAttackFleet);
-                }
-            }
-        }
+        //    if (_idPlanet != 19)
+        //    {
+        //        //print($" Атака не 19 {_idPlanet}");
+        //        if (_controls.PC.PushFleet.IsPressed())
+        //        {
+        //            CreateAttackerFleet(_percentForAttackFleet);
+        //        }
+        //    }
+        //}
 
     }
 
@@ -236,6 +212,16 @@ public class ParametrPlanet_mono : MonoBehaviour
         _buyShip.InitBuyShip(_shipyard);
 
         gameObject.name = _parentManager.GetIdForPlanet(); //прописываем уникальное имя
+
+        //устанавливаем слой игрока, для взаимодействия с устройствами ввода-вывода 
+        if (_parentManager._flagPlayer)
+            gameObject.layer = LayerMask.NameToLayer("PlayerPlanet");
+        else
+        {
+            if (gameObject.layer == LayerMask.NameToLayer("PlayerPlanet"))
+                gameObject.layer = LayerMask.NameToLayer("Default");
+        }
+
 
         //test
         _parentManager.AddSolarium(1000);
@@ -454,6 +440,7 @@ public class ParametrPlanet_mono : MonoBehaviour
     {
         _genGoldPerSecond = locGoldForTechLvl + locGoldForPlanetLvl;
     }
+    [Button("Push fleet")]
     //формирование атакующего флота
     private void CreateAttackerFleet(float percentageOfTheDefenderFleet)
     {

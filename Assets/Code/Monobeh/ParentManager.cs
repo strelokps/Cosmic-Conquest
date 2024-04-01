@@ -12,7 +12,7 @@ public class ParentManager : MonoBehaviour
     public List<ParametrPlanet_mono> _planetList;
     private Transform _parentTransform;
     private int numChild;
-    private bool _flagPlayer;
+    public bool _flagPlayer;
     private int _idFleet;
     private int _idPlanet;
 

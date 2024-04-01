@@ -49,8 +49,6 @@ public class FleetState : MonoBehaviour
     private void Update()
     {
         FleetStateMeth();
-        print($"fleet  U {transform.rotation}");
-
     }
 
 
