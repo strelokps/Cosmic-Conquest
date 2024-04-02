@@ -163,7 +163,6 @@ public class FleetState : MonoBehaviour
             
             case FleetStateStruct.enumFleetState.StartForDefence:
                 StartDefence();
-                print($"fleet {transform.rotation}");
                 break;
             
             case FleetStateStruct.enumFleetState.OrbitDefence:

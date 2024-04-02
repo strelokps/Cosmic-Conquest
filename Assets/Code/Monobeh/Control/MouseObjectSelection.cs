@@ -8,17 +8,22 @@ public class MouseObjectSelection : MonoBehaviour
 
     private InputControls _controls;
 
-    // Слой объектов, которые могут быть выбраны мышью
+    // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
     public LayerMask selectableLayer;
 
-    // Расстояние, на котором происходит луч для выбора объекта
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     public float raycastDistance = 1000f;
 
-    // Материал для подсветки выбранного объекта
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     public Material highlightMaterial;
 
-    // Текущий выбранный объект
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
     private GameObject selectedObject;
+
+    private Transform _transformSpriteSelectForRotate;
+
+    [SerializeField] private float rotationSpeedY = 70f;
+    private Vector3 currentRotation;
 
     private void Awake()
     {
@@ -26,6 +31,7 @@ public class MouseObjectSelection : MonoBehaviour
         _controls.PC.Select.performed += _ => SelectPlanet();
         //selectableLayer = LayerMask.NameToLayer("PlayerPlanet");
         selectableLayer = LayerMask.GetMask("PlayerPlanet");
+        currentRotation = transform.rotation.eulerAngles;
     }
 
     private void OnDisable()
@@ -38,19 +44,30 @@ public class MouseObjectSelection : MonoBehaviour
         _controls.Enable();
     }
 
+    private void Update()
+    {
+        //Rotate sprite select
+        if (_transformSpriteSelectForRotate != null)
+        {
+            currentRotation.y += rotationSpeedY * Time.deltaTime;
+            _transformSpriteSelectForRotate.rotation = Quaternion.Euler(90f, currentRotation.y , 0f);
+        }
+    }
+
+
     private void SelectPlanet()
     {
         if (_controls.PC.Select.triggered)
         {
-            print($"Выбери меня!");
+            print($"пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ!");
 
-            // Создаем луч из позиции мыши в мировом пространстве
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            // Отрисовываем луч в Scene View
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅ Scene View
             Debug.DrawRay(ray.origin, ray.direction * raycastDistance, Color.green);
-            // Проверяем пересечение луча с объектами на слое selectableLayer
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ selectableLayer
             if (Physics.Raycast(ray, out hit, raycastDistance))
             {
                 print($"hit 1 {hit.transform.name} {hit.transform.gameObject.layer}");
@@ -60,55 +77,51 @@ public class MouseObjectSelection : MonoBehaviour
             }
 
 
-            // Проверяем пересечение луча с объектами на слое selectableLayer
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ selectableLayer
             if (Physics.Raycast(ray, out hit, raycastDistance, selectableLayer))
             {
                 print($"hit 3 {hit.transform.name}");
-                // Получаем выбранный объект
+                // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
                 GameObject planet = hit.collider.gameObject;
 
-                print($"Планета: {planet.GetComponent<ParametrPlanet_mono>().prop_ParentTransformFromPlanet.name}");
+                print($"пїЅпїЅпїЅпїЅпїЅпїЅпїЅ: {planet.GetComponent<ParametrPlanet_mono>().prop_ParentTransformFromPlanet.name}");
 
-                // Подсвечиваем выбранный объект (если есть материал подсветки)
+                // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
                 HighlightObject(planet);
 
-                // Сохраняем выбранный объект
+                // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
                 selectedObject = planet;
 
-                // Здесь можно добавить дополнительную логику для выбранного объекта,
-                // например, обновление интерфейса или выполнение определенного действия.
+                // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ,
+                // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
             }
             else
             {
-                // Если не выбран никакой объект, сбрасываем выбор
+                // пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
                 ClearSelection();
             }
         }
     }
 
-    // Подсветка выбранного объекта
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     void HighlightObject(GameObject obj)
     {
-        Renderer renderer = obj.GetComponent<Renderer>();
-        if (renderer != null && highlightMaterial != null)
-        {
-            // Применяем материал подсветки
-            renderer.material = highlightMaterial;
-        }
+    _transformSpriteSelectForRotate = obj.GetComponent<ParametrPlanet_mono>().SelectPlanet(true);
+       
     }
 
-    // Сброс выбранного объекта и снятие подсветки
+    // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     void ClearSelection()
     {
+        print($"Select 1 ");
+
         if (selectedObject != null)
         {
-            Renderer renderer = selectedObject.GetComponent<Renderer>();
-            if (renderer != null)
-            {
-                // Возвращаем исходный материал объекта
-                renderer.material = null;
-            }
+            print($"Select 2 ");
+
+            selectedObject.GetComponent<ParametrPlanet_mono>().SelectPlanet(false);
             selectedObject = null;
+            _transformSpriteSelectForRotate = null;
         }
     }
 

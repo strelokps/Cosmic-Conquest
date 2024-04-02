@@ -20,15 +20,16 @@ public class TestCode : MonoBehaviour
 
     private void Start()
     {
-        x = Random.Range(0.1f, 1.5f);
-        y = Random.Range(0.1f, 1.5f);
-        z = Random.Range(0.1f, 1.5f);
+        x = Random.Range(0.1f, 0.9f);
+        y = Random.Range(0.1f, 0.9f);
+        z = Random.Range(0.1f, 0.9f);
         if (_material != null)
         {
             _material = gameObject.GetComponent<MeshRenderer>().material;
             _material.color = Color.blue;
             _material.SetColor("_EmissionColor", Color.blue * 1);
         }
+        print($"{x}  {y}  {z}");
     }
 
     private void OnEnable()

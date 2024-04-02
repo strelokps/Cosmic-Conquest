@@ -42,7 +42,8 @@ public class ParametrPlanet_mono : MonoBehaviour
 
 
 
-    [Header("[ Fleet ]")] [SerializeField] private Transform _spawnPointAttackFleet;
+    [Header("[ Fleet ]")] 
+    [SerializeField] private Transform _spawnPointAttackFleet;
     [SerializeField] public Transform _spawnPointDefenceFleet;
     [SerializeField] private GameObject _prefabFleet;
     [ShowInInspector]
@@ -56,6 +57,12 @@ public class ParametrPlanet_mono : MonoBehaviour
 
     private FleetManager _defFleetManager;
 
+    [Header("[ Select planet ]")] 
+    
+    [SerializeField] private SpriteRenderer _spriteSelect;
+
+
+    [Header("[ Test ]")]
     //test
     [SerializeField] private float _percentForAttackFleet;
     //[SerializeField] private int _numShipsInDefenderFleet;
@@ -222,6 +229,8 @@ public class ParametrPlanet_mono : MonoBehaviour
                 gameObject.layer = LayerMask.NameToLayer("Default");
         }
 
+        _spriteSelect.transform.gameObject.SetActive(false);
+
 
         //test
         _parentManager.AddSolarium(1000);
@@ -236,6 +245,10 @@ public class ParametrPlanet_mono : MonoBehaviour
             _materialPlanet = new Material(gameObject.GetComponent<Material>());
         _materialPlanet.color = _colorPlanet;
         _materialPlanet.SetColor("_EmissionColor", locColorPlanet * (0.65f)); //цифра обозначает интенсивность свечения
+
+        Material spriteSelectMaterial = _spriteSelect.GetComponent<SpriteRenderer>().material;
+        spriteSelectMaterial.color = locColorPlanet;
+        spriteSelectMaterial.SetColor("_EmissionColor", locColorPlanet * (0.65f));
     }
 
     public void SetPrefabFleet(GameObject locPrefabFleet)
@@ -548,4 +561,12 @@ public class ParametrPlanet_mono : MonoBehaviour
             target = defFleetOnOrbitPlanet_GO.transform;
         }
     }
+
+    public Transform SelectPlanet(bool setSelect)
+    {
+        _spriteSelect.transform.gameObject.SetActive(setSelect);
+
+        return _spriteSelect.transform;
+    }
+
 }
