@@ -44,11 +44,11 @@ public class SceneManager : MonoBehaviour
             {
                 if (indexTransform.GetComponent<ParentManager>())
                 {
-                    var tr = indexTransform.GetComponent<ParentManager>();
+                    ParentManager parentManager = indexTransform.GetComponent<ParentManager>();
 
                     for (int i = 0; i < indexMembers.enemy.Count; i++)
                     {
-                        if (indexMembers.enemy[i].membersID == tr.prop_id)
+                        if (indexMembers.enemy[i].membersID == parentManager.prop_id)
                         {
                             SceneMembersData locMB = indexMembers.enemy[i];
                             locMB.parentTransform = indexTransform;
@@ -57,12 +57,13 @@ public class SceneManager : MonoBehaviour
                         }
                     }
                     // AI + Player
-                    if (indexMembers.membersID == tr.prop_id)
+                    if (indexMembers.membersID == parentManager.prop_id)
                     {
-                        tr.SetMembersSceneData(indexMembers);
+                        parentManager.SetMembersSceneData(indexMembers);
                         if (!indexMembers.flagPlayer & !indexMembers.flagNeutral)
                         {
                             indexTransform.AddComponent<AI_logic>();
+                            indexTransform.tag = "AI";
                         }
                         else
                         {

@@ -29,7 +29,7 @@ public class TestCode : MonoBehaviour
             _material.color = Color.blue;
             _material.SetColor("_EmissionColor", Color.blue * 1);
         }
-        print($"{x}  {y}  {z}");
+        //print($"{x}  {y}  {z}");
     }
 
     private void OnEnable()

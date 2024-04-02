@@ -47,11 +47,11 @@ public class ParametrPlanet_mono : MonoBehaviour
     [SerializeField] public Transform _spawnPointDefenceFleet;
     [SerializeField] private GameObject _prefabFleet;
     [ShowInInspector]
-    private List<DataShip> _listDefenderFleet = new List<DataShip>(); //список кораблей для защиты внутри планеты 
+    public List<DataShip> _listDefenderFleet = new List<DataShip>(); //список кораблей для защиты внутри планеты 
     public List<GameObject> attackingFleet_LGO = new List<GameObject>(); //список нападающших на планету флотов
     private List<GameObject> _friendlyFleet_LGO = new List<GameObject>(); //список подлетающего дружественного флота
     private FleetManager _fleetManager = new FleetManager();
-    private Transform _targetToFleet;
+    //private Transform _targetToFleet;
     [SerializeField] private FleetStateStruct.enumFleetState _stateFleet;
     public GameObject defFleetOnOrbitPlanet_GO; //Флот защиты на орбите
 
@@ -147,11 +147,6 @@ public class ParametrPlanet_mono : MonoBehaviour
         //_tempTimer = 4f;
     }
 
-    private void PushShips()
-    {
-        //test
-        CreateAttackerFleet(_percentForAttackFleet);
-    }
 
 
 
@@ -170,7 +165,7 @@ public class ParametrPlanet_mono : MonoBehaviour
         if (_controls.PC.PushFleet.triggered & _idPlanet == 19)
         {
             print($"<color=red> Charg !! {_parentManager.transform.name}</color>");
-            CreateAttackerFleet(_percentForAttackFleet);
+            //CreateAttackerFleet(_percentForAttackFleet);
         }
 
 
@@ -225,8 +220,8 @@ public class ParametrPlanet_mono : MonoBehaviour
             gameObject.layer = LayerMask.NameToLayer("PlayerPlanet");
         else
         {
-            if (gameObject.layer == LayerMask.NameToLayer("PlayerPlanet"))
-                gameObject.layer = LayerMask.NameToLayer("Default");
+            if (gameObject.layer == LayerMask.NameToLayer("Default"))
+                gameObject.layer = LayerMask.NameToLayer("Planet");
         }
 
         _spriteSelect.transform.gameObject.SetActive(false);
@@ -367,38 +362,33 @@ public class ParametrPlanet_mono : MonoBehaviour
         return defFleetOnOrbitPlanet_GO;
     }
 
-    public Transform SetTarget(Transform locTrarget = null)
-    {
-        //для теста устанавливаем цель 
-        if (_memberSceneData.enemy.Count > 0)
-        {
-            //int locNumberEnemy = Random.Range(0, _memberSceneData.enemy.Count);
-            int locNumberEnemy = 1;
+    //public Transform SetTarget(Transform locTrarget = null)
+    //{
+    //    //для теста устанавливаем цель 
+    //    if (_memberSceneData.enemy.Count > 0)
+    //    {
+    //        //int locNumberEnemy = Random.Range(0, _memberSceneData.enemy.Count);
+    //        int locNumberEnemy = 1;
 
-            var x = _memberSceneData.enemy[locNumberEnemy];
+    //        var x = _memberSceneData.enemy[locNumberEnemy];
 
-            var y1 = x.parentTransform;
+    //        var y1 = x.parentTransform;
 
-            var y = y1.GetComponent<ParentManager>();
+    //        var y = y1.GetComponent<ParentManager>();
 
-            if (y._planetList.Count == 0)
-            {
-                Debug.LogError("SetTarget error");
-            }
+    //        if (y._planetList.Count == 0)
+    //        {
+    //            Debug.LogError("SetTarget error");
+    //        }
 
-            _targetToFleet  = y._planetList[0].selfTransform;
+    //        _targetToFleet  = y._planetList[0].selfTransform;
 
-            return _targetToFleet;
-        }
+    //        return _targetToFleet;
+    //    }
 
-        return locTrarget;
-    }
+    //    return locTrarget;
+    //}
 
-    private Transform f()
-    {
-        Transform t = _targetToFleet;
-        return t;
-    }
 
     //точка откуда вылетает корабль у планету
     private Transform SetSpawnPointToAttack(Transform locSpawnPointToTarget)
@@ -455,15 +445,16 @@ public class ParametrPlanet_mono : MonoBehaviour
     }
     [Button("Push fleet")]
     //формирование атакующего флота
-    private void CreateAttackerFleet(float percentageOfTheDefenderFleet)
+    public void CreateAttackerFleet(float percentageOfTheDefenderFleet, Transform targetPlanet)
     {
         float locPercent = Mathf.Clamp(percentageOfTheDefenderFleet, 0f, 100f); // устанавливаем диапазон процентного значения 
         _stateFleet = FleetStateStruct.enumFleetState.StartForAttack;
-        var locTarget = SetTarget();
+        //var locTarget = SetTarget();
+        var locTarget = targetPlanet;
         SetSpawnPointToAttack(locTarget);
 
         GenerationFleet(_stateFleet, CalculationPercentageOfTheFleet(locPercent), 
-            _spawnPointAttackFleet, _targetToFleet );
+            _spawnPointAttackFleet, targetPlanet);
         Clear();
     }
 
@@ -544,7 +535,7 @@ public class ParametrPlanet_mono : MonoBehaviour
     private void Clear()
     {
         _stateFleet = FleetStateStruct.enumFleetState.Idle;
-        _targetToFleet = new RectTransform();
+        //_targetToFleet = new RectTransform();
     }
 
     public void ClearDefenceFleet()

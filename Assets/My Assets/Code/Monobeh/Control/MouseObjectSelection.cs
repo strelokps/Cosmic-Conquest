@@ -9,7 +9,8 @@ public class MouseObjectSelection : MonoBehaviour
     private InputControls _controls;
 
     // ���� ��������, ������� ����� ���� ������� �����
-    public LayerMask selectableLayer;
+    public LayerMask selectPlayerLayer;
+    public LayerMask selectAILayer;
 
     // ����������, �� ������� ���������� ��� ��� ������ �������
     public float raycastDistance = 1000f;
@@ -18,7 +19,10 @@ public class MouseObjectSelection : MonoBehaviour
     public Material highlightMaterial;
 
     // ������� ��������� ������
-    private GameObject selectedObject;
+    private GameObject selectedPlayerPlanet;
+    private GameObject selectedTargetPlanet;
+
+    private ParametrPlanet_mono _palyerParametrPlanetMono;
 
     private Transform _transformSpriteSelectForRotate;
 
@@ -28,10 +32,14 @@ public class MouseObjectSelection : MonoBehaviour
     private void Awake()
     {
         _controls = new InputControls();
-        _controls.PC.Select.performed += _ => SelectPlanet();
-        //selectableLayer = LayerMask.NameToLayer("PlayerPlanet");
-        selectableLayer = LayerMask.GetMask("PlayerPlanet");
+        _controls.PC.Select.performed += _ => HitToPlanet();
+        //selectPlayerLayer = LayerMask.NameToLayer("PlayerPlanet");
+        selectPlayerLayer = LayerMask.GetMask("PlayerPlanet");
+        selectAILayer = LayerMask.GetMask("Planet");
         currentRotation = transform.rotation.eulerAngles;
+
+        _palyerParametrPlanetMono = GetComponent<ParametrPlanet_mono>();
+
     }
 
     private void OnDisable()
@@ -46,60 +54,52 @@ public class MouseObjectSelection : MonoBehaviour
 
     private void Update()
     {
-        //Rotate sprite select
-        if (_transformSpriteSelectForRotate != null)
-        {
-            currentRotation.y += rotationSpeedY * Time.deltaTime;
-            _transformSpriteSelectForRotate.rotation = Quaternion.Euler(90f, currentRotation.y , 0f);
-        }
+        RotationSprite();
     }
 
 
-    private void SelectPlanet()
+    private void HitToPlanet()
     {
         if (_controls.PC.Select.triggered)
         {
-            print($"������ ����!");
 
             // ������� ��� �� ������� ���� � ������� ������������
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            // ������������ ��� � Scene View
-            Debug.DrawRay(ray.origin, ray.direction * raycastDistance, Color.green);
-            // ��������� ����������� ���� � ��������� �� ���� selectableLayer
-            if (Physics.Raycast(ray, out hit, raycastDistance))
+            if (selectedPlayerPlanet == null)
             {
-                print($"hit 1 {hit.transform.name} {hit.transform.gameObject.layer}");
-                if (selectableLayer == hit.transform.gameObject.layer)
-                    print($"hit 2 {hit.transform.name} {hit.transform.gameObject.layer}");
-
-            }
-
-
-            // ��������� ����������� ���� � ��������� �� ���� selectableLayer
-            if (Physics.Raycast(ray, out hit, raycastDistance, selectableLayer))
-            {
-                print($"hit 3 {hit.transform.name}");
-                // �������� ��������� ������
-                GameObject planet = hit.collider.gameObject;
-
-                print($"�������: {planet.GetComponent<ParametrPlanet_mono>().prop_ParentTransformFromPlanet.name}");
-
-                // ������������ ��������� ������ (���� ���� �������� ���������)
-                HighlightObject(planet);
-
-                // ��������� ��������� ������
-                selectedObject = planet;
-
-                // ����� ����� �������� �������������� ������ ��� ���������� �������,
-                // ��������, ���������� ���������� ��� ���������� ������������� ��������.
+                // ��������� ����������� ���� � ��������� �� ���� selectPlayerLayer
+                if (Physics.Raycast(ray, out hit, raycastDistance, selectPlayerLayer))
+                {
+                   SelectPlanet(hit);
+                }
+                else
+                {
+                    // ���� �� ������ ������� ������, ���������� �����
+                    ClearSelection();
+                }
             }
             else
             {
-                // ���� �� ������ ������� ������, ���������� �����
-                ClearSelection();
+                if (Physics.Raycast(ray, out hit, raycastDistance, selectPlayerLayer | selectAILayer) & selectedPlayerPlanet != null)
+                {
+                    selectedTargetPlanet = hit.collider.gameObject;
+                    if (_palyerParametrPlanetMono._listDefenderFleet.Count > 0)
+                    _palyerParametrPlanetMono.CreateAttackerFleet(100f, selectedTargetPlanet.transform);
+                    else
+                    {
+                        ClearSelection();
+                        SelectPlanet(hit);
+                    }
+                }
+                else
+                {
+                    // ���� �� ������ ������� ������, ���������� �����
+                    ClearSelection();
+                }
             }
+            
         }
     }
 
@@ -115,14 +115,43 @@ public class MouseObjectSelection : MonoBehaviour
     {
         print($"Select 1 ");
 
-        if (selectedObject != null)
+        if (selectedPlayerPlanet != null)
         {
             print($"Select 2 ");
 
-            selectedObject.GetComponent<ParametrPlanet_mono>().SelectPlanet(false);
-            selectedObject = null;
+            selectedPlayerPlanet.GetComponent<ParametrPlanet_mono>().SelectPlanet(false);
+            selectedPlayerPlanet = null;
+            selectedTargetPlanet = null;
             _transformSpriteSelectForRotate = null;
         }
     }
 
+    //Rotate sprite select
+    private void RotationSprite()
+    {
+        if (_transformSpriteSelectForRotate != null)
+        {
+            currentRotation.y += rotationSpeedY * Time.deltaTime;
+            _transformSpriteSelectForRotate.rotation = Quaternion.Euler(90f, currentRotation.y, 0f);
+        }
+    }
+
+    private void SelectPlanet(RaycastHit locHit)
+    {
+        print($"hit 3 {locHit.transform.name}");
+        // �������� ��������� ������
+        GameObject planet = locHit.collider.gameObject;
+
+
+        // ������������ ��������� ������ (���� ���� �������� ���������)
+        HighlightObject(planet);
+
+        // ��������� ��������� ������
+        selectedPlayerPlanet = planet;
+
+        _palyerParametrPlanetMono = selectedPlayerPlanet.GetComponent<ParametrPlanet_mono>();
+
+        // ����� ����� �������� �������������� ������ ��� ���������� �������,
+        // ��������, ���������� ���������� ��� ���������� ������������� ��������.
+    }
 }
