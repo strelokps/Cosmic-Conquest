@@ -12,6 +12,7 @@ public class FleetState : MonoBehaviour
     [ShowInInspector] private Vector3 _targetToMove;
     [ShowInInspector] private Transform _targetTransform;
     [ShowInInspector] private Vector3 _targetPosition;
+    [ShowInInspector] public GameObject _targetForDefenceFleet;
     private FleetStateStruct.enumFleetState _enemyStateFleet;
 
     private Transform ownFleetPlanet;
@@ -175,6 +176,7 @@ public class FleetState : MonoBehaviour
                 break;
 
             case FleetStateStruct.enumFleetState.Idle:
+                print($"<color=yellow> idle {this.name}</color>");
                 break;
           
         }
@@ -199,20 +201,20 @@ public class FleetState : MonoBehaviour
 
     public GameObject TakeTargetForDefenceFleet()
     {
-        GameObject go = null;
+        _targetForDefenceFleet = null;
         if (_selfParametrPlanetMono.attackingFleet_LGO.Count > 0)
         {
-            go = _selfParametrPlanetMono.attackingFleet_LGO[0];
+            _targetForDefenceFleet = _selfParametrPlanetMono.attackingFleet_LGO[0];
             _stateFleet = FleetStateStruct.enumFleetState.Attack;
-            _enemyStateFleet = go.GetComponent<FleetState>()._stateFleet = FleetStateStruct.enumFleetState.Attack;
+            _targetForDefenceFleet.GetComponent<FleetState>()._stateFleet = FleetStateStruct.enumFleetState.Attack;
 
         }
-        if (go == null)
+        if (_targetForDefenceFleet == null)
         {
             //TODO сделать анимацию посадки на планету с уничтожеием флота
             RefundDefenceFleet();
         }
-        return go;
+        return _targetForDefenceFleet;
     }
 
     public GameObject TakeTargetForAttackingFleet()
@@ -221,8 +223,18 @@ public class FleetState : MonoBehaviour
         if (_distParametrPlanetMono.defFleetOnOrbitPlanet_GO != null)
         {
             go = _distParametrPlanetMono.defFleetOnOrbitPlanet_GO;
-            _stateFleet = FleetStateStruct.enumFleetState.Idle;
-            _enemyStateFleet = go.GetComponent<FleetState>()._stateFleet;
+            GameObject targetDefFleet = go.GetComponent<FleetState>()._targetForDefenceFleet;
+
+         
+                _stateFleet = FleetStateStruct.enumFleetState.Idle;
+            
+            if (targetDefFleet != null & targetDefFleet != this)
+            {
+                print($"target 1 {this.name}");
+                _stateFleet = FleetStateStruct.enumFleetState.Attack;
+
+            }
+            //_enemyStateFleet = go.GetComponent<FleetState>()._stateFleet;
         }
         if (go == null)
         {
@@ -357,19 +369,6 @@ public class FleetState : MonoBehaviour
         {
             for (int i = 0; i < _distParametrPlanetMono.attackingFleet_LGO.Count; i++)
             {
-                //if (_distParametrPlanetMono.attackingFleet_LGO[i] == null)
-                //{
-                //    print($"_selfParametrPlanetMono = {_selfParametrPlanetMono.SelfTransform.name} ");
-                //}
-
-                //if (_distParametrPlanetMono.attackingFleet_LGO[i].activeInHierarchy)
-                //{
-                //    print($"<color=gold> A name {_distParametrPlanetMono.attackingFleet_LGO[i].name} </color>");
-                //}
-                //else
-                //{
-                //    print($"<color=aqua> !!!A name {_distParametrPlanetMono.attackingFleet_LGO[i].name} </color>");
-                //}
                 //проверяем наличие флотов вылетивших с той же планеты что и данный флот, если есть, то добавляемся.
                 if (_distParametrPlanetMono.attackingFleet_LGO[i]
                         .GetComponent<FleetManager>()
@@ -388,10 +387,10 @@ public class FleetState : MonoBehaviour
                     _distParametrPlanetMono.RemoveToListAttackerFleet(gameObject);
 
                     count++;
-                    print($"<color=red> merg {transform.name} || {count}</color>");
-                    flagToMerg = true;
-                    _fleetManager.Destroy();
 
+                    flagToMerg = true;
+
+                    _fleetManager.Destroy();
                 }
             }
         }
@@ -412,9 +411,6 @@ public class FleetState : MonoBehaviour
         _distParametrPlanetMono.AddFleetToDefenceFleetOnPlanet(_fleetManager.GetListDataFleet());
 
         SetStopBeforeForDescent();
-        print($"<color=aqua> DescentOnPlanet  3 {transform.name} || {count}</color>");
-       
-
     }
 
 }

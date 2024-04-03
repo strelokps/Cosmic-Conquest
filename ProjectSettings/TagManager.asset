@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Planet
   - DisplaySolarium
+  - AI
   layers:
   - Default
   - TransparentFX
@@ -16,7 +17,7 @@ TagManager:
   - Ships
   - Player
   - PlayerPlanet
-  - 
+  - Planet
   - 
   - 
   - 

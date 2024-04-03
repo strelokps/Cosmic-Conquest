@@ -63,20 +63,17 @@ public class MouseObjectSelection : MonoBehaviour
         if (_controls.PC.Select.triggered)
         {
 
-            // ������� ��� �� ������� ���� � ������� ������������
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
             if (selectedPlayerPlanet == null)
             {
-                // ��������� ����������� ���� � ��������� �� ���� selectPlayerLayer
                 if (Physics.Raycast(ray, out hit, raycastDistance, selectPlayerLayer))
                 {
                    SelectPlanet(hit);
                 }
                 else
                 {
-                    // ���� �� ������ ������� ������, ���������� �����
                     ClearSelection();
                 }
             }
@@ -85,17 +82,19 @@ public class MouseObjectSelection : MonoBehaviour
                 if (Physics.Raycast(ray, out hit, raycastDistance, selectPlayerLayer | selectAILayer) & selectedPlayerPlanet != null)
                 {
                     selectedTargetPlanet = hit.collider.gameObject;
+
                     if (_palyerParametrPlanetMono._listDefenderFleet.Count > 0)
-                    _palyerParametrPlanetMono.CreateAttackerFleet(100f, selectedTargetPlanet.transform);
+                        _palyerParametrPlanetMono.CreateAttackerFleet(100f, selectedTargetPlanet.transform);
+
                     else
                     {
                         ClearSelection();
+
                         SelectPlanet(hit);
                     }
                 }
                 else
                 {
-                    // ���� �� ������ ������� ������, ���������� �����
                     ClearSelection();
                 }
             }
@@ -103,25 +102,22 @@ public class MouseObjectSelection : MonoBehaviour
         }
     }
 
-    // ��������� ���������� �������
     void HighlightObject(GameObject obj)
     {
-    _transformSpriteSelectForRotate = obj.GetComponent<ParametrPlanet_mono>().SelectPlanet(true);
-       
+        _transformSpriteSelectForRotate = obj.GetComponent<ParametrPlanet_mono>().SelectPlanet(true);
     }
 
-    // ����� ���������� ������� � ������ ���������
     void ClearSelection()
     {
-        print($"Select 1 ");
 
         if (selectedPlayerPlanet != null)
         {
-            print($"Select 2 ");
-
             selectedPlayerPlanet.GetComponent<ParametrPlanet_mono>().SelectPlanet(false);
+
             selectedPlayerPlanet = null;
+
             selectedTargetPlanet = null;
+
             _transformSpriteSelectForRotate = null;
         }
     }
@@ -132,26 +128,19 @@ public class MouseObjectSelection : MonoBehaviour
         if (_transformSpriteSelectForRotate != null)
         {
             currentRotation.y += rotationSpeedY * Time.deltaTime;
+
             _transformSpriteSelectForRotate.rotation = Quaternion.Euler(90f, currentRotation.y, 0f);
         }
     }
 
     private void SelectPlanet(RaycastHit locHit)
     {
-        print($"hit 3 {locHit.transform.name}");
-        // �������� ��������� ������
         GameObject planet = locHit.collider.gameObject;
 
-
-        // ������������ ��������� ������ (���� ���� �������� ���������)
         HighlightObject(planet);
 
-        // ��������� ��������� ������
         selectedPlayerPlanet = planet;
 
         _palyerParametrPlanetMono = selectedPlayerPlanet.GetComponent<ParametrPlanet_mono>();
-
-        // ����� ����� �������� �������������� ������ ��� ���������� �������,
-        // ��������, ���������� ���������� ��� ���������� ������������� ��������.
     }
 }
