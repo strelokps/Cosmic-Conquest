@@ -68,8 +68,8 @@ public class FleetShootingSystem : MonoBehaviour
                 _fleetStateSelfFleet._stateFleet = FleetStateStruct.enumFleetState.FoundTarget;
             }
         }
-
-        if (_targetFleet != null)
+        //fleet shoot
+        else
         {
             //test
             _targetFleet.GetComponent<FleetManager>().TakeDamageFleet(_selfFleet);

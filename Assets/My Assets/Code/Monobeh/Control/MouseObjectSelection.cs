@@ -63,22 +63,18 @@ public class MouseObjectSelection : MonoBehaviour
         if (_controls.PC.Select.triggered)
         {
 
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
+
 
             if (selectedPlayerPlanet == null)
             {
-                if (Physics.Raycast(ray, out hit, raycastDistance, selectPlayerLayer))
-                {
-                   SelectPlanet(hit);
-                }
-                else
-                {
-                    ClearSelection();
-                }
+                SelectPlanet();
+
             }
             else
             {
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+
                 if (Physics.Raycast(ray, out hit, raycastDistance, selectPlayerLayer | selectAILayer) & selectedPlayerPlanet != null)
                 {
                     selectedTargetPlanet = hit.collider.gameObject;
@@ -90,7 +86,7 @@ public class MouseObjectSelection : MonoBehaviour
                     {
                         ClearSelection();
 
-                        SelectPlanet(hit);
+                        SelectPlanet();
                     }
                 }
                 else
@@ -133,14 +129,25 @@ public class MouseObjectSelection : MonoBehaviour
         }
     }
 
-    private void SelectPlanet(RaycastHit locHit)
+    private void SelectPlanet()
     {
-        GameObject planet = locHit.collider.gameObject;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
 
-        HighlightObject(planet);
+        if (Physics.Raycast(ray, out hit, raycastDistance, selectPlayerLayer))
+        {
 
-        selectedPlayerPlanet = planet;
+            GameObject planet = hit.collider.gameObject;
 
-        _palyerParametrPlanetMono = selectedPlayerPlanet.GetComponent<ParametrPlanet_mono>();
+            HighlightObject(planet);
+
+            selectedPlayerPlanet = planet;
+
+            _palyerParametrPlanetMono = selectedPlayerPlanet.GetComponent<ParametrPlanet_mono>();
+        }
+        else
+        {
+            ClearSelection();
+        }
     }
 }
