@@ -16,11 +16,14 @@ using Random = UnityEngine.Random;
 
 public class ParametrPlanet_mono : MonoBehaviour
 {
+
     [SerializeField] private int _idPlanet;
     private int _lvlTechPlanet;
     [SerializeField] private Color _colorPlanet;
     private SceneMembersData _memberSceneData = new SceneMembersData();
     private Material _materialPlanet;
+    [SerializeField] private GameObject _clouds; //clouds for display planet color
+    //[SerializeField] private Material _cloudsMaterial; //clouds for display planet color
     private Material _materialFleet;
     private MeshRenderer _meshRendererPlanet;
     [SerializeField] private Transform _parentTransformFromPlanet;
@@ -244,6 +247,27 @@ public class ParametrPlanet_mono : MonoBehaviour
         Material spriteSelectMaterial = _spriteSelect.GetComponent<SpriteRenderer>().material;
         spriteSelectMaterial.color = locColorPlanet;
         spriteSelectMaterial.SetColor("_EmissionColor", locColorPlanet * (0.65f));
+
+        _colorPlanet = locColorPlanet;
+
+        if (_clouds.GetComponent<MeshRenderer>())
+        {
+            var _materialPlanet1 = _clouds.GetComponent<MeshRenderer>().material;
+            _materialPlanet1.color = locColorPlanet;
+            _materialPlanet1.SetColor("_EmissionColor", locColorPlanet * (0.4f));
+            //var _materialPlanet1 = new Material(_clouds.GetComponent<MeshRenderer>().material);
+            
+            //print($"Есть рендер {_materialPlanet1.color}");
+
+            //_materialPlanet1.color = _colorPlanet;
+
+            //_materialPlanet1.SetColor("_Color", locColorPlanet * (0.65f));
+            //print($"Есть рендер  1 {_materialPlanet1.color}");
+
+            //_materialPlanet1.SetColor("_EmissionColor", locColorPlanet * (0.65f)); //цифра обозначает интенсивность свечения
+            //print($"Есть рендер 2 {_materialPlanet1.color}");
+
+        }
     }
 
     public void SetPrefabFleet(GameObject locPrefabFleet)

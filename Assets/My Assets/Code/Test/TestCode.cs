@@ -26,8 +26,8 @@ public class TestCode : MonoBehaviour
         if (_material != null)
         {
             _material = gameObject.GetComponent<MeshRenderer>().material;
-            _material.color = Color.blue;
-            _material.SetColor("_EmissionColor", Color.blue * 1);
+            //_material.color = Color.blue;
+            _material.SetColor("_EmissionColor", _material.color * 1f);
         }
         //print($"{x}  {y}  {z}");
     }

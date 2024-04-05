@@ -296,6 +296,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _idPlanet: 0
   _colorPlanet: {r: 0, g: 0, b: 0, a: 0}
+  _clouds: {fileID: 7110846290000883461}
   _parentTransformFromPlanet: {fileID: 0}
   _timerForGenGold: 1
   _genGoldPerSecond: 0
