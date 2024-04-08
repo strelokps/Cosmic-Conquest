@@ -97,9 +97,11 @@ public class FleetState : MonoBehaviour
         switch (_stateFleet)
         {
             case FleetStateStruct.enumFleetState.StartForAttack: //I.
-
+                CallDefFleet();
                 _stopBefore = _stopDistForCallDefendefFleet;
                 _stateFleet = FleetStateStruct.enumFleetState.OrbitCallDefendefFleet;
+                _distParametrPlanetMono.attackingFleet_LGO.Add(gameObject); //добавляемся в список атакующих планету
+
                 SetParamScale(0.8f, 0.02f, 1f, new Vector3(1f, 1f, 1f));
 
 
@@ -327,7 +329,6 @@ public class FleetState : MonoBehaviour
             {
                 _stateFleet = FleetStateStruct.enumFleetState.FoundTarget;
 
-                _distParametrPlanetMono.attackingFleet_LGO.Add(gameObject);
                 count++;
             }
             else

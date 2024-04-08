@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.43425077, g: 0.4811446, b: 0.562056, a: 1}
+  m_IndirectSpecularColor: {r: 0.43424195, g: 0.48113132, b: 0.5620365, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2836,14 +2836,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
-  m_LocalRotation: {x: 0.7138618, y: 0, z: 0, w: 0.70028657}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 47.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 91.1, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!114 &705507996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3538,10 +3538,10 @@ RectTransform:
   m_Father: {fileID: 937508354}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -7, y: -23.199707}
-  m_SizeDelta: {x: 94.36, y: 54.41}
+  m_AnchorMin: {x: 0.99600005, y: 0.9382223}
+  m_AnchorMax: {x: 0.99600005, y: 1}
+  m_AnchoredPosition: {x: 1, y: -23.199707}
+  m_SizeDelta: {x: 94.36, y: -10.59}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &801801143
 MonoBehaviour:
@@ -6973,7 +6973,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'ver.: 0.1.1208.1743'
+  m_text: 'ver.: 0.1.1228.1763'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7375,10 +7375,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1843379121}
     m_Modifications:
-    - target: {fileID: 614634673643472020, guid: 51c14a6a5ea20b040b15c9c460d6356a, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5286641796745658465, guid: 51c14a6a5ea20b040b15c9c460d6356a, type: 3}
       propertyPath: m_Name
       value: Planet_with_clouds (1)
@@ -7426,26 +7422,6 @@ PrefabInstance:
     - target: {fileID: 5887614528733858971, guid: 51c14a6a5ea20b040b15c9c460d6356a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7114612223598660279, guid: 51c14a6a5ea20b040b15c9c460d6356a, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.99983686
-      objectReference: {fileID: 0}
-    - target: {fileID: 7114612223598660279, guid: 51c14a6a5ea20b040b15c9c460d6356a, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.018063175
-      objectReference: {fileID: 0}
-    - target: {fileID: 7114612223598660279, guid: 51c14a6a5ea20b040b15c9c460d6356a, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7114612223598660279, guid: 51c14a6a5ea20b040b15c9c460d6356a, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7114612223598660279, guid: 51c14a6a5ea20b040b15c9c460d6356a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: -2.07
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 51c14a6a5ea20b040b15c9c460d6356a, type: 3}
