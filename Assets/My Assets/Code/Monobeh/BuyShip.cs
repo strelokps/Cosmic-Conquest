@@ -20,7 +20,7 @@ public class BuyShip : MonoBehaviour
     }
 
     [Button("Light")]
-    private void BuildShipLight()
+    public void BuildShipLight()
     {
         _ship = new DataShip();
         _ship.damageShipMin = 1f;
@@ -43,7 +43,7 @@ public class BuyShip : MonoBehaviour
 
 
     [Button("Medium")]
-    private void BuildShipMedium()
+    public void BuildShipMedium()
     {
         _ship = new DataShip();
         _ship.damageShipMin = 3;
@@ -66,7 +66,7 @@ public class BuyShip : MonoBehaviour
 
 
     [Button("Heavy")]
-    private void BuildShipHeavy()
+    public void BuildShipHeavy()
     {
         _ship = new DataShip();
         _ship.damageShipMin = 1;

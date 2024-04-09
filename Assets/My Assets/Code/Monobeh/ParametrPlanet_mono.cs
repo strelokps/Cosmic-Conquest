@@ -52,6 +52,13 @@ public class ParametrPlanet_mono : MonoBehaviour
     [SerializeField] private GameObject _prefabFleet;
     [ShowInInspector]
     public List<DataShip> _listDefenderFleet = new List<DataShip>(); //список кораблей для защиты внутри планеты 
+    [ShowInInspector]
+    public List<DataShip> _listDefenderFleet_light = new List<DataShip>(); //разделение по типу кораблей
+    [ShowInInspector]
+    public List<DataShip> _listDefenderFleet_medium = new List<DataShip>(); //список кораблей для защиты внутри планеты 
+    [ShowInInspector]
+    public List<DataShip> _listDefenderFleet_heavy = new List<DataShip>(); //список кораблей для защиты внутри планеты 
+
     public List<GameObject> attackingFleet_LGO = new List<GameObject>(); //список нападающших на планету флотов
     private List<GameObject> _friendlyFleet_LGO = new List<GameObject>(); //список подлетающего дружественного флота
     private FleetManager _fleetManager = new FleetManager();
@@ -332,6 +339,12 @@ public class ParametrPlanet_mono : MonoBehaviour
     //добавляем корабли с верфи к флоту  на планете
     public void AddShipsToDefenderFleetOnPlanet(DataShip locDataShip)
     {
+        if (locDataShip.typeShip == ShipType.eShipType.light)
+            _listDefenderFleet_light.Add(locDataShip);
+        if (locDataShip.typeShip == ShipType.eShipType.medium)
+            _listDefenderFleet_medium.Add(locDataShip);
+        if (locDataShip.typeShip == ShipType.eShipType.heavy)
+            _listDefenderFleet_heavy.Add(locDataShip);
         _listDefenderFleet.Add(locDataShip);// добавляем в список защитников планеты
     }
 

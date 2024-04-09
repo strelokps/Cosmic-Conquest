@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,19 +9,22 @@ public class UIPlanetBuyShip : MonoBehaviour
 
     private ParametrPlanet_mono _parametrPlanetMono;
 
+    private bool _flagSwitchEnebleUI;
+
 
     // Start is called before the first frame update
     void Start()
     {
         _parametrPlanetMono = GetComponent<ParametrPlanet_mono>();
+        _flagSwitchEnebleUI = _uiPlanetBuyShip.gameObject.activeInHierarchy;
     }
 
+    [Button("Switch off")]
+    public void ShowUIPlanetBuyShip()
+    {
+         _flagSwitchEnebleUI = !_flagSwitchEnebleUI;
 
-    public void UIPlanetBuyShip_ON()
-    {
-        _uiPlanetBuyShip.enabled = !_uiPlanetBuyShip.enabled;
+        _uiPlanetBuyShip.gameObject.SetActive(!_uiPlanetBuyShip.gameObject.activeInHierarchy);
     }
-    public void UIPlanetBuyShip_OFF()
-    {
-    }
+  
 }
