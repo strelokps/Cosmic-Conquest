@@ -96,6 +96,8 @@ GameObject:
   - component: {fileID: 161431681537694320}
   - component: {fileID: 5994391064297056086}
   - component: {fileID: 3817553959321997792}
+  - component: {fileID: 1953576868287677989}
+  - component: {fileID: 7123379593618933430}
   m_Layer: 0
   m_Name: Human_Spaceships
   m_TagString: Untagged
@@ -182,6 +184,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: adce814bb3f9a974d839ffb040077347, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1953576868287677989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1218153717275589960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62f0475c1e740fe46949d7c6afa61afc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7123379593618933430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1218153717275589960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93158b9cb40d01c4788d5345397a30e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1865889841741972237

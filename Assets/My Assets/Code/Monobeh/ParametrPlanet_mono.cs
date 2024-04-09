@@ -13,6 +13,7 @@ using Random = UnityEngine.Random;
 [RequireComponent(typeof(PlanetCapturing))]
 [RequireComponent(typeof(BuyShip))]
 [RequireComponent(typeof(Shipyard))]
+[RequireComponent(typeof(UIPlanetBuyShip))]
 
 public class ParametrPlanet_mono : MonoBehaviour
 {
@@ -63,6 +64,7 @@ public class ParametrPlanet_mono : MonoBehaviour
     [Header("[ Select planet ]")] 
     
     [SerializeField] private SpriteRenderer _spriteSelect;
+
 
 
     [Header("[ Test ]")]
@@ -480,6 +482,11 @@ public class ParametrPlanet_mono : MonoBehaviour
         GenerationFleet(_stateFleet, CalculationPercentageOfTheFleet(locPercent), 
             _spawnPointAttackFleet, targetPlanet);
         Clear();
+    }
+
+    public void ShowMe(float percentageOfTheDefenderFleet, Transform targetPlanet)
+    {
+        print($"YES! ");
     }
 
     /// <summary>
