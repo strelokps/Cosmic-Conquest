@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor;
+#if UNITY_EDITOR
+using UnityEngine;
+#endif
 using UnityEngine;
 
 [ExecuteInEditMode]
@@ -27,11 +29,15 @@ public class Version : MonoBehaviour
 
     private void VersionBuild()
     {
-        if (EditorApplication.isPlaying) return;
+#if UNITY_EDITOR
+      
+        if (UnityEditor.EditorApplication.isPlaying) return;
 
         _versionBuild_SO = Resources.Load<VersionBuildSO>("versionBuild_SO");
         _versionBuild_SO.Increase();
         _versionBuild_SO.ShowBuild(_textVersion);
         _versionBuild_SO.SetDirty();
+#endif
+
     }
 }
