@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Net;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -70,6 +71,12 @@ public class ParametrPlanet_mono : MonoBehaviour
     [Header("[ Select planet ]")] 
     
     [SerializeField] private SpriteRenderer _spriteSelect;
+
+    [Header("[ UI Planet ]")]
+    [SerializeField] private TMP_Text _textUICountShips_Light;
+    [SerializeField] private TMP_Text _textUICountShips_Medium;
+    [SerializeField] private TMP_Text _textUICountShips_Heavy;
+
 
 
 
@@ -237,6 +244,7 @@ public class ParametrPlanet_mono : MonoBehaviour
 
         _spriteSelect.transform.gameObject.SetActive(false);
 
+        DisplayCountShipsInPlanet();
 
         //test
         _parentManager.AddSolarium(1000);
@@ -333,6 +341,8 @@ public class ParametrPlanet_mono : MonoBehaviour
                     _defFleetManager = defFleetOnOrbitPlanet_GO.GetComponent<FleetManager>();
                 }
             }
+
+            DisplayCountShipsInPlanet();
         }
     }
     //добавляем корабли с верфи к флоту  на планете
@@ -345,6 +355,7 @@ public class ParametrPlanet_mono : MonoBehaviour
         if (locDataShip.typeShip == ShipType.eShipType.heavy)
             _listDefenderFleet_heavy.Add(locDataShip);
         _listDefenderFleet.Add(locDataShip);// добавляем в список защитников планеты
+        DisplayCountShipsInPlanet();
     }
 
     //добавление кораблей из флота на планете к флоту на орбите
@@ -356,6 +367,9 @@ public class ParametrPlanet_mono : MonoBehaviour
             print($"<color=yellow>{_listDefenderFleet.Count}</color>");
 
             _listDefenderFleet = new List<DataShip>();
+
+            DisplayCountShipsInPlanet();
+
         }
     }
 
@@ -371,6 +385,9 @@ public class ParametrPlanet_mono : MonoBehaviour
         {
             _listDefenderFleet.Add(locListDataFleet[i]); // добавляем в список защитников планеты
         }
+
+        DisplayCountShipsInPlanet();
+
     }
 
     //public void AddFleetToDefenderFleetOnOrbit(List<DataShip> locListDataFleet)
@@ -521,6 +538,8 @@ public class ParametrPlanet_mono : MonoBehaviour
     public void RemoveToListAttackerFleet(GameObject locAttackerFleet)
     {
         attackingFleet_LGO.Remove(locAttackerFleet);
+        DisplayCountShipsInPlanet();
+
     }
 
     //какой процент кораблей из флота защиты перейдет во флот атаки
@@ -601,6 +620,15 @@ public class ParametrPlanet_mono : MonoBehaviour
         _spriteSelect.transform.gameObject.SetActive(setSelect);
 
         return _spriteSelect.transform;
+    }
+
+    private void DisplayCountShipsInPlanet()
+    {
+        print($"<color=green> Display count ships </color>");
+        _textUICountShips_Light.text = _listDefenderFleet_light.Count.ToString();
+        _textUICountShips_Medium.text = _listDefenderFleet_medium.Count.ToString();
+        _textUICountShips_Heavy.text = _listDefenderFleet_heavy.Count.ToString();
+
     }
 
 }

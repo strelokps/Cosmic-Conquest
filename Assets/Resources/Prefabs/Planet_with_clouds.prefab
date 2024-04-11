@@ -2889,6 +2889,9 @@ MonoBehaviour:
   _stateFleet: 0
   defFleetOnOrbitPlanet_GO: {fileID: 0}
   _spriteSelect: {fileID: 4303407679098530172}
+  _textUICountShips_Light: {fileID: 2934402895452100991}
+  _textUICountShips_Medium: {fileID: 4443253280604064432}
+  _textUICountShips_Heavy: {fileID: 8620828432915919419}
   _percentForAttackFleet: 0
   _numShipsInDefenceFleet: 0
   _numShipsInAttackingFleet: 0
