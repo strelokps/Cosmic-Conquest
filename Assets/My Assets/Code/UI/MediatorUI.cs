@@ -11,7 +11,7 @@ namespace Assets.Code.UI
             if (_textMoneyOnUI == null)
             {
                 _textMoneyOnUI = new TextMeshProUGUI();
-                _textMoneyOnUI = GameObject.Find("Text(Score)").GetComponentInChildren<TextMeshProUGUI>();
+                _textMoneyOnUI = GameObject.FindGameObjectWithTag("DisplaySolarium").GetComponentInChildren<TextMeshProUGUI>();
             }
 
         }

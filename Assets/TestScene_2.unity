@@ -1061,6 +1061,10 @@ PrefabInstance:
       propertyPath: m_PreserveAspect
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1874848066350474926, guid: 51c14a6a5ea20b040b15c9c460d6356a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 1add7fb95b293f244841da788b7a30cd, type: 3}
     - target: {fileID: 1876122943106378174, guid: 51c14a6a5ea20b040b15c9c460d6356a, type: 3}
       propertyPath: m_PreserveAspect
       value: 1
@@ -4890,7 +4894,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 9.5
+  orthographic size: 5.81
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -4914,7 +4918,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 32.8, y: 15.6, z: 23.3}
+  m_LocalPosition: {x: 31.14, y: 15.6, z: 17.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7248,7 +7252,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'ver.: 0.1.1338.1873'
+  m_text: 'ver.: 0.1.1358.1893'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -8536,6 +8540,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5887614528733858971, guid: 51c14a6a5ea20b040b15c9c460d6356a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6205224704438034293, guid: 51c14a6a5ea20b040b15c9c460d6356a, type: 3}
+      propertyPath: canvas
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6205224704438034293, guid: 51c14a6a5ea20b040b15c9c460d6356a, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7109947410940832461, guid: 51c14a6a5ea20b040b15c9c460d6356a, type: 3}
@@ -11990,7 +12002,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4669673434048991636, guid: cecd49b70f5171f48bea68e9c9b396e9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 32.581
+      value: 33.91
       objectReference: {fileID: 0}
     - target: {fileID: 4669673434048991636, guid: cecd49b70f5171f48bea68e9c9b396e9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -11998,7 +12010,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4669673434048991636, guid: cecd49b70f5171f48bea68e9c9b396e9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 19.289
+      value: 19.23
       objectReference: {fileID: 0}
     - target: {fileID: 4669673434048991636, guid: cecd49b70f5171f48bea68e9c9b396e9, type: 3}
       propertyPath: m_LocalRotation.w
