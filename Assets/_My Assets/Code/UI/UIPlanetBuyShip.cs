@@ -9,16 +9,16 @@ public class UIPlanetBuyShip : MonoBehaviour
 
     private ParametrPlanet_mono _parametrPlanetMono;
 
-    private bool _flagSwitchEnebleUI;
+    [SerializeField] private bool _flagSwitchEnebleUI;
 
 
-    // Start is called before the first frame update
     void Start()
     {
         _parametrPlanetMono = GetComponent<ParametrPlanet_mono>();
         _flagSwitchEnebleUI = _uiPlanetBuyShip.gameObject.activeInHierarchy;
     }
 
+    //включение/выключение канваса
     [Button("Switch off")]
     public void ShowUIPlanetBuyShip()
     {

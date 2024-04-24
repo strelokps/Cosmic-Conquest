@@ -50,14 +50,15 @@ public class ParametrPlanet_mono : MonoBehaviour
     [SerializeField] private Transform _spawnPointAttackFleet;
     [SerializeField] public Transform _spawnPointDefenceFleet;
     [SerializeField] private GameObject _prefabFleet;
-    [ShowInInspector]
-    public List<DataShip> _listDefenderFleet = new List<DataShip>(); //список кораблей для защиты внутри планеты 
-    [ShowInInspector]
-    public List<DataShip> _listDefenderFleet_light = new List<DataShip>(); //разделение по типу кораблей
-    [ShowInInspector]
-    public List<DataShip> _listDefenderFleet_medium = new List<DataShip>(); //список кораблей для защиты внутри планеты 
-    [ShowInInspector]
-    public List<DataShip> _listDefenderFleet_heavy = new List<DataShip>(); //список кораблей для защиты внутри планеты 
+    [ShowInInspector] public List<DataShip> _listDefenderFleet = new List<DataShip>(); //список кораблей для защиты внутри планеты 
+    [ShowInInspector] public List<DataShip> _listDefenderFleet_light = new List<DataShip>(); //разделение по типу кораблей
+    [ShowInInspector] public List<DataShip> _listDefenderFleet_medium = new List<DataShip>(); //список кораблей для защиты внутри планеты 
+    [ShowInInspector] public List<DataShip> _listDefenderFleet_heavy = new List<DataShip>(); //список кораблей для защиты внутри планеты 
+
+    private int _countLightShips = -1;
+    private int _countMediumShips = -1;
+    private int _countHeavyShips = -1;
+
 
     public List<GameObject> attackingFleet_LGO = new List<GameObject>(); //список нападающших на планету флотов
     private List<GameObject> _friendlyFleet_LGO = new List<GameObject>(); //список подлетающего дружественного флота
@@ -68,11 +69,19 @@ public class ParametrPlanet_mono : MonoBehaviour
 
     private FleetManager _defFleetManager;
 
+    [HideInInspector] public float percentForAttackFleet;
+
+
     [Header("[ Select planet ]")] 
     
     [SerializeField] private SpriteRenderer _spriteSelect;
 
     [Header("[ UI Planet ]")]
+
+    [SerializeField] private Canvas _buyShipsCanvas;
+    [SerializeField] private Canvas _displayCountShipsCanvas;
+
+
     [SerializeField] private TMP_Text _textUICountShips_Light;
     [SerializeField] private TMP_Text _textUICountShips_Medium;
     [SerializeField] private TMP_Text _textUICountShips_Heavy;
@@ -80,9 +89,9 @@ public class ParametrPlanet_mono : MonoBehaviour
 
 
 
+
     [Header("[ Test ]")]
     //test
-    [SerializeField] private float _percentForAttackFleet;
     //[SerializeField] private int _numShipsInDefenderFleet;
     [SerializeField] private int _numShipsInDefenceFleet;
     [SerializeField] private int _numShipsInAttackingFleet;
@@ -102,7 +111,6 @@ public class ParametrPlanet_mono : MonoBehaviour
     //Test
     private float _timer;
     private float _tempTimer;
-    private InputAction.CallbackContext ctx;
 
     public int prop_IdPlanet
     {
@@ -142,9 +150,8 @@ public class ParametrPlanet_mono : MonoBehaviour
         {
             Debug.Log($"Not found MeshRenderer in gameObject {gameObject.name}  {prop_IdPlanet}");
         }
-        _percentForAttackFleet = 100f;
+        percentForAttackFleet = 100f;
         _controls = new InputControls();
-        ctx = new InputAction.CallbackContext();
         _planetCapturing = gameObject.GetComponent<PlanetCapturing>();
     }
     private void OnDisable()
@@ -178,12 +185,13 @@ public class ParametrPlanet_mono : MonoBehaviour
         _numShipsInAttackingFleet = attackingFleet_LGO.Count; //test
 
 
+        DisplayCountShipsInPlanet(); //отображение текущего кол-ва кораблей
 
-       
+
         if (_controls.PC.PushFleet.triggered & _idPlanet == 19)
         {
             print($"<color=red> Charg !! {_parentManager.transform.name}</color>");
-            //CreateAttackerFleet(_percentForAttackFleet);
+            //CreateAttackerFleet(percentForAttackFleet);
         }
 
 
@@ -200,7 +208,7 @@ public class ParametrPlanet_mono : MonoBehaviour
         //        //print($" Атака не 19 {_idPlanet}");
         //        if (_controls.PC.PushFleet.IsPressed())
         //        {
-        //            CreateAttackerFleet(_percentForAttackFleet);
+        //            CreateAttackerFleet(percentForAttackFleet);
         //        }
         //    }
         //}
@@ -244,7 +252,7 @@ public class ParametrPlanet_mono : MonoBehaviour
 
         _spriteSelect.transform.gameObject.SetActive(false);
 
-        DisplayCountShipsInPlanet();
+        SwitchOnHUDplanetForPlayer();
 
         //test
         _parentManager.AddSolarium(1000);
@@ -341,8 +349,6 @@ public class ParametrPlanet_mono : MonoBehaviour
                     _defFleetManager = defFleetOnOrbitPlanet_GO.GetComponent<FleetManager>();
                 }
             }
-
-            DisplayCountShipsInPlanet();
         }
     }
     //добавляем корабли с верфи к флоту  на планете
@@ -355,7 +361,6 @@ public class ParametrPlanet_mono : MonoBehaviour
         if (locDataShip.typeShip == ShipType.eShipType.heavy)
             _listDefenderFleet_heavy.Add(locDataShip);
         _listDefenderFleet.Add(locDataShip);// добавляем в список защитников планеты
-        DisplayCountShipsInPlanet();
     }
 
     //добавление кораблей из флота на планете к флоту на орбите
@@ -367,9 +372,6 @@ public class ParametrPlanet_mono : MonoBehaviour
             print($"<color=yellow>{_listDefenderFleet.Count}</color>");
 
             _listDefenderFleet = new List<DataShip>();
-
-            DisplayCountShipsInPlanet();
-
         }
     }
 
@@ -385,9 +387,6 @@ public class ParametrPlanet_mono : MonoBehaviour
         {
             _listDefenderFleet.Add(locListDataFleet[i]); // добавляем в список защитников планеты
         }
-
-        DisplayCountShipsInPlanet();
-
     }
 
     //public void AddFleetToDefenderFleetOnOrbit(List<DataShip> locListDataFleet)
@@ -538,7 +537,7 @@ public class ParametrPlanet_mono : MonoBehaviour
     public void RemoveToListAttackerFleet(GameObject locAttackerFleet)
     {
         attackingFleet_LGO.Remove(locAttackerFleet);
-        DisplayCountShipsInPlanet();
+        
 
     }
 
@@ -624,11 +623,35 @@ public class ParametrPlanet_mono : MonoBehaviour
 
     private void DisplayCountShipsInPlanet()
     {
-        print($"<color=green> Display count ships </color>");
-        _textUICountShips_Light.text = _listDefenderFleet_light.Count.ToString();
-        _textUICountShips_Medium.text = _listDefenderFleet_medium.Count.ToString();
-        _textUICountShips_Heavy.text = _listDefenderFleet_heavy.Count.ToString();
+        if (_countLightShips != _listDefenderFleet_light.Count)
+        {
+            _textUICountShips_Light.text = _listDefenderFleet_light.Count.ToString();
+            _countLightShips = _listDefenderFleet_light.Count;
+        }
 
+        if (_countMediumShips != _listDefenderFleet_medium.Count)
+        {
+            _textUICountShips_Medium.text = _listDefenderFleet_medium.Count.ToString();
+            _countMediumShips = _listDefenderFleet_medium.Count;
+        }
+
+        if (_countHeavyShips != _listDefenderFleet_heavy.Count)
+        {
+            _textUICountShips_Heavy.text = _listDefenderFleet_heavy.Count.ToString();
+            _countHeavyShips = _listDefenderFleet_heavy.Count;
+        }
     }
 
+    public void SwitchOnHUDplanetForPlayer()
+    {
+        _buyShipsCanvas.gameObject.SetActive(false);
+        if (_parentManager._flagPlayer)
+        {
+            _displayCountShipsCanvas.gameObject.SetActive(true);
+        }
+        else
+        {
+            _displayCountShipsCanvas.gameObject.SetActive(false);
+        }
+    }
 }

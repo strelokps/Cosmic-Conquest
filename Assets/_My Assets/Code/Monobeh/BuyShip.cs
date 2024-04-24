@@ -92,9 +92,4 @@ public class BuyShip : MonoBehaviour
         _shipyard.BuildShipInShipyard(_ship);
         _ship = new DataShip();
     }
-
-    public void TestShow()
-    {
-        print($"buy");
-    }
 }

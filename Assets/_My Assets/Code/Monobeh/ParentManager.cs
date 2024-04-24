@@ -38,20 +38,7 @@ public class ParentManager : MonoBehaviour
         _planetList = new List<ParametrPlanet_mono>();
 
         SearchAllChildren(transform);
-
-        //for (int i = 0; i < numChild; i++)
-        //{
-        //    if (transform.GetChild(i).GetComponent<ParametrPlanet_mono>() 
-        //        & gameObject.activeSelf 
-        //        & transform.GetChild(i).gameObject.activeSelf)
-        //    {
-
-        //        var pl = _parentTransform.GetChild(i).GetComponent<ParametrPlanet_mono>();
-        //        _planetList.Add(pl);
-        //        pl.StartetConfig(_memberSceneDatasParent, _parentTransform);
-        //    }
-        //}
-
+        
     }
 
     public void AddSolarium(int locAddSolarium)

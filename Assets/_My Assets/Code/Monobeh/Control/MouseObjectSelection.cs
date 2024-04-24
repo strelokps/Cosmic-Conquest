@@ -64,7 +64,7 @@ public class MouseObjectSelection : MonoBehaviour
         {
 
 
-
+            //выбираем планету игрока
             if (selectedPlayerPlanet == null)
             {
                 SelectPlanet();
@@ -79,8 +79,9 @@ public class MouseObjectSelection : MonoBehaviour
                 {
                     selectedTargetPlanet = hit.collider.gameObject;
 
+                    //если планета игрока, есть корабли на отправку и попали в другую планету, то отправляем корабли
                     if (_palyerParametrPlanetMono._listDefenderFleet.Count > 0)
-                        _palyerParametrPlanetMono.CreateAttackerFleet(100f, selectedTargetPlanet.transform);
+                        _palyerParametrPlanetMono.CreateAttackerFleet(_palyerParametrPlanetMono.percentForAttackFleet, selectedTargetPlanet.transform);
 
                     else
                     {
