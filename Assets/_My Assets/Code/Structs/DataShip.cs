@@ -6,6 +6,7 @@ public struct DataShip
 {
     public float damageShipMin;
     public float damageShipMax;
+    public float rateOfFire;
     public float damageShip;
     public float maxArmorShip;
     public float armorShip;

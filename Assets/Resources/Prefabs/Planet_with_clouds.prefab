@@ -95,7 +95,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2762545786355771680}
   - component: {fileID: 4303407679098530172}
-  m_Layer: 11
+  m_Layer: 9
   m_Name: Fire-Wrath__15_white_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1804,7 +1804,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.9433962, g: 0.9433962, b: 0.9433962, a: 1}
   m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_RaycastPadding: {x: -4.56, y: -3.6, z: -5.12, w: -3.85}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

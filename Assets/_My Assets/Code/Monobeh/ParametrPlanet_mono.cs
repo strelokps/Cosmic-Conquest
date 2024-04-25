@@ -642,6 +642,24 @@ public class ParametrPlanet_mono : MonoBehaviour
         }
     }
 
+    private void DisplayCountShipInYard(DataShip locDataShip)
+    {
+        if (locDataShip.typeShip != ShipType.eShipType.light  )
+        {
+
+        }
+
+        if (locDataShip.typeShip != ShipType.eShipType.medium)
+        {
+
+        }
+
+        if (locDataShip.typeShip != ShipType.eShipType.heavy)
+        {
+
+        }
+    }
+
     public void SwitchOnHUDplanetForPlayer()
     {
         _buyShipsCanvas.gameObject.SetActive(false);
