@@ -8,6 +8,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(PlanetCapturing))]
@@ -71,7 +72,6 @@ public class ParametrPlanet_mono : MonoBehaviour
 
     [HideInInspector] public float percentForAttackFleet;
 
-
     [Header("[ Select planet ]")] 
     
     [SerializeField] private SpriteRenderer _spriteSelect;
@@ -81,13 +81,22 @@ public class ParametrPlanet_mono : MonoBehaviour
     [SerializeField] private Canvas _buyShipsCanvas;
     [SerializeField] private Canvas _displayCountShipsCanvas;
 
-
     [SerializeField] private TMP_Text _textUICountShips_Light;
     [SerializeField] private TMP_Text _textUICountShips_Medium;
     [SerializeField] private TMP_Text _textUICountShips_Heavy;
 
+    public TMP_Text _textUICountShips_InBuild_Light;
+    public TMP_Text _textUICountShips_InBuild_Medium;
+    public TMP_Text _textUICountShips_InBuild_Heavy;
 
+    public GameObject progressBuild_GO_light;
+    public Image progressBuild_Image_light;
+    
+    public GameObject progressBuild_GO_Medium;
+    public Image progressBuild_Image_Medium;
 
+    public GameObject progressBuild_GO_Heavy;
+    public Image progressBuild_Image_Heavy;
 
 
     [Header("[ Test ]")]
@@ -642,18 +651,23 @@ public class ParametrPlanet_mono : MonoBehaviour
         }
     }
 
-    private void DisplayCountShipInYard(DataShip locDataShip)
+    //отображение кол-ва кораблей в очереди на строительство
+    private void DisplayCountShipInYard(DataShip locDataShip, int countShips )
     {
         if (locDataShip.typeShip != ShipType.eShipType.light  )
         {
 
         }
-
+        
+        else 
+        
         if (locDataShip.typeShip != ShipType.eShipType.medium)
         {
 
         }
-
+        
+        else
+        
         if (locDataShip.typeShip != ShipType.eShipType.heavy)
         {
 
@@ -672,4 +686,5 @@ public class ParametrPlanet_mono : MonoBehaviour
             _displayCountShipsCanvas.gameObject.SetActive(false);
         }
     }
+
 }

@@ -23,7 +23,7 @@ public class DataShipsSO : ScriptableObject
         _ship.regenShield = 0.1f;
         _ship.speedShip = 4.5f;
         _ship.coastShip = 1;
-        _ship.timeToBuild = 0.02f;
+        _ship.timeToBuild = 5f;
         _ship.typeShip = eShipType.light;
         _ship.typeShipIncreasedDamage = eShipType.heavy;
         _ship.increasedDamage = 1.3f;
@@ -44,7 +44,7 @@ public class DataShipsSO : ScriptableObject
         _ship.regenShield = 2;
         _ship.speedShip = 4f;
         _ship.coastShip = 1;
-        _ship.timeToBuild = 0.01f;
+        _ship.timeToBuild = 1f;
         _ship.typeShip = eShipType.medium;
         _ship.typeShipIncreasedDamage = eShipType.light;
         _ship.increasedDamage = 1.3f;
@@ -65,7 +65,7 @@ public class DataShipsSO : ScriptableObject
         _ship.regenShield = 5;
         _ship.speedShip = 3.5f;
         _ship.coastShip = 15;
-        _ship.timeToBuild = 0.1f;
+        _ship.timeToBuild = 1f;
         _ship.typeShip = eShipType.heavy;
         _ship.typeShipIncreasedDamage = eShipType.medium;
         _ship.increasedDamage = 1.3f;

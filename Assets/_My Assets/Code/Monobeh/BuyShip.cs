@@ -17,6 +17,7 @@ public class BuyShip : MonoBehaviour
     {
         _ship = new DataShip();
         _shipyard = locShipyard;
+        _dataShipsSO = new DataShipsSO();
         _dataShipsSO = Resources.Load<DataShipsSO>("Fleet\\DataShips_SO");
 
     }

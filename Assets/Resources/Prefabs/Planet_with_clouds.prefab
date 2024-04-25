@@ -2501,6 +2501,15 @@ MonoBehaviour:
   _textUICountShips_Light: {fileID: 2934402895452100991}
   _textUICountShips_Medium: {fileID: 4443253280604064432}
   _textUICountShips_Heavy: {fileID: 8620828432915919419}
+  _textUICountShips_InBuild_Light: {fileID: 7337291226340037520}
+  _textUICountShips_InBuild_Medium: {fileID: 4702923447986993217}
+  _textUICountShips_InBuild_Heavy: {fileID: 4291292689358943516}
+  progressBuild_GO_light: {fileID: 7190095664148887780}
+  progressBuild_Image_light: {fileID: 7439366777073948686}
+  progressBuild_GO_Medium: {fileID: 5142883600720696117}
+  progressBuild_Image_Medium: {fileID: 4875876811967165407}
+  progressBuild_GO_Heavy: {fileID: 4437920718864604776}
+  progressBuild_Image_Heavy: {fileID: 4135149033360146050}
   _numShipsInDefenceFleet: 0
   _numShipsInAttackingFleet: 0
   _currentLvlPlanet: 0
@@ -3582,13 +3591,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5368200116839999675, guid: c44ce68314e4ed142b3a8cdc09e305af, type: 3}
+      propertyPath: m_FillAmount
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5659341181877422161, guid: c44ce68314e4ed142b3a8cdc09e305af, type: 3}
       propertyPath: m_Name
       value: DisplayNumShipsInYard_Image_Medium
       objectReference: {fileID: 0}
     - target: {fileID: 5659341181877422161, guid: c44ce68314e4ed142b3a8cdc09e305af, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6635858114232222813, guid: c44ce68314e4ed142b3a8cdc09e305af, type: 3}
       propertyPath: m_Color.b
@@ -3608,6 +3621,33 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c44ce68314e4ed142b3a8cdc09e305af, type: 3}
+--- !u!114 &4702923447986993217 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5228985130205717285, guid: c44ce68314e4ed142b3a8cdc09e305af, type: 3}
+  m_PrefabInstance: {fileID: 708531550549482340}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4875876811967165407 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5368200116839999675, guid: c44ce68314e4ed142b3a8cdc09e305af, type: 3}
+  m_PrefabInstance: {fileID: 708531550549482340}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &5142883600720696117 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5659341181877422161, guid: c44ce68314e4ed142b3a8cdc09e305af, type: 3}
+  m_PrefabInstance: {fileID: 708531550549482340}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &5249193051225157623 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4687636932422923411, guid: c44ce68314e4ed142b3a8cdc09e305af, type: 3}
@@ -3878,16 +3918,47 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5368200116839999675, guid: c44ce68314e4ed142b3a8cdc09e305af, type: 3}
+      propertyPath: m_FillAmount
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5659341181877422161, guid: c44ce68314e4ed142b3a8cdc09e305af, type: 3}
       propertyPath: m_Name
       value: DisplayNumShipsInYard_Image_Light
       objectReference: {fileID: 0}
     - target: {fileID: 5659341181877422161, guid: c44ce68314e4ed142b3a8cdc09e305af, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c44ce68314e4ed142b3a8cdc09e305af, type: 3}
+--- !u!1 &7190095664148887780 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5659341181877422161, guid: c44ce68314e4ed142b3a8cdc09e305af, type: 3}
+  m_PrefabInstance: {fileID: 3261271589800423605}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7337291226340037520 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5228985130205717285, guid: c44ce68314e4ed142b3a8cdc09e305af, type: 3}
+  m_PrefabInstance: {fileID: 3261271589800423605}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7439366777073948686 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5368200116839999675, guid: c44ce68314e4ed142b3a8cdc09e305af, type: 3}
+  m_PrefabInstance: {fileID: 3261271589800423605}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &7804608202803332134 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4687636932422923411, guid: c44ce68314e4ed142b3a8cdc09e305af, type: 3}
@@ -4448,13 +4519,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5368200116839999675, guid: c44ce68314e4ed142b3a8cdc09e305af, type: 3}
+      propertyPath: m_FillAmount
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5659341181877422161, guid: c44ce68314e4ed142b3a8cdc09e305af, type: 3}
       propertyPath: m_Name
       value: DisplayNumShipsInYard_Image_Heavy
       objectReference: {fileID: 0}
     - target: {fileID: 5659341181877422161, guid: c44ce68314e4ed142b3a8cdc09e305af, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6635858114232222813, guid: c44ce68314e4ed142b3a8cdc09e305af, type: 3}
       propertyPath: m_Color.b
@@ -4481,5 +4556,32 @@ PrefabInstance:
 --- !u!224 &3607798123639841450 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4687636932422923411, guid: c44ce68314e4ed142b3a8cdc09e305af, type: 3}
+  m_PrefabInstance: {fileID: 8294695600131036729}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4135149033360146050 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5368200116839999675, guid: c44ce68314e4ed142b3a8cdc09e305af, type: 3}
+  m_PrefabInstance: {fileID: 8294695600131036729}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4291292689358943516 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5228985130205717285, guid: c44ce68314e4ed142b3a8cdc09e305af, type: 3}
+  m_PrefabInstance: {fileID: 8294695600131036729}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &4437920718864604776 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5659341181877422161, guid: c44ce68314e4ed142b3a8cdc09e305af, type: 3}
   m_PrefabInstance: {fileID: 8294695600131036729}
   m_PrefabAsset: {fileID: 0}
