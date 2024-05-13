@@ -55,7 +55,13 @@ public class ParametrPlanet_mono : MonoBehaviour
     [ShowInInspector] public List<DataShip> _listDefenderFleet_light = new List<DataShip>(); //разделение по типу кораблей
     [ShowInInspector] public List<DataShip> _listDefenderFleet_medium = new List<DataShip>(); //список кораблей для защиты внутри планеты 
     [ShowInInspector] public List<DataShip> _listDefenderFleet_heavy = new List<DataShip>(); //список кораблей для защиты внутри планеты 
-
+    [ShowInInspector]
+    private Dictionary<ShipType.eShipType, List<DataShip>> dicShips = new Dictionary<ShipType.eShipType, List<DataShip>>
+    {
+        {ShipType.eShipType.heavy, new List<DataShip>()},
+        {ShipType.eShipType.medium, new List<DataShip>()},
+        {ShipType.eShipType.light, new List<DataShip>()},
+    };
     private int _countLightShips = -1;
     private int _countMediumShips = -1;
     private int _countHeavyShips = -1;
@@ -364,11 +370,21 @@ public class ParametrPlanet_mono : MonoBehaviour
     public void AddShipsToDefenderFleetOnPlanet(DataShip locDataShip)
     {
         if (locDataShip.typeShip == ShipType.eShipType.light)
+        {
             _listDefenderFleet_light.Add(locDataShip);
-        if (locDataShip.typeShip == ShipType.eShipType.medium)
+            dicShips[ShipType.eShipType.light].Add(locDataShip);
+        }
+        else if (locDataShip.typeShip == ShipType.eShipType.medium)
+        {
             _listDefenderFleet_medium.Add(locDataShip);
-        if (locDataShip.typeShip == ShipType.eShipType.heavy)
+            dicShips[ShipType.eShipType.medium].Add(locDataShip);
+        }
+        else if (locDataShip.typeShip == ShipType.eShipType.heavy)
+        {
             _listDefenderFleet_heavy.Add(locDataShip);
+            dicShips[ShipType.eShipType.heavy].Add(locDataShip);
+        }
+
         _listDefenderFleet.Add(locDataShip);// добавляем в список защитников планеты
     }
 

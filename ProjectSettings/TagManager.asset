@@ -7,6 +7,9 @@ TagManager:
   - Planet
   - DisplaySolarium
   - AI
+  - Light
+  - Medium
+  - Heavy
   layers:
   - Default
   - TransparentFX

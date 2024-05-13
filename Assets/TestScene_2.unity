@@ -6895,7 +6895,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'ver.: 0.1.1439.1974'
+  m_text: 'ver.: 0.1.1466.2001'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -11443,19 +11443,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4669673434048991636, guid: cecd49b70f5171f48bea68e9c9b396e9, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.05731174
+      value: 0.12
       objectReference: {fileID: 0}
     - target: {fileID: 4669673434048991636, guid: cecd49b70f5171f48bea68e9c9b396e9, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.05731174
+      value: 0.12
       objectReference: {fileID: 0}
     - target: {fileID: 4669673434048991636, guid: cecd49b70f5171f48bea68e9c9b396e9, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.05731174
+      value: 0.12
       objectReference: {fileID: 0}
     - target: {fileID: 4669673434048991636, guid: cecd49b70f5171f48bea68e9c9b396e9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 33.91
+      value: 34.81
       objectReference: {fileID: 0}
     - target: {fileID: 4669673434048991636, guid: cecd49b70f5171f48bea68e9c9b396e9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -11463,7 +11463,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4669673434048991636, guid: cecd49b70f5171f48bea68e9c9b396e9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 19.23
+      value: 17.86
       objectReference: {fileID: 0}
     - target: {fileID: 4669673434048991636, guid: cecd49b70f5171f48bea68e9c9b396e9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -11492,6 +11492,10 @@ PrefabInstance:
     - target: {fileID: 4669673434048991636, guid: cecd49b70f5171f48bea68e9c9b396e9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4669673434048991636, guid: cecd49b70f5171f48bea68e9c9b396e9, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cecd49b70f5171f48bea68e9c9b396e9, type: 3}

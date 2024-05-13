@@ -32,11 +32,20 @@ public class FleetManager : MonoBehaviour
     [ShowInInspector] private List<DataShip> _dataFleetList ; //список кораблей во флоту
     private List<GameObject> _arrayShipInPrefabFleet = new List<GameObject>(); //массив кораблей из префаба флота для последующей активации и парсинга для типа кораблей ( light, medium, heavy) и их point fire
 
-    [ShowInInspector] private Dictionary<ShipType.eShipType, int> shipCountByType = new Dictionary<ShipType.eShipType, int>
+    [ShowInInspector]
+    private Dictionary<ShipType.eShipType, GameObject> _objectShipInPrefabFleet 
+        = new Dictionary<ShipType.eShipType, GameObject>()
     {
-        {ShipType.eShipType.heavy, 0},
-        {ShipType.eShipType.medium, 0},
-        {ShipType.eShipType.light, 0},
+        {ShipType.eShipType.heavy, null},
+        { ShipType.eShipType.medium, null},
+        { ShipType.eShipType.light, null},
+    };
+[ShowInInspector]
+    private Dictionary<ShipType.eShipType, List<DataShip>> dicShips = new Dictionary<ShipType.eShipType, List<DataShip>>
+    {
+        {ShipType.eShipType.heavy, new List<DataShip>()},
+        {ShipType.eShipType.medium, new List<DataShip>()},
+        {ShipType.eShipType.light, new List<DataShip>()},
     };
     private FleetState _fleetState;
     private Transform _target;
@@ -297,23 +306,53 @@ public class FleetManager : MonoBehaviour
         _distParametrPlanetMono.ChangeOwnerPlanet(_membersDataInFleet, _parentTransformInFleet);
     }
 
+    //добавляем в словарь GO кораблей флота для последующего отображения GO по наличию во флоте соответствующих типа кораблей
    private void FindSpaceshipsInChildren(Transform parent)
    {
+       foreach (Transform child in parent)
+       {
 
-        if (_arrayShipInPrefabFleet.Count <= 0)
-        {
-            foreach (Transform child in parent)
-            {
-                if (child.name.Contains("Spaceships"))
-                {
-                    _arrayShipInPrefabFleet.Add(child.gameObject);
-                    child.gameObject.SetActive(false);
-                }
+           if (child.tag.Contains("Light"))
+           {
+               _objectShipInPrefabFleet[ShipType.eShipType.light] = child.gameObject;
+               child.gameObject.SetActive(false);
+               print($"<color=green> Light {_objectShipInPrefabFleet[ShipType.eShipType.light].name} </color>");
+           }
+           else if (child.tag.Contains("Medium"))
+           {
+               _objectShipInPrefabFleet[ShipType.eShipType.medium] = child.gameObject;
+               child.gameObject.SetActive(false);
+               print($"<color=green> Medium {_objectShipInPrefabFleet[ShipType.eShipType.medium].name} </color>");
+           }
+           else if (child.tag.Contains("Heavy"))
+           {
+               _objectShipInPrefabFleet[ShipType.eShipType.heavy] = child.gameObject;
+               child.gameObject.SetActive(false);
+               print($"<color=green> Heavy {_objectShipInPrefabFleet[ShipType.eShipType.heavy].name} </color>");
+           }
 
-                // Рекурсивно вызываем функцию для всех дочерних объектов
-                FindSpaceshipsInChildren(child);
-            }
-        }
+           // Рекурсивно вызываем функцию для всех дочерних объектов
+           FindSpaceshipsInChildren(child);
+       }
+
+       //if (_arrayShipInPrefabFleet.Count <= 0)
+        //{
+        //    foreach (Transform child in parent)
+        //    {
+        //        if (child.name.Contains("Spaceships"))
+        //        {
+                    
+
+                    
+        //            _arrayShipInPrefabFleet.Add(child.gameObject);
+        //            child.gameObject.SetActive(false);
+        //            print($"child.name {child.name}");
+        //        }
+
+        //        // Рекурсивно вызываем функцию для всех дочерних объектов
+        //        FindSpaceshipsInChildren(child);
+        //    }
+        //}
     }
 
    private void ParseTypeShipInFleet(List<DataShip> locDataFleet)
@@ -323,35 +362,46 @@ public class FleetManager : MonoBehaviour
        {
            if (locDataFleet[i].typeShip == ShipType.eShipType.light)
            {
-                shipCountByType[ShipType.eShipType.light]++;
+                dicShips[ShipType.eShipType.light].Add(locDataFleet[i]);
            }
            else
            
            if (locDataFleet[i].typeShip == ShipType.eShipType.medium)
            {
-               shipCountByType[ShipType.eShipType.medium]++;
+               dicShips[ShipType.eShipType.medium].Add(locDataFleet[i]);
 
-           }
+            }
            else
            
            if (locDataFleet[i].typeShip == ShipType.eShipType.heavy)
            {
-               shipCountByType[ShipType.eShipType.heavy]++;
-           }
+               dicShips[ShipType.eShipType.heavy].Add(locDataFleet[i]);
+            }
+
+
        }
+       //print($"Dic: light {dicShips[ShipType.eShipType.light]}");
+       //print($"Dic: medium {dicShips[ShipType.eShipType.medium]}");
+       //print($"Dic: heavy {dicShips[ShipType.eShipType.heavy]}");
+        
+       //int count = 0;
 
-       int count = 0;
-
-       foreach (ShipType.eShipType type in Enum.GetValues(typeof(ShipType.eShipType)))
+       foreach (ShipType.eShipType shipType in Enum.GetValues(typeof(ShipType.eShipType)))
        {
-           if (shipCountByType[type] > 0)
+           if (dicShips[shipType].Count > 0)
            {
-               _arrayShipInPrefabFleet[count].SetActive(true);
-               _arrayShipInPrefabFleet[count].name = type.ToString();
+                //_arrayShipInPrefabFleet[count].SetActive(true);
+                //_arrayShipInPrefabFleet[count].name = shipType.ToString();
+                _objectShipInPrefabFleet[shipType].SetActive(true);
+                _objectShipInPrefabFleet[shipType].name = shipType.ToString();
 
-               count++; 
+
+               print($"_arrayShipInPrefabFleet: {dicShips[shipType].Count} ");
+               print($"shipType: {shipType}");
+               //print($"dicShips[shipType]: {dicShips[shipType][count].typeShip}");
+
+                //count++; 
            }
        }
-       
     }
 }

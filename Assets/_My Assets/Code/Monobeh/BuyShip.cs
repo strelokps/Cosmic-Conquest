@@ -43,8 +43,7 @@ public class BuyShip : MonoBehaviour
     [Button("Heavy")]
     public void BuildShipHeavy()
     {
-        _ship = _dataShipsSO.GetDataShipHeavy
-            ();
+        _ship = _dataShipsSO.GetDataShipHeavy();
 
         SetShipToBuildInShipyard();
     }

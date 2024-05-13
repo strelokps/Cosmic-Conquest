@@ -23,7 +23,7 @@ public class DataShipsSO : ScriptableObject
         _ship.regenShield = 0.1f;
         _ship.speedShip = 4.5f;
         _ship.coastShip = 1;
-        _ship.timeToBuild = 5f;
+        _ship.timeToBuild = 0.5f;
         _ship.typeShip = eShipType.light;
         _ship.typeShipIncreasedDamage = eShipType.heavy;
         _ship.increasedDamage = 1.3f;
