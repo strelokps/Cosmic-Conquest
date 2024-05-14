@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+
 public class MouseObjectSelection : MonoBehaviour
 {
 
@@ -11,6 +12,7 @@ public class MouseObjectSelection : MonoBehaviour
     // ���� ��������, ������� ����� ���� ������� �����
     public LayerMask selectPlayerLayer;
     public LayerMask selectAILayer;
+    public LayerMask selectUI;
 
     // ����������, �� ������� ���������� ��� ��� ������ �������
     public float raycastDistance = 1000f;
@@ -36,6 +38,7 @@ public class MouseObjectSelection : MonoBehaviour
         //selectPlayerLayer = LayerMask.NameToLayer("PlayerPlanet");
         selectPlayerLayer = LayerMask.GetMask("PlayerPlanet");
         selectAILayer = LayerMask.GetMask("Planet");
+        selectUI = LayerMask.GetMask("UI");
         currentRotation = transform.rotation.eulerAngles;
 
         _palyerParametrPlanetMono = GetComponent<ParametrPlanet_mono>();
@@ -64,7 +67,7 @@ public class MouseObjectSelection : MonoBehaviour
         {
 
 
-            //выбираем планету игрока
+            //choose player planet 
             if (selectedPlayerPlanet == null)
             {
                 SelectPlanet();
@@ -75,11 +78,19 @@ public class MouseObjectSelection : MonoBehaviour
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
 
+                if (Physics.Raycast(ray, out hit, selectUI) )
+                {
+                    if (selectedPlayerPlanet.gameObject.layer == hit.transform.gameObject.layer)
+                    print($"UI select {selectedPlayerPlanet.gameObject.layer} == {hit.transform.gameObject.layer}");
+                }
+
                 if (Physics.Raycast(ray, out hit, raycastDistance, selectPlayerLayer | selectAILayer) & selectedPlayerPlanet != null)
                 {
                     selectedTargetPlanet = hit.collider.gameObject;
+                    print($"UI {hit.transform.name}");
 
                     //если планета игрока, есть корабли на отправку и попали в другую планету, то отправляем корабли
+                    //if ib player planet ships to attack and hit to other planet -> send fleet
                     if (_palyerParametrPlanetMono._listDefenderFleet.Count > 0)
                         _palyerParametrPlanetMono.CreateAttackerFleet(_palyerParametrPlanetMono.percentForAttackFleet, selectedTargetPlanet.transform);
 
@@ -99,6 +110,8 @@ public class MouseObjectSelection : MonoBehaviour
         }
     }
 
+    //включаем спрайт обводки планеты, показываем что планета выбрана
+    //switch on sprite shoose planet
     void HighlightObject(GameObject obj)
     {
         _transformSpriteSelectForRotate = obj.GetComponent<ParametrPlanet_mono>().SelectPlanet(true);
@@ -110,6 +123,7 @@ public class MouseObjectSelection : MonoBehaviour
         if (selectedPlayerPlanet != null)
         {
             selectedPlayerPlanet.GetComponent<ParametrPlanet_mono>().SelectPlanet(false);
+            selectedPlayerPlanet.GetComponent<UIPlanetBuyShip>().ShowUIPlanetBuyShip();
 
             selectedPlayerPlanet = null;
 
@@ -145,6 +159,7 @@ public class MouseObjectSelection : MonoBehaviour
             selectedPlayerPlanet = planet;
 
             _palyerParametrPlanetMono = selectedPlayerPlanet.GetComponent<ParametrPlanet_mono>();
+            selectedPlayerPlanet.GetComponent<UIPlanetBuyShip>().ShowUIPlanetBuyShip();
         }
         else
         {
