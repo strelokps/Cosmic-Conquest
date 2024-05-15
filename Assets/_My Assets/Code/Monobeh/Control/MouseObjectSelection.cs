@@ -12,7 +12,9 @@ public class MouseObjectSelection : MonoBehaviour
     // ���� ��������, ������� ����� ���� ������� �����
     public LayerMask selectPlayerLayer;
     public LayerMask selectAILayer;
-    public LayerMask selectUI;
+    public LayerMask selectUIBuyShips;
+
+    private int layerMaskToHitBuyShips ;
 
     // ����������, �� ������� ���������� ��� ��� ������ �������
     public float raycastDistance = 1000f;
@@ -35,12 +37,13 @@ public class MouseObjectSelection : MonoBehaviour
     {
         _controls = new InputControls();
         _controls.PC.Select.performed += _ => HitToPlanet();
-        //selectPlayerLayer = LayerMask.NameToLayer("PlayerPlanet");
+        
         selectPlayerLayer = LayerMask.GetMask("PlayerPlanet");
         selectAILayer = LayerMask.GetMask("Planet");
-        selectUI = LayerMask.GetMask("UI");
-        currentRotation = transform.rotation.eulerAngles;
+        selectUIBuyShips = LayerMask.NameToLayer("BuyShips");
+        layerMaskToHitBuyShips = 1 << selectUIBuyShips;
 
+        currentRotation = transform.rotation.eulerAngles;
         _palyerParametrPlanetMono = GetComponent<ParametrPlanet_mono>();
 
     }
@@ -63,8 +66,10 @@ public class MouseObjectSelection : MonoBehaviour
 
     private void HitToPlanet()
     {
+        print("hit ?");
         if (_controls.PC.Select.triggered)
         {
+            print("hit 2 ?");
 
 
             //choose player planet 
@@ -78,27 +83,52 @@ public class MouseObjectSelection : MonoBehaviour
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
 
-                if (Physics.Raycast(ray, out hit, selectUI) )
+                if (Physics.Raycast(ray, out hit, raycastDistance, layerMaskToHitBuyShips))
                 {
-                    if (selectedPlayerPlanet.gameObject.layer == hit.transform.gameObject.layer)
-                    print($"UI select {selectedPlayerPlanet.gameObject.layer} == {hit.transform.gameObject.layer}");
+                    
                 }
 
-                if (Physics.Raycast(ray, out hit, raycastDistance, selectPlayerLayer | selectAILayer) & selectedPlayerPlanet != null)
+                else
+                //if (Physics.Raycast(ray, out hit, raycastDistance, selectUI2) )
+                //{
+                //    print($" Test 2 O {hit.transform.gameObject.layer} == {selectUI2.value}");
+                //    print($" Test 2_1 O {hit.transform.gameObject.layer} == {selectUI2.value}");
+
+                //    if (hit.transform.gameObject.layer == selectUI2.value)
+                //    {
+                //        print($" Test 2 C {hit.transform.gameObject.layer} == {selectUI2.value}");
+                //    }
+                //}
+
+
+
+
+                if (Physics.Raycast(ray, out hit, raycastDistance, selectPlayerLayer | selectAILayer ) & selectedPlayerPlanet != null)
                 {
-                    selectedTargetPlanet = hit.collider.gameObject;
-                    print($"UI {hit.transform.name}");
-
-                    //если планета игрока, есть корабли на отправку и попали в другую планету, то отправляем корабли
-                    //if ib player planet ships to attack and hit to other planet -> send fleet
-                    if (_palyerParametrPlanetMono._listDefenderFleet.Count > 0)
-                        _palyerParametrPlanetMono.CreateAttackerFleet(_palyerParametrPlanetMono.percentForAttackFleet, selectedTargetPlanet.transform);
-
-                    else
+                    //if (hit.transform.gameObject.layer == layerMaskToHitBuyShips)
+                    //{
+                    //    print($" Test 1 C {hit.transform.gameObject.layer} == {layerMaskToHitBuyShips}");
+                    //}
+                    //else
+                    //if (hit.transform.gameObject.layer == selectUIBuyShips)
+                    //{
+                    //    print($" Test 2 {hit.transform.gameObject.layer} == {selectUIBuyShips}");
+                    //}
+                    //else
                     {
-                        ClearSelection();
+                        selectedTargetPlanet = hit.collider.gameObject;
+                        print($"UI {hit.transform.name}  ");
+                        //если планета игрока, есть корабли на отправку и попали в другую планету, то отправляем корабли
+                        //if ib player planet ships to attack and hit to other planet -> send fleet
+                        if (_palyerParametrPlanetMono._listDefenderFleet.Count > 0)
+                            _palyerParametrPlanetMono.CreateAttackerFleet(
+                                _palyerParametrPlanetMono.percentForAttackFleet, selectedTargetPlanet.transform);
+                        else
+                        {
+                            ClearSelection();
 
-                        SelectPlanet();
+                            SelectPlanet();
+                        }
                     }
                 }
                 else
