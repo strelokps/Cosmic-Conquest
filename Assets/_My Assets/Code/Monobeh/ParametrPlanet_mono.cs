@@ -51,12 +51,15 @@ public class ParametrPlanet_mono : MonoBehaviour
     [SerializeField] private Transform _spawnPointAttackFleet;
     [SerializeField] public Transform _spawnPointDefenceFleet;
     [SerializeField] private GameObject _prefabFleet;
-    [ShowInInspector] public List<DataShip> _listDefenderFleet = new List<DataShip>(); //список кораблей для защиты внутри планеты 
-    [ShowInInspector] public List<DataShip> _listDefenderFleet_light = new List<DataShip>(); //разделение по типу кораблей
-    [ShowInInspector] public List<DataShip> _listDefenderFleet_medium = new List<DataShip>(); //список кораблей для защиты внутри планеты 
-    [ShowInInspector] public List<DataShip> _listDefenderFleet_heavy = new List<DataShip>(); //список кораблей для защиты внутри планеты 
-    [ShowInInspector]
-    private Dictionary<ShipType.eShipType, List<DataShip>> dicShips = new Dictionary<ShipType.eShipType, List<DataShip>>
+    //[ShowInInspector] public List<DataShip> _listDefenderFleet = new List<DataShip>(); //список кораблей для защиты внутри планеты 
+
+
+
+    //[ShowInInspector] public List<DataShip> _listDefenderFleet_light = new List<DataShip>(); //разделение по типу кораблей
+    //[ShowInInspector] public List<DataShip> _listDefenderFleet_medium = new List<DataShip>(); //список кораблей для защиты внутри планеты 
+    //[ShowInInspector] public List<DataShip> _listDefenderFleet_heavy = new List<DataShip>(); //список кораблей для защиты внутри планеты 
+    //
+    [ShowInInspector] private Dictionary<ShipType.eShipType, List<DataShip>> dicShips = new Dictionary<ShipType.eShipType, List<DataShip>>
     {
         {ShipType.eShipType.heavy, new List<DataShip>()},
         {ShipType.eShipType.medium, new List<DataShip>()},
@@ -371,32 +374,31 @@ public class ParametrPlanet_mono : MonoBehaviour
     {
         if (locDataShip.typeShip == ShipType.eShipType.light)
         {
-            _listDefenderFleet_light.Add(locDataShip);
             dicShips[ShipType.eShipType.light].Add(locDataShip);
         }
         else if (locDataShip.typeShip == ShipType.eShipType.medium)
         {
-            _listDefenderFleet_medium.Add(locDataShip);
             dicShips[ShipType.eShipType.medium].Add(locDataShip);
         }
         else if (locDataShip.typeShip == ShipType.eShipType.heavy)
         {
-            _listDefenderFleet_heavy.Add(locDataShip);
             dicShips[ShipType.eShipType.heavy].Add(locDataShip);
         }
 
-        _listDefenderFleet.Add(locDataShip);// добавляем в список защитников планеты
+        dicShips.Clear();// добавляем в список защитников планеты
     }
 
     //добавление кораблей из флота на планете к флоту на орбите
     private void AddShipsToDefenceFleetOnOrbit()
     {
-        if (_listDefenderFleet.Count > 0 & defFleetOnOrbitPlanet_GO != null)
+        if (CheckinпAvailabilityShips() & defFleetOnOrbitPlanet_GO != null)
         {
-            _defFleetManager.MergFleets(_listDefenderFleet);
-            print($"<color=yellow>{_listDefenderFleet.Count}</color>");
+            _defFleetManager.MergFleets(dicShips);
+            print($"<color=yellow> light: {dicShips[ShipType.eShipType.light].Count}</color>");
+            print($"<color=yellow> medium: {dicShips[ShipType.eShipType.medium].Count}</color>");
+            print($"<color=yellow> heavy: {dicShips[ShipType.eShipType.heavy].Count}</color>");
 
-            _listDefenderFleet = new List<DataShip>();
+            dicShips = new Dictionary<ShipType.eShipType, List<DataShip>>();
         }
     }
 
@@ -406,7 +408,7 @@ public class ParametrPlanet_mono : MonoBehaviour
     /// </summary>
     /// <param name="locListDataFleet"></param>
     
-    public void AddFleetToDefenceFleetOnPlanet(List<DataShip> locListDataFleet)
+    public void AddFleetToDefenceFleetOnPlanet(Dictionary<ShipType.eShipType, List<DataShip>> locDicShips)
     {
         for (int i = 0; i < locListDataFleet.Count; i++)
         {
@@ -646,49 +648,29 @@ public class ParametrPlanet_mono : MonoBehaviour
         return _spriteSelect.transform;
     }
 
+    //Display on HUD planet how many ships in defender fleet
     private void DisplayCountShipsInPlanet()
     {
-        if (_countLightShips != _listDefenderFleet_light.Count)
+        if (_countLightShips != dicShips[ShipType.eShipType.light].Count)
         {
-            _textUICountShips_Light.text = _listDefenderFleet_light.Count.ToString();
-            _countLightShips = _listDefenderFleet_light.Count;
+            _textUICountShips_Light.text = dicShips[ShipType.eShipType.light].Count.ToString();
+            _countLightShips = dicShips[ShipType.eShipType.light].Count;
         }
 
-        if (_countMediumShips != _listDefenderFleet_medium.Count)
+        if (_countMediumShips != dicShips[ShipType.eShipType.medium].Count)
         {
-            _textUICountShips_Medium.text = _listDefenderFleet_medium.Count.ToString();
-            _countMediumShips = _listDefenderFleet_medium.Count;
+            _textUICountShips_Medium.text = dicShips[ShipType.eShipType.medium].Count.ToString();
+            _countMediumShips = dicShips[ShipType.eShipType.medium].Count;
         }
 
-        if (_countHeavyShips != _listDefenderFleet_heavy.Count)
+        if (_countHeavyShips != dicShips[ShipType.eShipType.heavy].Count)
         {
-            _textUICountShips_Heavy.text = _listDefenderFleet_heavy.Count.ToString();
-            _countHeavyShips = _listDefenderFleet_heavy.Count;
-        }
-    }
-
-    //отображение кол-ва кораблей в очереди на строительство
-    private void DisplayCountShipInYard(DataShip locDataShip, int countShips )
-    {
-        if (locDataShip.typeShip != ShipType.eShipType.light  )
-        {
-
-        }
-        
-        else 
-        
-        if (locDataShip.typeShip != ShipType.eShipType.medium)
-        {
-
-        }
-        
-        else
-        
-        if (locDataShip.typeShip != ShipType.eShipType.heavy)
-        {
-
+            _textUICountShips_Heavy.text = dicShips[ShipType.eShipType.heavy].Count.ToString();
+            _countHeavyShips = dicShips[ShipType.eShipType.heavy].Count;
         }
     }
+
+   
 
     public void SwitchOnHUDplanetForPlayer()
     {
@@ -703,4 +685,13 @@ public class ParametrPlanet_mono : MonoBehaviour
         }
     }
 
+
+    private bool CheckinпAvailabilityShips()
+    {
+        bool flagCheckShips = dicShips[ShipType.eShipType.light].Count > 0 
+                              | dicShips[ShipType.eShipType.medium].Count > 0 
+                              | dicShips[ShipType.eShipType.heavy].Count > 0;
+
+        return flagCheckShips;
+    }
 }

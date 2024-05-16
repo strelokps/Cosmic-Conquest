@@ -15,7 +15,7 @@ public class Shipyard : MonoBehaviour
     private ParametrPlanet_mono _selfParametrPlanetMono;
     [ShowInInspector]
     
-    private List<DataShip> _listDataShip; //очередь кораблей на постройку
+    //private List<DataShip> _listDataShip; //очередь кораблей на постройку
     private int _countShipLight; //очередь кораблей на постройку
     private int _countShipMedium; //очередь кораблей на постройку
     private int _countShipHeavy; //очередь кораблей на постройку
