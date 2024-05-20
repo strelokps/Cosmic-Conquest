@@ -385,7 +385,7 @@ public class ParametrPlanet_mono : MonoBehaviour
             dicShips[ShipType.eShipType.heavy].Add(locDataShip);
         }
 
-        dicShips.Clear();// добавляем в список защитников планеты
+        //dicShips.Clear();// добавляем в список защитников планеты
     }
 
     //добавление кораблей из флота на планете к флоту на орбите
