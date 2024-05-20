@@ -597,6 +597,25 @@ public GameObject CallDefenderFleet(Transform locTransformAttackingFleet)
             if (ships.Value.Count > 0)
             {
                 float tempPercent = Mathf.Floor(ships.Value.Count * (locPercent / 100));
+                float tempCountShipsToAttack = 0;
+
+                if (tempPercent > ships.Value.Count)
+                    tempCountShipsToAttack = ships.Value.Count;
+                else
+                    tempCountShipsToAttack = tempPercent;
+                
+                for (; tempPercent >= tempAttackFleet.Count;)
+                {
+
+                    tempAttackFleet.Values.AddRange(ships.Value);
+                    //
+                    _listDefenderFleet.Remove(_listDefenderFleet[0]);
+                    tempCountShipsToAttack--;
+                    if (tempCountShipsToAttack <= 0)
+                    {
+                        return tempAttackFleet;
+                    }
+                }
 
             }
         }
