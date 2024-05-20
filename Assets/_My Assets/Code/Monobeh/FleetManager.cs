@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Sirenix.OdinInspector;
+using Unity.VisualScripting;
 
 
 [RequireComponent(typeof(FleetState))]
@@ -163,14 +164,14 @@ public class FleetManager : MonoBehaviour
         return bullet;
     }
 
-    public void InitiateFleet(List<DataShip> locDataFleet, Material locMaterial 
+    public void InitiateFleet(Dictionary<ShipType.eShipType, List<DataShip>> locDicShips, Material locMaterial 
         ,Transform locPlanetIsOwnerFleet, Transform locParentTransform 
         ,ParametrPlanet_mono locTargetPlanetMono, SceneMembersData locMembersDataInFleet
         ,FleetStateStruct.enumFleetState _locFleetState)
     {
         FindSpaceshipsInChildren(transform);
 
-        _dataFleetList = new List<DataShip> ( locDataFleet );
+        dicShips = new Dictionary<ShipType.eShipType, List<DataShip>>(locDicShips);
 
         _fleetShootingSystem = GetComponent<FleetShootingSystem>();
         _fleetShootingSystem.InitShootingSystem(_prefabBullet, SetDataBullet(), _dataFleetList);
@@ -262,15 +263,22 @@ public class FleetManager : MonoBehaviour
     }
 
     //получаем минимальную скорость из всех кораблей флота
-    public float GetMinSpeedFleet(List<DataShip> locDataShips)
+    public float GetMinSpeedFleet(Dictionary<ShipType.eShipType, List<DataShip>> locDicShips)
     {
-        float minSpeed = locDataShips[0].speedShip;
+        float minSpeed = 99999999;
 
-        for (int i = 0; i < locDataShips.Count; i++)
+        foreach (var ships in locDicShips)
         {
-            if (locDataShips[i].speedShip < minSpeed)
-                minSpeed = locDataShips[i].speedShip;
+            if (ships.Value.Count > 0)
+                if (minSpeed > ships.Value[0].speedShip)
+                    minSpeed = ships.Value[0].speedShip;
         }
+
+        //for (int i = 0; i < locDataShips.Count; i++)
+        //{
+        //    if (locDataShips[i].speedShip < minSpeed)
+        //        minSpeed = locDataShips[i].speedShip;
+        //}
 
         return minSpeed;
     }

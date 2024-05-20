@@ -85,16 +85,41 @@ public class MouseObjectSelection : MonoBehaviour
 
                 if (Physics.Raycast(ray, out hit, raycastDistance, layerMaskToHitBuyShips))
                 {
-                    //this if need for push button buy ship on HUD planet
+                    
                 }
+
                 else
+                //if (Physics.Raycast(ray, out hit, raycastDistance, selectUI2) )
+                //{
+                //    print($" Test 2 O {hit.transform.gameObject.layer} == {selectUI2.value}");
+                //    print($" Test 2_1 O {hit.transform.gameObject.layer} == {selectUI2.value}");
+
+                //    if (hit.transform.gameObject.layer == selectUI2.value)
+                //    {
+                //        print($" Test 2 C {hit.transform.gameObject.layer} == {selectUI2.value}");
+                //    }
+                //}
+
+
+
+
                 if (Physics.Raycast(ray, out hit, raycastDistance, selectPlayerLayer | selectAILayer ) & selectedPlayerPlanet != null)
                 {
+                    //if (hit.transform.gameObject.layer == layerMaskToHitBuyShips)
+                    //{
+                    //    print($" Test 1 C {hit.transform.gameObject.layer} == {layerMaskToHitBuyShips}");
+                    //}
+                    //else
+                    //if (hit.transform.gameObject.layer == selectUIBuyShips)
+                    //{
+                    //    print($" Test 2 {hit.transform.gameObject.layer} == {selectUIBuyShips}");
+                    //}
+                    //else
                     {
                         selectedTargetPlanet = hit.collider.gameObject;
                         print($"UI {hit.transform.name}  ");
                         //если планета игрока, есть корабли на отправку и попали в другую планету, то отправляем корабли
-                        //if in player planet ships to attack and hit to other planet -> send fleet
+                        //if ib player planet ships to attack and hit to other planet -> send fleet
                         if (_palyerParametrPlanetMono._listDefenderFleet.Count > 0)
                             _palyerParametrPlanetMono.CreateAttackerFleet(
                                 _palyerParametrPlanetMono.percentForAttackFleet, selectedTargetPlanet.transform);
