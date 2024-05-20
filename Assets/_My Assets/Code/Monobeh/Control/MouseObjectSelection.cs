@@ -120,7 +120,7 @@ public class MouseObjectSelection : MonoBehaviour
                         print($"UI {hit.transform.name}  ");
                         //если планета игрока, есть корабли на отправку и попали в другую планету, то отправляем корабли
                         //if ib player planet ships to attack and hit to other planet -> send fleet
-                        if (_palyerParametrPlanetMono._listDefenderFleet.Count > 0)
+                        if (_palyerParametrPlanetMono.CheckInAvailabilityShips())
                             _palyerParametrPlanetMono.CreateAttackerFleet(
                                 _palyerParametrPlanetMono.percentForAttackFleet, selectedTargetPlanet.transform);
                         else

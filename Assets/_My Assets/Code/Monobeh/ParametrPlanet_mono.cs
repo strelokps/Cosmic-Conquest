@@ -59,7 +59,7 @@ public class ParametrPlanet_mono : MonoBehaviour
     //[ShowInInspector] public List<DataShip> _listDefenderFleet_medium = new List<DataShip>(); //список кораблей для защиты внутри планеты 
     //[ShowInInspector] public List<DataShip> _listDefenderFleet_heavy = new List<DataShip>(); //список кораблей для защиты внутри планеты 
     //
-    [ShowInInspector] private Dictionary<ShipType.eShipType, List<DataShip>> dicDefenderFleet = new Dictionary<ShipType.eShipType, List<DataShip>>
+    [ShowInInspector] private Dictionary<ShipType.eShipType, List<DataShip>> _dicDefenderFleet = new Dictionary<ShipType.eShipType, List<DataShip>>
     {
         {ShipType.eShipType.heavy, new List<DataShip>()},
         {ShipType.eShipType.medium, new List<DataShip>()},
@@ -357,7 +357,7 @@ public class ParametrPlanet_mono : MonoBehaviour
                 //проводим первичные настройки флота
                 _fleetManager = fl.GetComponent<FleetManager>();
 
-                _fleetManager.InitiateFleet(dicDefenderFleet, _materialPlanet, transform
+                _fleetManager.InitiateFleet(_dicDefenderFleet, _materialPlanet, transform
                     , _parentTransformFromPlanet, TargetPlanetMono, _memberSceneData, locStateFleet);
 
                 fl.name = _parentManager.GetIdForFleet();
@@ -377,18 +377,18 @@ public class ParametrPlanet_mono : MonoBehaviour
     {
         if (locDataShip.typeShip == ShipType.eShipType.light)
         {
-            dicDefenderFleet[ShipType.eShipType.light].Add(locDataShip);
+            _dicDefenderFleet[ShipType.eShipType.light].Add(locDataShip);
         }
         else if (locDataShip.typeShip == ShipType.eShipType.medium)
         {
-            dicDefenderFleet[ShipType.eShipType.medium].Add(locDataShip);
+            _dicDefenderFleet[ShipType.eShipType.medium].Add(locDataShip);
         }
         else if (locDataShip.typeShip == ShipType.eShipType.heavy)
         {
-            dicDefenderFleet[ShipType.eShipType.heavy].Add(locDataShip);
+            _dicDefenderFleet[ShipType.eShipType.heavy].Add(locDataShip);
         }
 
-        //dicDefenderFleet.Clear();// добавляем в список защитников планеты
+        //_dicDefenderFleet.Clear();// добавляем в список защитников планеты
         //
     }
 
@@ -397,12 +397,12 @@ public class ParametrPlanet_mono : MonoBehaviour
     {
         if (CheckInAvailabilityShips() & defFleetOnOrbitPlanet_GO != null)
         {
-            _defFleetManager.MergFleets(dicDefenderFleet);
-            print($"<color=yellow> light: {dicDefenderFleet[ShipType.eShipType.light].Count}</color>");
-            print($"<color=yellow> medium: {dicDefenderFleet[ShipType.eShipType.medium].Count}</color>");
-            print($"<color=yellow> heavy: {dicDefenderFleet[ShipType.eShipType.heavy].Count}</color>");
+            _defFleetManager.MergFleets(_dicDefenderFleet);
+            print($"<color=yellow> light: {_dicDefenderFleet[ShipType.eShipType.light].Count}</color>");
+            print($"<color=yellow> medium: {_dicDefenderFleet[ShipType.eShipType.medium].Count}</color>");
+            print($"<color=yellow> heavy: {_dicDefenderFleet[ShipType.eShipType.heavy].Count}</color>");
 
-            dicDefenderFleet = new Dictionary<ShipType.eShipType, List<DataShip>>();
+            _dicDefenderFleet = new Dictionary<ShipType.eShipType, List<DataShip>>();
         }
     }
 
@@ -416,12 +416,12 @@ public class ParametrPlanet_mono : MonoBehaviour
     {
         foreach (var ships in locDicShips)
         {
-            print($"<color=yellow> 1 {dicDefenderFleet.Keys} = {ships.Key} </color> ");
-            if (dicDefenderFleet.ContainsKey(ships.Key))
+            print($"<color=yellow> 1 {_dicDefenderFleet.Keys} = {ships.Key} </color> ");
+            if (_dicDefenderFleet.ContainsKey(ships.Key))
             {
-                print($"<color=yellow> 2 {dicDefenderFleet.Keys} = {ships.Key} </color>");
+                print($"<color=yellow> 2 {_dicDefenderFleet.Keys} = {ships.Key} </color>");
 
-                dicDefenderFleet[ships.Key].AddRange(ships.Value);
+                _dicDefenderFleet[ships.Key].AddRange(ships.Value);
             }
         }
 
@@ -452,8 +452,8 @@ public GameObject CallDefenderFleet(Transform locTransformAttackingFleet)
             _stateFleet = FleetStateStruct.enumFleetState.StartForDefence;
 
 
-            GenerationFleet(_stateFleet, dicDefenderFleet, SetSpawnPointToDefence(locTransformAttackingFleet), locTransformAttackingFleet);
-            dicDefenderFleet = new Dictionary<ShipType.eShipType, List<DataShip>>(); //очищаем список флота на планете, т.к. все корабли были переданы в деф флот
+            GenerationFleet(_stateFleet, _dicDefenderFleet, SetSpawnPointToDefence(locTransformAttackingFleet), locTransformAttackingFleet);
+            _dicDefenderFleet = new Dictionary<ShipType.eShipType, List<DataShip>>(); //очищаем список флота на планете, т.к. все корабли были переданы в деф флот
 
             Clear();
         }
@@ -587,31 +587,30 @@ public GameObject CallDefenderFleet(Transform locTransformAttackingFleet)
     }
 
     //какой процент кораблей из флота защиты перейдет во флот атаки
-    private Dictionary<ShipType, List<DataShip>> CalculationPercentageOfTheFleet(float locPercent)
+    private Dictionary<ShipType.eShipType, List<DataShip>> CalculationPercentageOfTheFleet(float locPercent)
     {
         //List<DataShip> tempAttackFleet = new List<DataShip>();
-        Dictionary<ShipType, List<DataShip>> tempAttackFleet = new Dictionary<ShipType, List<DataShip>>();
+        Dictionary<ShipType.eShipType, List<DataShip>> tempAttackFleet = new Dictionary<ShipType.eShipType, List<DataShip>>();
 
-        foreach (var ships in dicDefenderFleet)
+        foreach (var ships in _dicDefenderFleet)
         {
             if (ships.Value.Count > 0)
             {
                 float tempPercent = Mathf.Floor(ships.Value.Count * (locPercent / 100));
                 float tempCountShipsToAttack = 0;
 
+                //check if locPercent > 100%
                 if (tempPercent > ships.Value.Count)
                     tempCountShipsToAttack = ships.Value.Count;
                 else
                     tempCountShipsToAttack = tempPercent;
                 
-                for (; tempPercent >= tempAttackFleet.Count;)
+                for (int i = 0; tempCountShipsToAttack <= i; i++)
                 {
-
-                    tempAttackFleet.Values.AddRange(ships.Value);
-                    //
-                    _listDefenderFleet.Remove(_listDefenderFleet[0]);
-                    tempCountShipsToAttack--;
-                    if (tempCountShipsToAttack <= 0)
+                    tempAttackFleet[ships.Key].Add(_dicDefenderFleet[ships.Key][0]);
+                    _dicDefenderFleet[ships.Key].RemoveAt(0);
+                   
+                    if (tempCountShipsToAttack >= i)
                     {
                         return tempAttackFleet;
                     }
@@ -619,28 +618,28 @@ public GameObject CallDefenderFleet(Transform locTransformAttackingFleet)
 
             }
         }
-        if (CheckInAvailabilityShips())
-        {
-            float tempPercent = Mathf.Floor(_listDefenderFleet.Count * (locPercent / 100));
-            float tempCountShipsToAttack = 0;
+        //if (CheckInAvailabilityShips())
+        //{
+        //    float tempPercent = Mathf.Floor(_listDefenderFleet.Count * (locPercent / 100));
+        //    float tempCountShipsToAttack = 0;
 
-            if (tempPercent > _listDefenderFleet.Count)
-                tempCountShipsToAttack = _listDefenderFleet.Count;
-            else
-                tempCountShipsToAttack = tempPercent;
-            var tempCountDefFleet = _listDefenderFleet.Count;
-            for (int i = 0; tempPercent >= tempAttackFleet.Count; i++)
-            {
+        //    if (tempPercent > _listDefenderFleet.Count)
+        //        tempCountShipsToAttack = _listDefenderFleet.Count;
+        //    else
+        //        tempCountShipsToAttack = tempPercent;
+        //    var tempCountDefFleet = _listDefenderFleet.Count;
+        //    for (int i = 0; tempPercent >= tempAttackFleet.Count; i++)
+        //    {
 
-                tempAttackFleet.Add(_listDefenderFleet[0]);
-                _listDefenderFleet.Remove(_listDefenderFleet[0]);
-                tempCountShipsToAttack--;
-                if (tempCountShipsToAttack <= 0)
-                {
-                    return tempAttackFleet;
-                }
-            }
-        }
+        //        tempAttackFleet.Add(_listDefenderFleet[0]);
+        //        _listDefenderFleet.Remove(_listDefenderFleet[0]);
+        //        tempCountShipsToAttack--;
+        //        if (tempCountShipsToAttack <= 0)
+        //        {
+        //            return tempAttackFleet;
+        //        }
+        //    }
+        //}
         return tempAttackFleet;
     }
 
@@ -649,7 +648,7 @@ public GameObject CallDefenderFleet(Transform locTransformAttackingFleet)
     public bool ChangeOwnerPlanet(SceneMembersData locNewMembersData, Transform locNewParentTransform)
     {
         bool flagChangeOwnerPlanet = false;
-        if (_listDefenderFleet.Count == 0 & defFleetOnOrbitPlanet_GO == null )
+        if (!CheckInAvailabilityShips() & defFleetOnOrbitPlanet_GO == null )
         {
             StartetConfig(locNewMembersData, locNewParentTransform);
             flagChangeOwnerPlanet = true;
@@ -697,22 +696,22 @@ public GameObject CallDefenderFleet(Transform locTransformAttackingFleet)
     //Display on HUD planet how many ships in defender fleet
     private void DisplayCountShipsInPlanet()
     {
-        if (_countLightShips != dicDefenderFleet[ShipType.eShipType.light].Count)
+        if (_countLightShips != _dicDefenderFleet[ShipType.eShipType.light].Count)
         {
-            _textUICountShips_Light.text = dicDefenderFleet[ShipType.eShipType.light].Count.ToString();
-            _countLightShips = dicDefenderFleet[ShipType.eShipType.light].Count;
+            _textUICountShips_Light.text = _dicDefenderFleet[ShipType.eShipType.light].Count.ToString();
+            _countLightShips = _dicDefenderFleet[ShipType.eShipType.light].Count;
         }
 
-        if (_countMediumShips != dicDefenderFleet[ShipType.eShipType.medium].Count)
+        if (_countMediumShips != _dicDefenderFleet[ShipType.eShipType.medium].Count)
         {
-            _textUICountShips_Medium.text = dicDefenderFleet[ShipType.eShipType.medium].Count.ToString();
-            _countMediumShips = dicDefenderFleet[ShipType.eShipType.medium].Count;
+            _textUICountShips_Medium.text = _dicDefenderFleet[ShipType.eShipType.medium].Count.ToString();
+            _countMediumShips = _dicDefenderFleet[ShipType.eShipType.medium].Count;
         }
 
-        if (_countHeavyShips != dicDefenderFleet[ShipType.eShipType.heavy].Count)
+        if (_countHeavyShips != _dicDefenderFleet[ShipType.eShipType.heavy].Count)
         {
-            _textUICountShips_Heavy.text = dicDefenderFleet[ShipType.eShipType.heavy].Count.ToString();
-            _countHeavyShips = dicDefenderFleet[ShipType.eShipType.heavy].Count;
+            _textUICountShips_Heavy.text = _dicDefenderFleet[ShipType.eShipType.heavy].Count.ToString();
+            _countHeavyShips = _dicDefenderFleet[ShipType.eShipType.heavy].Count;
         }
     }
 
@@ -732,11 +731,11 @@ public GameObject CallDefenderFleet(Transform locTransformAttackingFleet)
     }
 
 
-    private bool CheckInAvailabilityShips()
+    public bool CheckInAvailabilityShips()
     {
-        bool flagCheckShips = dicDefenderFleet[ShipType.eShipType.light].Count > 0 
-                              | dicDefenderFleet[ShipType.eShipType.medium].Count > 0 
-                              | dicDefenderFleet[ShipType.eShipType.heavy].Count > 0;
+        bool flagCheckShips = _dicDefenderFleet[ShipType.eShipType.light].Count > 0 
+                              | _dicDefenderFleet[ShipType.eShipType.medium].Count > 0 
+                              | _dicDefenderFleet[ShipType.eShipType.heavy].Count > 0;
 
         return flagCheckShips;
     }
