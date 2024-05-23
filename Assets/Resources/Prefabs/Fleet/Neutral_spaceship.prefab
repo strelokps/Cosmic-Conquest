@@ -4697,6 +4697,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _stateFleet: 0
+  _targetForDefenceFleet: {fileID: 0}
   speedMove: 1
   _stopBefore: 0
   _tempStopBefore: 0
@@ -6137,7 +6138,7 @@ GameObject:
   - component: {fileID: 1470674138789025220}
   m_Layer: 6
   m_Name: Spaceships_Neutral_0
-  m_TagString: Untagged
+  m_TagString: Heavy
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10766,7 +10767,7 @@ GameObject:
   - component: {fileID: 1766066843131502337}
   m_Layer: 6
   m_Name: Spaceships_Neutral_2
-  m_TagString: Untagged
+  m_TagString: Light
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12119,7 +12120,7 @@ GameObject:
   - component: {fileID: 6481913841857086790}
   m_Layer: 6
   m_Name: Spaceships_Neutral_1
-  m_TagString: Untagged
+  m_TagString: Medium
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
