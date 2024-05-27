@@ -18,7 +18,7 @@ using Random = UnityEngine.Random;
 
 public class ParametrPlanet_mono : MonoBehaviour
 {
-
+    //Test br 8
     [SerializeField] private int _idPlanet;
     private int _lvlTechPlanet;
     [SerializeField] private Color _colorPlanet;

@@ -13,6 +13,8 @@ using Sirenix.OdinInspector;
 
 public class FleetManager : MonoBehaviour
 {
+    //Test br 8
+
     [SerializeField] private Transform _selfTransform;
     [SerializeField] private Transform _pointToFire;
     public Transform _selfPlanetTransform;
