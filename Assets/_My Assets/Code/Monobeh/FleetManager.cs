@@ -6,7 +6,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Sirenix.OdinInspector;
-using Unity.VisualScripting;
 
 
 [RequireComponent(typeof(FleetState))]
@@ -35,7 +34,7 @@ public class FleetManager : MonoBehaviour
     [SerializeField] private int _attackFleet;
     [SerializeField] private int _armorFleet;
     
-    //[ShowInInspector] private List<DataShip> _dataFleetList ; //список кораблей во флоту
+    [ShowInInspector] private List<DataShip> _dataFleetList ; //список кораблей во флоту
     private List<GameObject> _arrayShipInPrefabFleet = new List<GameObject>(); //массив кораблей из префаба флота для последующей активации и парсинга для типа кораблей ( light, medium, heavy) и их point fire
 
     [ShowInInspector]
@@ -47,7 +46,7 @@ public class FleetManager : MonoBehaviour
         { ShipType.eShipType.light, null},
     };
 [ShowInInspector]
-    private Dictionary<ShipType.eShipType, List<DataShip>> _dicShips = new Dictionary<ShipType.eShipType, List<DataShip>>
+    private Dictionary<ShipType.eShipType, List<DataShip>> dicShips = new Dictionary<ShipType.eShipType, List<DataShip>>
     {
         {ShipType.eShipType.heavy, new List<DataShip>()},
         {ShipType.eShipType.medium, new List<DataShip>()},
@@ -100,6 +99,14 @@ public class FleetManager : MonoBehaviour
 
     }
 
+    public void AddShipToFleet(DataShip locDataShip)
+    {
+        _dataFleetList.Add(locDataShip);
+
+        DisplayAttackAndDefenceFleet();
+    }
+
+
     public SceneMembersData GetMembersData()
     {
         return _membersDataInFleet;
@@ -110,9 +117,9 @@ public class FleetManager : MonoBehaviour
         return _parentTransformInFleet;
     }
 
-    public Dictionary<ShipType.eShipType, List<DataShip>> GetListDataFleet()
+    public List<DataShip> GetListDataFleet()
     {
-        return _dicShips;
+        return _dataFleetList;
     }
 
     public void RemoveAttackAndDefence(DataShip locDatafleet)
@@ -161,14 +168,14 @@ public class FleetManager : MonoBehaviour
         return bullet;
     }
 
-    public void InitiateFleet(Dictionary<ShipType.eShipType, List<DataShip>> locDicShips, Material locMaterial 
+    public void InitiateFleet(List<DataShip> locDataFleet, Material locMaterial 
         ,Transform locPlanetIsOwnerFleet, Transform locParentTransform 
         ,ParametrPlanet_mono locTargetPlanetMono, SceneMembersData locMembersDataInFleet
         ,FleetStateStruct.enumFleetState _locFleetState)
     {
         FindSpaceshipsInChildren(transform);
 
-        _dicShips = new Dictionary<ShipType.eShipType, List<DataShip>>(locDicShips);
+        _dataFleetList = new List<DataShip> ( locDataFleet );
 
         _fleetShootingSystem = GetComponent<FleetShootingSystem>();
         _fleetShootingSystem.InitShootingSystem(_prefabBullet, SetDataBullet(), _dataFleetList);
@@ -191,13 +198,13 @@ public class FleetManager : MonoBehaviour
 
         _fleetState = GetComponent<FleetState>();
         _fleetState.SetState( _locFleetState, locTargetPlanetMono, _selfParametrPlanetMono);
-        _fleetState.speedMove = GetMinSpeedFleet(locDicShips);
+        _fleetState.speedMove = GetMinSpeedFleet(locDataFleet);
 
 
         _timer = 1f;
         _tempTimer = 0;
 
-        ParseTypeShipInFleet(); //парсим тип кораблей для дальнейшего отображения ГО в префабе(для каждого типа свой ГО)
+        ParseTypeShipInFleet(locDataFleet); //парсим тип кораблей для дальнейшего отображения ГО в префабе(для каждого типа свой ГО)
 
         DisplayAttackAndDefenceFleet();
         DisplayNumShipInFleet();
@@ -205,12 +212,11 @@ public class FleetManager : MonoBehaviour
 
 
     //присоединение кораблей другого флота к себе при атаке на планету, если оба флота были отправленны с одной и той же планеты
-    public void MergFleets(Dictionary<ShipType.eShipType, List<DataShip>> locDicShips)
+    public void MergFleets(List<DataShip> locListDataFleetToMerg)
     {
-        _dicShips = locDicShips;
-        //_dataFleetList.AddRange(locListDataFleetToMerg);
-        AddShipsToFleet(locDicShips);
-        ParseTypeShipInFleet();
+
+        _dataFleetList.AddRange(locListDataFleetToMerg);
+        ParseTypeShipInFleet(locListDataFleetToMerg);
         DisplayAttackAndDefenceFleet();
         DisplayNumShipInFleet();
     }
@@ -218,7 +224,7 @@ public class FleetManager : MonoBehaviour
     public void JoinToDefenderFleet()
     {
         _healthSystem.SetMaxArmorAndShield(_dataFleetList);
-        _distParametrPlanetMono.AddFleetToDefenceFleetOnPlanet(_dicShips);
+        _distParametrPlanetMono.AddFleetToDefenceFleetOnPlanet(_dataFleetList);
         Destroy();
     }
 
@@ -260,22 +266,15 @@ public class FleetManager : MonoBehaviour
     }
 
     //получаем минимальную скорость из всех кораблей флота
-    public float GetMinSpeedFleet(Dictionary<ShipType.eShipType, List<DataShip>> locDicShips)
+    public float GetMinSpeedFleet(List<DataShip> locDataShips)
     {
-        float minSpeed = 99999999;
+        float minSpeed = locDataShips[0].speedShip;
 
-        foreach (var ships in locDicShips)
+        for (int i = 0; i < locDataShips.Count; i++)
         {
-            if (ships.Value.Count > 0)
-                if (minSpeed > ships.Value[0].speedShip)
-                    minSpeed = ships.Value[0].speedShip;
+            if (locDataShips[i].speedShip < minSpeed)
+                minSpeed = locDataShips[i].speedShip;
         }
-
-        //for (int i = 0; i < locDataShips.Count; i++)
-        //{
-        //    if (locDataShips[i].speedShip < minSpeed)
-        //        minSpeed = locDataShips[i].speedShip;
-        //}
 
         return minSpeed;
     }
@@ -361,74 +360,53 @@ public class FleetManager : MonoBehaviour
         //}
     }
 
-   private void ParseTypeShipInFleet()
+   private void ParseTypeShipInFleet(List<DataShip> locDataFleet)
    {
        //проверяем какие типы кораблей есть во флоте
-       //for (int i = 0; i < locDataFleet.Count; i++)
-       //{
-       //    if (locDataFleet[i].typeShip == ShipType.eShipType.light)
-       //    {
-       //         _dicShips[ShipType.eShipType.light].Add(locDataFleet[i]);
-       //    }
-       //    else
+       for (int i = 0; i < locDataFleet.Count; i++)
+       {
+           if (locDataFleet[i].typeShip == ShipType.eShipType.light)
+           {
+                dicShips[ShipType.eShipType.light].Add(locDataFleet[i]);
+           }
+           else
+           
+           if (locDataFleet[i].typeShip == ShipType.eShipType.medium)
+           {
+               dicShips[ShipType.eShipType.medium].Add(locDataFleet[i]);
 
-       //    if (locDataFleet[i].typeShip == ShipType.eShipType.medium)
-       //    {
-       //        _dicShips[ShipType.eShipType.medium].Add(locDataFleet[i]);
-
-       //     }
-       //    else
-
-       //    if (locDataFleet[i].typeShip == ShipType.eShipType.heavy)
-       //    {
-       //        _dicShips[ShipType.eShipType.heavy].Add(locDataFleet[i]);
-       //     }
+            }
+           else
+           
+           if (locDataFleet[i].typeShip == ShipType.eShipType.heavy)
+           {
+               dicShips[ShipType.eShipType.heavy].Add(locDataFleet[i]);
+            }
 
 
-       //}
-       //print($"Dic: light {_dicShips[ShipType.eShipType.light]}");
-       //print($"Dic: medium {_dicShips[ShipType.eShipType.medium]}");
-       //print($"Dic: heavy {_dicShips[ShipType.eShipType.heavy]}");
-
+       }
+       //print($"Dic: light {dicShips[ShipType.eShipType.light]}");
+       //print($"Dic: medium {dicShips[ShipType.eShipType.medium]}");
+       //print($"Dic: heavy {dicShips[ShipType.eShipType.heavy]}");
+        
        //int count = 0;
 
        foreach (ShipType.eShipType shipType in Enum.GetValues(typeof(ShipType.eShipType)))
        {
-           if (_dicShips[shipType].Count > 0)
+           if (dicShips[shipType].Count > 0)
            {
-               //_arrayShipInPrefabFleet[count].SetActive(true);
-               //_arrayShipInPrefabFleet[count].name = shipType.ToString();
-               _objectShipInPrefabFleet[shipType].SetActive(true);
-               _objectShipInPrefabFleet[shipType].name = shipType.ToString();
+                //_arrayShipInPrefabFleet[count].SetActive(true);
+                //_arrayShipInPrefabFleet[count].name = shipType.ToString();
+                _objectShipInPrefabFleet[shipType].SetActive(true);
+                _objectShipInPrefabFleet[shipType].name = shipType.ToString();
 
 
-               print($"_arrayShipInPrefabFleet: {_dicShips[shipType].Count} ");
+               print($"_arrayShipInPrefabFleet: {dicShips[shipType].Count} ");
                print($"shipType: {shipType}");
-               //print($"_dicShips[shipType]: {_dicShips[shipType][count].typeShip}");
+               //print($"dicShips[shipType]: {dicShips[shipType][count].typeShip}");
 
-               //count++; 
+                //count++; 
            }
        }
-   }
-
-   private void AddShipsToFleet(Dictionary<ShipType.eShipType, List<DataShip>> locDicShips)
-   {
-       if (locDicShips[ShipType.eShipType.light].Count > 0)
-       {
-            _dicShips[ShipType.eShipType.light].AddRange(locDicShips[ShipType.eShipType.light]);
-       }
-
-       if (locDicShips[ShipType.eShipType.medium].Count > 0)
-       {
-           _dicShips[ShipType.eShipType.medium].AddRange(locDicShips[ShipType.eShipType.medium]);
-       }
-
-       if (locDicShips[ShipType.eShipType.heavy].Count > 0)
-       {
-           _dicShips[ShipType.eShipType.heavy].AddRange(locDicShips[ShipType.eShipType.heavy]);
-       }
-
-       locDicShips = new Dictionary<ShipType.eShipType, List<DataShip>>();
-
-   }
+    }
 }
