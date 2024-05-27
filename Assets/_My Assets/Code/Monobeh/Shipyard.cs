@@ -14,7 +14,7 @@ public class Shipyard : MonoBehaviour
     private float tempTimerToBuild;
     private ParametrPlanet_mono _selfParametrPlanetMono;
     [ShowInInspector]
-    
+
     private List<DataShip> _listDataShip; //очередь кораблей на постройку
     private int _countShipLight; //очередь кораблей на постройку
     private int _countShipMedium; //очередь кораблей на постройку
@@ -139,6 +139,7 @@ public class Shipyard : MonoBehaviour
     }
 
     //первоначальная настройка и добавление в список данных для прогресс бара строительства корабля
+    //Display on planet progress bar for build ships
     private void AddCountTypeShips(DataShip locDataShip)
     {
         if (locDataShip.typeShip == ShipType.eShipType.light)

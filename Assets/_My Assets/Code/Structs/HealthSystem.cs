@@ -7,18 +7,21 @@ using Random = System.Random;
 public struct HealthSystem
 {
     private DataShip _dataShip;
-    // locEnemyDataShips - входящий демаг от вражеского флота
-    public void TakeDamage(FleetManager _selfFleetManager, List<DataShip> locEnemyDataShips)
+    // incomingDamage - входящий демаг от вражеского флота
+    public void TakeDamage(FleetManager _selfFleetManager, List<DataShip> incomingDamage)
     {
-        List <DataShip> locSelfListShips = _selfFleetManager.GetListDataFleet();
+        //List <DataShip> locSelfListShips = _selfFleetManager.GetListDataFleet();
+
+        Dictionary<ShipType.eShipType, List<DataShip>> _dicDefenderFleet = _selfFleetManager.GetListDataFleet();
+
         float locTotalDamage = 0;
         float increasedDamage = 1;
         System.Random random = new System.Random();
 
         int countBreak = 0;
-        for (int i = 0; i < locEnemyDataShips.Count; i++)
+        for (int i = 0; i < incomingDamage.Count; i++)
         {
-            locTotalDamage = locEnemyDataShips[i].damageShip;
+            locTotalDamage = incomingDamage[i].damageShip;
 
 
             //Debug.Log($"Общий урон {locTotalDamage}");
@@ -42,8 +45,8 @@ public struct HealthSystem
 
                 DataShip targetShip = locSelfListShips[targetIndex];
 
-                if (locEnemyDataShips[i].typeShipIncreasedDamage == targetShip.typeShip)
-                    increasedDamage *= locEnemyDataShips[i].increasedDamage;
+                if (incomingDamage[i].typeShipIncreasedDamage == targetShip.typeShip)
+                    increasedDamage *= incomingDamage[i].increasedDamage;
                 else
                 {
                     increasedDamage = 1f;

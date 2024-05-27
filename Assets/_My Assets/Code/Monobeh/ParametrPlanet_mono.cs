@@ -52,12 +52,15 @@ public class ParametrPlanet_mono : MonoBehaviour
     [SerializeField] private Transform _spawnPointAttackFleet;
     [SerializeField] public Transform _spawnPointDefenceFleet;
     [SerializeField] private GameObject _prefabFleet;
-    [ShowInInspector] public List<DataShip> _listDefenderFleet = new List<DataShip>(); //список кораблей для защиты внутри планеты 
-    [ShowInInspector] public List<DataShip> _listDefenderFleet_light = new List<DataShip>(); //разделение по типу кораблей
-    [ShowInInspector] public List<DataShip> _listDefenderFleet_medium = new List<DataShip>(); //список кораблей для защиты внутри планеты 
-    [ShowInInspector] public List<DataShip> _listDefenderFleet_heavy = new List<DataShip>(); //список кораблей для защиты внутри планеты 
-    [ShowInInspector]
-    private Dictionary<ShipType.eShipType, List<DataShip>> dicShips = new Dictionary<ShipType.eShipType, List<DataShip>>
+    //[ShowInInspector] public List<DataShip> _listDefenderFleet = new List<DataShip>(); //список кораблей для защиты внутри планеты 
+
+
+
+    //[ShowInInspector] public List<DataShip> _listDefenderFleet_light = new List<DataShip>(); //разделение по типу кораблей
+    //[ShowInInspector] public List<DataShip> _listDefenderFleet_medium = new List<DataShip>(); //список кораблей для защиты внутри планеты 
+    //[ShowInInspector] public List<DataShip> _listDefenderFleet_heavy = new List<DataShip>(); //список кораблей для защиты внутри планеты 
+    //
+    [ShowInInspector] private Dictionary<ShipType.eShipType, List<DataShip>> _dicDefenderFleet = new Dictionary<ShipType.eShipType, List<DataShip>>
     {
         {ShipType.eShipType.heavy, new List<DataShip>()},
         {ShipType.eShipType.medium, new List<DataShip>()},
@@ -324,11 +327,14 @@ public class ParametrPlanet_mono : MonoBehaviour
                                                 /// <summary>
                                                 /// создание флота
                                                 /// </summary>
-    private void GenerationFleet(FleetStateStruct.enumFleetState locStateFleet,
-        List<DataShip> locListAttackedOrDefenderFleet, Transform locSpawnPosition, 
-        Transform locTarget)
+    private void GenerationFleet(
+                                                    FleetStateStruct.enumFleetState locStateFleet
+                                                    , Dictionary<ShipType.eShipType, List<DataShip>> locDicShips
+                                                    , Transform locSpawnPosition
+                                                    , Transform locTarget
+                                                    )
     {
-        if (locListAttackedOrDefenderFleet.Count > 0 )
+        if (CheckInAvailabilityShips())
         {
             var TargetPlanetMono = new ParametrPlanet_mono();
             var originalScale = transform.localScale;
@@ -352,7 +358,7 @@ public class ParametrPlanet_mono : MonoBehaviour
                 //проводим первичные настройки флота
                 _fleetManager = fl.GetComponent<FleetManager>();
 
-                _fleetManager.InitiateFleet(locListAttackedOrDefenderFleet, _materialPlanet, transform
+                _fleetManager.InitiateFleet(_dicDefenderFleet, _materialPlanet, transform
                     , _parentTransformFromPlanet, TargetPlanetMono, _memberSceneData, locStateFleet);
 
                 fl.name = _parentManager.GetIdForFleet();
@@ -372,32 +378,32 @@ public class ParametrPlanet_mono : MonoBehaviour
     {
         if (locDataShip.typeShip == ShipType.eShipType.light)
         {
-            _listDefenderFleet_light.Add(locDataShip);
-            dicShips[ShipType.eShipType.light].Add(locDataShip);
+            _dicDefenderFleet[ShipType.eShipType.light].Add(locDataShip);
         }
         else if (locDataShip.typeShip == ShipType.eShipType.medium)
         {
-            _listDefenderFleet_medium.Add(locDataShip);
-            dicShips[ShipType.eShipType.medium].Add(locDataShip);
+            _dicDefenderFleet[ShipType.eShipType.medium].Add(locDataShip);
         }
         else if (locDataShip.typeShip == ShipType.eShipType.heavy)
         {
-            _listDefenderFleet_heavy.Add(locDataShip);
-            dicShips[ShipType.eShipType.heavy].Add(locDataShip);
+            _dicDefenderFleet[ShipType.eShipType.heavy].Add(locDataShip);
         }
 
-        _listDefenderFleet.Add(locDataShip);// добавляем в список защитников планеты
+        //_dicDefenderFleet.Clear();// добавляем в список защитников планеты
+        //
     }
 
     //добавление кораблей из флота на планете к флоту на орбите
     private void AddShipsToDefenceFleetOnOrbit()
     {
-        if (_listDefenderFleet.Count > 0 & defFleetOnOrbitPlanet_GO != null)
+        if (CheckInAvailabilityShips() & defFleetOnOrbitPlanet_GO != null)
         {
-            _defFleetManager.MergFleets(_listDefenderFleet);
-            print($"<color=yellow>{_listDefenderFleet.Count}</color>");
+            _defFleetManager.MergFleets(_dicDefenderFleet);
+            print($"<color=yellow> light: {_dicDefenderFleet[ShipType.eShipType.light].Count}</color>");
+            print($"<color=yellow> medium: {_dicDefenderFleet[ShipType.eShipType.medium].Count}</color>");
+            print($"<color=yellow> heavy: {_dicDefenderFleet[ShipType.eShipType.heavy].Count}</color>");
 
-            _listDefenderFleet = new List<DataShip>();
+            _dicDefenderFleet = new Dictionary<ShipType.eShipType, List<DataShip>>();
         }
     }
 
@@ -407,34 +413,48 @@ public class ParametrPlanet_mono : MonoBehaviour
     /// </summary>
     /// <param name="locListDataFleet"></param>
     
-    public void AddFleetToDefenceFleetOnPlanet(List<DataShip> locListDataFleet)
+    public void AddFleetToDefenceFleetOnPlanet(Dictionary<ShipType.eShipType, List<DataShip>> locDicShips)
     {
-        for (int i = 0; i < locListDataFleet.Count; i++)
+        foreach (var ships in locDicShips)
         {
-            _listDefenderFleet.Add(locListDataFleet[i]); // добавляем в список защитников планеты
+            print($"<color=yellow> 1 {_dicDefenderFleet.Keys} = {ships.Key} </color> ");
+            if (_dicDefenderFleet.ContainsKey(ships.Key))
+            {
+                print($"<color=yellow> 2 {_dicDefenderFleet.Keys} = {ships.Key} </color>");
+
+                _dicDefenderFleet[ships.Key].AddRange(ships.Value);
+            }
         }
+
+        //for (int i = 0; i < locListDataFleet.Count; i++)
+        //{
+        //    _listDefenderFleet.Add(locListDataFleet[i]); // добавляем в список защитников планеты
+        //}
+
     }
 
-    //public void AddFleetToDefenderFleetOnOrbit(List<DataShip> locListDataFleet)
-    //{
-    //    if (defFleetOnOrbitPlanet_GO != null)
-    //    {
-    //        _defFleetManager.MergFleets(locListDataFleet); // добавляем во флот защиты, который на данный момент активен
-    //    }
-    //}
+   
+
+//public void AddFleetToDefenderFleetOnOrbit(List<DataShip> locListDataFleet)
+//{
+//    if (defFleetOnOrbitPlanet_GO != null)
+//    {
+//        _defFleetManager.MergFleets(locListDataFleet); // добавляем во флот защиты, который на данный момент активен
+//    }
+//}
 
 
-    //вызов на орбиту защитного флота планеты
-    public GameObject CallDefenderFleet(Transform locTransformAttackingFleet)
+//вызов на орбиту защитного флота планеты
+public GameObject CallDefenderFleet(Transform locTransformAttackingFleet)
     {
-        if (_listDefenderFleet.Count > 0 & defFleetOnOrbitPlanet_GO == null)
+        if (CheckInAvailabilityShips() & defFleetOnOrbitPlanet_GO == null)
         {
             SetSpawnPointToDefence(locTransformAttackingFleet);
             _stateFleet = FleetStateStruct.enumFleetState.StartForDefence;
 
 
-            GenerationFleet(_stateFleet, _listDefenderFleet, SetSpawnPointToDefence(locTransformAttackingFleet), locTransformAttackingFleet);
-            _listDefenderFleet = new List<DataShip>(); //очищаем список флота на планете, т.к. все корабли были переданы в деф флот
+            GenerationFleet(_stateFleet, _dicDefenderFleet, SetSpawnPointToDefence(locTransformAttackingFleet), locTransformAttackingFleet);
+            _dicDefenderFleet = new Dictionary<ShipType.eShipType, List<DataShip>>(); //очищаем список флота на планете, т.к. все корабли были переданы в деф флот
 
             Clear();
         }
@@ -568,32 +588,59 @@ public class ParametrPlanet_mono : MonoBehaviour
     }
 
     //какой процент кораблей из флота защиты перейдет во флот атаки
-    private List<DataShip> CalculationPercentageOfTheFleet(float locPercent)
+    private Dictionary<ShipType.eShipType, List<DataShip>> CalculationPercentageOfTheFleet(float locPercent)
     {
-        List<DataShip> tempAttackFleet = new List<DataShip>();
+        //List<DataShip> tempAttackFleet = new List<DataShip>();
+        Dictionary<ShipType.eShipType, List<DataShip>> tempAttackFleet = new Dictionary<ShipType.eShipType, List<DataShip>>();
 
-        if (_listDefenderFleet.Count > 0)
+        foreach (var ships in _dicDefenderFleet)
         {
-            float tempPercent = Mathf.Floor(_listDefenderFleet.Count * (locPercent / 100));
-            float tempCountShipsToAttack = 0;
-
-            if (tempPercent > _listDefenderFleet.Count)
-                tempCountShipsToAttack = _listDefenderFleet.Count;
-            else
-                tempCountShipsToAttack = tempPercent;
-            var tempCountDefFleet = _listDefenderFleet.Count;
-            for (int i = 0; tempPercent >= tempAttackFleet.Count; i++)
+            if (ships.Value.Count > 0)
             {
+                float tempPercent = Mathf.Floor(ships.Value.Count * (locPercent / 100));
+                float tempCountShipsToAttack = 0;
 
-                tempAttackFleet.Add(_listDefenderFleet[0]);
-                _listDefenderFleet.Remove(_listDefenderFleet[0]);
-                tempCountShipsToAttack--;
-                if (tempCountShipsToAttack <= 0)
+                //check if locPercent > 100%
+                if (tempPercent > ships.Value.Count)
+                    tempCountShipsToAttack = ships.Value.Count;
+                else
+                    tempCountShipsToAttack = tempPercent;
+                
+                for (int i = 0; tempCountShipsToAttack <= i; i++)
                 {
-                    return tempAttackFleet;
+                    tempAttackFleet[ships.Key].Add(_dicDefenderFleet[ships.Key][0]);
+                    _dicDefenderFleet[ships.Key].RemoveAt(0);
+                   
+                    if (tempCountShipsToAttack >= i)
+                    {
+                        return tempAttackFleet;
+                    }
                 }
+
             }
         }
+        //if (CheckInAvailabilityShips())
+        //{
+        //    float tempPercent = Mathf.Floor(_listDefenderFleet.Count * (locPercent / 100));
+        //    float tempCountShipsToAttack = 0;
+
+        //    if (tempPercent > _listDefenderFleet.Count)
+        //        tempCountShipsToAttack = _listDefenderFleet.Count;
+        //    else
+        //        tempCountShipsToAttack = tempPercent;
+        //    var tempCountDefFleet = _listDefenderFleet.Count;
+        //    for (int i = 0; tempPercent >= tempAttackFleet.Count; i++)
+        //    {
+
+        //        tempAttackFleet.Add(_listDefenderFleet[0]);
+        //        _listDefenderFleet.Remove(_listDefenderFleet[0]);
+        //        tempCountShipsToAttack--;
+        //        if (tempCountShipsToAttack <= 0)
+        //        {
+        //            return tempAttackFleet;
+        //        }
+        //    }
+        //}
         return tempAttackFleet;
     }
 
@@ -602,7 +649,7 @@ public class ParametrPlanet_mono : MonoBehaviour
     public bool ChangeOwnerPlanet(SceneMembersData locNewMembersData, Transform locNewParentTransform)
     {
         bool flagChangeOwnerPlanet = false;
-        if (_listDefenderFleet.Count == 0 & defFleetOnOrbitPlanet_GO == null )
+        if (!CheckInAvailabilityShips() & defFleetOnOrbitPlanet_GO == null )
         {
             StartetConfig(locNewMembersData, locNewParentTransform);
             flagChangeOwnerPlanet = true;
@@ -647,49 +694,29 @@ public class ParametrPlanet_mono : MonoBehaviour
         return _spriteSelect.transform;
     }
 
+    //Display on HUD planet how many ships in defender fleet
     private void DisplayCountShipsInPlanet()
     {
-        if (_countLightShips != _listDefenderFleet_light.Count)
+        if (_countLightShips != _dicDefenderFleet[ShipType.eShipType.light].Count)
         {
-            _textUICountShips_Light.text = _listDefenderFleet_light.Count.ToString();
-            _countLightShips = _listDefenderFleet_light.Count;
+            _textUICountShips_Light.text = _dicDefenderFleet[ShipType.eShipType.light].Count.ToString();
+            _countLightShips = _dicDefenderFleet[ShipType.eShipType.light].Count;
         }
 
-        if (_countMediumShips != _listDefenderFleet_medium.Count)
+        if (_countMediumShips != _dicDefenderFleet[ShipType.eShipType.medium].Count)
         {
-            _textUICountShips_Medium.text = _listDefenderFleet_medium.Count.ToString();
-            _countMediumShips = _listDefenderFleet_medium.Count;
+            _textUICountShips_Medium.text = _dicDefenderFleet[ShipType.eShipType.medium].Count.ToString();
+            _countMediumShips = _dicDefenderFleet[ShipType.eShipType.medium].Count;
         }
 
-        if (_countHeavyShips != _listDefenderFleet_heavy.Count)
+        if (_countHeavyShips != _dicDefenderFleet[ShipType.eShipType.heavy].Count)
         {
-            _textUICountShips_Heavy.text = _listDefenderFleet_heavy.Count.ToString();
-            _countHeavyShips = _listDefenderFleet_heavy.Count;
-        }
-    }
-
-    //отображение кол-ва кораблей в очереди на строительство
-    private void DisplayCountShipInYard(DataShip locDataShip, int countShips )
-    {
-        if (locDataShip.typeShip != ShipType.eShipType.light  )
-        {
-
-        }
-        
-        else 
-        
-        if (locDataShip.typeShip != ShipType.eShipType.medium)
-        {
-
-        }
-        
-        else
-        
-        if (locDataShip.typeShip != ShipType.eShipType.heavy)
-        {
-
+            _textUICountShips_Heavy.text = _dicDefenderFleet[ShipType.eShipType.heavy].Count.ToString();
+            _countHeavyShips = _dicDefenderFleet[ShipType.eShipType.heavy].Count;
         }
     }
+
+   
 
     public void SwitchOnHUDplanetForPlayer()
     {
@@ -704,4 +731,13 @@ public class ParametrPlanet_mono : MonoBehaviour
         }
     }
 
+
+    public bool CheckInAvailabilityShips()
+    {
+        bool flagCheckShips = _dicDefenderFleet[ShipType.eShipType.light].Count > 0 
+                              | _dicDefenderFleet[ShipType.eShipType.medium].Count > 0 
+                              | _dicDefenderFleet[ShipType.eShipType.heavy].Count > 0;
+
+        return flagCheckShips;
+    }
 }
