@@ -31,7 +31,6 @@ public class FleetManager : MonoBehaviour
     [SerializeField] private int _armorFleet;
     
     [ShowInInspector] private List<DataShip> _dataFleetList ; //список кораблей во флоту
-    private List<GameObject> _arrayShipInPrefabFleet = new List<GameObject>(); //массив кораблей из префаба флота для последующей активации и парсинга для типа кораблей ( light, medium, heavy) и их point fire
 
     [ShowInInspector]
     private Dictionary<ShipType.eShipType, GameObject> _objectShipInPrefabFleet 
@@ -51,6 +50,12 @@ public class FleetManager : MonoBehaviour
         {ShipType.eShipType.medium, new List<DataShip>()},
         {ShipType.eShipType.light, new List<DataShip>()},
     };
+
+    [ShowInInspector] public List<DataShip> _listFleet_light = new List<DataShip>(); 
+    [ShowInInspector] public List<DataShip> _listFleet_medium = new List<DataShip>(); 
+    [ShowInInspector] public List<DataShip> _listFleet_heavy = new List<DataShip>(); 
+
+
     private FleetState _fleetState;
     private Transform _target;
     private SceneMembersData _membersDataInFleet;
@@ -330,16 +335,16 @@ public class FleetManager : MonoBehaviour
                _objectShipInPrefabFleet[ShipType.eShipType.medium] = child.gameObject;
                locPositionGOShipInFleet[1] = child.gameObject.transform.localPosition;
                 child.gameObject.SetActive(false);
-           }
-           else if (child.tag.Contains("Heavy"))
+            }
+            else if (child.tag.Contains("Heavy"))
            {
                _objectShipInPrefabFleet[ShipType.eShipType.heavy] = child.gameObject;
                locPositionGOShipInFleet[0] = child.gameObject.transform.localPosition;
                child.gameObject.SetActive(false);
-           }
+            }
 
-           // Рекурсивно вызываем функцию для всех дочерних объектов
-           FindSpaceshipsInChildren(child);
+            // Рекурсивно вызываем функцию для всех дочерних объектов
+            FindSpaceshipsInChildren(child);
        }
 
        //if (_arrayShipInPrefabFleet.Count <= 0)
@@ -369,45 +374,50 @@ public class FleetManager : MonoBehaviour
        {
            if (locDataFleet[i].typeShip == ShipType.eShipType.light)
            {
-                dicShips[ShipType.eShipType.light].Add(locDataFleet[i]);
+               _listFleet_light.Add(locDataFleet[i]);
            }
            else
            
            if (locDataFleet[i].typeShip == ShipType.eShipType.medium)
            {
-               dicShips[ShipType.eShipType.medium].Add(locDataFleet[i]);
+               _listFleet_medium.Add(locDataFleet[i]);
 
             }
            else if (locDataFleet[i].typeShip == ShipType.eShipType.heavy)
            {
-               dicShips[ShipType.eShipType.heavy].Add(locDataFleet[i]);
+               _listFleet_heavy.Add(locDataFleet[i]);
            }
 
 
        }
-        //print($"Dic: light {dicShips[ShipType.eShipType.light]}");
-        //print($"Dic: medium {dicShips[ShipType.eShipType.medium]}");
-        //print($"Dic: heavy {dicShips[ShipType.eShipType.heavy]}");
-
-        //int count = 0;
         int countLocTransform = 0;
 
+        //activate those GO's that are in the fleet and set their display in the fleet in order, starting from the head
         foreach (ShipType.eShipType shipType in Enum.GetValues(typeof(ShipType.eShipType)))
        {
-           if (dicShips[shipType].Count > 0)
+           if (_listFleet_heavy.Count > 0 && _listFleet_heavy[0].typeShip == shipType)
            {
-                //_arrayShipInPrefabFleet[count].SetActive(true);
-                //_arrayShipInPrefabFleet[count].name = shipType.ToString();
-                _objectShipInPrefabFleet[shipType].SetActive(true);
-                _objectShipInPrefabFleet[shipType].name = shipType.ToString();
-                print($" <color=red>shipType: {shipType} {_objectShipInPrefabFleet[shipType].transform.localPosition}  || {locPositionGOShipInFleet[countLocTransform]} </color>");
-
-                _objectShipInPrefabFleet[shipType].transform.localPosition = locPositionGOShipInFleet[countLocTransform]; 
-
-               //print($"dicShips[shipType]: {dicShips[shipType][count].typeShip}");
-
+               ActivateShipInFleet(ShipType.eShipType.heavy, countLocTransform);
                countLocTransform++;
            }
-       }
+           else if (_listFleet_medium.Count > 0 && _listFleet_medium[0].typeShip == shipType)
+           {
+               ActivateShipInFleet(ShipType.eShipType.medium, countLocTransform);
+               countLocTransform++;
+           }
+           else if (_listFleet_light.Count > 0 && _listFleet_light[0].typeShip == shipType)
+           {
+               ActivateShipInFleet(ShipType.eShipType.light, countLocTransform);
+               countLocTransform++;
+           }
+        }
+    }
+
+   private void ActivateShipInFleet(ShipType.eShipType shipType, int countLocTransform)
+   {
+       _objectShipInPrefabFleet[shipType].SetActive(true);
+       _objectShipInPrefabFleet[shipType].name = shipType.ToString();
+
+       _objectShipInPrefabFleet[shipType].transform.localPosition = locPositionGOShipInFleet[countLocTransform];
     }
 }

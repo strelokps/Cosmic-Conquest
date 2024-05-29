@@ -339,7 +339,6 @@ public class FleetState : MonoBehaviour
                     
                     _fleetManager.CapturePlanet();
                     
-                    print($"<color=aquamarine> DescentOnPlanet  1 {transform.name} || {count}</color>");
                     
                     _distParametrPlanetMono.RemoveToListAttackerFleet(gameObject);
                 }
@@ -352,7 +351,6 @@ public class FleetState : MonoBehaviour
             {
                 _stateFleet = FleetStateStruct.enumFleetState.MovingTowardsPlanetForDescent;
 
-                print($"<color=bisque> DescentOnPlanet  2 {transform.name} || {count}</color>");
 
             }
         }
