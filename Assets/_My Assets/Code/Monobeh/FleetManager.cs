@@ -41,6 +41,9 @@ public class FleetManager : MonoBehaviour
         { ShipType.eShipType.medium, null},
         { ShipType.eShipType.light, null},
     };
+
+    private Vector3[] locPositionGOShipInFleet;
+
 [ShowInInspector]
     private Dictionary<ShipType.eShipType, List<DataShip>> dicShips = new Dictionary<ShipType.eShipType, List<DataShip>>
     {
@@ -169,6 +172,8 @@ public class FleetManager : MonoBehaviour
         ,ParametrPlanet_mono locTargetPlanetMono, SceneMembersData locMembersDataInFleet
         ,FleetStateStruct.enumFleetState _locFleetState)
     {
+        locPositionGOShipInFleet = new Vector3[Enum.GetValues(typeof(ShipType.eShipType)).Length];
+
         FindSpaceshipsInChildren(transform);
 
         _dataFleetList = new List<DataShip> ( locDataFleet );
@@ -201,6 +206,7 @@ public class FleetManager : MonoBehaviour
         _tempTimer = 0;
 
         ParseTypeShipInFleet(locDataFleet); //парсим тип кораблей для дальнейшего отображения ГО в префабе(для каждого типа свой ГО)
+
 
         DisplayAttackAndDefenceFleet();
         DisplayNumShipInFleet();
@@ -316,20 +322,20 @@ public class FleetManager : MonoBehaviour
            if (child.tag.Contains("Light"))
            {
                _objectShipInPrefabFleet[ShipType.eShipType.light] = child.gameObject;
-               child.gameObject.SetActive(false);
-               print($"<color=green> Light {_objectShipInPrefabFleet[ShipType.eShipType.light].name} </color>");
+               locPositionGOShipInFleet[2] = child.gameObject.transform.localPosition;
+                child.gameObject.SetActive(false);
            }
            else if (child.tag.Contains("Medium"))
            {
                _objectShipInPrefabFleet[ShipType.eShipType.medium] = child.gameObject;
-               child.gameObject.SetActive(false);
-               print($"<color=green> Medium {_objectShipInPrefabFleet[ShipType.eShipType.medium].name} </color>");
+               locPositionGOShipInFleet[1] = child.gameObject.transform.localPosition;
+                child.gameObject.SetActive(false);
            }
            else if (child.tag.Contains("Heavy"))
            {
                _objectShipInPrefabFleet[ShipType.eShipType.heavy] = child.gameObject;
+               locPositionGOShipInFleet[0] = child.gameObject.transform.localPosition;
                child.gameObject.SetActive(false);
-               print($"<color=green> Heavy {_objectShipInPrefabFleet[ShipType.eShipType.heavy].name} </color>");
            }
 
            // Рекурсивно вызываем функцию для всех дочерних объектов
@@ -372,22 +378,21 @@ public class FleetManager : MonoBehaviour
                dicShips[ShipType.eShipType.medium].Add(locDataFleet[i]);
 
             }
-           else
-           
-           if (locDataFleet[i].typeShip == ShipType.eShipType.heavy)
+           else if (locDataFleet[i].typeShip == ShipType.eShipType.heavy)
            {
                dicShips[ShipType.eShipType.heavy].Add(locDataFleet[i]);
-            }
+           }
 
 
        }
-       //print($"Dic: light {dicShips[ShipType.eShipType.light]}");
-       //print($"Dic: medium {dicShips[ShipType.eShipType.medium]}");
-       //print($"Dic: heavy {dicShips[ShipType.eShipType.heavy]}");
-        
-       //int count = 0;
+        //print($"Dic: light {dicShips[ShipType.eShipType.light]}");
+        //print($"Dic: medium {dicShips[ShipType.eShipType.medium]}");
+        //print($"Dic: heavy {dicShips[ShipType.eShipType.heavy]}");
 
-       foreach (ShipType.eShipType shipType in Enum.GetValues(typeof(ShipType.eShipType)))
+        //int count = 0;
+        int countLocTransform = 0;
+
+        foreach (ShipType.eShipType shipType in Enum.GetValues(typeof(ShipType.eShipType)))
        {
            if (dicShips[shipType].Count > 0)
            {
@@ -395,13 +400,13 @@ public class FleetManager : MonoBehaviour
                 //_arrayShipInPrefabFleet[count].name = shipType.ToString();
                 _objectShipInPrefabFleet[shipType].SetActive(true);
                 _objectShipInPrefabFleet[shipType].name = shipType.ToString();
+                print($" <color=red>shipType: {shipType} {_objectShipInPrefabFleet[shipType].transform.localPosition}  || {locPositionGOShipInFleet[countLocTransform]} </color>");
 
+                _objectShipInPrefabFleet[shipType].transform.localPosition = locPositionGOShipInFleet[countLocTransform]; 
 
-               print($"_arrayShipInPrefabFleet: {dicShips[shipType].Count} ");
-               print($"shipType: {shipType}");
                //print($"dicShips[shipType]: {dicShips[shipType][count].typeShip}");
 
-                //count++; 
+               countLocTransform++;
            }
        }
     }
