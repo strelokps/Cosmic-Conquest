@@ -200,7 +200,7 @@ public class ParametrPlanet_mono : MonoBehaviour
         _numShipsInAttackingFleet = attackingFleet_LGO.Count; //test
 
 
-        DisplayCountShipsInPlanet(); //отображение текущего кол-ва кораблей
+        //DisplayCountShipsInPlanet(); //отображение текущего кол-ва кораблей
 
 
         if (_controls.PC.PushFleet.triggered & _idPlanet == 19)
@@ -365,25 +365,27 @@ public class ParametrPlanet_mono : MonoBehaviour
                 }
             }
         }
+
+        DisplayCountShipsInPlanet();
     }
     //добавляем корабли с верфи к флоту  на планете
     public void AddShipsToDefenderFleetOnPlanet(DataShip locDataShip)
     {
-        if (locDataShip.typeShip == ShipType.eShipType.light)
-        {
-            _listDefenderFleet_light.Add(locDataShip);
-            dicShips[ShipType.eShipType.light].Add(locDataShip);
-        }
-        else if (locDataShip.typeShip == ShipType.eShipType.medium)
-        {
-            _listDefenderFleet_medium.Add(locDataShip);
-            dicShips[ShipType.eShipType.medium].Add(locDataShip);
-        }
-        else if (locDataShip.typeShip == ShipType.eShipType.heavy)
-        {
-            _listDefenderFleet_heavy.Add(locDataShip);
-            dicShips[ShipType.eShipType.heavy].Add(locDataShip);
-        }
+        //if (locDataShip.typeShip == ShipType.eShipType.light)
+        //{
+        //    _listDefenderFleet_light.Add(locDataShip);
+        //    dicShips[ShipType.eShipType.light].Add(locDataShip);
+        //}
+        //else if (locDataShip.typeShip == ShipType.eShipType.medium)
+        //{
+        //    _listDefenderFleet_medium.Add(locDataShip);
+        //    dicShips[ShipType.eShipType.medium].Add(locDataShip);
+        //}
+        //else if (locDataShip.typeShip == ShipType.eShipType.heavy)
+        //{
+        //    _listDefenderFleet_heavy.Add(locDataShip);
+        //    dicShips[ShipType.eShipType.heavy].Add(locDataShip);
+        //}
 
         _listDefenderFleet.Add(locDataShip);// добавляем в список защитников планеты
     }
@@ -398,6 +400,8 @@ public class ParametrPlanet_mono : MonoBehaviour
 
             _listDefenderFleet = new List<DataShip>();
         }
+
+        DisplayCountShipsInPlanet();
     }
 
 
@@ -412,6 +416,8 @@ public class ParametrPlanet_mono : MonoBehaviour
         {
             _listDefenderFleet.Add(locListDataFleet[i]); // добавляем в список защитников планеты
         }
+
+        DisplayCountShipsInPlanet();
     }
 
     //public void AddFleetToDefenderFleetOnOrbit(List<DataShip> locListDataFleet)
@@ -630,15 +636,6 @@ public class ParametrPlanet_mono : MonoBehaviour
         defFleetOnOrbitPlanet_GO = null;
     }
 
-    public void GetTransformDefenceFleet(ref Transform locTransfor)
-    {
-        Transform target = null;
-        if (defFleetOnOrbitPlanet_GO != null)
-        {
-            target = defFleetOnOrbitPlanet_GO.transform;
-        }
-    }
-
     public Transform SelectPlanet(bool setSelect)
     {
         _spriteSelect.transform.gameObject.SetActive(setSelect);
@@ -648,23 +645,49 @@ public class ParametrPlanet_mono : MonoBehaviour
 
     private void DisplayCountShipsInPlanet()
     {
-        if (_countLightShips != _listDefenderFleet_light.Count)
+        int countLight = 0;
+        int countMedium = 0;
+        int countHeavy = 0;
+
+        for (int i = 0; i < _listDefenderFleet.Count; i++)
         {
-            _textUICountShips_Light.text = _listDefenderFleet_light.Count.ToString();
-            _countLightShips = _listDefenderFleet_light.Count;
+            if (_listDefenderFleet[i].typeShip == ShipType.eShipType.light)
+            {
+                countLight++;
+            }
+            else
+            if (_listDefenderFleet[i].typeShip == ShipType.eShipType.medium)
+            {
+                countMedium++;
+            }
+            else
+            if(_listDefenderFleet[i].typeShip == ShipType.eShipType.heavy)
+            {
+                countHeavy++;
+            }
         }
 
-        if (_countMediumShips != _listDefenderFleet_medium.Count)
-        {
-            _textUICountShips_Medium.text = _listDefenderFleet_medium.Count.ToString();
-            _countMediumShips = _listDefenderFleet_medium.Count;
-        }
+        _textUICountShips_Light.text = countLight.ToString();
+        _textUICountShips_Medium.text = countMedium.ToString();
+        _textUICountShips_Heavy.text = countHeavy.ToString();
 
-        if (_countHeavyShips != _listDefenderFleet_heavy.Count)
-        {
-            _textUICountShips_Heavy.text = _listDefenderFleet_heavy.Count.ToString();
-            _countHeavyShips = _listDefenderFleet_heavy.Count;
-        }
+        //if (_countLightShips != _listDefenderFleet_light.Count)
+        //{
+        //    _textUICountShips_Light.text = _listDefenderFleet_light.Count.ToString();
+        //    _countLightShips = _listDefenderFleet_light.Count;
+        //}
+
+        //if (_countMediumShips != _listDefenderFleet_medium.Count)
+        //{
+        //    _textUICountShips_Medium.text = _listDefenderFleet_medium.Count.ToString();
+        //    _countMediumShips = _listDefenderFleet_medium.Count;
+        //}
+
+        //if (_countHeavyShips != _listDefenderFleet_heavy.Count)
+        //{
+        //    _textUICountShips_Heavy.text = _listDefenderFleet_heavy.Count.ToString();
+        //    _countHeavyShips = _listDefenderFleet_heavy.Count;
+        //}
     }
 
     //отображение кол-ва кораблей в очереди на строительство

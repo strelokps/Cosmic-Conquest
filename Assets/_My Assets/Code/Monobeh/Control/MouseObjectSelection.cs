@@ -66,17 +66,12 @@ public class MouseObjectSelection : MonoBehaviour
 
     private void HitToPlanet()
     {
-        print("hit ?");
         if (_controls.PC.Select.triggered)
         {
-            print("hit 2 ?");
-
-
             //choose player planet 
             if (selectedPlayerPlanet == null)
             {
                 SelectPlanet();
-
             }
             else
             {
@@ -95,14 +90,21 @@ public class MouseObjectSelection : MonoBehaviour
                         print($"UI {hit.transform.name}  ");
                         //если планета игрока, есть корабли на отправку и попали в другую планету, то отправляем корабли
                         //if in player planet ships to attack and hit to other planet -> send fleet
-                        if (_palyerParametrPlanetMono._listDefenderFleet.Count > 0)
-                            _palyerParametrPlanetMono.CreateAttackerFleet(
-                                _palyerParametrPlanetMono.percentForAttackFleet, selectedTargetPlanet.transform);
+                        if (_palyerParametrPlanetMono.SelfTransform != hit.transform)
+                        {
+                            if (_palyerParametrPlanetMono._listDefenderFleet.Count > 0)
+                                _palyerParametrPlanetMono.CreateAttackerFleet(
+                                    _palyerParametrPlanetMono.percentForAttackFleet, selectedTargetPlanet.transform);
+                            else
+                            {
+                                ClearSelection();
+
+                                SelectPlanet();
+                            }
+                        }
                         else
                         {
-                            ClearSelection();
-
-                            SelectPlanet();
+                            print($"==");
                         }
                     }
                 }

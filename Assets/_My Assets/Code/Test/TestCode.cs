@@ -11,25 +11,26 @@ public class TestCode : MonoBehaviour
     private float x;
     private float y;
     private float z;
+    private float speedRotate;
 
     private void Awake()
     {
         _controls = new InputControls();
-        //Test branch 3_1
     }
 
     private void Start()
     {
-        x = Random.Range(0.1f, 0.9f);
-        y = Random.Range(0.1f, 0.9f);
-        z = Random.Range(0.1f, 0.9f);
+        x = Random.Range(1f, 360f);
+        y = Random.Range(1f, 360f);
+        z = Random.Range(1f, 360f);
         if (_material != null)
         {
             _material = gameObject.GetComponent<MeshRenderer>().material;
             //_material.color = Color.blue;
             _material.SetColor("_EmissionColor", _material.color * 1f);
         }
-        //print($"{x}  {y}  {z}");
+
+        speedRotate = Random.Range(0.05f, 0.2f); 
     }
 
     private void OnEnable()
@@ -48,7 +49,7 @@ public class TestCode : MonoBehaviour
     private void Update()
     {
         
-        transform.Rotate(new Vector3(x,y,z) * 0.2f);
+        transform.Rotate(new Vector3(x,y,z) * speedRotate * Time.deltaTime);
 
        
     }

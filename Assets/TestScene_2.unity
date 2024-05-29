@@ -6899,7 +6899,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'ver.: 0.1.1504.2039'
+  m_text: 'ver.: 0.1.1527.2062'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -11419,7 +11419,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 34d036c71281873469846b5251de1eec, type: 2}
     - target: {fileID: 2452082778636212477, guid: cecd49b70f5171f48bea68e9c9b396e9, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2975855602045452871, guid: cecd49b70f5171f48bea68e9c9b396e9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11575,7 +11575,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4669673434048991636, guid: cecd49b70f5171f48bea68e9c9b396e9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 34.81
+      value: 24.07
       objectReference: {fileID: 0}
     - target: {fileID: 4669673434048991636, guid: cecd49b70f5171f48bea68e9c9b396e9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -11583,7 +11583,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4669673434048991636, guid: cecd49b70f5171f48bea68e9c9b396e9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 17.86
+      value: 23.36
       objectReference: {fileID: 0}
     - target: {fileID: 4669673434048991636, guid: cecd49b70f5171f48bea68e9c9b396e9, type: 3}
       propertyPath: m_LocalRotation.w

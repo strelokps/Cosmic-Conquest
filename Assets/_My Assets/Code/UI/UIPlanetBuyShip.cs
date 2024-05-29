@@ -18,7 +18,7 @@ public class UIPlanetBuyShip : MonoBehaviour
         _flagSwitchEnebleUI = _uiPlanetBuyShip.gameObject.activeInHierarchy;
     }
 
-    //включение/выключение канваса
+    //Switch HUD planet canvas
     [Button("Switch off")]
     public void ShowUIPlanetBuyShip()
     {
