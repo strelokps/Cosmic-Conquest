@@ -4009,6 +4009,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 2453231140861163804, guid: 76872b7b654d55f4d9a8721dc8e9ee7f, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 1dda1a7205481d74ab9c75294812a5b6, type: 3}
     - target: {fileID: 2458304131958574706, guid: 76872b7b654d55f4d9a8721dc8e9ee7f, type: 3}
       propertyPath: m_Name
       value: BuyLightShip
@@ -4329,6 +4333,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 64.2
       objectReference: {fileID: 0}
+    - target: {fileID: 9036237537442501889, guid: 76872b7b654d55f4d9a8721dc8e9ee7f, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 51e652cc70058da4eb693eed74568799, type: 3}
+    - target: {fileID: 9049072439484922968, guid: 76872b7b654d55f4d9a8721dc8e9ee7f, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8fa152900143d4446a8d8f6f557190d9, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 76872b7b654d55f4d9a8721dc8e9ee7f, type: 3}
 --- !u!1 &2067845644787480428 stripped
