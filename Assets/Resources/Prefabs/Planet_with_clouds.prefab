@@ -2502,6 +2502,9 @@ MonoBehaviour:
   _textUICountShips_Light: {fileID: 2934402895452100991}
   _textUICountShips_Medium: {fileID: 4443253280604064432}
   _textUICountShips_Heavy: {fileID: 8620828432915919419}
+  _imageFon_UICountShips_Light: {fileID: 1604628592735802642}
+  _imageFon_tUICountShips_Medium: {fileID: 5611733689879765069}
+  _imageFon_UICountShips_Heavy: {fileID: 4188460162683219648}
   _textUICountShips_InBuild_Light: {fileID: 7337291226340037520}
   _textUICountShips_InBuild_Medium: {fileID: 4702923447986993217}
   _textUICountShips_InBuild_Heavy: {fileID: 4291292689358943516}
@@ -4007,6 +4010,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2458304131958574706, guid: 76872b7b654d55f4d9a8721dc8e9ee7f, type: 3}
+      propertyPath: m_Name
+      value: BuyLightShip
+      objectReference: {fileID: 0}
+    - target: {fileID: 2458304131958574706, guid: 76872b7b654d55f4d9a8721dc8e9ee7f, type: 3}
       propertyPath: m_Layer
       value: 13
       objectReference: {fileID: 0}
@@ -4053,6 +4060,10 @@ PrefabInstance:
     - target: {fileID: 6999947263587253455, guid: 76872b7b654d55f4d9a8721dc8e9ee7f, type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7544288865662061749, guid: 76872b7b654d55f4d9a8721dc8e9ee7f, type: 3}
+      propertyPath: m_Name
+      value: BuyHeavy
       objectReference: {fileID: 0}
     - target: {fileID: 7544288865662061749, guid: 76872b7b654d55f4d9a8721dc8e9ee7f, type: 3}
       propertyPath: m_Layer
@@ -4245,6 +4256,10 @@ PrefabInstance:
     - target: {fileID: 7544288867341705509, guid: 76872b7b654d55f4d9a8721dc8e9ee7f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7544288867341705510, guid: 76872b7b654d55f4d9a8721dc8e9ee7f, type: 3}
+      propertyPath: m_Name
+      value: BuyMediumShip
       objectReference: {fileID: 0}
     - target: {fileID: 7544288867341705510, guid: 76872b7b654d55f4d9a8721dc8e9ee7f, type: 3}
       propertyPath: m_Layer

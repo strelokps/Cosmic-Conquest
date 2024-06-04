@@ -91,6 +91,10 @@ public class ParametrPlanet_mono : MonoBehaviour
     [SerializeField] private TMP_Text _textUICountShips_Medium;
     [SerializeField] private TMP_Text _textUICountShips_Heavy;
 
+    [SerializeField] private SpriteRenderer _imageFon_UICountShips_Light;
+    [SerializeField] private SpriteRenderer _imageFon_tUICountShips_Medium;
+    [SerializeField] private SpriteRenderer _imageFon_UICountShips_Heavy;
+
     public TMP_Text _textUICountShips_InBuild_Light;
     public TMP_Text _textUICountShips_InBuild_Medium;
     public TMP_Text _textUICountShips_InBuild_Heavy;
@@ -665,6 +669,27 @@ public class ParametrPlanet_mono : MonoBehaviour
             {
                 countHeavy++;
             }
+        }
+
+        if (countLight > 0)
+            _imageFon_UICountShips_Light.color = Color.white;
+        else
+        {
+            _imageFon_UICountShips_Light.color = Color.gray;
+        }
+
+        if (countMedium > 0)
+            _imageFon_tUICountShips_Medium.color = Color.white;
+        else
+        {
+            _imageFon_tUICountShips_Medium.color = Color.gray;
+        }
+
+        if (countHeavy > 0)
+            _imageFon_UICountShips_Heavy.color = Color.white;
+        else
+        {
+            _imageFon_UICountShips_Heavy.color = Color.gray;
         }
 
         _textUICountShips_Light.text = countLight.ToString();
