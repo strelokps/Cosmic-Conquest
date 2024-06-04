@@ -347,24 +347,7 @@ public class FleetManager : MonoBehaviour
             FindSpaceshipsInChildren(child);
        }
 
-       //if (_arrayShipInPrefabFleet.Count <= 0)
-        //{
-        //    foreach (Transform child in parent)
-        //    {
-        //        if (child.name.Contains("Spaceships"))
-        //        {
-                    
-
-                    
-        //            _arrayShipInPrefabFleet.Add(child.gameObject);
-        //            child.gameObject.SetActive(false);
-        //            print($"child.name {child.name}");
-        //        }
-
-        //        // Рекурсивно вызываем функцию для всех дочерних объектов
-        //        FindSpaceshipsInChildren(child);
-        //    }
-        //}
+      
     }
 
    private void ParseTypeShipInFleet(List<DataShip> locDataFleet)

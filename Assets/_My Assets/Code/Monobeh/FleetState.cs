@@ -191,13 +191,13 @@ public class FleetState : MonoBehaviour
         {
             print($"Scaning for new target for Def fleet");
 
-            _fleetShootingSystem.SetTarget(TakeTargetForDefenceFleet()); //выбираем и устанавливаем цель для флота защитника
+            _fleetShootingSystem.SetTarget(TakeTargetForDefenceFleet()); //found and set target for defence fleet
         }
         else
         {
             print($"Scaning for new target for Attacking fleet");
 
-            _fleetShootingSystem.SetTarget(TakeTargetForAttackingFleet()); //выбираем и устанавливаем цель для флота атаки
+            _fleetShootingSystem.SetTarget(TakeTargetForAttackingFleet()); //found and set target for attacking fleet
         }
     }
 
@@ -225,7 +225,7 @@ public class FleetState : MonoBehaviour
         if (_distParametrPlanetMono.defFleetOnOrbitPlanet_GO != null)
         {
             go = _distParametrPlanetMono.defFleetOnOrbitPlanet_GO;
-            GameObject targetDefFleet = go.GetComponent<FleetState>()._targetForDefenceFleet;
+            GameObject targetDefFleet = go.GetComponent<FleetState>()._targetForDefenceFleet; //hash
 
          
                 _stateFleet = FleetStateStruct.enumFleetState.Idle;
