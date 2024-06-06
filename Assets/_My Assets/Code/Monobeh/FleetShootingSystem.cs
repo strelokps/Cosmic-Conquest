@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,7 +16,7 @@ public class FleetShootingSystem : MonoBehaviour
 
     [Header("Sefl fleet")]
     private List<DataShip> _selfFleet;
-    private FleetState _fleetStateSelfFleet = new FleetState();
+    private FleetState _selfFleetStateFleet = new FleetState();
     private FleetManager _selfFleetManager = new FleetManager();
 
 
@@ -24,7 +25,7 @@ public class FleetShootingSystem : MonoBehaviour
         _dataBullet = locDataBullet;
         _prefabBullet = locPrefabBullet;
         _selfFleet = locSelfFleet;
-        _fleetStateSelfFleet = GetComponent<FleetState>();
+        _selfFleetStateFleet = GetComponent<FleetState>();
         _selfFleetManager = GetComponent<FleetManager>();
     }
 
@@ -49,7 +50,7 @@ public class FleetShootingSystem : MonoBehaviour
 
     public void Fire()
     {
-
+        CheckAndSetForTargetTypeShip();
         if (_targetFleet == null)
         {
             print($"<color=magenta> Ќужна нова€ цель </color> ");
@@ -58,14 +59,14 @@ public class FleetShootingSystem : MonoBehaviour
                 print("поиск цели дл€ def fleet from shooting system   " +
                       _selfFleetManager._selfPlanetTransform.name);
 
-                _fleetStateSelfFleet._stateFleet = FleetStateStruct.enumFleetState.FoundTarget;
+                _selfFleetStateFleet._stateFleet = FleetStateStruct.enumFleetState.FoundTarget;
             }
             else
             {
                 print("поиск цели дл€ attacking fleet from shooting system   " +
                       _selfFleetManager._selfPlanetTransform.name);
 
-                _fleetStateSelfFleet._stateFleet = FleetStateStruct.enumFleetState.FoundTarget;
+                _selfFleetStateFleet._stateFleet = FleetStateStruct.enumFleetState.FoundTarget;
             }
         }
         //fleet shoot
@@ -76,6 +77,8 @@ public class FleetShootingSystem : MonoBehaviour
 
             var fleet = _targetFleet.GetComponent<FleetManager>().GetListDataFleet();
 
+
+
             if (fleet.Count == 0)
             {
                 _targetFleet.GetComponent<FleetManager>().Destroy();
@@ -83,5 +86,33 @@ public class FleetShootingSystem : MonoBehaviour
                 GetComponent<FleetState>()._stateFleet = FleetStateStruct.enumFleetState.FoundTarget;
             }
         }
+    }
+
+    private void CheckAndSetForTargetTypeShip()
+    {
+        var n = Enum.GetValues(typeof(ShipType.eShipType)).Length;
+        int count = 0;
+        
+        int[] ships = new int[n] ;
+
+        //for (int i = 0; i < n - 1; i++)
+        //{
+        //    ships[i] = 0;
+        //}
+
+        var locHasActivGOTypeShip = _selfFleetManager._objectShipInPrefabFleet;
+
+        foreach (ShipType.eShipType shipType in Enum.GetValues(typeof(ShipType.eShipType)))
+        {
+            ships[count] = 0;
+            if (locHasActivGOTypeShip[shipType].activeInHierarchy)
+            {
+                ships[count] = 1;
+                print($"<color=green> type ship: {locHasActivGOTypeShip[shipType]} </color>");
+            }
+
+        }
+
+
     }
 }
