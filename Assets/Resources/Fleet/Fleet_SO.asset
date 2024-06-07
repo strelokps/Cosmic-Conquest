@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Fleet_SO
   m_EditorClassIdentifier: 
   _prefab_HumanFleet: {fileID: 1218153717275589960, guid: 691f75ee6b164df4b9b7c71dfbfdd04e, type: 3}
-  _prefab_ProtosFleet: {fileID: 1973995397292037102, guid: cf5855f500c0376489b305a4210ef4cd, type: 3}
+  _prefab_ProtosFleet: {fileID: 1218153717275589960, guid: 691f75ee6b164df4b9b7c71dfbfdd04e, type: 3}
   _prefab_UFOFleet: {fileID: 3522969459988269913, guid: 5c5afdc1bbf491746b5950e4fd03f35c, type: 3}

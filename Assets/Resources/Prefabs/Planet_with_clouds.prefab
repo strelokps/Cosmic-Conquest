@@ -2376,9 +2376,9 @@ GameObject:
   - component: {fileID: 7114612223598660279}
   - component: {fileID: 7123458651627413041}
   - component: {fileID: 7133236127855656175}
+  - component: {fileID: 8816021059405686797}
   - component: {fileID: 3280584367035522545}
   - component: {fileID: 463705174045735651}
-  - component: {fileID: 8816021059405686797}
   - component: {fileID: 4444919791965621972}
   - component: {fileID: 6506294131016249253}
   - component: {fileID: 6175145129567212395}
@@ -2459,6 +2459,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &8816021059405686797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7109947410940832461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b26d86fb5970b2c40a6afa5a11de94ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3280584367035522545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2517,18 +2529,6 @@ MonoBehaviour:
   _numShipsInDefenceFleet: 0
   _numShipsInAttackingFleet: 0
   _currentLvlPlanet: 0
---- !u!114 &8816021059405686797
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7109947410940832461}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b26d86fb5970b2c40a6afa5a11de94ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4444919791965621972
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -6,7 +6,7 @@ using UnityEngine;
 public class FleetShootingSystem : MonoBehaviour
 {
     [Header("Target")]
-    private GameObject _targetFleet;
+    private Vector3 _targetFleet;
     private Vector3 _directShooting;            //направление стрельбы
     private float _directShootingDistance;      //дистанция для расчета жизни снаряда
 
@@ -29,7 +29,7 @@ public class FleetShootingSystem : MonoBehaviour
         _selfFleetManager = GetComponent<FleetManager>();
     }
 
-    public void SetTarget(GameObject locTarget)
+    public void SetTarget(Vector3 locTarget)
     {
         if (locTarget == null)
             return;
@@ -39,8 +39,8 @@ public class FleetShootingSystem : MonoBehaviour
 
     private void CalculationDirectionAndDistance()
     {
-        _directShooting = (_targetFleet.transform.position - transform.position).normalized;
-        var dist = (_targetFleet.transform.position - transform.position).sqrMagnitude;
+        _directShooting = (_targetFleet - transform.position).normalized;
+        var dist = (_targetFleet - transform.position).sqrMagnitude;
         _directShootingDistance = dist / _dataBullet.speedBullet;
         print($"{transform.name}");
         print($"<color=magenta>кэп, вот расстояние до цели {dist}  а это время жизни пули {_directShootingDistance}</color>");
@@ -50,7 +50,11 @@ public class FleetShootingSystem : MonoBehaviour
 
     public void Fire()
     {
-        CheckAndSetForTargetTypeShip();
+        
+
+
+
+/*
         if (_targetFleet == null)
         {
             print($"<color=magenta> Нужна новая цель </color> ");
@@ -85,34 +89,8 @@ public class FleetShootingSystem : MonoBehaviour
                 _targetFleet = null;
                 GetComponent<FleetState>()._stateFleet = FleetStateStruct.enumFleetState.FoundTarget;
             }
-        }
+        }*/
     }
 
-    private void CheckAndSetForTargetTypeShip()
-    {
-        var n = Enum.GetValues(typeof(ShipType.eShipType)).Length;
-        int count = 0;
-        
-        int[] ships = new int[n] ;
-
-        //for (int i = 0; i < n - 1; i++)
-        //{
-        //    ships[i] = 0;
-        //}
-
-        var locHasActivGOTypeShip = _selfFleetManager._objectShipInPrefabFleet;
-
-        foreach (ShipType.eShipType shipType in Enum.GetValues(typeof(ShipType.eShipType)))
-        {
-            ships[count] = 0;
-            if (locHasActivGOTypeShip[shipType].activeInHierarchy)
-            {
-                ships[count] = 1;
-                print($"<color=green> type ship: {locHasActivGOTypeShip[shipType]} </color>");
-            }
-
-        }
-
-
-    }
+   
 }

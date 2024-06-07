@@ -2,6 +2,7 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.Interactions;
 using Random = System.Random;
 
 public struct HealthSystem
@@ -124,5 +125,10 @@ public struct HealthSystem
                 locSelfShips[i] = locDataShip;
             }
         }
+    }
+
+    public void TakeDamage(float locTakeDamage)
+    {
+        Debug.Log($"<color=puprple> Take damage {locTakeDamage} </color>");
     }
 }

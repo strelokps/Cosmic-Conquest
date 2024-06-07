@@ -32,6 +32,10 @@ public class FleetState : MonoBehaviour
     [Header("Scale")]
     [SerializeField] private float _timeToScale;
 
+    [Header("Take target")]
+    private TakeTarget _takeTarget = new TakeTarget();
+
+
     private float scaleModifier;
 
     private float _endScale;
@@ -137,7 +141,7 @@ public class FleetState : MonoBehaviour
                 break;
 
             case FleetStateStruct.enumFleetState.Attack:
-                Attack();
+                //Attack();
                 break;
 
             case FleetStateStruct.enumFleetState.MovingTowardsPlanetForDescent:
@@ -187,64 +191,42 @@ public class FleetState : MonoBehaviour
 
     private void FoundTarget()
     {
-        if (_fleetManager.isDefenceFleet)
+        if (_fleetManager.isDefenceFleet & _selfParametrPlanetMono.attackingFleet_LGO.Count > 0)
         {
             print($"Scaning for new target for Def fleet");
+            _fleetManager.ShotFromAvailableShip_AttackingFleet(_selfParametrPlanetMono.attackingFleet_LGO[0]);
+            //_fleetShootingSystem.SetTarget(TakeTargetForDefenceFleet()); //found and set target for defence fleet
 
-            _fleetShootingSystem.SetTarget(TakeTargetForDefenceFleet()); //found and set target for defence fleet
         }
-        else
+        else if (_distParametrPlanetMono.defFleetOnOrbitPlanet_GO != null)
         {
             print($"Scaning for new target for Attacking fleet");
+            _fleetManager.ShotFromAvailableShip_AttackingFleet(_distParametrPlanetMono.defFleetOnOrbitPlanet_GO);
 
-            _fleetShootingSystem.SetTarget(TakeTargetForAttackingFleet()); //found and set target for attacking fleet
+            _stateFleet = FleetStateStruct.enumFleetState.Idle; //нужно что бы процесс выстрела по цели запустился один раз.
+
+            //_fleetShootingSystem.SetTarget(_takeTarget.TakeTargetForAttackingFleet(_distParametrPlanetMono)); //found and set target for attacking fleet
         }
     }
 
-    public GameObject TakeTargetForDefenceFleet()
-    {
-        _targetForDefenceFleet = null;
-        if (_selfParametrPlanetMono.attackingFleet_LGO.Count > 0)
-        {
-            _targetForDefenceFleet = _selfParametrPlanetMono.attackingFleet_LGO[0];
-            _stateFleet = FleetStateStruct.enumFleetState.Attack;
-            _targetForDefenceFleet.GetComponent<FleetState>()._stateFleet = FleetStateStruct.enumFleetState.Attack;
+    //public Vector3 TakeTargetForDefenceFleet()
+    //{
+    //    _targetForDefenceFleet = null;
+    //    if (_selfParametrPlanetMono.attackingFleet_LGO.Count > 0)
+    //    {
+    //        _targetForDefenceFleet = _selfParametrPlanetMono.attackingFleet_LGO[0];
+    //        _stateFleet = FleetStateStruct.enumFleetState.Attack;
+    //        _targetForDefenceFleet.GetComponent<FleetState>()._stateFleet = FleetStateStruct.enumFleetState.Attack;
 
-        }
-        if (_targetForDefenceFleet == null)
-        {
-            //TODO сделать анимацию посадки на планету с уничтожеием флота
-            RefundDefenceFleet();
-        }
-        return _targetForDefenceFleet;
-    }
+    //    }
+    //    if (_targetForDefenceFleet == null)
+    //    {
+    //        //TODO сделать анимацию посадки на планету с уничтожеием флота
+    //        RefundDefenceFleet();
+    //    }
+    //    return _targetForDefenceFleet;
+    //}
 
-    public GameObject TakeTargetForAttackingFleet()
-    {
-        GameObject go = null;
-        if (_distParametrPlanetMono.defFleetOnOrbitPlanet_GO != null)
-        {
-            go = _distParametrPlanetMono.defFleetOnOrbitPlanet_GO;
-            GameObject targetDefFleet = go.GetComponent<FleetState>()._targetForDefenceFleet; //hash
-
-         
-                _stateFleet = FleetStateStruct.enumFleetState.Idle;
-            
-            if (targetDefFleet != null & targetDefFleet != this)
-            {
-                print($"target 1 {this.name}");
-                _stateFleet = FleetStateStruct.enumFleetState.Attack;
-
-            }
-            //_enemyStateFleet = go.GetComponent<FleetState>()._stateFleet;
-        }
-        if (go == null)
-        {
-            //TODO сделать анимацию посадки на планету с уничтожеием флота
-            _stateFleet = FleetStateStruct.enumFleetState.OrbitAttack;
-        }
-        return go;
-    }
 
     //возврат флота защиты на планету
     private void RefundDefenceFleet()
@@ -397,10 +379,10 @@ public class FleetState : MonoBehaviour
     }
 
 
-    private void Attack()
-    {
-        _fleetShootingSystem.Fire();
-    }
+    //private void Attack()
+    //{
+    //    _fleetShootingSystem.Fire();
+    //}
 
 
     private void DescentOnPlanet()
