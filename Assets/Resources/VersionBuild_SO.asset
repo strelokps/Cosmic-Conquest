@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: VersionBuild_SO
   m_EditorClassIdentifier: 
   _major: 0
-  _minor: 1
-  _buildMinor: 1621
-  _build: 2156
-  _tempMinor: 1
-  _tempMinorDvaPlusa: 0
+  _minor: 2
+  _buildMinor: 0
+  _build: 2157
+  _tempMinor: 2
+  _tempMinorDvaPlusa: 1
