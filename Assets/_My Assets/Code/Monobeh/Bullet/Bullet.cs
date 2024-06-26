@@ -33,7 +33,7 @@ public class Bullet : MonoBehaviour
             if (_templifeTime >= _lifeTime)
             {
 
-                print($"BAH-H-H !!!");
+                print($"BAH-H-H !!! {gameObject.transform.name}");
                 Destroy(gameObject);
             }
         }
@@ -43,7 +43,7 @@ public class Bullet : MonoBehaviour
     {
         // Проверяем, есть ли у объекта компонент, способный получать урон
         var target = other.GetComponent<FleetManager>();
-        print($"Toch {other.name}");
+       // print($"Toch {other.name}");
         if (target != null)
         {
             target.TakeDamage(_damageBullet);

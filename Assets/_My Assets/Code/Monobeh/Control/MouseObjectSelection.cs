@@ -87,7 +87,6 @@ public class MouseObjectSelection : MonoBehaviour
                 {
                     {
                         selectedTargetPlanet = hit.collider.gameObject;
-                        print($"UI {hit.transform.name}  ");
                         //если планета игрока, есть корабли на отправку и попали в другую планету, то отправляем корабли
                         //if in player planet ships to attack and hit to other planet -> send fleet
                         if (_palyerParametrPlanetMono.SelfTransform != hit.transform)

@@ -8,19 +8,25 @@ public class TakeTarget : MonoBehaviour
     public Vector3 TakeTargetForAttackingFleet(ref bool flagDisableFire,  GameObject locGOTarget)
     {
         Vector3 pointToHit = new Vector3();
+        flagDisableFire = false;
 
+        if (locGOTarget)
+        {
             List<Transform> listPointToHit = locGOTarget.GetComponent<FleetManager>().pointForTarget; //hash
 
             if (listPointToHit.Count > 0)
             {
                 pointToHit = GetRandomPointToHit(listPointToHit);
+                flagDisableFire = true;
+
             }
             else
             {
                 Debug.LogError("Cap, dont't see target -> listPointToHit.Count <= 0");
                 flagDisableFire = false;
             }
-        
+        }
+
         return pointToHit;
     }
 

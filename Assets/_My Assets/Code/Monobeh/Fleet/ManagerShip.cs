@@ -20,9 +20,15 @@ public class ManagerShip : MonoBehaviour
     public bool _flagMayShot;
 
     private GameObject target;
+    private FleetState _fleetState;
 
     private float rateOfFire = 1;
     private float tempRateOfFire = 0;
+
+    //Test
+    [ShowInInspector] private string _name;
+    [ShowInInspector] private string _nameTraget;
+
 
     private void OnDisable()
     {
@@ -41,10 +47,23 @@ public class ManagerShip : MonoBehaviour
             }
         }
 
+        if (_fleetState != null)
+        {
+           // print($"Cap, no target! {_name}  target {_nameTraget}");
+            if (_fleetState != null)
+                _fleetState._stateFleet = FleetStateStruct.enumFleetState.FoundTarget;
+
+        }
+        else
+        {
+            //print($"<color=red> _fleetState = null {_name}  target {_nameTraget} </color>");
+        }
+
     }
 
-    private void Init()
+    public void Init()
     {
+        _fleetState = new FleetState();
 
         _colladerPointToHit = gameObject.GetComponents<BoxCollider>();
         _listPointToHit = new List<Transform>();
@@ -96,14 +115,19 @@ public class ManagerShip : MonoBehaviour
 
     public List<Transform> TakeListTransformsPointToHit()
     {
-        Init();
+       // print($"<color=green> Init manager ships </color>");
         return _listPointToHit;
     }
 
-    public void PushFire(GameObject locTarget)
+    public void PushFire(GameObject locTarget, FleetState locFleetState)
     {
         target = locTarget;
         _flagMayShot = true;
+        _fleetState = locFleetState;
+
+        //test
+        _name = _fleetState.gameObject.transform.name;
+        _nameTraget = target.transform.name;
     }
 
     private void Fire()

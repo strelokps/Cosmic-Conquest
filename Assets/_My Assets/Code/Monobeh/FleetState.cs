@@ -182,7 +182,7 @@ public class FleetState : MonoBehaviour
                 break;
 
             case FleetStateStruct.enumFleetState.Idle:
-                print($"<color=yellow> idle {this.name}</color>");
+               // print($"<color=yellow> idle {this.name}</color>");
                 break;
           
         }
@@ -193,15 +193,15 @@ public class FleetState : MonoBehaviour
     {
         if (_fleetManager.isDefenceFleet & _selfParametrPlanetMono.attackingFleet_LGO.Count > 0)
         {
-            print($"Scaning for new target for Def fleet");
-            _fleetManager.ShotFromAvailableShip_AttackingFleet(_selfParametrPlanetMono.attackingFleet_LGO[0]);
+           // print($"Scaning for new target for Def fleet");
+            _fleetManager.ShootingToTargetFormFleetManager(_selfParametrPlanetMono.attackingFleet_LGO[0]);
             //_fleetShootingSystem.SetTarget(TakeTargetForDefenceFleet()); //found and set target for defence fleet
-
+            _stateFleet = FleetStateStruct.enumFleetState.Idle;
         }
         else if (_distParametrPlanetMono.defFleetOnOrbitPlanet_GO != null)
         {
-            print($"Scaning for new target for Attacking fleet");
-            _fleetManager.ShotFromAvailableShip_AttackingFleet(_distParametrPlanetMono.defFleetOnOrbitPlanet_GO);
+          //  print($"<color=red> Scaning for new target for Attacking fleet </color>");
+            _fleetManager.ShootingToTargetFormFleetManager(_distParametrPlanetMono.defFleetOnOrbitPlanet_GO);
 
             _stateFleet = FleetStateStruct.enumFleetState.Idle; //нужно что бы процесс выстрела по цели запустился один раз.
 

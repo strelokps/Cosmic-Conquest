@@ -275,6 +275,9 @@ public class ParametrPlanet_mono : MonoBehaviour
 
         //test
         _parentManager.AddSolarium(1000);
+        _buyShip.BuildShipHeavy();
+        _buyShip.BuildShipLight();
+        _buyShip.BuildShipMedium();
     }
 
 
@@ -547,28 +550,8 @@ public class ParametrPlanet_mono : MonoBehaviour
         Clear();
     }
 
-    public void ShowMe(float percentageOfTheDefenderFleet, Transform targetPlanet)
-    {
-        print($"YES! ");
-    }
 
-    /// <summary>
-    /// Дружественный флот на подлете
-    /// </summary>
-    /// <param name="locIncomeFriedlyFleet"></param>
-    public void AddToListIncomeFriendlyFleet(GameObject locIncomeFriedlyFleet)
-    {
-        _friendlyFleet_LGO.Add(locIncomeFriedlyFleet);
-    }
-    public void RemoveToListIncomeFriendlyFleet(GameObject locIncomeFriedlyFleet)
-    {
-        _friendlyFleet_LGO.Remove(locIncomeFriedlyFleet);
-    }
-
-    //public void AddToListAttackerFleet(GameObject locAttackerFleet)
-    //{
-    //    attackingFleet_LGO.Add(locAttackerFleet);
-    //}
+  
     public void RemoveToListAttackerFleet(GameObject locAttackerFleet)
     {
         attackingFleet_LGO.Remove(locAttackerFleet);

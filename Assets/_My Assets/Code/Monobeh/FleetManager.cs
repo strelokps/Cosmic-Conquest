@@ -107,6 +107,8 @@ public class FleetManager : MonoBehaviour
             CallRegenShield();
             AddRangePointToHit();
             RemoveRangePointToHit();
+            if (flagDestroy)
+                Destroy();
     }
 
     public void AddShipToFleet(DataShip locDataShip)
@@ -412,6 +414,7 @@ public class FleetManager : MonoBehaviour
            _objectShipInPrefabFleet[shipType].name = shipType.ToString();
 
            _objectShipInPrefabFleet[shipType].transform.localPosition = locPositionGOShipInFleet[countLocTransform];
+           _objectShipInPrefabFleet[shipType].GetComponent<ManagerShip>().Init();
        }
 
    }
@@ -445,12 +448,13 @@ public class FleetManager : MonoBehaviour
        }
    }
 
-   public void ShotFromAvailableShip_AttackingFleet(GameObject target)
+
+    public void ShootingToTargetFormFleetManager(GameObject target)
    {
 
        foreach (ShipType.eShipType shipType in Enum.GetValues(typeof(ShipType.eShipType)))
        {
-           _objectShipInPrefabFleet[shipType].GetComponent<ManagerShip>().PushFire(target);
+           _objectShipInPrefabFleet[shipType].GetComponent<ManagerShip>().PushFire(target, _fleetState);
 
        }
    }
