@@ -303,19 +303,24 @@ public class FleetManager : MonoBehaviour
            if (locDataFleet[i].typeShip == ShipType.eShipType.light)
            {
                _listFleet_light.Add(locDataFleet[i]);
+                dicShips[ShipType.eShipType.light].Add(locDataFleet[i]);
            }
            else
            
            if (locDataFleet[i].typeShip == ShipType.eShipType.medium)
            {
                _listFleet_medium.Add(locDataFleet[i]);
+               dicShips[ShipType.eShipType.medium].Add(locDataFleet[i]);
+
 
             }
-           else if (locDataFleet[i].typeShip == ShipType.eShipType.heavy)
+            else if (locDataFleet[i].typeShip == ShipType.eShipType.heavy)
            {
                _listFleet_heavy.Add(locDataFleet[i]);
-           }
-       }
+               dicShips[ShipType.eShipType.heavy].Add(locDataFleet[i]);
+
+            }
+        }
 
        CheckCountAndTypeShipsInFleet();
    }
@@ -368,7 +373,7 @@ public class FleetManager : MonoBehaviour
            _objectShipInPrefabFleet[shipType].name = shipType.ToString();
 
            _objectShipInPrefabFleet[shipType].transform.localPosition = locPositionGOShipInFleet[countLocTransform];
-           _objectShipInPrefabFleet[shipType].GetComponent<ManagerShip>().Init();
+            _objectShipInPrefabFleet[shipType].GetComponent<ManagerShip>().Init(dicShips[shipType]);
        }
    }
 
