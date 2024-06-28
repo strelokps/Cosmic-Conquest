@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(HealthSystem))]
+
 public class TestCode : MonoBehaviour
 {
     [SerializeField] private Material _material;

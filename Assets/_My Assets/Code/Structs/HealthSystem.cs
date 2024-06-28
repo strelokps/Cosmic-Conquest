@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem.Interactions;
 using Random = System.Random;
 
-public struct HealthSystem
+public class HealthSystem : MonoBehaviour 
 {
     private DataShip _dataShip;
     // locEnemyDataShips - входящий демаг от вражеского флота

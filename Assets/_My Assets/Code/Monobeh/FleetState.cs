@@ -33,7 +33,7 @@ public class FleetState : MonoBehaviour
     [SerializeField] private float _timeToScale;
 
     [Header("Take target")]
-    private TakeTarget _takeTarget = new TakeTarget();
+    //private TakeTarget _takeTarget = new TakeTarget();
 
 
     private float scaleModifier;

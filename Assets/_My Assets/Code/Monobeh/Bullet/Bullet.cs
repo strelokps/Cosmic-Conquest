@@ -42,11 +42,12 @@ public class Bullet : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         // Проверяем, есть ли у объекта компонент, способный получать урон
-        var target = other.GetComponent<FleetManager>();
-       // print($"Toch {other.name}");
+        var target = other.GetComponent<HealthSystem>();
         if (target != null)
         {
             target.TakeDamage(_damageBullet);
+            print($"Toch {other.name}");
+
         }
 
         // Уничтожаем пулю после столкновения

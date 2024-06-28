@@ -26,9 +26,6 @@ public class FleetManager : MonoBehaviour
     [SerializeField] private TMP_Text _textNumShipInFleet;
     [SerializeField] private TMP_Text _attackShipInFleetText;
     [SerializeField] private TMP_Text _defenceShipInFleetText;
-    private int _numShipInFleet;
-    [SerializeField] private int _attackFleet;
-    [SerializeField] private int _armorFleet;
     
     [ShowInInspector] private List<DataShip> _dataFleetList ; //список кораблей во флоту
 
@@ -57,7 +54,7 @@ public class FleetManager : MonoBehaviour
 
 
     [Header("Take target")]
-    [ShowInInspector] public List<Transform> pointForTarget  = new List<Transform>(); //point to hit. GO point on ships in fleet with Boxcollader
+    [ShowInInspector] private List<Transform> _pointForTarget  = new List<Transform>(); //point to hit. GO point on ships in fleet with Boxcollader
 
     private List<ManagerShip> _listManagerShip = new List<ManagerShip>();
 
@@ -88,13 +85,7 @@ public class FleetManager : MonoBehaviour
 
     [SerializeField] private bool flagDestroy;
 
-    private void Awake()
-    {
-        _attackFleet = 0;
-        _armorFleet = 0;
-        _numShipInFleet = 0;
-
-    }
+    
 
     private void OnDisable()
     {
@@ -105,24 +96,12 @@ public class FleetManager : MonoBehaviour
     private void Update()
     {
             CallRegenShield();
-            AddRangePointToHit();
-            RemoveRangePointToHit();
+            //AddRangePointToHit();
+            //RemoveRangePointToHit();
             if (flagDestroy)
                 Destroy();
     }
 
-    public void AddShipToFleet(DataShip locDataShip)
-    {
-        _dataFleetList.Add(locDataShip);
-
-        DisplayAttackAndDefenceFleet();
-    }
-
-
-    public SceneMembersData GetMembersData()
-    {
-        return _membersDataInFleet;
-    }
 
     public Transform GetParentTransform()
     {
@@ -134,42 +113,15 @@ public class FleetManager : MonoBehaviour
         return _dataFleetList;
     }
 
-    public void RemoveAttackAndDefence(DataShip locDatafleet)
-    {
-        DisplayAttackAndDefenceFleet();
-    }
-
     private void DisplayNumShipInFleet()
     {
         _textNumShipInFleet.text = _dataFleetList.Count.ToString();
     }
 
-    private void DisplayAttackAndDefenceFleet()
-    {
-        ClearParamFleetAnd();
-        foreach (var idx in _dataFleetList)
-        {
-            _attackFleet += (int)idx.damageShipMin;
-            _armorFleet += (int)idx.armorShip;
-        }
-        _attackShipInFleetText.text = _attackFleet.ToString();
-        _defenceShipInFleetText.text = _armorFleet.ToString();
-    }
 
-    public void ClearParamFleetAndDisplay()
-    {
-        ClearParamFleetAnd();
-        DisplayAttackAndDefenceFleet();
-    }
 
-    public void ClearParamFleetAnd()
-    {
-        _attackFleet = 0;
-        _armorFleet = 0;
-        _numShipInFleet = 0;
-    }
 
-    //test
+    //TODO test Replace to Manafer ship
     private DataBullet SetDataBullet()
     {
         DataBullet bullet = new DataBullet();
@@ -185,6 +137,8 @@ public class FleetManager : MonoBehaviour
         ,ParametrPlanet_mono locTargetPlanetMono, SceneMembersData locMembersDataInFleet
         ,FleetStateStruct.enumFleetState _locFleetState)
     {
+        _healthSystem = new HealthSystem();
+
         locPositionGOShipInFleet = new Vector3[Enum.GetValues(typeof(ShipType.eShipType)).Length];
 
         FindSpaceshipsInChildren(transform);
@@ -194,7 +148,7 @@ public class FleetManager : MonoBehaviour
         _fleetShootingSystem = GetComponent<FleetShootingSystem>();
         _fleetShootingSystem.InitShootingSystem(_prefabBullet, SetDataBullet(), _dataFleetList);
 
-        ClearParamFleetAndDisplay();
+        
 
         Color locColor = new Color(locMaterial.color.r, locMaterial.color.g, locMaterial.color.r, 1f);
 
@@ -221,7 +175,7 @@ public class FleetManager : MonoBehaviour
         ParseTypeShipInFleet(locDataFleet); //парсим тип кораблей для дальнейшего отображения ГО в префабе(для каждого типа свой ГО)
 
 
-        DisplayAttackAndDefenceFleet();
+        
         DisplayNumShipInFleet();
     }
 
@@ -229,10 +183,9 @@ public class FleetManager : MonoBehaviour
     //присоединение кораблей другого флота к себе при атаке на планету, если оба флота были отправленны с одной и той же планеты
     public void MergFleets(List<DataShip> locListDataFleetToMerg)
     {
-
         _dataFleetList.AddRange(locListDataFleetToMerg);
         ParseTypeShipInFleet(locListDataFleetToMerg);
-        DisplayAttackAndDefenceFleet();
+        
         DisplayNumShipInFleet();
     }
 
@@ -277,7 +230,6 @@ public class FleetManager : MonoBehaviour
     {
         _selfParametrPlanetMono.ClearDefenceFleet();
         Destroy(gameObject);
-
     }
 
     //получаем минимальную скорость из всех кораблей флота
@@ -404,7 +356,9 @@ public class FleetManager : MonoBehaviour
                ActivateShipInFleet(ShipType.eShipType.light, countLocTransform, false);
            }
        }
-   }
+       AddRangePointToHit();
+       RemoveRangePointToHit();
+    }
 
    private void ActivateShipInFleet(ShipType.eShipType shipType, int countLocTransform, bool locFlagActive)
    {
@@ -416,23 +370,22 @@ public class FleetManager : MonoBehaviour
            _objectShipInPrefabFleet[shipType].transform.localPosition = locPositionGOShipInFleet[countLocTransform];
            _objectShipInPrefabFleet[shipType].GetComponent<ManagerShip>().Init();
        }
-
    }
 
    //добавляем в общий список цели по которым будет стрелять противник. When GO ships delete -> OnDisable remove self point to hit
    public List<Transform> AddRangePointToHit()
    {
-       pointForTarget = new List<Transform>();
+       _pointForTarget = new List<Transform>();
 
        foreach (ShipType.eShipType shipType in Enum.GetValues(typeof(ShipType.eShipType)))
        {
            if (_objectShipInPrefabFleet[shipType].activeInHierarchy)
            {
-               pointForTarget.AddRange(_objectShipInPrefabFleet[shipType].GetComponent<ManagerShip>().TakeListTransformsPointToHit());
+               _pointForTarget.AddRange(_objectShipInPrefabFleet[shipType].GetComponent<ManagerShip>().TakeListTransformsPointToHit());
            }
        }
 
-       return pointForTarget;
+       return _pointForTarget;
    }
 
    public void RemoveRangePointToHit()
@@ -443,7 +396,7 @@ public class FleetManager : MonoBehaviour
            {
                HashSet<Transform> set2 = new HashSet<Transform>(_objectShipInPrefabFleet[shipType]
                    .GetComponent<ManagerShip>().TakeListTransformsPointToHit());
-               pointForTarget.RemoveAll(item => set2.Contains(item));
+               _pointForTarget.RemoveAll(item => set2.Contains(item));
            }
        }
    }
@@ -452,25 +405,33 @@ public class FleetManager : MonoBehaviour
     public void ShootingToTargetFormFleetManager(GameObject target)
    {
 
-       foreach (ShipType.eShipType shipType in Enum.GetValues(typeof(ShipType.eShipType)))
+        foreach (ShipType.eShipType shipType in Enum.GetValues(typeof(ShipType.eShipType)))
        {
            _objectShipInPrefabFleet[shipType].GetComponent<ManagerShip>().PushFire(target, _fleetState);
 
        }
    }
 
-   //public void ShotFromAvailableShip_DefenderFleet(List<Transform> locAttackingFleet)
+    public List<Transform> TakePointForTarget()
+    {
+        AddRangePointToHit();
+        RemoveRangePointToHit();
+        return _pointForTarget;
+    }
+
+    //public void ShotFromAvailableShip_DefenderFleet(List<Transform> locAttackingFleet)
    //{
    //    foreach (ShipType.eShipType shipType in Enum.GetValues(typeof(ShipType.eShipType)))
    //    {
    //        _objectShipInPrefabFleet[shipType].GetComponent<ManagerShip>().PushFire();
    //        print($"Планета {_distParametrPlanetMono.SelfTransform.name}");
 
-   //    }
-   // }
+    //    }
+    // }
 
    public void TakeDamage(float locTakeDamage)
    {
+       print($"TakeDamage");
        _healthSystem.TakeDamage(locTakeDamage);
    }
 

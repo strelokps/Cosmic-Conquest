@@ -12,7 +12,7 @@ public class TakeTarget : MonoBehaviour
 
         if (locGOTarget)
         {
-            List<Transform> listPointToHit = locGOTarget.GetComponent<FleetManager>().pointForTarget; //hash
+            List<Transform> listPointToHit = locGOTarget.GetComponent<FleetManager>().TakePointForTarget(); //hash
 
             if (listPointToHit.Count > 0)
             {
@@ -22,7 +22,7 @@ public class TakeTarget : MonoBehaviour
             }
             else
             {
-                Debug.LogError("Cap, dont't see target -> listPointToHit.Count <= 0");
+               print("<color=red>Cap, dont't see target -> listPointToHit.Count <= 0</color>");
                 flagDisableFire = false;
             }
         }

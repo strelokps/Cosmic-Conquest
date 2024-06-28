@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+//using Microsoft.Unity.VisualStudio.Editor;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.UI;
 
+[RequireComponent(typeof(HealthSystem))]
 public class ManagerShip : MonoBehaviour
 {
-    [ShowInInspector] public List<DataShip> shipList = new List<DataShip>();
+    [ShowInInspector] private List<DataShip> _shipList = new List<DataShip>();
     [ShowInInspector] private ShipType.eShipType _shipType;
     [ShowInInspector] private GameObject _prefabBullet;
     [ShowInInspector] private GameObject _pointToFire;
@@ -13,7 +16,7 @@ public class ManagerShip : MonoBehaviour
     [ShowInInspector] public List<Transform> _listPointToHit;
 
     private BoxCollider[] _colladerPointToHit;
-
+    [ShowInInspector]
     [Header("Take target and shot")]
     private TakeTarget _takeTarget = new TakeTarget();
 
@@ -25,14 +28,16 @@ public class ManagerShip : MonoBehaviour
     private float rateOfFire = 1;
     private float tempRateOfFire = 0;
 
-    //Test
-    [ShowInInspector] private string _name;
-    [ShowInInspector] private string _nameTraget;
+    [Header("UI")]
+
+    [ShowInInspector] public Image _shield;
+    [ShowInInspector] public Image _armor;
+
 
 
     private void OnDisable()
     {
-        
+        print($"<color=green> Dis </color>");
     }
 
     private void FixedUpdate()
@@ -61,8 +66,11 @@ public class ManagerShip : MonoBehaviour
 
     }
 
-    public void Init()
+    public void Init(List<DataShip> locListTypeShips)
     {
+        _shipList = new List<DataShip>();
+        MergeShips(locListTypeShips);
+
         _fleetState = new FleetState();
 
         _colladerPointToHit = gameObject.GetComponents<BoxCollider>();
@@ -102,7 +110,7 @@ public class ManagerShip : MonoBehaviour
             }
         }
 
-
+        //centering the collider position of the hit point position
         if (_listPointToHit.Count == _colladerPointToHit.Length)
         {
             for (int i = 0; i < _colladerPointToHit.Length; i++)
@@ -124,21 +132,25 @@ public class ManagerShip : MonoBehaviour
         target = locTarget;
         _flagMayShot = true;
         _fleetState = locFleetState;
-
-        //test
-        _name = _fleetState.gameObject.transform.name;
-        _nameTraget = target.transform.name;
     }
 
     private void Fire()
     {
         Vector3 point = _takeTarget.TakeTargetForAttackingFleet( ref _flagMayShot, target);
-        
+
+        if (!_flagMayShot)
+            return;
+
         _pointToFire.transform.LookAt(point);
 
         GameObject bullet = Instantiate(_prefabBullet, _pointToFire.transform.position, Quaternion.identity);
         bullet.SetActive(true);
         bullet.transform.LookAt(point);
+    }
+
+    public void MergeShips(List<DataShip> locListTypeShips)
+    {
+        _shipList.AddRange(locListTypeShips);
     }
 
 }
