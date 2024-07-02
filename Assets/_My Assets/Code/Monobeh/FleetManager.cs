@@ -9,7 +9,7 @@ using Sirenix.OdinInspector;
 
 
 [RequireComponent(typeof(FleetState))]
-[RequireComponent(typeof(FleetShootingSystem))]
+//[RequireComponent(typeof(FleetShootingSystem))]
 
 public class FleetManager : MonoBehaviour
 {
@@ -56,10 +56,9 @@ public class FleetManager : MonoBehaviour
     [Header("Take target")]
     [ShowInInspector] private List<Transform> _pointForTarget  = new List<Transform>(); //point to hit. GO point on ships in fleet with Boxcollader
 
-    private List<ManagerShip> _listManagerShip = new List<ManagerShip>();
+
 
     private FleetState _fleetState;
-    private Transform _target;
     private SceneMembersData _membersDataInFleet;
     [SerializeField] private Transform _parentTransformInFleet;
     [SerializeField] private Transform _distParentTransform;
@@ -68,20 +67,13 @@ public class FleetManager : MonoBehaviour
 
 
     [Header("Health | Damage")] 
-    private HealthSystem _healthSystem;
-    public FleetShootingSystem _fleetShootingSystem;
+    //public FleetShootingSystem _fleetShootingSystem;
     [SerializeField] private GameObject _prefabBullet;
 
 
     public ParametrPlanet_mono prop_DistParametrPlanetMono => _distParametrPlanetMono;
 
     public Transform prop_DistParentTransform => _distParentTransform;
-
-    [Header("Time")] 
-    private float _timer;
-    private float _tempTimer;
-
-    //Test
 
     [SerializeField] private bool flagDestroy;
 
@@ -95,7 +87,6 @@ public class FleetManager : MonoBehaviour
 
     private void Update()
     {
-            CallRegenShield();
             //AddRangePointToHit();
             //RemoveRangePointToHit();
             if (flagDestroy)
@@ -113,40 +104,34 @@ public class FleetManager : MonoBehaviour
         return _dataFleetList;
     }
 
-    private void DisplayNumShipInFleet()
-    {
-        _textNumShipInFleet.text = _dataFleetList.Count.ToString();
-    }
 
 
 
 
-    //TODO test Replace to Manafer ship
-    private DataBullet SetDataBullet()
-    {
-        DataBullet bullet = new DataBullet();
-        bullet.damageBullet = _dataFleetList;
-        bullet.speedBullet = 3f;
-        bullet.fireRateBullet = 1f;
-        bullet.lifaTimeBullet = 0;
-        return bullet;
-    }
+    ////TODO test Replace to Manager ship
+    //private DataBullet SetDataBullet()
+    //{
+    //    DataBullet bullet = new DataBullet();
+    //    bullet.damageBullet = _dataFleetList;
+    //    bullet.speedBullet = 3f;
+    //    bullet.fireRateBullet = 1f;
+    //    bullet.lifeTimeBullet = 0;
+    //    return bullet;
+    //}
 
     public void InitiateFleet(List<DataShip> locDataFleet, Material locMaterial 
         ,Transform locPlanetIsOwnerFleet, Transform locParentTransform 
         ,ParametrPlanet_mono locTargetPlanetMono, SceneMembersData locMembersDataInFleet
         ,FleetStateStruct.enumFleetState _locFleetState)
     {
-        _healthSystem = new HealthSystem();
-
         locPositionGOShipInFleet = new Vector3[Enum.GetValues(typeof(ShipType.eShipType)).Length];
 
         FindSpaceshipsInChildren(transform);
 
         _dataFleetList = new List<DataShip> ( locDataFleet );
 
-        _fleetShootingSystem = GetComponent<FleetShootingSystem>();
-        _fleetShootingSystem.InitShootingSystem(_prefabBullet, SetDataBullet(), _dataFleetList);
+        //_fleetShootingSystem = GetComponent<FleetShootingSystem>();
+        //_fleetShootingSystem.InitShootingSystem(_prefabBullet, SetDataBullet(), _dataFleetList);
 
         
 
@@ -169,14 +154,12 @@ public class FleetManager : MonoBehaviour
         _fleetState.speedMove = GetMinSpeedFleet(locDataFleet);
 
 
-        _timer = 1f;
-        _tempTimer = 0;
+
 
         ParseTypeShipInFleet(locDataFleet); //парсим тип кораблей для дальнейшего отображения ГО в префабе(для каждого типа свой ГО)
 
 
         
-        DisplayNumShipInFleet();
     }
 
 
@@ -186,12 +169,11 @@ public class FleetManager : MonoBehaviour
         _dataFleetList.AddRange(locListDataFleetToMerg);
         ParseTypeShipInFleet(locListDataFleetToMerg);
         
-        DisplayNumShipInFleet();
     }
 
     public void JoinToDefenderFleet()
     {
-        _healthSystem.SetMaxArmorAndShield(_dataFleetList);
+        GetComponent<ShipManager>().JoinToDefenderFleet_ShipManager();
         _distParametrPlanetMono.AddFleetToDefenceFleetOnPlanet(_dataFleetList);
         Destroy();
     }
@@ -246,17 +228,7 @@ public class FleetManager : MonoBehaviour
         return minSpeed;
     }
 
-   private void CallRegenShield()
-   {
-        _tempTimer += Time.deltaTime;
-
-        if (_tempTimer > _timer)
-        {
-            _tempTimer = 0;
-            
-            _healthSystem.RegenerationShield(_dataFleetList);
-        }
-    }
+  
 
     public void CapturePlanet()
     {
@@ -304,21 +276,21 @@ public class FleetManager : MonoBehaviour
            {
                _listFleet_light.Add(locDataFleet[i]);
                 dicShips[ShipType.eShipType.light].Add(locDataFleet[i]);
-           }
+                locDataFleet.RemoveAt(i);
+            }
            else
            
            if (locDataFleet[i].typeShip == ShipType.eShipType.medium)
            {
                _listFleet_medium.Add(locDataFleet[i]);
                dicShips[ShipType.eShipType.medium].Add(locDataFleet[i]);
-
-
+               locDataFleet.RemoveAt(i);
             }
             else if (locDataFleet[i].typeShip == ShipType.eShipType.heavy)
            {
                _listFleet_heavy.Add(locDataFleet[i]);
                dicShips[ShipType.eShipType.heavy].Add(locDataFleet[i]);
-
+               locDataFleet.RemoveAt(i);
             }
         }
 
@@ -373,7 +345,7 @@ public class FleetManager : MonoBehaviour
            _objectShipInPrefabFleet[shipType].name = shipType.ToString();
 
            _objectShipInPrefabFleet[shipType].transform.localPosition = locPositionGOShipInFleet[countLocTransform];
-            _objectShipInPrefabFleet[shipType].GetComponent<ManagerShip>().Init(dicShips[shipType]);
+            _objectShipInPrefabFleet[shipType].GetComponent<ShipManager>().Init(dicShips[shipType], this);
        }
    }
 
@@ -386,7 +358,10 @@ public class FleetManager : MonoBehaviour
        {
            if (_objectShipInPrefabFleet[shipType].activeInHierarchy)
            {
-               _pointForTarget.AddRange(_objectShipInPrefabFleet[shipType].GetComponent<ManagerShip>().TakeListTransformsPointToHit());
+               _pointForTarget
+                   .AddRange(_objectShipInPrefabFleet[shipType]
+                   .GetComponent<ShipManager>()
+                   .TakeListTransformsPointToHit());
            }
        }
 
@@ -400,7 +375,7 @@ public class FleetManager : MonoBehaviour
            if (!_objectShipInPrefabFleet[shipType].activeInHierarchy)
            {
                HashSet<Transform> set2 = new HashSet<Transform>(_objectShipInPrefabFleet[shipType]
-                   .GetComponent<ManagerShip>().TakeListTransformsPointToHit());
+                   .GetComponent<ShipManager>().TakeListTransformsPointToHit());
                _pointForTarget.RemoveAll(item => set2.Contains(item));
            }
        }
@@ -412,7 +387,7 @@ public class FleetManager : MonoBehaviour
 
         foreach (ShipType.eShipType shipType in Enum.GetValues(typeof(ShipType.eShipType)))
        {
-           _objectShipInPrefabFleet[shipType].GetComponent<ManagerShip>().PushFire(target, _fleetState);
+           _objectShipInPrefabFleet[shipType].GetComponent<ShipManager>().PushFire(target, _fleetState);
 
        }
    }
@@ -424,20 +399,12 @@ public class FleetManager : MonoBehaviour
         return _pointForTarget;
     }
 
-    //public void ShotFromAvailableShip_DefenderFleet(List<Transform> locAttackingFleet)
-   //{
-   //    foreach (ShipType.eShipType shipType in Enum.GetValues(typeof(ShipType.eShipType)))
-   //    {
-   //        _objectShipInPrefabFleet[shipType].GetComponent<ManagerShip>().PushFire();
-   //        print($"Планета {_distParametrPlanetMono.SelfTransform.name}");
-
-    //    }
-    // }
-
-   public void TakeDamage(float locTakeDamage)
-   {
-       print($"TakeDamage");
-       _healthSystem.TakeDamage(locTakeDamage);
-   }
+    public void CheckingViabilityFleet()
+    {
+        if (_listFleet_light.Count <= 0 & _listFleet_medium.Count <= 0 & _listFleet_heavy.Count <= 0)
+        {
+            Destroy();
+        }
+    }
 
 }

@@ -338,8 +338,6 @@ MonoBehaviour:
   _textNumShipInFleet: {fileID: 1881811054327259937}
   _attackShipInFleetText: {fileID: 1881811055925408764}
   _defenceShipInFleetText: {fileID: 1881811054674616620}
-  _attackFleet: 0
-  _armorFleet: 0
   _parentTransformInFleet: {fileID: 0}
   _distParentTransform: {fileID: 0}
   _fleetShootingSystem: {fileID: 0}
@@ -1970,8 +1968,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _listPointToHit: []
   _flagMayShot: 0
-  _shield: {fileID: 6994306515749674988}
-  _armor: {fileID: 8898937593774877662}
+  _shieldImage: {fileID: 6994306515749674988}
+  _armorImage: {fileID: 8898937593774877662}
 --- !u!65 &6397287836628079698
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3767,8 +3765,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _listPointToHit: []
   _flagMayShot: 0
-  _shield: {fileID: 1203451493371459248}
-  _armor: {fileID: 7499275895133178258}
+  _shieldImage: {fileID: 1203451493371459248}
+  _armorImage: {fileID: 7499275895133178258}
 --- !u!65 &1786734527543675784
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4128,8 +4126,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _listPointToHit: []
   _flagMayShot: 0
-  _shield: {fileID: 2017043171757634661}
-  _armor: {fileID: 678558337252792630}
+  _shieldImage: {fileID: 2017043171757634661}
+  _armorImage: {fileID: 678558337252792630}
 --- !u!65 &2999757877293921396
 BoxCollider:
   m_ObjectHideFlags: 0

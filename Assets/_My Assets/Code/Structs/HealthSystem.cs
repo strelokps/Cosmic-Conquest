@@ -7,98 +7,147 @@ using Random = System.Random;
 
 public class HealthSystem : MonoBehaviour 
 {
-    private DataShip _dataShip;
-    // locEnemyDataShips - входящий демаг от вражеского флота
-    public void TakeDamage(FleetManager _selfFleetManager, List<DataShip> locEnemyDataShips)
+    private List<DataShip> _selfShips = new List<DataShip>();
+    private ShipManager _shipManager = new ShipManager();
+
+    public void InitHealthSystem(ShipManager locShipManager, List<DataShip> locSelfShips)
     {
-        List <DataShip> locSelfListShips = _selfFleetManager.GetListDataFleet();
-        float locTotalDamage = 0;
-        float increasedDamage = 1;
-        System.Random random = new System.Random();
-
-        int countBreak = 0;
-        for (int i = 0; i < locEnemyDataShips.Count; i++)
-        {
-            locTotalDamage = locEnemyDataShips[i].damageShip;
-
-
-            //Debug.Log($"Общий урон {locTotalDamage}");
-
-            //Атакующей флот стреляет. Флот по которому попали обрабатывает попадание. 
-            while (locTotalDamage > 0 && locSelfListShips.Count > 0)
-            {
-                countBreak++;
-                if (countBreak > 10000)
-                {
-                    Debug.LogError("The cycle in HealthSystem has gone to infinity");
-                    break;
-                }
-
-                int targetIndex = random.Next(0, locSelfListShips.Count); // Выбираем случайный корабль для нанемения урона
-                
-                if (targetIndex == locSelfListShips.Count)
-                {
-                    Debug.LogError("в TakeDamage, targetIndex == locSelfListShips.Count должен быть выход за диапазон locSelfListShips[targetIndex] ?!!");
-                }
-
-                DataShip targetShip = locSelfListShips[targetIndex];
-
-                if (locEnemyDataShips[i].typeShipIncreasedDamage == targetShip.typeShip)
-                    increasedDamage *= locEnemyDataShips[i].increasedDamage;
-                else
-                {
-                    increasedDamage = 1f;
-                }
-
-                //Debug.Log($"Есть ли увеличенный урон? {increasedDamage != 1f}");
-
-                float damageToApply =
-                    Math.Min(targetShip.armorShip + targetShip.shieldShip, ( locTotalDamage * increasedDamage)); // Вычисляем урон
-
-                //Debug.Log($" До <color=red> shield {targetShip.shieldShip}  armor {targetShip.armorShip} </color>");
-                
-                // Распределяем урон между броней и щитом
-                if (damageToApply <= targetShip.shieldShip)
-                {
-                    targetShip.shieldShip -= damageToApply;
-                    locSelfListShips[targetIndex] = targetShip;     //копируем корабль обратно в список
-                }
-                else
-                {
-                    float remainingDamage = damageToApply - targetShip.shieldShip;
-                    targetShip.shieldShip = 0;
-                    targetShip.armorShip -= remainingDamage;
-
-                    locSelfListShips[targetIndex] = targetShip;     //копируем корабль обратно в список
-
-                }
-
-                // Проверяем, нужно ли убрать корабль из списка
-                if (targetShip.armorShip <= 0)
-                {
-                    locSelfListShips.RemoveAt(targetIndex);
-                }
-                //Debug.Log($"<color=green> После shield {targetShip.shieldShip}  armor {targetShip.armorShip} </color>");
-
-                locTotalDamage -= damageToApply; // Обновляем оставшееся повреждение
-            }
-        }
+        _shipManager = GetComponent<ShipManager>();
+        _selfShips = locSelfShips;
     }
 
-    public void RegenerationShield(List<DataShip> locSelfShips)
+    // locEnemyDataShips - входящий демаг от вражеского флота
+    public void TakeDamage(List<DataShip> enemyFleet)
     {
+        _selfShips = GetComponent<ShipManager>().GetShipsList();
+        
+        float increasedDamage = 1;
+
+        DataShip tempShip = new DataShip();
+
+
+        for (int i = 0; i < enemyFleet.Count; i++)
+        {
+
+            float remainingDamage = enemyFleet[i].damageShip;
+
+            for (int j = 0; j < _selfShips.Count; j++)
+            {
+                if (remainingDamage <= 0)
+                    break;
+
+                if (_selfShips[j].typeShipIncreasedDamage == enemyFleet[i].typeShip)
+                {
+                    print($"damage: {remainingDamage}  {_selfShips[j].typeShipIncreasedDamage} = {enemyFleet[i].typeShip}");
+
+                    remainingDamage *= enemyFleet[i].increasedDamage;
+                }
+
+
+                // Сначала наносим урон щиту
+                if (_selfShips[j].shieldShip > 0)
+                {
+                    float shieldDamage = Mathf.Min(_selfShips[j].shieldShip, remainingDamage);
+                    
+                    tempShip = _selfShips[j];
+                    tempShip.shieldShip -= shieldDamage;
+                    _selfShips[j] = tempShip;
+                    
+                    remainingDamage -= shieldDamage;
+                }
+
+                // Если урон остался, наносим его по броне
+                if (remainingDamage > 0 && _selfShips[j].armorShip > 0)
+                {
+                    float armorDamage = Mathf.Min(_selfShips[j].armorShip, remainingDamage);
+                    print($"<color=yellow> Есть пробитие 0 {_selfShips[j].armorShip}  {_selfShips[j].typeShip}</color>");
+
+                    tempShip = _selfShips[j];
+                    tempShip.armorShip -= armorDamage;
+                    _selfShips[j] = tempShip;
+
+                    print($"<color=yellow> Есть пробитие 1 {_selfShips[j].armorShip}  {_selfShips[j].typeShip}</color>");
+
+                    if (_selfShips[j].armorShip <= 0)
+                    {
+                        _selfShips.RemoveAt(j);
+
+                        if (_selfShips.Count <= 0)
+                        {
+                            _shipManager.OnOffShipGO(false);
+                        }
+                    }
+
+                    remainingDamage -= armorDamage;
+                }
+            }
+            _shipManager.DisplayArmorAndShield();
+
+        }
+    }
+    
+
+    public void RegenerationShield( List<DataShip> locSelfShips)
+    {
+
+
         DataShip locDataShip = new DataShip();
         for (int i = 0; i < locSelfShips.Count; i++)
         {
             if (locSelfShips[i].shieldShip < locSelfShips[i].maxShieldShip)
             {
+                if (locSelfShips[i].shieldShip < 0)
+                {
+                    locDataShip = locSelfShips[i];
+                    locDataShip.shieldShip = 0;
+                    locSelfShips[i] = locDataShip;
+                }
+
+                if (locSelfShips[i].armorShip < 0)
+                {
+                    locDataShip = locSelfShips[i];
+                    locDataShip.armorShip = 0;
+                    locSelfShips[i] = locDataShip;
+                }
+
                 locDataShip = locSelfShips[i];
 
                 locDataShip.shieldShip += Math.Min(locSelfShips[i].maxShieldShip - locSelfShips[i].shieldShip,
-                    locSelfShips[i].regenShield); // Вычисляем что меньше, уроень регинераци или разница между max и текущем уровнем щита
+                    locSelfShips[i].regenShield); // Вычисляем что меньше, уровень регенираци или разница между max и текущем уровнем щита
 
                 locSelfShips[i] = locDataShip;
             }
+        }
+    }
+
+
+
+    public void CalcArmorAndShield(ref float locShield, ref float locArmor, List<DataShip> locSelfShips)
+    {
+        locShield = 0;
+        locArmor = 0;
+
+        DataShip locDataShip = new DataShip();
+
+        for (int i = 0; i < locSelfShips.Count; i++)
+        {
+            if (locSelfShips[i].shieldShip < 0) //делаем проверку, что бы значение не уцходило ниже 0
+            {
+                locDataShip = locSelfShips[i];
+                locDataShip.shieldShip = 0;
+                locSelfShips[i] = locDataShip;
+            }
+
+            if (locSelfShips[i].armorShip < 0) //делаем проверку, что бы значение не уцходило ниже 0
+            {
+                locDataShip = locSelfShips[i];
+                locDataShip.armorShip = 0;
+                locSelfShips[i] = locDataShip;
+            }
+
+
+            locShield += locSelfShips[i].shieldShip;
+            locArmor += locSelfShips[i].armorShip;
         }
     }
 
@@ -127,8 +176,5 @@ public class HealthSystem : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float locTakeDamage)
-    {
-        Debug.Log($"<color=puprple> Take damage {locTakeDamage} </color>");
-    }
+    
 }

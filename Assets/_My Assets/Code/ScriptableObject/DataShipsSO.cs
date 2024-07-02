@@ -19,6 +19,7 @@ public class DataShipsSO : ScriptableObject
         _ship.damageShip = _ship.damageShipMin;
         _ship.armorShip = 7000;
         _ship.maxArmorShip = _ship.armorShip;
+        _ship.tempArmorShip = _ship.armorShip;
         _ship.maxShieldShip = 10;
         _ship.shieldShip = 10;
         _ship.regenShield = 2;

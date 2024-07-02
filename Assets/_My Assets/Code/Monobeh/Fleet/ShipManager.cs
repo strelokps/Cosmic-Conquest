@@ -4,15 +4,16 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject.SpaceFighter;
 
 [RequireComponent(typeof(HealthSystem))]
-public class ManagerShip : MonoBehaviour
+public class ShipManager : MonoBehaviour
 {
-    [ShowInInspector] private List<DataShip> _shipList = new List<DataShip>();
+    private FleetState _fleetState;
+    private FleetManager _fleetManager;
+
+    [ShowInInspector] private List<DataShip> _shipsList = new List<DataShip>();
     [ShowInInspector] private ShipType.eShipType _shipType;
-    [ShowInInspector] private GameObject _prefabBullet;
-    [ShowInInspector] private GameObject _pointToFire;
-    //[ShowInInspector] private GameObject _pointToHit;
     [ShowInInspector] public List<Transform> _listPointToHit;
 
     private BoxCollider[] _colladerPointToHit;
@@ -23,21 +24,43 @@ public class ManagerShip : MonoBehaviour
     public bool _flagMayShot;
 
     private GameObject target;
-    private FleetState _fleetState;
 
     private float rateOfFire = 1;
     private float tempRateOfFire = 0;
 
     [Header("UI")]
 
-    [ShowInInspector] public Image _shield;
-    [ShowInInspector] public Image _armor;
+    [ShowInInspector] public Image _shieldImage;
+    [ShowInInspector] public Image _armorImage;
+
+    [Header("Time")]
+    private float _timer;
+    private float _tempTimer;
+
+    [Header("Health | Damage")]
+    private HealthSystem _healthSystemShips;
+    private float _armor;
+    private float _armorMax;
+    private float _shield;
+    private float _shieldMax;
+    private DataBullet _dataBullet;
+    [ShowInInspector] private GameObject _prefabBullet;
+    [ShowInInspector] private GameObject _pointToFire;
 
 
 
     private void OnDisable()
     {
-        print($"<color=green> Dis </color>");
+        print($"<color=green> Dis off  </color>");
+        if (_fleetManager != null)
+            print($"{_fleetManager.transform.name}");
+    }
+
+    private void OnEnable()
+    {
+        print($"<color=blue> Dis On </color>");
+        if (_fleetManager != null)
+            print($"{_fleetManager.transform.name}");
     }
 
     private void FixedUpdate()
@@ -45,7 +68,7 @@ public class ManagerShip : MonoBehaviour
         if (_flagMayShot)
         {
             tempRateOfFire += Time.deltaTime;
-            if (tempRateOfFire >= rateOfFire)
+            if (tempRateOfFire >= _dataBullet.rateFireBullet)
             {
                 Fire();
                 tempRateOfFire = 0;
@@ -64,35 +87,44 @@ public class ManagerShip : MonoBehaviour
             //print($"<color=red> _fleetState = null {_name}  target {_nameTraget} </color>");
         }
 
+            CallRegenShield();
+
     }
 
-    public void Init(List<DataShip> locListTypeShips)
+    public void Init(List<DataShip> locListTypeShips, FleetManager locFleetManager)
     {
-        _shipList = new List<DataShip>();
+        _fleetManager = new FleetManager();
+        _fleetManager = locFleetManager;
+
+        _healthSystemShips = new HealthSystem();
+        _healthSystemShips = GetComponent<HealthSystem>();
+        _healthSystemShips.InitHealthSystem(this, _shipsList);
+
+        _dataBullet = new DataBullet();
+
+        _shipsList = new List<DataShip>();
         MergeShips(locListTypeShips);
 
         _fleetState = new FleetState();
-
+        
         _colladerPointToHit = gameObject.GetComponents<BoxCollider>();
         _listPointToHit = new List<Transform>();
 
         if (gameObject.tag.Contains("Light"))
         {
             _shipType = ShipType.eShipType.light;
-            rateOfFire = Random.Range(0.3f, 0.7f);
         }
         else if (gameObject.tag.Contains("Medium"))
         {
             _shipType = ShipType.eShipType.medium;
-            rateOfFire = Random.Range(0.6f, 1f);
 
         }
         else if (gameObject.tag.Contains("Heavy"))
         {
             _shipType = ShipType.eShipType.heavy;
-            rateOfFire = Random.Range(0.8f, 1.4f);
-
         }
+
+        _dataBullet = _dataBullet.GetDataBullet(_shipType);
 
         foreach (Transform child in gameObject.transform) 
         {
@@ -118,6 +150,8 @@ public class ManagerShip : MonoBehaviour
                 _colladerPointToHit[i].center = _listPointToHit[i].localPosition;
             }
         }
+        _timer = 1f;
+        _tempTimer = 0;
     }
 
 
@@ -126,6 +160,9 @@ public class ManagerShip : MonoBehaviour
        // print($"<color=green> Init manager ships </color>");
         return _listPointToHit;
     }
+
+    //************************ shooting ************************
+    #region MyRegion 
 
     public void PushFire(GameObject locTarget, FleetState locFleetState)
     {
@@ -144,13 +181,60 @@ public class ManagerShip : MonoBehaviour
         _pointToFire.transform.LookAt(point);
 
         GameObject bullet = Instantiate(_prefabBullet, _pointToFire.transform.position, Quaternion.identity);
+        bullet.GetComponent<Bullet>().SetDataBullet(_dataBullet, GetShipsList());
         bullet.SetActive(true);
         bullet.transform.LookAt(point);
     }
 
+    #endregion
+    //************************ shooting ************************
+
     public void MergeShips(List<DataShip> locListTypeShips)
     {
-        _shipList.AddRange(locListTypeShips);
+        _shipsList.AddRange(locListTypeShips);
+        CalcInInitArmorAndShield(); //calculation of armor and shields at the beginning
     }
 
+    private void CallRegenShield()
+    {
+        _tempTimer += Time.deltaTime;
+
+        if (_tempTimer > _timer)
+        {
+            _tempTimer = 0;
+
+            _healthSystemShips.RegenerationShield( _shipsList);
+        }
+    }
+
+    //calculation of armor and shields at the beginning
+    private void CalcInInitArmorAndShield()
+    {
+
+        DisplayArmorAndShield();
+        _armorMax = _armor;
+        _shieldMax = _shield;
+    }
+
+    public void DisplayArmorAndShield()
+    {
+        _healthSystemShips.CalcArmorAndShield(ref _shield, ref _armor, _shipsList);
+        _shieldImage.fillAmount = _shield / _shieldMax;
+        _armorImage.fillAmount = _armor / _armorMax;
+    }
+
+    public List<DataShip> GetShipsList()
+    {
+        return _shipsList;
+    }
+
+    public void JoinToDefenderFleet_ShipManager()
+    {
+        _healthSystemShips.SetMaxArmorAndShield(_shipsList);
+    }
+
+    public void OnOffShipGO(bool flagOnOff)
+    {
+        gameObject.SetActive(flagOnOff);
+    }
 }

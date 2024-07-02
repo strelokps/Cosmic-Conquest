@@ -5,20 +5,15 @@ using static UnityEngine.GraphicsBuffer;
 
 public class Bullet : MonoBehaviour
 {
-    private float _speedBullet;
-
-    private float _damageBullet;
-
-
-    private float _lifeTime = 5f;
     private float _templifeTime = 0f;
+
+    private DataBullet _bullet = new DataBullet();
 
 
     // Start is called before the first frame update
     void Start()
     {
-        _speedBullet = 10f;
-        _damageBullet = 15;
+
     }
 
     // Update is called once per frame
@@ -26,11 +21,11 @@ public class Bullet : MonoBehaviour
     {
         _templifeTime += Time.deltaTime;
 
-        transform.Translate(Vector3.forward * _speedBullet * Time.deltaTime);
+        transform.Translate(Vector3.forward * _bullet.speedBullet * Time.deltaTime);
 
         if (gameObject.activeInHierarchy)
         {
-            if (_templifeTime >= _lifeTime)
+            if (_templifeTime >= _bullet.lifeTimeBullet)
             {
 
                 print($"BAH-H-H !!! {gameObject.transform.name}");
@@ -45,12 +40,18 @@ public class Bullet : MonoBehaviour
         var target = other.GetComponent<HealthSystem>();
         if (target != null)
         {
-            target.TakeDamage(_damageBullet);
-            print($"Toch {other.name}");
+            target.TakeDamage(_bullet.damageBullet );
+            //print($"Toch {other.name}");
 
         }
 
         // ”ничтожаем пулю после столкновени€
         Destroy(gameObject);
+    }
+
+    public void SetDataBullet(DataBullet locDataBullet, List<DataShip> locDamage)
+    {
+        _bullet = locDataBullet;
+        _bullet.damageBullet = locDamage;
     }
 }

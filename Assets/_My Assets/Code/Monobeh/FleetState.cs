@@ -43,7 +43,6 @@ public class FleetState : MonoBehaviour
     private Vector3 _originalScale;
     private float elapsedTime;
 
-    private FleetShootingSystem _fleetShootingSystem;
 
 
     private bool flagChkDistance; // флаг для проверки дистанции
@@ -65,7 +64,6 @@ public class FleetState : MonoBehaviour
         _stopBefore = _tempStopBefore = 30f; // дистанция остановки перед объектом для атаки
 
         _fleetManager = transform.GetComponent<FleetManager>();
-        _fleetShootingSystem = GetComponent<FleetShootingSystem>();
 
         _stateFleet = locStateFleet;
 

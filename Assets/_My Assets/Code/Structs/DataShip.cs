@@ -9,6 +9,7 @@ public struct DataShip
     public float rateOfFire;
     public float damageShip;
     public float maxArmorShip;
+    public float tempArmorShip;
     public float armorShip;
     public float maxShieldShip;
     public float shieldShip;
